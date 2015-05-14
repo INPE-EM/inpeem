@@ -1,35 +1,8 @@
---INPE-EM - A spatially explicit GHG emission modeling framework for land use/land cover change processes
---Copyright © 2014 INPE.
---
---This code is part of the INPE-EM framework.
---This framework is a free software; you can redistribute and/or
---modify it under the terms of the GNU Lesser General Public
---License as published by the Free Software Foundation; either
---version 3 of the License, or (at your option) any later version.
---
---You should have received a copy of the GNU Lesser General Public
---License along with this library.
---
---The authors reassure the license terms regarding the warranties.
---They specifically disclaim any warranties, including, but not limited to,
---the implied warranties of merchantability and fitness for a particular purpose.
---The framework provided hereunder is on an "as is" basis, and the authors have no
---obligation to provide maintenance, support, updates, enhancements, or modifications.
---In no event shall INPE be held liable to any part for direct,
---indirect, special, incidental, or consequential damages arising out of the use
---of this library and its documentation.
---
--------------------------------------------------------------------------------------------
--------------------------------------------------------------------------------------------
---- INPE-EM Framework: inpeEM_componentSV.lua (Secondary Vegetation submodel is not available in this version)
---  Author: Ana Paula Aguiar
---  Date (last update): 24 October 2014
-
 ------------------------------------------------------------------------------------------- 
 -- Functions in this file (inpeEM_componentSV.lua)
 ------------------------------------------------------------------------------------------- 
 -- function componentSV_execute (model, year)
-
+-- function componentSV_computePastRegrow (cell, year, model)
 
 -- function componentSV_createNullComponent (model)
 -- function componentSV_init (cell, model)
@@ -43,7 +16,180 @@
 ------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------
 function componentSV_execute (year, model)
+     if (model.verbose) then  print (year, "Executing SV - mode:"..model.mode) end
+     flagPrintAreaPercVegSec = true  --v2.0.1
+     flagPrintAreaAccPercVegSec = true  --v2.0.1
+     flagPrintHalfLife = true  --v2.0.1
+
+-- declare cell attributes for the current year
+     local cs = model.cs 
+      
+     local attr_initial_area 						= model.componentSV.attr_initial_area..year
+     local attr_initial_rate_acc_biomass_period1	= model.componentSV.attr_initial_rate_acc_biomass_period1..year
+     local attr_initial_rate_acc_biomass_period2	= model.componentSV.attr_initial_rate_acc_biomass_period2..year  
+     local attr_rate_regrowth 						= model.componentSV.attr_rate_regrowth..year
+     local attr_area_regrowth 						= model.componentSV.attr_area_regrowth..year
+     local attr_biomass_regrowth                	= model.componentSV.attr_biomass_regrowth..year
+    
+      for i, cell in pairs( model.cs.cells ) do
+      
              
+          	--------- STEP 1: compute how much secondary vegetation starts to grow following after current year´s PF and SF deforestation 
+          
+          	local regrow_area = cell.SV_AreaPercVegSec*cell.D_Area+ 
+          	          	        cell.rel_area_cleared*cell.SV_AreaPercVegSec +
+          	          	        --cell["SF_ext_perc_veg_sec"]*cell.D_AreaAcc
+          	          	        cell.SV_AreaAccPercVegSec*cell.D_AreaAcc
+
+            local regrow_area_biomass = regrow_area*cell.B_AGB + regrow_area*cell.B_AGB*cell.B_BGBPercAGB 
+            local period1_acc_biomass = regrow_area_biomass*cell.SV_RecoveryPeriod1Perc
+            local period1_rate_acc_biomass = period1_acc_biomass/cell.SV_RecoveryPeriod1
+            
+            local period2_acc_biomass = regrow_area_biomass*cell.SV_RecoveryPeriod2Perc
+            local period2_rate_acc_biomass = period2_acc_biomass/cell.SV_RecoveryPeriod2
+            
+           -- print ("RGBIOMASS", year, math.floor (regrow_area_biomass), math.floor (period2_rate_acc_biomass))
+    
+            --------- STEP 2: initialize cell variables for dynamic updates
+        			
+             cell[attr_initial_rate_acc_biomass_period1] = period1_rate_acc_biomass
+             cell[attr_initial_rate_acc_biomass_period2] = period2_rate_acc_biomass
+             cell[attr_initial_area] = regrow_area
+             cell[attr_area_regrowth] = cell[attr_initial_area] 
+             cell[attr_rate_regrowth] = cell[attr_initial_rate_acc_biomass_period1]
+             cell[attr_biomass_regrowth] = 0 
+
+     
+             cell.area_cleared = 0
+			 cell.rel_area_cleared = 0
+			 cell.biomass_lost   = 0
+			 cell.area_total = 0
+			 cell.area_growing = 0
+             cell.biomass_acc    = 0	  
+      
+             componentSV_computePastRegrow (cell, year, model)
+             
+
+             local area_sf = 0
+  
+ --             if (year == model.yearInit) then 
+ --             if (year == 2002) then 
+                if (model.mode == "spatial") then
+                   if (year == model.yearInit) then 
+
+            		cell.initial_area = cell.D_AreaAcc*cell.SV_AreaPercVegSec 
+            	--	print ("INITIAL AREA", cell.initial_area, cell.D_AreaAcc, cell.SV_AreaPercVegSec)
+            		area_sf = cell.initial_area 
+                  else
+                    area_sf = cell.initial_area + cell.area_total 
+                  end
+              else
+                   area_sf = cell.area_total 
+              end
+         
+             if (cell.D_AreaAcc < area_sf)  then 
+                   area_sf = cell.D_AreaAcc
+             end
+             
+             if (model.save == true) then
+	             cell[model.componentSV.attrOutAreaVS..year]  = area_sf
+	             cell[model.componentSV.attrOutAreaAGR..year] = cell.D_AreaAcc - area_sf
+	         end
+    
+             model.SV_result[year].SV_area_total 			= model.SV_result[year].SV_area_total + area_sf
+             model.SV_result[year].SV_area_cleared 			= model.SV_result[year].SV_area_cleared + cell.area_cleared
+             
+             model.SV_result[year].SV_CO2_emission 			= model.SV_result[year].SV_CO2_emission +cell.biomass_lost*cell.B_FactorB_CO2_fire  
+             model.SV_result[year].SV_CO2_absorption 		= model.SV_result[year].SV_CO2_absorption + cell.biomass_acc*cell.B_FactorB_CO2  
+
+          end
+          
+end
+
+------------------------------------------------------------------------------------------- 
+------------------------------------------------------------------------------------------- 
+function componentSV_computePastRegrow (cell, year, model)
+
+      local meia_vida ={}
+      for k = model.yearInit, year do
+              meia_vida[k] = cell.SV_HalfLife
+      end     
+      
+
+      for k = year - cell.SV_AgriculturalUseCycle- cell.SV_InitialAbandonmentCycle, year-1, 1 do
+				        meia_vida[k] = 100000
+				        if (k >= model.yearInit) then
+					               local attr_rate_regrowth = model.componentSV.attr_rate_regrowth..k;
+					    end
+        end 
+
+         for y = year - cell.SV_AgriculturalUseCycle  , year, 1 do
+             if (y >= model.yearInit) then
+                 local attr_area_regrowth = model.componentSV.attr_area_regrowth..y
+                 cell.area_total 		  =  cell.area_total + cell[attr_area_regrowth] 
+              end
+         end
+
+      for y = model.yearInit  , year- cell.SV_AgriculturalUseCycle-1, 1 do
+  
+           
+                local attr_initial_area 						= model.componentSV.attr_initial_area..y
+     			local attr_initial_rate_regrowth_period2	= model.componentSV.attr_initial_rate_acc_biomass_period2..y  
+     			local attr_rate_regrowth 						= model.componentSV.attr_rate_regrowth..y
+     			local attr_area_regrowth 						= model.componentSV.attr_area_regrowth..y
+     			local attr_biomass_regrowth                	= model.componentSV.attr_biomass_regrowth..y
+                        
+     
+                 cell.biomass_acc = cell.biomass_acc+ cell[attr_rate_regrowth];  
+                 cell.area_total 		  =  cell.area_total + cell[attr_area_regrowth] 
+                 cell.area_growing 		  =  cell.area_growing + cell[attr_area_regrowth] 
+                 
+                 cell[attr_biomass_regrowth] = cell[attr_biomass_regrowth] + cell[attr_rate_regrowth]
+               
+                 local  area_cleared = 0
+                 local biomass_lost  = 0
+            
+                 local perc_cleared  = 0 
+                 
+
+                 if (cell[attr_area_regrowth] > 0) then
+                 			 area_cleared = computeAreaExpDecay (cell[attr_initial_area], meia_vida[y], year-y-cell.SV_AgriculturalUseCycle- cell.SV_InitialAbandonmentCycle)
+                             perc_cleared = area_cleared/cell[attr_area_regrowth]
+                             biomass_lost = cell[attr_biomass_regrowth]*perc_cleared
+                 else cell[attr_area_regrowth] = 0 end
+
+                cell[attr_area_regrowth] = cell[attr_area_regrowth] - area_cleared
+    		    cell[attr_rate_regrowth] = cell[attr_rate_regrowth]*(1-perc_cleared) 
+    		    cell[attr_biomass_regrowth] = cell[attr_biomass_regrowth] - biomass_lost
+    		    
+           		           	
+            	cell.biomass_lost		  = cell.biomass_lost+ biomass_lost
+                cell.area_cleared 		  = cell.area_cleared + area_cleared 
+                if (cell.SV_AreaPercVegSec ~= 0) then
+                	cell.rel_area_cleared 		  =  cell.rel_area_cleared + area_cleared/cell.SV_AreaPercVegSec
+                else
+                   if (cell.SV_AreaPercVegSec ~= 0) then
+                            cell.rel_area_cleared 		  =  cell.rel_area_cleared + area_cleared/cell.SV_AreaPercVegSec
+                   else
+                		if (area_cleared ~= 0)  then
+                	    --   print ( "error", area_cleared, cell.area_cleared, cell.rel_area_cleared, cell.SV_AreaPercVegSec)
+                         end
+                   end
+                end
+                       
+                if (y == model.yearInit + cell.SV_RecoveryPeriod1) then
+                           local perc_remaining_perid1 = 1
+                           if  (cell[attr_initial_area] > 0) then
+                           			perc_remaining_perid1 = cell[attr_area_regrowth]/cell[attr_initial_area]
+                           end
+                     
+             			   cell[attr_rate_regrowth]  = cell[attr_initial_rate_regrowth_period2]*perc_remaining_perid1
+             			  --print ("PERIDO2", year, y, math.floor (cell[attr_initial_rate_regrowth_period2]), math.floor(cell[attr_rate_regrowth] ) )
+
+             	end
+                    
+         end
+              
 end
 
 
@@ -126,6 +272,9 @@ function componentSV_initCellAttrNames (model)
 	model.componentSV.attrInitialAbandonmentCycle = model.componentSV.name.."_InitialAbandonmentCycle"
 	model.componentSV.attrHalfLife 				= model.componentSV.name.."_HalfLife"
 	model.componentSV.attrBGBpercBGB 			= model.componentSV.name.."_BGBpercBGB"
+	
+	
+
 end	
 
 ------------------------------------------------------------------------------------------- 
@@ -184,12 +333,14 @@ function componentSV_loadFromDB (model, cell_temp, cell, y)
     
 	   if cell_temp[model.componentSV.attrAreaPercVegSec..y] ~= nil then
 			      cell.SV_AreaPercVegSec 	= cell_temp[model.componentSV.attrAreaPercVegSec..y]
-			      if (flagPrintAreaPercVegSec) then print (y, "Loading "..model.componentSV.attrAreaPercVegSec) flagPrintAreaPercVegSec = false end
+			      if (flagPrintAreaPercVegSec) then print (y, "Loading "..model.componentSV.attrAreaPercVegSec..y) flagPrintAreaPercVegSec = false end
 
 	   end
-	   
 	   if cell_temp[model.componentSV.attrAreaAccPercVegSec..y] ~= nil then
+
 			      cell.SV_AreaAccPercVegSec 	= cell_temp[model.componentSV.attrAreaAccPercVegSec..y]
+			      if (flagPrintAreaAccPercVegSec) then print (y, "Loading "..model.componentSV.attrAreaAccPercVegSec..y) flagPrintAreaAccPercVegSec = false end
+
 	   end
 	   if cell_temp[model.componentSV.attrAgriculturalUseCycle..y] ~= nil then
 			      cell.SV_AgriculturalUseCycle 	= cell_temp[model.componentSV.attrAgriculturalUseCycle..y]

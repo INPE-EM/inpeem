@@ -1,30 +1,3 @@
---INPE-EM - A spatially explicit GHG emission modeling framework for land use/land cover change processes
---Copyright © 2014 INPE.
---
---This code is part of the INPE-EM framework.
---This framework is a free software; you can redistribute and/or
---modify it under the terms of the GNU Lesser General Public
---License as published by the Free Software Foundation; either
---version 3 of the License, or (at your option) any later version.
---
---You should have received a copy of the GNU Lesser General Public
---License along with this library.
---
---The authors reassure the license terms regarding the warranties.
---They specifically disclaim any warranties, including, but not limited to,
---the implied warranties of merchantability and fitness for a particular purpose.
---The framework provided hereunder is on an "as is" basis, and the authors have no
---obligation to provide maintenance, support, updates, enhancements, or modifications.
---In no event shall INPE be held liable to any part for direct,
---indirect, special, incidental, or consequential damages arising out of the use
---of this library and its documentation.
---
--------------------------------------------------------------------------------------------
--------------------------------------------------------------------------------------------
---- INPE-EM Framework: inpeEM.combine (executes spatial and non-spatial modes, then combines the results)
---  Author: Ana Paula Aguiar
---  Date (last update): 24 October 2014
-
 ------------------------------------------------------------------------------------------- 
 -- Functions in this file (inpeEM_combine.lua)
 ------------------------------------------------------------------------------------------- 
@@ -153,6 +126,7 @@ function inpeEM_combineResultsSV (model_ns,  model_s)
 
                 SV_result[y] = 
 		        {
+				         SV_area_total = model_ns.SV_result[y].SV_area_total,
 				         SV_area_cleared = model_ns.SV_result[y].SV_area_cleared,
 		   	             SV_CO2_emission = model_ns.SV_result[y].SV_CO2_emission,
 		  	             SV_CO2_absorption = model_ns.SV_result[y].SV_CO2_absorption,
@@ -163,6 +137,7 @@ function inpeEM_combineResultsSV (model_ns,  model_s)
 
 			   SV_result[y] = 
 		        {
+					  SV_area_total = model_s.SV_result[y].SV_area_total  ,
 					  SV_area_cleared = model_ns.SV_result[y].SV_area_cleared + model_s.SV_result[y].SV_area_cleared  ,
 		   	          SV_CO2_emission = model_ns.SV_result[y].SV_CO2_emission + model_s.SV_result[y].SV_CO2_emission ,
 		  	          SV_CO2_absorption = model_ns.SV_result[y].SV_CO2_absorption + model_s.SV_result[y].SV_CO2_absorption ,

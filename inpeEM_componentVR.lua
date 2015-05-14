@@ -1,33 +1,3 @@
---INPE-EM - A spatially explicit GHG emission modeling framework for land use/land cover change processes
---Copyright © 2014 INPE.
---
---This code is part of the INPE-EM framework.
---This framework is a free software; you can redistribute and/or
---modify it under the terms of the GNU Lesser General Public
---License as published by the Free Software Foundation; either
---version 3 of the License, or (at your option) any later version.
---
---You should have received a copy of the GNU Lesser General Public
---License along with this library.
---
---The authors reassure the license terms regarding the warranties.
---They specifically disclaim any warranties, including, but not limited to,
---the implied warranties of merchantability and fitness for a particular purpose.
---The framework provided hereunder is on an "as is" basis, and the authors have no
---obligation to provide maintenance, support, updates, enhancements, or modifications.
---In no event shall INPE be held liable to any part for direct,
---indirect, special, incidental, or consequential damages arising out of the use
---of this library and its documentation.
---
-
--------------------------------------------------------------------------------------------
--------------------------------------------------------------------------------------------
---- INPE-EM Framework: inpeEM_componentVR.lua (Vegetation Removal component functions - estimate 1as and 2nd Order emissions related to clear-cut deforestation)
---  Author: Ana Paula Aguiar
---  Date (last update): 24 October 2014
-
-
-
 ------------------------------------------------------------------------------------------- 
 -- Functions in this file (inpeEM_componentVR.lua)
 ------------------------------------------------------------------------------------------- 
@@ -171,7 +141,7 @@ function componentVR_execute ( year, model)
  	                cell.actualAGB = (cell.actualAGB*model.cs.cellarea - cell_agb_lost_1stOrder)/model.cs.cellarea
 	                cell.actualBGB = (cell.actualBGB*model.cs.cellarea - cell_bgb_lost_1stOrder)/model.cs.cellarea
              
-                    if (cell.actualAGB < 0) then print (cell.actualAGB, model.cs.cellarea,cell_agb_lost_1stOrder) end
+              --      if (cell.actualAGB < 0) then print (cell.actualAGB, model.cs.cellarea,cell_agb_lost_1stOrder) end
 	   	         ------------------------------------------------ 2nd order 
               
        		     	cell_all_decay 	      = cell[attr_agb_slash..year] +

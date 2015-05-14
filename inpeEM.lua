@@ -1,29 +1,7 @@
---INPE-EM - A spatially explicit GHG emission modeling framework for land use/land cover change processes
---Copyright © 2014 INPE.
---
---This code is part of the INPE-EM framework.
---This framework is a free software; you can redistribute and/or
---modify it under the terms of the GNU Lesser General Public
---License as published by the Free Software Foundation; either
---version 3 of the License, or (at your option) any later version.
---
---You should have received a copy of the GNU Lesser General Public
---License along with this library.
---
---The authors reassure the license terms regarding the warranties.
---They specifically disclaim any warranties, including, but not limited to,
---the implied warranties of merchantability and fitness for a particular purpose.
---The framework provided hereunder is on an "as is" basis, and the authors have no
---obligation to provide maintenance, support, updates, enhancements, or modifications.
---In no event shall INPE be held liable to any part for direct,
---indirect, special, incidental, or consequential damages arising out of the use
---of this library and its documentation.
---
--------------------------------------------------------------------------------------------
--------------------------------------------------------------------------------------------
---- INPE-EM Framework: inpeEM.lua (control overall execution of spatial, non-spatial and combine modes)
---  Author: Ana Paula Aguiar
---  Date (last update): 24 October 2014
+dofile(PROJECTDIR.."inpe_EM_2_0_1\\inpeEM_combine.lua")
+dofile(PROJECTDIR.."inpe_EM_2_0_1\\inpeEM_componentVR.lua")
+dofile(PROJECTDIR.."inpe_EM_2_0_1\\inpeEM_componentSV.lua")
+dofile(PROJECTDIR.."inpe_EM_2_0_1\\inpeEM_general.lua")
 
 ------------------------------------------------------------------------------------------- 
 -- Functions in this file (inpeEM.lua)
@@ -46,13 +24,6 @@
 
 ------------------------------------------------------------------------------------------- 
 ------------------------------------------------------------------------------------------- 
-
-
-dofile(PROJECTDIR.."inpe_EM_2_0_1\\inpeEM_combine.lua")
-dofile(PROJECTDIR.."inpe_EM_2_0_1\\inpeEM_componentVR.lua")
-dofile(PROJECTDIR.."inpe_EM_2_0_1\\inpeEM_componentSV.lua")
-dofile(PROJECTDIR.."inpe_EM_2_0_1\\inpeEM_general.lua")
-
 
 function inpeEM_execute (model)  
  
@@ -249,6 +220,7 @@ function inpeEM_initResults (model)
         }
       	model.SV_result[y] = 
 		{
+		 	SV_area_total = 0,
 		 	SV_area_cleared = 0,
 		 	SV_CO2_emission = 0,
             SV_CO2_absorption =  0,
@@ -324,6 +296,9 @@ function inpeEM_loadFromDB (year, model)
 		-- initial year only
 		local flagPrintAGB = true
 	    local flagPrintBGBPercAGB = true
+	    local flagPrintLitterPercAGB = true
+	    local flagPrintDeadWoodPercAGB = true
+	    
         if (year == model.yearInit) then
            		forEachCellPair(model.cs,model.cs_temp,function(cell,cell_temp)
   					if cell_temp[model.componentD.attrInitialArea] ~= nil then
@@ -430,7 +405,7 @@ end
 
 function inpeEM_saveCells (model, component) 
 	if (component.saveCount > 0)  then
-			    local name = model.name.."_"..component.name.."_"..model.yearInit.."_"
+			    local name = model.inputThemeName.."_"..component.name.."_"..model.yearInit.."_"
 			     if (component.saveCount < 300) then 
 			            			model.cs:save(model.yearFinal,name, component.saveAttrs) 
 			            		else 
@@ -464,7 +439,7 @@ function inpeEM_printReport (model)
         print (
         "\n    ", "D_Area", "D_AreaAcc", 
         "   -  ", 
-        "      ",  "SV_area_cleared", "SV_CO2_emission", "SV_CO2_absorption"
+        "      ",  "SV_area_total", "SV_area_cleared", "SV_CO2_emission", "SV_CO2_absorption"
      ) end
     if (model.SV_flag  and model.VR_flag) then  
          print (    
@@ -472,7 +447,7 @@ function inpeEM_printReport (model)
         "   -   ", 
         "       ",  "VR_CO2_1stOrder", "VR_CO2_2ndOrder", "VR_CO2_2ndOrder_fire","VR_CO2_2ndOrder_decay",
         "VR_CH4_CO2Eq_2ndOrder_fire", "VR_N2O_CO2Eq_2ndOrder_fire",
-        "SV_area_cleared", "SV_CO2_emission", "SV_CO2_absorption", 
+        "SV_area_total", "SV_area_cleared","SV_CO2_emission", "SV_CO2_absorption", 
         "net_CO2_2ndOrder"
         ) end
     io.flush()
@@ -486,14 +461,15 @@ function inpeEM_printReport (model)
                   f = math.floor (model.VR_result[y].VR_CO2_2ndOrder_decay/1000000)
                   g = math.floor (model.VR_result[y].VR_CH4_CO2Eq_2ndOrder_fire/1000000)
                   h = math.floor (model.VR_result[y].VR_N2O_CO2Eq_2ndOrder_fire/1000000)
+                  k1 = math.floor (model.SV_result[y].SV_area_total)  --km2 ANAP
                   k = math.floor (model.SV_result[y].SV_area_cleared)  --km2 ANAP
                   l = math.floor (model.SV_result[y].SV_CO2_emission/1000000)
                   m = math.floor ((-1)*model.SV_result[y].SV_CO2_absorption/1000000)
                   o = math.floor (model.net_result[y].net_CO2_2ndOrder/1000000)
       	
     if (model.VR_flag == true and model.SV_flag == false) then print (y,  a, b, "   -   ", y, c, d, e, f, g, h)  end
-    if (model.VR_flag == false and model.SV_flag == true) then print (y,  a, b, "   -   ",y, k,l, m)  end
-    if (model.SV_flag and model.VR_flag) then  print (y,  a, b,"   -   ", y, c, d, e, f, g, h, k,l, m, o)  end  
+    if (model.VR_flag == false and model.SV_flag == true) then print (y,  a, b, "   -   ",y, k1, k,l, m)  end
+    if (model.SV_flag and model.VR_flag) then  print (y,  a, b,"   -   ", y, c, d, e, f, g, h, k1, k,l, m, o)  end  
     io.flush()
     end
     
