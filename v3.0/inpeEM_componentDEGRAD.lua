@@ -10,7 +10,6 @@ function componentDEGRAD_execute(year, model)
 	local attrDeadWood_loss = model.componentDEGRAD.attrDeadWood_loss
 	local attrLitter_loss = model.componentDEGRAD.attrLitter_loss
 
-	--verifica se estamos no modo verbose, se for imprimir q este está sendo executado
 	if (model.verbose) then
 		print(year, "Executing Degrad - mode:"..model.mode) 
 	end
@@ -18,14 +17,12 @@ function componentDEGRAD_execute(year, model)
 	--varre todas as celulas
 	for k, cell in pairs (model.cs.cells) do
 		-- TOA e BL
-		-- Se igual a menos 1, este é o componente que inicializa a actualAGB a partir do banco, 
-		-- Senão a biomassa já foi inicializada em componente anterior 
+		-- Initialize actualAGB if not was previsiouly 
 		if ((year == model.yearInit) and (cell.actualAGB == -1)) then 
 			cell.actualAGB = cell.B_AGB
 			cell.actualBGB = cell.B_AGB * cell.B_BGBPercAGB
 		end
 
-		--Podemos considerar o parâmentro nos 3 formatos(banco, tabela e média)
 		-- Biomass loss in the cell - o q tem de biomassa * o que foi degradado * o que foi perdido
 		cell_agb_degrad = cell.actualAGB * cell.degrad * attrAGB_loss
 		cell_bgb_degrad = (cell.actualAGB * cell.B_BGBPercAGB) * cell.degrad * attrAGB_loss
@@ -35,12 +32,10 @@ function componentDEGRAD_execute(year, model)
 		-- total Biomass loss in the cell - soma de todas as perdas na celula
 		cell_CO2_emission_Degrad = (cell_agb_degrad + cell_bgb_degrad + cell_litter_degrad + cell_dead_wood_degrad) * cell.B_FactorB_CO2_fire 
 
-		-- Atualiza a biomassa subtraindo dela o que foi degradado
+		-- Updates biomass subtracting it what was degraded
 		cell.actualAGB = (cell.actualAGB * model.cs.cellarea - cell_agb_degrad) / model.cs.cellarea
 		cell.actualBGB = (cell.actualBGB * model.cs.cellarea - cell_bgb_degrad) / model.cs.cellarea
 
-
-		-- DÚVIDA: É necessário salvar mais alguma variável? Enxergamos estas
 		if (model.save == true) then 
 			cell[model.componentDEGRAD.attrActualAGB..year] = cell.actualAGB 
 			cell[model.componentDEGRAD.attrActualBGB..year] = cell.actualBGB 
@@ -61,10 +56,10 @@ function componentDEGRAD_createNullComponent(model)
 	if (model ~= nil) then
 		model.componentDEGRAD = { 	name = "undefined",
 									description = "",			 				 
-									averAGB_loss = 0
-									averBGB_loss = 0
-									averDeadWood_loss = 0 
-									averLitter_loss = 0
+									averAGB_loss = 0,
+									averBGB_loss = 0,
+									averDeadWood_loss = 0, 
+									averLitter_loss = 0,
 									averDegrad = 0 
 								}
 	end
@@ -164,9 +159,9 @@ end
 
 -- Handles with the load of the attributes from the database or shape.
 -- @arg model A INPE-EM Model.
--- @arg cell_temp XXXXXXXXXXXXXXXXXXXXXXX
--- @arg cell XXXXXXXXXXXXXXXXXXXXXXX
--- @arg y XXXXXXXXXXXXXXXXXXXXXXX
+-- @arg cell_temp A cell of Cellular Space.
+-- @arg cell A cell of Cellular Space.
+-- @arg y A year value.
 -- @usage --DONTRUN
 -- componentDEGRAD_loadFromDB(model, cell_temp, cell, y)
 function componentDEGRAD_loadFromDB(model, cell_temp, cell, y)

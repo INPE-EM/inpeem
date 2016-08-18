@@ -22,15 +22,22 @@ function componentSV_execute(year, model)
 	local attr_rate_regrowth = model.componentSV.attr_rate_regrowth..year
 	local attr_area_regrowth = model.componentSV.attr_area_regrowth..year
 	local attr_biomass_regrowth	= model.componentSV.attr_biomass_regrowth..year
+	
+	local regrow_area = 0
+	local regrow_area_biomass = 0
+	local period1_acc_biomass = 0
+	local period1_rate_acc_biomass = 0
+	local period2_acc_biomass = 0
+	local period2_rate_acc_biomass = 0
 
 	for i, cell in pairs( model.cs.cells) do
 		--------- STEP 1: compute how much secondary vegetation starts to grow following after current year's PF and SF deforestation 
-		local regrow_area = cell.SV_AreaPercVegSec * cell.D_Area + cell.rel_area_cleared * cell.SV_AreaPercVegSec + cell.SV_AreaAccPercVegSec * cell.D_AreaAcc
-		local regrow_area_biomass = regrow_area * cell.B_AGB + regrow_area * cell.B_AGB * cell.B_BGBPercAGB 
-		local period1_acc_biomass = regrow_area_biomass * cell.SV_RecoveryPeriod1Perc
-		local period1_rate_acc_biomass = period1_acc_biomass / cell.SV_RecoveryPeriod1
-		local period2_acc_biomass = regrow_area_biomass * cell.SV_RecoveryPeriod2Perc
-		local period2_rate_acc_biomass = period2_acc_biomass / cell.SV_RecoveryPeriod2
+		regrow_area = cell.SV_AreaPercVegSec * cell.D_Area + cell.rel_area_cleared * cell.SV_AreaPercVegSec + cell.SV_AreaAccPercVegSec * cell.D_AreaAcc
+		regrow_area_biomass = regrow_area * cell.B_AGB + regrow_area * cell.B_AGB * cell.B_BGBPercAGB 
+		period1_acc_biomass = regrow_area_biomass * cell.SV_RecoveryPeriod1Perc
+		period1_rate_acc_biomass = period1_acc_biomass / cell.SV_RecoveryPeriod1
+		period2_acc_biomass = regrow_area_biomass * cell.SV_RecoveryPeriod2Perc
+		period2_rate_acc_biomass = period2_acc_biomass / cell.SV_RecoveryPeriod2
 
 		--------- STEP 2: initialize cell variables for dynamic updates
 		cell[attr_initial_rate_acc_biomass_period1] = period1_rate_acc_biomass
@@ -92,10 +99,6 @@ function componentSV_computePastRegrow(cell, year, model)
 
 	for k = year - cell.SV_AgriculturalUseCycle - cell.SV_InitialAbandonmentCycle, year - 1, 1 do
 		halfLife[k] = 100000
-		
-		if (k >= model.yearInit) then
-			local attr_rate_regrowth = model.componentSV.attr_rate_regrowth..k; --XXXXXXXXXXXXXXXXXXXXXXX
-		end
 	end 
 
 	for y = year - cell.SV_AgriculturalUseCycle, year, 1 do
@@ -104,13 +107,24 @@ function componentSV_computePastRegrow(cell, year, model)
 			cell.area_total = cell.area_total + cell[attr_area_regrowth] 
 		end
 	end
-
+	
+	local attr_initial_area = 0
+	local attr_initial_rate_regrowth_period2 = 0
+	local attr_rate_regrowth = 0
+	local attr_area_regrowth = 0
+	local attr_biomass_regrowth	= 0
+	
+	local area_cleared = 0
+	local biomass_lost = 0
+	local perc_cleared = 0 
+	local perc_remaining_perid1 = 1
+		
 	for y = model.yearInit , year - cell.SV_AgriculturalUseCycle - 1, 1 do
-		local attr_initial_area = model.componentSV.attr_initial_area..y
-		local attr_initial_rate_regrowth_period2 = model.componentSV.attr_initial_rate_acc_biomass_period2..y 
-		local attr_rate_regrowth = model.componentSV.attr_rate_regrowth..y
-		local attr_area_regrowth = model.componentSV.attr_area_regrowth..y
-		local attr_biomass_regrowth	= model.componentSV.attr_biomass_regrowth..y
+		attr_initial_area = model.componentSV.attr_initial_area..y
+		attr_initial_rate_regrowth_period2 = model.componentSV.attr_initial_rate_acc_biomass_period2..y 
+		attr_rate_regrowth = model.componentSV.attr_rate_regrowth..y
+		attr_area_regrowth = model.componentSV.attr_area_regrowth..y
+		attr_biomass_regrowth	= model.componentSV.attr_biomass_regrowth..y
 
 		cell.biomass_acc = cell.biomass_acc + cell[attr_rate_regrowth]
 		cell.area_total = cell.area_total + cell[attr_area_regrowth] 
@@ -118,9 +132,7 @@ function componentSV_computePastRegrow(cell, year, model)
 
 		cell[attr_biomass_regrowth] = cell[attr_biomass_regrowth] + cell[attr_rate_regrowth]
 
-		local area_cleared = 0
-		local biomass_lost = 0
-		local perc_cleared = 0 
+
 
 		if (cell[attr_area_regrowth] > 0) then
 			area_cleared = computeAreaExpDecay(cell[attr_initial_area], halfLife[y], year - y - cell.SV_AgriculturalUseCycle - cell.SV_InitialAbandonmentCycle)
@@ -145,8 +157,10 @@ function componentSV_computePastRegrow(cell, year, model)
 			end
 		end
 
+		
+		
 		if (y == model.yearInit + cell.SV_RecoveryPeriod1) then
-			local perc_remaining_perid1 = 1
+			perc_remaining_perid1 = 1
 
 			if (cell[attr_initial_area] > 0) then
 				perc_remaining_perid1 = cell[attr_area_regrowth] / cell[attr_initial_area]
@@ -317,9 +331,9 @@ end
 
 -- Handles with the load of the attributes from the database or shape.
 -- @arg model A INPE-EM Model.
--- @arg cell_temp XXXXXXXXXXXXXXXXXXXXXXX
--- @arg cell XXXXXXXXXXXXXXXXXXXXXXX
--- @arg y XXXXXXXXXXXXXXXXXXXXXXX
+-- @arg cell_temp A cell of Cellular Space.
+-- @arg cell A cell of Cellular Space.
+-- @arg y A year value.
 -- @usage --DONTRUN
 -- componentSV_loadFromDB(model, cell_temp, cell, y)
 function componentSV_loadFromDB(model, cell_temp, cell, y)

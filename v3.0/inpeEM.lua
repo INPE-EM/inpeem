@@ -1,6 +1,7 @@
 dofile(PROJECTDIR.."inpe_EM_3_0\\inpeEM_combine.lua")
 dofile(PROJECTDIR.."inpe_EM_3_0\\inpeEM_componentVR.lua")
 dofile(PROJECTDIR.."inpe_EM_3_0\\inpeEM_componentSV.lua")
+dofile(PROJECTDIR.."inpe_EM_3_0\\inpeEM_componentDEGRAD.lua")
 
 -- Handles with the model execution.
 -- @arg model A INPE-EM Model.
@@ -23,6 +24,10 @@ function inpeEM_execute(model)
 				componentVR_execute(year, model)
 			end
 			
+			if (model.DEGRAD_flag) then
+				componentDEGRAD_execute(year, model)
+			end			
+			
 			inpeEM_computeNetEmission(year, model)
 		end  
 	end
@@ -40,6 +45,10 @@ function inpeEM_execute(model)
 		
 		if (model.SV_flag) then
 			inpeEM_saveCells(model, model.componentSV)
+		end	
+		
+		if (model.DEGRAD_flag) then
+			inpeEM_saveCells(model, model.componentDEGRAD)
 		end	
 	end
 end
@@ -90,6 +99,15 @@ function inpeEM_init(model)
 	else 
 		componentSV_verify(model) 
 	end
+	
+	model.DEGRAD_flag = true
+	
+	if (model.componentDEGRAD == nil) then
+		model.DEGRAD_flag = false
+		componentDEGRAD_createNullComponent(model)
+	else 
+		componentDEGRAD_verify(model) 
+	end
 
 	if (model.SV_flag == false and model.VR_flag == false) then
 		print("\nModel definition error: componentVR AND/OR componentSV must be defined")
@@ -123,39 +141,17 @@ function inpeEM_init(model)
 	error_flag = false
 
 	if (model.mode == "spatial") then
-		if (model.shapeFilePath == nil) then
-			model.cs = CellularSpace {   
+		model.cs = CellularSpace {   
+									project = model.project,
+									layer = model.layer,
+									cellarea = model.cellarea
+								 } 
+
+		model.cs_temp = CellularSpace { 
 										project = model.project,
 										layer = model.layer,
-										host = model.host,
-										user = model.user,
-										password = model.password,
-										port = model.port,
-
 										cellarea = model.cellarea
-									 } 
-
-			model.cs_temp = CellularSpace { 
-											project = model.project,
-											layer = model.layer,
-											host = model.host,
-											user = model.user,
-											password = model.password,
-											port = model.port,
-
-											cellarea = model.cellarea
-										  }
-		else 
-			model.cs = CellularSpace {  
-										file = model.shapeFilePath,
-										cellarea = model.cellarea
-									 } 
-
-			model.cs_temp = CellularSpace { 
-											file = model.shapeFilePath,
-											cellarea = model.cellarea
-										  }
-		end
+									  }
 	end
 
 	if (model.mode == "non_spatial") then
@@ -163,8 +159,9 @@ function inpeEM_init(model)
 			print("\nModel definition error: dataTable missing")
 			error_flag = true
 		else
-			model.cs = CellularSpace { xdim = 1,
-									   ydim = 1
+			model.cs = CellularSpace { 
+										xdim = 1,
+										ydim = 1
 								     }
 			model.cs.cellarea = model.area
 			model.cs_temp = nil
@@ -202,7 +199,7 @@ function inpeEM_initComponents(model)
 						  end
 			   )
 
-   model.componentD.attrArea = model.componentD.name.."_area"
+	model.componentD.attrArea = model.componentD.name.."_area"
 	model.componentD.attrInitialArea = model.componentD.name.."_initialarea"
 	model.componentB.attrAGB = model.componentB.name.."_agb"
 	model.componentB.attrBGBPercAGB = model.componentB.name.."_bgbpercagb"
@@ -237,17 +234,20 @@ function inpeEM_initResults(model)
 	model.net_result = {}
 
 	for y = model.yearInit, model.yearFinal, 1 do
-		model.D_result[y] = { D_Area = 0,
-							  D_AreaAcc = 0
+		model.D_result[y] = { 
+								D_Area = 0,
+								D_AreaAcc = 0
 							}
 
-		model.SV_result[y] = {  SV_area_total = 0,
+		model.SV_result[y] = {  
+								SV_area_total = 0,
 								SV_area_cleared = 0,
 								SV_CO2_emission = 0,
 								SV_CO2_absorption = 0
 							 }
 
-		model.VR_result[y] = {  VR_CO2_1stOrder = 0,
+		model.VR_result[y] = {  
+								VR_CO2_1stOrder = 0,
 								VR_CO2_2ndOrder = 0,
 								VR_CO2_2ndOrder_fire = 0,
 								VR_CO2_2ndOrder_decay = 0,
@@ -257,7 +257,8 @@ function inpeEM_initResults(model)
 								VR_NOx_CO2Eq_2ndOrder_fire = 0
 							 }
 
-		model.net_result[y] = {	net_CO2_1stOrder = 0,
+		model.net_result[y] = {	
+								net_CO2_1stOrder = 0,
 								net_CO2_2ndOrder = 0
 							  }
 	end	
@@ -332,7 +333,7 @@ function inpeEM_loadFromDB(year, model)
 														cell.D_AreaAcc = cell_temp[model.componentD.attrInitialArea]
 														model.D_result_acc = model.D_result_acc + cell.D_AreaAcc 
 													else
-														error("Historical disturbance information missing: "..model.componentD.attrInitialArea)	
+														error("Historical disturbance information missing: "..model.componentD.attrInitialArea, 1)	
 													end
 
 													if (cell_temp[model.componentB.attrAGB] ~= nil) then
