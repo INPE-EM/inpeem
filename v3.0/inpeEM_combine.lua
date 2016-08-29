@@ -26,9 +26,9 @@ function inpeEM_executeCombine(model_out, model_ns, model_s)
 		inpeEM_execute(model_s) 
 	end
 
-	if ((model_ns.SV_flag == false or model_s.SV_flag == false) and (model_s.VR_flag == false or model_s.VR_flag == false)) then 
-		error("No model PF or SF model results to combine!", 2)
-	end
+	if ((model_ns.SV_flag == false or model_s.SV_flag == false) and (model_ns.VR_flag == false or model_s.VR_flag == false ) and (model_ns.DEGRAD_flag == false or model_s.DEGRAD_flag == false)) then
+		error ("No model PF or SF or DEGRAD model results to combine!")
+    end
 
 	if (model_out.verbose == nil) then
 		model_out.verbose = false 
@@ -40,6 +40,7 @@ function inpeEM_executeCombine(model_out, model_ns, model_s)
 
 	model_out.componentD = model_s.componentD
 	model_out.componentB = model_s.componentB
+	model_out.componentDEGRAD = model_s.componentDEGRAD
 	model_out.componentSV = model_s.componentSV
 	model_out.componentVR = model_s.componentVR
 	model_out.yearInit = model_ns.yearInit
@@ -50,6 +51,13 @@ function inpeEM_executeCombine(model_out, model_ns, model_s)
 	print("\nCombining spatial and non-spatial results...")
 	io.flush()
 
+	if (model_ns.DEGRAD_flag and model_s.DEGRAD_flag) then 
+		model_out.DEGRAD_result = inpeEM_combineResultsDEGRAD(model_ns, model_s)
+		model_out.DEGRAD_flag = true
+    else
+        model_out.DEGRAD_flag = false  
+    end 
+	
 	if (model_ns.SV_flag and model_s.SV_flag) then 
 		model_out.SV_result = inpeEM_combineResultsSV(model_ns, model_s)
 		model_out.SV_flag = true
@@ -132,6 +140,42 @@ function inpeEM_combineResultsSV(model_ns, model_s)
 	end
 	
 	return SV_result
+end
+
+-- Handles with the results of DEGRAD component for combine model.
+-- @arg model_ns A non-spatial INPE-EM model.
+-- @arg model_s A spatial INPE-EM model.
+-- @usage --DONTRUN
+-- inpeEM_combineResultsDEGRAD(model_ns, model_s)
+function inpeEM_combineResultsDEGRAD(model_ns, model_s)
+	local DEGRAD_result = {}
+	for y = model_ns.yearInit, model_s.yearInit - 1, 1 do
+		DEGRAD_result[y] = {
+								DEGRAD_Area = model_ns.DEGRAD_result[y].DEGRAD_Area,
+								DEGRAD_AveLoss = model_ns.DEGRAD_result[y].DEGRAD_AveLoss,
+								DEGRAD_CO2_emission = model_ns.DEGRAD_result[y].DEGRAD_CO2_emission,
+								DEGRAD_CO2_absorption = model_ns.DEGRAD_result[y].DEGRAD_CO2_absorption,
+								DEGRAD_CO2_emission_aboveDegradLimiar = model_ns.DEGRAD_result[y].DEGRAD_CO2_emission_aboveDegradLimiar,
+								DEGRAD_CO2_absorption_aboveDegradLimiar = model_ns.DEGRAD_result[y].DEGRAD_CO2_absorption_aboveDegradLimiar,
+								DEGRAD_CO2_BALANCE = model_ns.DEGRAD_result[y].DEGRAD_CO2_BALANCE,
+								DEGRAD_CO2_BALANCE2 = model_ns.DEGRAD_result[y].DEGRAD_CO2_BALANCE2
+							}
+	end
+    
+	for y = model_s.yearInit, model_s.yearFinal, 1 do
+		DEGRAD_result[y] = {
+								DEGRAD_Area = model_s.DEGRAD_result[y].DEGRAD_Area,
+								DEGRAD_AveLoss = model_s.DEGRAD_result[y].DEGRAD_AveLoss,
+								DEGRAD_CO2_emission = model_s.DEGRAD_result[y].DEGRAD_CO2_emission,
+								DEGRAD_CO2_absorption = model_s.DEGRAD_result[y].DEGRAD_CO2_absorption,
+								DEGRAD_CO2_emission_aboveDegradLimiar = model_s.DEGRAD_result[y].DEGRAD_CO2_emission_aboveDegradLimiar,
+								DEGRAD_CO2_absorption_aboveDegradLimiar = model_s.DEGRAD_result[y].DEGRAD_CO2_absorption_aboveDegradLimiar,
+								DEGRAD_CO2_BALANCE = model_s.DEGRAD_result[y].DEGRAD_CO2_BALANCE,
+								DEGRAD_CO2_BALANCE2 = model_s.DEGRAD_result[y].DEGRAD_CO2_BALANCE2 
+							}
+	end
+
+	return DEGRAD_result
 end
 
 -- Handles with the carbon balance for combine model.
