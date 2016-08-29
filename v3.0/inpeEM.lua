@@ -15,7 +15,11 @@ function inpeEM_execute(model)
 	
 		for year = model.yearInit, model.yearFinal, 1 do
 			inpeEM_load(year, model)
-			
+
+			if (model.DEGRAD_flag) then
+				componentDEGRAD_execute(year, model)
+			end				
+
 			if (model.SV_flag) then
 				componentSV_execute(year, model)
 			end
@@ -23,10 +27,6 @@ function inpeEM_execute(model)
 			if (model.VR_flag) then
 				componentVR_execute(year, model)
 			end
-			
-			if (model.DEGRAD_flag) then
-				componentDEGRAD_execute(year, model)
-			end			
 			
 			inpeEM_computeNetEmission(year, model)
 		end  
@@ -39,16 +39,16 @@ function inpeEM_execute(model)
 	end
 
 	if (model.mode == "spatial") then
+		if (model.DEGRAD_flag) then
+			inpeEM_saveCells(model, model.componentDEGRAD)
+		end	
+		
 		if (model.VR_flag) then
 			inpeEM_saveCells(model, model.componentVR)
 		end
 		
 		if (model.SV_flag) then
 			inpeEM_saveCells(model, model.componentSV)
-		end	
-		
-		if (model.DEGRAD_flag) then
-			inpeEM_saveCells(model, model.componentDEGRAD)
 		end	
 	end
 end
@@ -69,21 +69,28 @@ function inpeEM_init(model)
 	end
 
 	if (model.componentD == nil) then
-		print("\nModel definition error: componentD(disturbance)  missing")
+		print("\nModel definition error: componentD (disturbance) missing")
 		error_flag = true
 	else 
 		componentD_verify(model)
 	end
 
 	if (model.componentB == nil) then
-		print("\nModel definition error: componentB(biomass)  missing")
+		print("\nModel definition error: componentB (biomass) missing")
 		error_flag = true
 	else 
 		componentB_verify(model)
 	end
+	
+	model.DEGRAD_flag = true
+	if (model.componentDEGRAD == nil) then
+		model.DEGRAD_flag = false
+		componentDEGRAD_createNullComponent(model)
+	else 
+		componentDEGRAD_verify(model) 
+	end	
 
 	model.VR_flag = true
-	
 	if (model.componentVR == nil) then
 		model.VR_flag = false
 		componentVR_createNullComponent(model)
@@ -92,7 +99,6 @@ function inpeEM_init(model)
 	end
 
 	model.SV_flag = true
-	
 	if (model.componentSV == nil) then
 		model.SV_flag = false
 		componentSV_createNullComponent(model)
@@ -100,17 +106,8 @@ function inpeEM_init(model)
 		componentSV_verify(model) 
 	end
 	
-	model.DEGRAD_flag = true
-	
-	if (model.componentDEGRAD == nil) then
-		model.DEGRAD_flag = false
-		componentDEGRAD_createNullComponent(model)
-	else 
-		componentDEGRAD_verify(model) 
-	end
-
-	if (model.SV_flag == false and model.VR_flag == false) then
-		print("\nModel definition error: componentVR AND/OR componentSV must be defined")
+	if ((model.SV_flag == false and model.VR_flag == false) and model.DEGRAD_flag == false) then
+		print("\nModel definition error: componentVR AND/OR componentSV AND/OR componentDEGRAD must be defined")
 		error_flag = true
 	end
 
@@ -130,12 +127,12 @@ function inpeEM_init(model)
 	end
 
 	if (model.mode == nil) then
-		print("\nModel definition error: mode(spatial or non-spatial) missing")
+		print("\nModel definition error: mode (spatial or non-spatial) missing")
 		error_flag = true
 	end	 
 
 	if (error_flag) then
-		error("\n    Please, complete your model definition before executing!", 2)
+		error("\nPlease, complete your model definition before executing!", 2)
 	end
 
 	error_flag = false
@@ -200,19 +197,27 @@ function inpeEM_initComponents(model)
 			   )
 
 	model.componentD.attrArea = model.componentD.name.."_area"
-	model.componentD.attrInitialArea = model.componentD.name.."_initialarea"
+	model.componentD.attrInitialArea = model.componentD.name.."_inita"
+	
 	model.componentB.attrAGB = model.componentB.name.."_agb"
-	model.componentB.attrBGBPercAGB = model.componentB.name.."_bgbpercagb"
-	model.componentB.attrLitterPercAGB = model.componentB.name.."_litterpercagb"
-	model.componentB.attrDeadWoodPercAGB = model.componentB.name.."_deadwoodpercagb"
+	
+	model.componentB.attrBGBPercAGB = model.componentB.name.."_perc1"
+	model.componentB.attrDeadWoodPercAGB = model.componentB.name.."_perc2"
+	model.componentB.attrLitterPercAGB = model.componentB.name.."_perc3"
+	
+	model.componentB.attrFactorB_CH4_fire = model.componentB.name.."_fact1"
+	model.componentB.attrFactorB_CO2 = model.componentB.name.."_fact2"
+	model.componentB.attrFactorB_CO2_fire = model.componentB.name.."_fact3"
+	model.componentB.attrFactorB_CO_fire = model.componentB.name.."_fact4"
+	model.componentB.attrFactorB_N2O_fire = model.componentB.name.."_fact5"
+	model.componentB.attrFactorB_NOx_fire = model.componentB.name.."_fact6"
+	
 	model.componentB.attrPercCarbon = model.componentB.name.."_perccarbon"
-	model.componentB.attrFactorB_CO2 = model.componentB.name.."_factorb_co2"
-	model.componentB.attrFactorB_CO2_fire = model.componentB.name.."_factorb_co2_fire"
-	model.componentB.attrFactorB_CH4_fire = model.componentB.name.."_factorb_ch4_fire"
-	model.componentB.attrFactorB_N2O_fire = model.componentB.name.."_factorb_n2o_fire"
-	model.componentB.attrFactorB_CO_fire = model.componentB.name.."_factorb_co_fire"
-	model.componentB.attrFactorB_NOx_fire = model.componentB.name.."_factorb_nox_fire"
 
+	if (model.DEGRAD_flag) then
+		componentDEGRAD_init(model)
+	end
+	
 	if (model.VR_flag) then
 		componentVR_init(model)
 	end
@@ -229,6 +234,7 @@ end
 function inpeEM_initResults(model)
 	model.D_result = {}
 	model.D_result_acc = 0
+	model.DEGRAD_result = {}
 	model.SV_result = {}
 	model.VR_result = {}
 	model.net_result = {}
@@ -238,6 +244,17 @@ function inpeEM_initResults(model)
 								D_Area = 0,
 								D_AreaAcc = 0
 							}
+							
+		model.DEGRAD_result[y] = { 
+									DEGRAD_Area = 0,
+									DEGRAD_CO2_emission = 0,
+									DEGRAD_CO2_absorption = 0,
+									DEGRAD_CO2_emission_aboveDegradLimiar = 0,
+									DEGRAD_CO2_absorption_aboveDegradLimiar = 0,
+									DEGRAD_CO2_BALANCE = 0, 
+									DEGRAD_CO2_BALANCE2 = 0,
+									DEGRAD_AveLoss = 0
+								}
 
 		model.SV_result[y] = {  
 								SV_area_total = 0,
@@ -299,13 +316,17 @@ function inpeEM_loadFromTable(year, model)
 		error("Time required exceeds the input table size: Area", 1) 
 	end
 
-	cell.D_Area = model.dataTable.Area [step]
+	cell.D_Area = model.dataTable.Area[step]
 	cell.D_AreaAcc = cell.D_AreaAcc + cell.D_Area
 
 	model.D_result[year].D_Area = model.D_result[year].D_Area + cell.D_Area
 	model.D_result_acc = model.D_result_acc + cell.D_Area
 	model.D_result[year].D_AreaAcc = model.D_result_acc
 
+	if (model.DEGRAD_flag) then
+		componentDEGRAD_loadFromTable(model, cell, step) 
+	end	
+	
 	if (model.VR_flag) then
 		componentVR_loadFromTable(model, cell, step) 
 	end
@@ -338,6 +359,7 @@ function inpeEM_loadFromDB(year, model)
 
 													if (cell_temp[model.componentB.attrAGB] ~= nil) then
 														cell.B_AGB = cell_temp[model.componentB.attrAGB]
+														cell.B_ActualAGB = cell.B_AGB
 														if (flagPrintAGB) then
 															print(year, "Loading "..model.componentB.attrAGB)
 															flagPrintAGB = false 
@@ -368,7 +390,7 @@ function inpeEM_loadFromDB(year, model)
 														end
 													end 
 
-													if (cell_temp[model.componentB.attrPercCarbon] ~= nil) then
+													if (cell_temp[model.componentB.attrPercCarbon] ~= nil) then --XXXXXXXXXXXXXXXXXXXXXXXX
 														cell.B_PercCarbon = cell_temp[model.componentB.attrPercCarbon]
 													end 
 
@@ -411,9 +433,13 @@ function inpeEM_loadFromDB(year, model)
 													model.D_result_acc = model.D_result_acc + cell.D_Area
 													model.D_result[year].D_AreaAcc =  model.D_result_acc
 												else
-													error("Disturbance information missing: "..model.componentD.attrArea)
+													error("Disturbance information missing: "..model.componentD.attrArea, 1)
 												end
 
+												if (model.DEGRAD_flag) then
+													componentDEGRAD_loadFromDB(model, cell_temp, cell, year)
+												end
+												
 												if (model.VR_flag) then
 													componentVR_loadFromDB(model, cell_temp, cell, year) 
 												end
@@ -436,8 +462,8 @@ function inpeEM_computeNetEmission(year, model)
 	end
 
 	for y = model.yearInit, model.yearFinal, 1 do
-		model.net_result[y].net_CO2_2ndOrder = model.VR_result[y].VR_CO2_2ndOrder + model.SV_result[y].SV_CO2_emission - model.SV_result[y].SV_CO2_absorption
-		model.net_result[y].net_CO2_1stOrder = model.VR_result[y].VR_CO2_1stOrder + model.SV_result[y].SV_CO2_emission - model.SV_result[y].SV_CO2_absorption
+		model.net_result[y].net_CO2_2ndOrder = model.VR_result[y].VR_CO2_2ndOrder + (model.SV_result[y].SV_CO2_emission - model.SV_result[y].SV_CO2_absorption) + (model.DEGRAD_result[y].DEGRAD_CO2_emission - model.DEGRAD_result[y].DEGRAD_CO2_absorption)
+		model.net_result[y].net_CO2_1stOrder = model.VR_result[y].VR_CO2_1stOrder + (model.SV_result[y].SV_CO2_emission - model.SV_result[y].SV_CO2_absorption) + (model.DEGRAD_result[y].DEGRAD_CO2_emission - model.DEGRAD_result[y].DEGRAD_CO2_absorption)
 	end
 end
 
@@ -447,8 +473,9 @@ end
 -- @usage --DONTRUN
 -- inpeEM_saveCells(model, model.componentVR)
 function inpeEM_saveCells(model, component) 
+	local name = ""
 	if (component.saveCount > 0)  then
-		local name = model.inputThemeName.."_"..component.name.."_"..model.yearInit.."_"
+		name = model.inputThemeName.."_"..component.name.."_"..model.yearInit.."_"
 		if (component.saveCount < 300) then 
 			model.cs:save(name, component.saveAttrs) 
 		else 
@@ -466,54 +493,88 @@ function inpeEM_printReport(model)
 	print("\n_____________________________________________________________________________________________________________________________________")
 	print("\nINPE-EM TOTAL RESULTS")
 	print("\n_____________________________________________________________________________________________________________________________________")
-	print("      MODEL NAME = "..model.name)
-	print("      MODEL MODE = "..model.mode)
-	print("      SUBMODELS",  "B = ", model.componentB.name, "D = ", model.componentD.name, "VR = ", model.componentVR.name, "SV = ", model.componentSV.name)
-	print("_____________________________________________________________________________________________________________________________________")
-	
+	print("MODEL NAME = "..model.name)
+	print("MODEL MODE = "..model.mode)
 	if (model.VR_flag == true and model.SV_flag == false) then 
-		print("\n    ", "D_Area", "D_AreaAcc", "   -  ", "      ", "VR_CO2_1stOrder", "VR_CO2_2ndOrder", 
-			  "VR_CO2_2ndOrder_fire","VR_CO2_2ndOrder_decay",	"VR_NOx_CO2Eq_2ndOrder_fire", "VR_N2O_CO2Eq_2ndOrder_fire")    
+		print("SUBMODELS \tB = "..model.componentB.name.."\tD = "..model.componentD.name.."\tVR = "..model.componentVR.name)	
 	end      
 
 	if (model.SV_flag == true and model.VR_flag == false) then 
-		print("\n    ", "D_Area", "D_AreaAcc", "   -  ", "      ",  "SV_area_total", "SV_area_cleared", "SV_CO2_emission", "SV_CO2_absorption")
+		print("SUBMODELS \tB = "..model.componentB.name.."\tD = "..model.componentD.name.."\tSV = "..model.componentSV.name)	
 	end
 
-	if (model.SV_flag and model.VR_flag) then  
-		print("\n     ", "D_Area", "D_AreaAcc", "   -   ", "       ",  "VR_CO2_1stOrder", "VR_CO2_2ndOrder", "VR_CO2_2ndOrder_fire","VR_CO2_2ndOrder_decay",
-			  "VR_CH4_CO2Eq_2ndOrder_fire", "VR_N2O_CO2Eq_2ndOrder_fire", "SV_area_total", "SV_area_cleared","SV_CO2_emission", "SV_CO2_absorption", 
-			  "net_CO2_2ndOrder")
+	if (model.SV_flag == true and model.VR_flag == true and model.DEGRAD_flag == false) then  
+		print("SUBMODELS \tB = "..model.componentB.name.."\tD = "..model.componentD.name.."\tVR = "..model.componentVR.name.."\tSV = "..model.componentSV.name)
+	end	
+	
+	if (model.SV_flag and model.VR_flag and model.DEGRAD_flag) then  
+		print("SUBMODELS \tB = "..model.componentB.name.."\tD = "..model.componentD.name.."\tVR = "..model.componentVR.name.."\tSV = "..model.componentSV.name.."\tDegrad = "..model.componentDEGRAD.name)
+	end
+	print("_____________________________________________________________________________________________________________________________________")
+	
+	if (model.VR_flag == true and model.SV_flag == false) then 
+		print("\nD_Area \tD_AreaAcc \t- \t \tVR_CO2_1stOrder \tVR_CO2_2ndOrder \tVR_CO2_2ndOrder_fire \tVR_CO2_2ndOrder_decay \tVR_NOx_CO2Eq_2ndOrder_fire \tVR_N2O_CO2Eq_2ndOrder_fire")
+	end      
+
+	if (model.SV_flag == true and model.VR_flag == false) then 
+		print("\nD_Area \tD_AreaAcc \t- \t \tSV_area_total \tSV_area_cleared \tSV_CO2_emission \tSV_CO2_absorption")
+	end
+
+	if (model.SV_flag == true and model.VR_flag == true and model.DEGRAD_flag == false) then  
+		print("\nD_Area \tD_AreaAcc \t- \t \tVR_CO2_1stOrder \tVR_CO2_2ndOrder \tVR_CO2_2ndOrder_fire \tVR_CO2_2ndOrder_decay \tVR_CH4_CO2Eq_2ndOrder_fire \tVR_N2O_CO2Eq_2ndOrder_fire".. 
+			  "\tSV_area_total \tSV_area_cleared \tSV_CO2_emission \tSV_CO2_absorption \tnet_CO2_2ndOrder")
+	end
+	
+	if (model.SV_flag and model.VR_flag and model.DEGRAD_flag) then  
+		print ("\nD_AreaAcc \tD_Area \tDEGRAD_Area \t-\t \t \tVR_CO2_1stOrder \tVR_CO2_2ndOrder \tSV_CO2_emission \tSV_CO2_absorption \t-\t \t \tDEGRAD_CO2_emission \tDEGRAD_CO2_absorption"..
+			   "\tDEGRAD_CO2_emission_aboveLimiar \tDEGRAD_CO2_absorption_aboveLimiar \tPercentage Loss \t-\t \t \tNET_1st_Order \tNET_2nd_Order")
 	end
 
 	io.flush()
 	
 	for y = model.yearInit, model.yearFinal, 1 do
 		a = math.floor(model.D_result[y].D_Area)        
-		b = math.floor(model.D_result[y].D_AreaAcc)        
+		b = math.floor(model.D_result[y].D_AreaAcc)   
+		b1 = math.floor (model.DEGRAD_result[y].DEGRAD_Area)
+  		
 		c = math.floor(model.VR_result[y].VR_CO2_1stOrder / 1000000)
 		d = math.floor(model.VR_result[y].VR_CO2_2ndOrder / 1000000)
 		e = math.floor(model.VR_result[y].VR_CO2_2ndOrder_fire / 1000000)
 		f = math.floor(model.VR_result[y].VR_CO2_2ndOrder_decay / 1000000)
 		g = math.floor(model.VR_result[y].VR_CH4_CO2Eq_2ndOrder_fire / 1000000)
 		h = math.floor(model.VR_result[y].VR_N2O_CO2Eq_2ndOrder_fire / 1000000)
+		
 		k1 = math.floor(model.SV_result[y].SV_area_total)  
 		k = math.floor(model.SV_result[y].SV_area_cleared) 
 		l = math.floor(model.SV_result[y].SV_CO2_emission / 1000000)
 		m = math.floor((-1) * model.SV_result[y].SV_CO2_absorption / 1000000)
+		
 		o = math.floor(model.net_result[y].net_CO2_2ndOrder / 1000000)
+		r = math.floor(model.net_result[y].net_CO2_1stOrder / 1000000)
+
+		p = math.floor(model.DEGRAD_result[y].DEGRAD_CO2_emission / 1000000) 
+		q = math.floor(model.DEGRAD_result[y].DEGRAD_CO2_absorption / 1000000) * (-1)
+		s = math.floor(model.DEGRAD_result[y].DEGRAD_CO2_emission_aboveDegradLimiar / 1000000)
+		t = math.floor(model.DEGRAD_result[y].DEGRAD_CO2_absorption_aboveDegradLimiar / 1000000) * (-1)
+		u = math.floor(model.DEGRAD_result[y].DEGRAD_CO2_BALANCE / 1000000)
+		u2 = math.floor(model.DEGRAD_result[y].DEGRAD_AveLoss * 1000)		
 
 		if (model.VR_flag == true and model.SV_flag == false) then
-			print(y,  a, b, "   -   ", y, c, d, e, f, g, h)  
+			print(y, a, b, "-", y, c, d, e, f, g, h)  
 		end
 		
 		if (model.VR_flag == false and model.SV_flag == true) then
-			print(y,  a, b, "   -   ", y, k1, k,l, m)  
+			print(y, a, b, "-", y, k1, k,l, m)  
 		end
 		
-		if (model.SV_flag and model.VR_flag) then
-			print(y,  a, b,"   -   ", y, c, d, e, f, g, h, k1, k, l, m, o)  
+		if (model.SV_flag == true and model.VR_flag == true and model.DEGRAD_flag == false) then
+			print(y, a, b, "-", y, c, d, e, f, g, h, k1, k, l, m, o)  
 		end  
+		
+		if (model.SV_flag and model.VR_flag and model.DEGRAD_flag) then
+			print(y, b, a, b1, "-", y, c, d, l, m, "-", y, p, q, s, t, u2, "-", r, o)  
+		end		
+		
 		io.flush()
 	end
 	
