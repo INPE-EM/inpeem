@@ -38,11 +38,8 @@ function componentVR_execute(year, model)
 
 	local attr_elemental = model.componentVR.attr_elemental 
 
-	if (model.verbose) then
-		print(year, "Executing VR - mode:"..model.mode) 
-	end
-	
-		local cell_agb_disturbed = 0
+	-- Check
+	local cell_agb_disturbed = 0
 
 	-- Init FATE 
 	local cell_agb_agb = 0
@@ -53,7 +50,7 @@ function componentVR_execute(year, model)
 	local cell_bgb_lost_1stOrder = 0
 
 	-- FATE: fire first year
-	local cell_agb_fire_first_year 	= 0
+	local cell_agb_fire_first_year = 0
 	local cell_bgb_fire_first_year = 0
 	local cell_dead_fire_first_year = 0
 	local cell_litter_fire_first_year = 0
@@ -69,14 +66,30 @@ function componentVR_execute(year, model)
 	local cell_bgb_under = 0
 	local cell_elemental = 0	
 
+	if (model.verbose) then
+		print(year, "Executing VR - mode:"..model.mode) 
+	end
+	
 	for k, cell in pairs (model.cs.cells) do
 		-- check
 		cell.total_biomass_check = 0
-
-		if (year == model.yearInit) then 
-			cell.actualAGB = cell.B_AGB
-			cell.actualBGB = cell.B_AGB * cell.B_BGBPercAGB
-		end
+		
+		cell_agb_disturbed = 0
+		cell_agb_agb = 0
+		cell_bgb_bgb = 0
+		cell_agb_lost_1stOrder = 0
+		cell_bgb_lost_1stOrder = 0
+		cell_agb_fire_first_year = 0
+		cell_bgb_fire_first_year = 0
+		cell_dead_fire_first_year = 0
+		cell_litter_fire_first_year = 0
+		cell_agb_slash = 0
+		cell_bgb_slash = 0 
+		cell_dead_slash = 0 
+		cell_litter_slash = 0 
+		cell_agb_wood = 0
+		cell_bgb_under = 0
+		cell_elemental = 0	
 
 		if (cell.D_Area > 0) then
 			cell_agb_disturbed = cell.D_Area * cell.B_AGB
@@ -127,10 +140,7 @@ function componentVR_execute(year, model)
 		cell_dead_lost_1stOrder = cell_agb_disturbed * cell.B_DeadWoodPercAGB 
 		cell_litter_lost_1stOrder = cell_agb_disturbed * cell.B_LitterPercAGB 
 
-		cell_CO2_lost_1stOrder = (cell_agb_lost_1stOrder + cell_bgb_lost_1stOrder + cell_dead_lost_1stOrder + cell_litter_lost_1stOrder)* cell.B_FactorB_CO2_fire
-
-		cell.actualAGB =(cell.actualAGB * model.cs.cellarea - cell_agb_lost_1stOrder) / model.cs.cellarea
-		cell.actualBGB =(cell.actualBGB * model.cs.cellarea - cell_bgb_lost_1stOrder) / model.cs.cellarea
+		cell_CO2_lost_1stOrder = (cell_agb_lost_1stOrder + cell_bgb_lost_1stOrder + cell_dead_lost_1stOrder + cell_litter_lost_1stOrder) * cell.B_FactorB_CO2_fire
 
 		-- 2nd order 
 		cell_all_decay = cell[attr_agb_slash..year] + cell[attr_bgb_slash..year] + cell[attr_dead_slash..year] + cell[attr_litter_slash..year] +
@@ -140,7 +150,7 @@ function componentVR_execute(year, model)
 						cell[attr_dead_slash_fire..year] + cell[attr_litter_slash_fire..year] 
 
 		-- CO2 EMISSIONS
-		cell_CO2_all_fire 	= cell_all_fire * cell.B_FactorB_CO2_fire
+		cell_CO2_all_fire = cell_all_fire * cell.B_FactorB_CO2_fire
 		cell_CO2_all_decay = cell_all_decay * cell.B_FactorB_CO2
 
 
@@ -172,7 +182,6 @@ function componentVR_execute(year, model)
 			cell[model.componentVR.attrCO..year] = cell_CO_all_fire / 1000000
 			cell[model.componentVR.attrNOx..year] = cell_NOx_all_fire / 1000000 
 			cell[model.componentVR.attrActualAGB..year] = cell.actualAGB 
-			cell[model.componentVR.attrActualBGB..year] = cell.actualBGB 
 		end 
 
 		-- Aggregating results at the regional level(summing cells)
@@ -200,10 +209,13 @@ function computeFutureSlashDecompositionFire(biomass, year, yearFinal, cell, att
 	local difference = 0.0
 	local previous = biomass
 	local count = 0
+	local post_decay = ""
+	local post_fire = ""
+	local fire = 0
 	
 	for y = year + 1, yearFinal, 1 do
-		local post_decay = attr1..y
-		local post_fire = attr2..y 
+		post_decay = attr1..y
+		post_fire = attr2..y 
 		count = count + 1
 
 		estimate_decay = compute_exp(biomass,(-1) * rate, y - year)
@@ -212,7 +224,7 @@ function computeFutureSlashDecompositionFire(biomass, year, yearFinal, cell, att
 			estimate_decay = 0.0
 		end
 
-		difference = previous - estimate_decay;
+		difference = previous - estimate_decay
 
 		if (difference < 0.0) then 
 			estimate_decay = 0.0
@@ -226,7 +238,7 @@ function computeFutureSlashDecompositionFire(biomass, year, yearFinal, cell, att
 		previous = estimate_decay 
 
 		if (count == fire_cycle) then
-			local fire = estimate_decay * percFirstYear
+			fire = estimate_decay * percFirstYear
 			previous = previous - fire
 			cell[post_fire] = cell[post_fire] + fire
 			cell.total_biomass_check = cell.total_biomass_check + fire 
@@ -248,17 +260,18 @@ function computeFutureDecomposition(biomass, year, yearFinal, cell, attr1, rate)
 	local difference = 0.0
 	local previous = biomass
 	local count = 0
+	local post_decay = ""
 	
 	for y = year + 1, yearFinal, 1 do
-		local post_decay = attr1..y
+		post_decay = attr1..y
 
 		estimate_decay = compute_exp(biomass,(-1) * rate, y - year)
 
 		if (estimate_decay < 0.0) then
-			estimate_decay = 0.0;
+			estimate_decay = 0.0
 		end
 
-		difference = previous - estimate_decay;
+		difference = previous - estimate_decay
 
 		if (difference < 0.0) then 
 			estimate_decay = 0.0
@@ -296,7 +309,7 @@ function componentVR_createNullComponent(model)
 			averLitterPercDecomposition = 0,
 			averDeadWoodPercInstantaneous = 0,
 			averDeadWoodPercDecomposition = 0,
-			averDecompositionPercFireCycle 	= 0,
+			averDecompositionPercFireCycle = 0,
 			averDecompositonPercElementalCarbon = 0,
 
 			averDecayRateWoodProducts = 0, 
@@ -310,7 +323,7 @@ function componentVR_createNullComponent(model)
 end
 			
 -- Handles with the initialization method of a Vegetation Removal component.
--- @arg model A INPE-EM Model.
+-- @arg model A INPE-EM Model
 -- @usage --DONTRUN
 -- componentVR_init(model)
 function componentVR_init(model)
@@ -325,7 +338,6 @@ function componentVR_init(model)
 	model.componentVR.attrCO = "CO_"
 	model.componentVR.attrNOx = "NOx_"
 	model.componentVR.attrActualAGB = "AGB_"
-	model.componentVR.attrActualBGB = "BGB_"
 
 	if (model.save == true) then 
 		for year= model.yearInit, model.yearFinal, 1 do 
@@ -353,7 +365,6 @@ function componentVR_init(model)
 	model.componentVR.attr_bgb_slash_fire = model.componentVR.name.."bgb_slash_fire" 
 	model.componentVR.attr_bgb_under = model.componentVR.name.."bgb_under" 
 
-
 	model.componentVR.attr_dead_slash = model.componentVR.name.."dead_slash" 
 	model.componentVR.attr_dead_slash_fire = model.componentVR.name.."dead_slash_fire" 
 
@@ -364,7 +375,7 @@ function componentVR_init(model)
 
 	forEachCell(model.cs, function(cell)
 								-- init future cell variables
-								for year= model.yearInit, model.yearFinal, 1 do 
+								for year = model.yearInit, model.yearFinal, 1 do 
 									cell[model.componentVR.attr_agb_slash..year] = 0 
 									cell[model.componentVR.attr_agb_wood..year] = 0 
 									cell[model.componentVR.attr_agb_slash_fire..year] = 0 
@@ -381,10 +392,9 @@ function componentVR_init(model)
 
 									cell[model.componentVR.attr_elemental..year] = 0 
 								end
+								
 								-- init default values in each cell
 								componentVR_initCellAverComponentValues(cell, model)
-								cell.actualBGB = model.componentB.averAGB
-								cell.actualBGB = model.componentB.averAGB * model.componentB.averBGBPercAGB
 							end
 				)
 
@@ -428,32 +438,32 @@ end
 -- @usage --DONTRUN
 -- componentVR_initCellAttrNames(model)
 function componentVR_initCellAttrNames(model)
-	model.componentVR.attrAGBPercAGB = model.componentVR.name.."AGBPercAGB" 
-	model.componentVR.attrAGBPercWoodProducts = model.componentVR.name.."AGBPercWoodProducts" 
-	model.componentVR.attrAGBPercInstantaneous = model.componentVR.name.."AGBPercInstantaneous" 
-	model.componentVR.attrAGBPercDecomposition = model.componentVR.name.."AGBPercDecomposition" 
+	model.componentVR.attrAGBPercAGB = model.componentVR.name.."_agb1" 
+	model.componentVR.attrAGBPercDecomposition = model.componentVR.name.."_agb2"
+	model.componentVR.attrAGBPercInstantaneous = model.componentVR.name.."_agb3" 
+	model.componentVR.attrAGBPercWoodProducts = model.componentVR.name.."_agb4" 
+	
+	model.componentVR.attrBGBPercBGB = model.componentVR.name.."_bgb1"
+	model.componentVR.attrBGBPercDecompositionAbove = model.componentVR.name.."_bgb2"
+	model.componentVR.attrBGBPercDecompositionUnder = model.componentVR.name.."_bgb3"
+	model.componentVR.attrBGBPercInstantaneous	= model.componentVR.name.."_bgb4"
 
-	model.componentVR.attrBGBPercBGB = model.componentVR.name.."BGBPercBGB"
-	model.componentVR.attrBGBPercInstantaneous	= model.componentVR.name.."BGBPercInstantaneous"
-	model.componentVR.attrBGBPercDecompositionAbove = model.componentVR.name.."BGBPercDecompositionAbove"
-	model.componentVR.attrBGBPercDecompositionUnder = model.componentVR.name.."BGBPercDecompositionUnder"
+	model.componentVR.attrDeadWoodPercDecomposition = model.componentVR.name.."_dw1" 
+	model.componentVR.attrDeadWoodPercInstantaneous = model.componentVR.name.."_dw2" 
 
-	model.componentVR.attrDeadWoodPercInstantaneous = model.componentVR.name.."DeadWoodPercInstantaneous" 
-	model.componentVR.attrDeadWoodPercDecomposition = model.componentVR.name.."DeadWoodPercDecomposition" 
+	model.componentVR.attrLitterPercDecomposition = model.componentVR.name.."_lit1" 
+	model.componentVR.attrLitterPercInstantaneous = model.componentVR.name.."_lit2" 
 
-	model.componentVR.attrLitterPercInstantaneous = model.componentVR.name.."LitterPercInstantaneous" 
-	model.componentVR.attrLitterPercDecomposition = model.componentVR.name.."LitterPercDecomposition" 
-
-	model.componentVR.attrDecompositionPercElementalCarbon = model.componentVR.name.."DecompositionPercElementalCarbon" 
-	model.componentVR.attrDecompositonFireCyclePeriod = model.componentVR.name.."DecompositonFireCyclePeriod" 
-
-	model.componentVR.attrDecayRateAGBDecomposition = model.componentVR.name.."DecayRateAGBDecomposition" 
-	model.componentVR.attrDecayRateDeadWoodDecomposition = model.componentVR.name.."DecayRateDeadWoodDecomposition" 
-	model.componentVR.attrDecayRateLitterDecomposition = model.componentVR.name.."DecayRateLitterDecomposition" 
-	model.componentVR.attrDecayRateWoodProducts = model.componentVR.name.."DecayRateWoodProducts" 
-	model.componentVR.attrDecayRateElementalCarbon = model.componentVR.name.."DecayRateElementalCarbon" 
-	model.componentVR.attrDecayRateBGBDecompositionUnder = model.componentVR.name.."DecayRateBGBDecompositionUnder" 
-	model.componentVR.attrDecayRateBGBDecompositionAbove = model.componentVR.name.."DecayRateBGBDecompositionUnderAbove" 
+	model.componentVR.attrDecayRateAGBDecomposition = model.componentVR.name.."_dr1" 
+	model.componentVR.attrDecayRateBGBDecompositionAbove = model.componentVR.name.."_dr2" 
+	model.componentVR.attrDecayRateBGBDecompositionUnder = model.componentVR.name.."_dr3" 
+	model.componentVR.attrDecayRateDeadWoodDecomposition = model.componentVR.name.."_dr4" 
+	model.componentVR.attrDecayRateElementalCarbon = model.componentVR.name.."_dr5" 
+	model.componentVR.attrDecayRateLitterDecomposition = model.componentVR.name.."_dr6" 
+	model.componentVR.attrDecayRateWoodProducts = model.componentVR.name.."_dr7" 
+	
+	model.componentVR.attrDecompositionPercElementalCarbon = model.componentVR.name.."_dec1" 
+	model.componentVR.attrDecompositonFireCyclePeriod = model.componentVR.name.."_dec2" 
 end
 
 -- Handles with the verify method of a Vegetation Removal component.
