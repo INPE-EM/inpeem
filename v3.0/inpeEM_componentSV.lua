@@ -29,6 +29,7 @@ function componentSV_execute(year, model)
 	local period1_rate_acc_biomass = 0
 	local period2_acc_biomass = 0
 	local period2_rate_acc_biomass = 0
+	local area_sf = 0
 
 	for i, cell in pairs( model.cs.cells) do
 		--------- STEP 1: compute how much secondary vegetation starts to grow following after current year's PF and SF deforestation 
@@ -46,6 +47,7 @@ function componentSV_execute(year, model)
 		cell[attr_area_regrowth] = cell[attr_initial_area] 
 		cell[attr_rate_regrowth] = cell[attr_initial_rate_acc_biomass_period1]
 		cell[attr_biomass_regrowth] = 0 
+		
 		cell.area_cleared = 0
 		cell.rel_area_cleared = 0
 		cell.biomass_lost = 0
@@ -55,7 +57,7 @@ function componentSV_execute(year, model)
 
 		componentSV_computePastRegrow(cell, year, model)
 
-		local area_sf = 0
+		area_sf = 0
 
 		if (model.mode == "spatial") then
 			if (year == model.yearInit) then 
@@ -91,7 +93,8 @@ end
 -- @usage --DONTRUN
 -- function componentSV_computePastRegrow(cell, year, model)
 function componentSV_computePastRegrow(cell, year, model)
-	local halfLife ={}
+	local halfLife = {}
+	local attr_area_regrowth = 0
 
 	for k = model.yearInit, year do
 		halfLife[k] = cell.SV_HalfLife
@@ -103,7 +106,7 @@ function componentSV_computePastRegrow(cell, year, model)
 
 	for y = year - cell.SV_AgriculturalUseCycle, year, 1 do
 		if (y >= model.yearInit) then
-			local attr_area_regrowth = model.componentSV.attr_area_regrowth..y
+			attr_area_regrowth = model.componentSV.attr_area_regrowth..y
 			cell.area_total = cell.area_total + cell[attr_area_regrowth] 
 		end
 	end
@@ -111,7 +114,6 @@ function componentSV_computePastRegrow(cell, year, model)
 	local attr_initial_area = 0
 	local attr_initial_rate_regrowth_period2 = 0
 	local attr_rate_regrowth = 0
-	local attr_area_regrowth = 0
 	local attr_biomass_regrowth	= 0
 	
 	local area_cleared = 0
@@ -156,8 +158,6 @@ function componentSV_computePastRegrow(cell, year, model)
 				cell.rel_area_cleared = cell.rel_area_cleared + area_cleared / cell.SV_AreaPercVegSec
 			end
 		end
-
-		
 		
 		if (y == model.yearInit + cell.SV_RecoveryPeriod1) then
 			perc_remaining_perid1 = 1
@@ -205,11 +205,11 @@ end
 function componentSV_init(model)
 	model.componentSV.saveAttrs = {}
 	model.componentSV.saveCount = 0
-	model.componentSV.attrOutAreaVS = model.componentSV.name.."_OutAreaVS"
-	model.componentSV.attrOutAreaAGR = model.componentSV.name.."_OutAreaAGR"
+	model.componentSV.attrOutAreaVS = model.componentSV.name.."_OutAVS"
+	model.componentSV.attrOutAreaAGR = model.componentSV.name.."_OutAAGR"
 
 	if (model.save == true) then 
-		for year= model.yearInit, model.yearFinal, 1 do 
+		for year = model.yearInit, model.yearFinal, 1 do 
 			model.componentSV.saveCount = model.componentSV.saveCount + 1
 			model.componentSV.saveAttrs[model.componentSV.saveCount] = model.componentSV.attrOutAreaVS..year
 			model.componentSV.saveCount = model.componentSV.saveCount + 1
@@ -217,6 +217,7 @@ function componentSV_init(model)
 		end
 	end	 
 
+	-- init (runtime) past cell attribute names
 	model.componentSV.attr_initial_area = model.componentSV.name.."initial_area_regrow_"
 	model.componentSV.attr_initial_rate_acc_biomass_period1 = model.componentSV.name.."rate_regrow_period1_"
 	model.componentSV.attr_initial_rate_acc_biomass_period2 = model.componentSV.name.."rate_regrow_period2_" 
@@ -243,16 +244,16 @@ end
 -- @usage --DONTRUN
 -- componentSV_initCellAttrNames(model)
 function componentSV_initCellAttrNames(model)
-	model.componentSV.attrAreaPercVegSec = model.componentSV.name.."_AreaPercVegSec"
-	model.componentSV.attrAreaAccPercVegSec = model.componentSV.name.."_AreaAccPercVegSec"
-	model.componentSV.attrAgriculturalUseCycle = model.componentSV.name.."_AgriculturalUseCycle"
-	model.componentSV.attrRecoveryPeriod1Perc = model.componentSV.name.."_RecoveryPeriod1Perc"
-	model.componentSV.attrRecoveryPeriod1 = model.componentSV.name.."_RecoveryPeriod1"
-	model.componentSV.attrRecoveryPeriod2Perc = model.componentSV.name.."_RecoveryPeriod2Perc"
-	model.componentSV.attrRecoveryPeriod2 = model.componentSV.name.."_RecoveryPeriod2"
-	model.componentSV.attrInitialAbandonmentCycle = model.componentSV.name.."_InitialAbandonmentCycle"
-	model.componentSV.attrHalfLife = model.componentSV.name.."_HalfLife"
-	model.componentSV.attrBGBpercBGB = model.componentSV.name.."_BGBpercBGB"
+	model.componentSV.attrAreaAccPercVegSec = model.componentSV.name.."_aapvs"
+	model.componentSV.attrAgriculturalUseCycle = model.componentSV.name.."_auc"
+	model.componentSV.attrAreaPercVegSec = model.componentSV.name.."_apvs"
+	model.componentSV.attrBGBpercBGB = model.componentSV.name.."_bgbp"
+	model.componentSV.attrHalfLife = model.componentSV.name.."_hl"
+	model.componentSV.attrInitialAbandonmentCycle = model.componentSV.name.."_iac"
+	model.componentSV.attrRecoveryPeriod1 = model.componentSV.name.."_rp1"
+	model.componentSV.attrRecoveryPeriod1Perc = model.componentSV.name.."_rp1p"
+	model.componentSV.attrRecoveryPeriod2 = model.componentSV.name.."_rp2"
+	model.componentSV.attrRecoveryPeriod2Perc = model.componentSV.name.."_rp2p"
 end	
 
 -- Handles with the initialization of the cell with average values.
@@ -380,7 +381,7 @@ function componentSV_loadFromDB(model, cell_temp, cell, y)
 	end
 
 	if (cell_temp[model.componentSV.attrHalfLife..y] ~= nil) then
-		cell.SV_HalfLife 	= cell_temp[model.componentSV.attrHalfLife..y]
+		cell.SV_HalfLife = cell_temp[model.componentSV.attrHalfLife..y]
 		
 		if (flagPrintHalfLife) then 
 			print(y,"Loading "..model.componentSV.attrHalfLife) 
@@ -388,8 +389,8 @@ function componentSV_loadFromDB(model, cell_temp, cell, y)
 		end
 	end
 
-	if (cell_temp[model.componentSV.attrBGBpercBGB..y] ~= nil)then
-		cell.SV_BGBpercBGB 	= cell_temp[model.componentSV.attrBGBpercBGB..y]
+	if (cell_temp[model.componentSV.attrBGBpercBGB..y] ~= nil)then --remove
+		cell.SV_BGBpercBGB = cell_temp[model.componentSV.attrBGBpercBGB..y]
 	end
 end
 
