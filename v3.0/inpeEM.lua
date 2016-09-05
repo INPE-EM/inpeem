@@ -475,8 +475,9 @@ end
 function inpeEM_saveCells(model, component) 
 	local name = ""
 	if (component.saveCount > 0)  then
-		name = model.inputThemeName.."_"..component.name.."_"..model.yearInit.."_"
+		name = model.name.."_"..component.name
 		if (component.saveCount < 300) then 
+			print("Saving: "..name)
 			model.cs:save(name, component.saveAttrs) 
 		else 
 			print("Sorry, number of attributes > 300, impossible to save, run with a shorter time period")
@@ -490,44 +491,61 @@ end
 -- @usage --DONTRUN
 -- component.componentD_verify(model)
 function inpeEM_printReport(model)
-	print("\n_____________________________________________________________________________________________________________________________________")
+	file = io.open(PROJECTDIR.."\\"..model.name.."_results.txt","w")
+	print("\n________________________________________________________________________________________________________")
+	file:write("________________________________________________________________________________________________________\n")
 	print("\nINPE-EM TOTAL RESULTS")
-	print("\n_____________________________________________________________________________________________________________________________________")
-	print("MODEL NAME = "..model.name)
+	file:write("\nINPE-EM TOTAL RESULTS")
+	print("________________________________________________________________________________________________________")
+	file:write("\n________________________________________________________________________________________________________\n")
+	print("\nMODEL NAME = "..model.name)
+	file:write("\nMODEL NAME = "..model.name)
 	print("MODEL MODE = "..model.mode)
+	file:write("\nMODEL MODE = "..model.mode)
 	if (model.VR_flag == true and model.SV_flag == false) then 
-		print("SUBMODELS \tB = "..model.componentB.name.."\tD = "..model.componentD.name.."\tVR = "..model.componentVR.name)	
+		print("SUBMODELS \tB = "..model.componentB.name.."\tD = "..model.componentD.name.."\tVR = "..model.componentVR.name)
+		file:write("\nSUBMODELS \tB = "..model.componentB.name.."\tD = "..model.componentD.name.."\tVR = "..model.componentVR.name)
 	end      
 
 	if (model.SV_flag == true and model.VR_flag == false) then 
-		print("SUBMODELS \tB = "..model.componentB.name.."\tD = "..model.componentD.name.."\tSV = "..model.componentSV.name)	
+		print("SUBMODELS \tB = "..model.componentB.name.."\tD = "..model.componentD.name.."\tSV = "..model.componentSV.name)
+		file:write("\nSUBMODELS \tB = "..model.componentB.name.."\tD = "..model.componentD.name.."\tSV = "..model.componentSV.name)
 	end
 
 	if (model.SV_flag == true and model.VR_flag == true and model.DEGRAD_flag == false) then  
 		print("SUBMODELS \tB = "..model.componentB.name.."\tD = "..model.componentD.name.."\tVR = "..model.componentVR.name.."\tSV = "..model.componentSV.name)
+		file:write("\nSUBMODELS \tB = "..model.componentB.name.."\tD = "..model.componentD.name.."\tVR = "..model.componentVR.name.."\tSV = "..model.componentSV.name)
 	end	
 	
 	if (model.SV_flag and model.VR_flag and model.DEGRAD_flag) then  
 		print("SUBMODELS \tB = "..model.componentB.name.."\tD = "..model.componentD.name.."\tVR = "..model.componentVR.name.."\tSV = "..model.componentSV.name.."\tDegrad = "..model.componentDEGRAD.name)
+		file:write("\nSUBMODELS \tB = "..model.componentB.name.."\tD = "..model.componentD.name.."\tVR = "..model.componentVR.name.."\tSV = "..model.componentSV.name.."\tDegrad = "..model.componentDEGRAD.name)
 	end
-	print("_____________________________________________________________________________________________________________________________________")
+	print("\n________________________________________________________________________________________________________")
+	file:write("\n________________________________________________________________________________________________________\n")
 	
 	if (model.VR_flag == true and model.SV_flag == false) then 
-		print("\nD_Area \tD_AreaAcc \t- \t \tVR_CO2_1stOrder \tVR_CO2_2ndOrder \tVR_CO2_2ndOrder_fire \tVR_CO2_2ndOrder_decay \tVR_NOx_CO2Eq_2ndOrder_fire \tVR_N2O_CO2Eq_2ndOrder_fire")
+		print("\nYear \tD_Area \tD_AreaAcc \t- \t \tVR_CO2_1stOrder \tVR_CO2_2ndOrder \tVR_CO2_2ndOrder_fire \tVR_CO2_2ndOrder_decay \tVR_NOx_CO2Eq_2ndOrder_fire \tVR_N2O_CO2Eq_2ndOrder_fire")
+		file:write("\nYear \tD_Area \tD_AreaAcc \t- \t \tVR_CO2_1stOrder \tVR_CO2_2ndOrder \tVR_CO2_2ndOrder_fire \tVR_CO2_2ndOrder_decay \tVR_NOx_CO2Eq_2ndOrder_fire \tVR_N2O_CO2Eq_2ndOrder_fire")
 	end      
 
 	if (model.SV_flag == true and model.VR_flag == false) then 
-		print("\nD_Area \tD_AreaAcc \t- \t \tSV_area_total \tSV_area_cleared \tSV_CO2_emission \tSV_CO2_absorption")
+		print("\nYear \tD_Area \tD_AreaAcc \t- \t \tSV_area_total \tSV_area_cleared \tSV_CO2_emission \tSV_CO2_absorption")
+		file:write("\nYear \tD_Area \tD_AreaAcc \t- \t \tSV_area_total \tSV_area_cleared \tSV_CO2_emission \tSV_CO2_absorption")
 	end
 
 	if (model.SV_flag == true and model.VR_flag == true and model.DEGRAD_flag == false) then  
-		print("\nD_Area \tD_AreaAcc \t- \t \tVR_CO2_1stOrder \tVR_CO2_2ndOrder \tVR_CO2_2ndOrder_fire \tVR_CO2_2ndOrder_decay \tVR_CH4_CO2Eq_2ndOrder_fire \tVR_N2O_CO2Eq_2ndOrder_fire".. 
+		print("\nYear \tD_Area \tD_AreaAcc \t- \t \tVR_CO2_1stOrder \tVR_CO2_2ndOrder \tVR_CO2_2ndOrder_fire \tVR_CO2_2ndOrder_decay \tVR_CH4_CO2Eq_2ndOrder_fire \tVR_N2O_CO2Eq_2ndOrder_fire".. 
 			  "\tSV_area_total \tSV_area_cleared \tSV_CO2_emission \tSV_CO2_absorption \tnet_CO2_2ndOrder")
+		file:write("\nYear \tD_Area \tD_AreaAcc \t- \t \tVR_CO2_1stOrder \tVR_CO2_2ndOrder \tVR_CO2_2ndOrder_fire \tVR_CO2_2ndOrder_decay \tVR_CH4_CO2Eq_2ndOrder_fire \tVR_N2O_CO2Eq_2ndOrder_fire".. 
+					"\tSV_area_total \tSV_area_cleared \tSV_CO2_emission \tSV_CO2_absorption \tnet_CO2_2ndOrder")
 	end
 	
 	if (model.SV_flag and model.VR_flag and model.DEGRAD_flag) then  
-		print ("\nD_AreaAcc \tD_Area \tDEGRAD_Area \t-\t \t \tVR_CO2_1stOrder \tVR_CO2_2ndOrder \tSV_CO2_emission \tSV_CO2_absorption \t-\t \t \tDEGRAD_CO2_emission \tDEGRAD_CO2_absorption"..
+		print("\nYear \tD_AreaAcc \tD_Area \tDEGRAD_Area \t-\t \t \tVR_CO2_1stOrder \tVR_CO2_2ndOrder \tSV_CO2_emission \tSV_CO2_absorption \t-\t \t \tDEGRAD_CO2_emission \tDEGRAD_CO2_absorption"..
 			   "\tDEGRAD_CO2_emission_aboveLimiar \tDEGRAD_CO2_absorption_aboveLimiar \tPercentage Loss \t-\t \t \tNET_1st_Order \tNET_2nd_Order")
+		file:write("\nYear \tD_AreaAcc \tD_Area \tDEGRAD_Area \t-\t \t \tVR_CO2_1stOrder \tVR_CO2_2ndOrder \tSV_CO2_emission \tSV_CO2_absorption \t-\t \t \tDEGRAD_CO2_emission \tDEGRAD_CO2_absorption"..
+					"\tDEGRAD_CO2_emission_aboveLimiar \tDEGRAD_CO2_absorption_aboveLimiar \tPercentage Loss \t-\t \t \tNET_1st_Order \tNET_2nd_Order")
 	end
 
 	io.flush()
@@ -560,25 +578,33 @@ function inpeEM_printReport(model)
 		u2 = math.floor(model.DEGRAD_result[y].DEGRAD_AveLoss * 1000)		
 
 		if (model.VR_flag == true and model.SV_flag == false) then
-			print(y, a, b, "-", y, c, d, e, f, g, h)  
+			print(y, a, b, "-", y, c, d, e, f, g, h)
+			file:write("\n"..y.."\t"..a.."\t"..b.."\t-\t"..y.."\t"..c.."\t"..d.."\t"..e.."\t"..f.."\t"..g.."\t"..h)
 		end
 		
 		if (model.VR_flag == false and model.SV_flag == true) then
-			print(y, a, b, "-", y, k1, k,l, m)  
+			print(y, a, b, "-", y, k1, k,l, m)
+			file:write("\n"..y.."\t"..a.."\t"..b.."\t-\t"..y.."\t"..k1.."\t"..k.."\t"..l.."\t"..m)
 		end
 		
 		if (model.SV_flag == true and model.VR_flag == true and model.DEGRAD_flag == false) then
-			print(y, a, b, "-", y, c, d, e, f, g, h, k1, k, l, m, o)  
+			print(y, a, b, "-", y, c, d, e, f, g, h, k1, k, l, m, o)
+			file:write("\n"..y.."\t"..a.."\t"..b.."\t-\t"..y.."\t"..c.."\t"..d.."\t"..e.."\t"..f.."\t"..g.."\t"..h.."\t"..k1.."\t"..k.."\t"..l.."\t"..m.."\t"..o)
 		end  
 		
 		if (model.SV_flag and model.VR_flag and model.DEGRAD_flag) then
 			print(y, b, a, b1, "-", y, c, d, l, m, "-", y, p, q, s, t, u2, "-", r, o)  
+			file:write("\n"..y.."\t"..b.."\t"..a.."\t"..b1.."\t-\t"..y.."\t"..c.."\t"..d.."\t"..l.."\t"..m.."\t-\t"..y.."\t"..p.."\t"..q.."\t"..s.."\t"..t.."\t"..u2.."\t-\t"..r.."\t"..o)
 		end		
 		
 		io.flush()
 	end
 	
+	file:write("\n")
 	print("\n(OBS: area in hecatares, CO2 in MtonCO2(= 10 12 g), other gases in CO2Eq)")
+	print("\n")
+	file:write("\n(OBS: area in hecatares, CO2 in MtonCO2(= 10 12 g), other gases in CO2Eq)\n")
+	file:close()
 end
 
 -- Handles with the verify method of a Disturbance component.
