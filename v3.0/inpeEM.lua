@@ -426,8 +426,8 @@ function inpeEM_loadFromDB(year, model)
 	flagPrintHalfLife = true
 
 	forEachCellPair(model.cs, model.cs_temp, function(cell,cell_temp)
-												if (cell_temp[model.componentD.attrArea..year] ~= nil) then
-													cell.D_Area = cell_temp[model.componentD.attrArea..year]
+												if (cell_temp[model.componentD.attrArea..string.sub(year, string.len(year) - 1)] ~= nil) then
+													cell.D_Area = cell_temp[model.componentD.attrArea..string.sub(year, string.len(year) - 1)]
 													cell.D_AreaAcc = cell.D_AreaAcc + cell.D_Area
 													model.D_result[year].D_Area = model.D_result[year].D_Area + cell.D_Area
 													model.D_result_acc = model.D_result_acc + cell.D_Area

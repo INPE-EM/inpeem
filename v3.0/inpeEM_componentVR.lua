@@ -331,16 +331,16 @@ function componentVR_init(model)
 	model.componentVR.saveAttrs = {}
 	model.componentVR.saveCount = 0
 
-	model.componentVR.attrCO2 = "CO2_"
-	model.componentVR.attrCO2fire = "CO2fire_"
-	model.componentVR.attrCH4 = "CH4_"
-	model.componentVR.attrN2O = "N2O_"
-	model.componentVR.attrCO = "CO_"
-	model.componentVR.attrNOx = "NOx_"
-	model.componentVR.attrActualAGB = "AGB_"
+	model.componentVR.attrCO2 = "CO2"
+	model.componentVR.attrCO2fire = "CO2f"
+	model.componentVR.attrCH4 = "CH4"
+	model.componentVR.attrN2O = "N2O"
+	model.componentVR.attrCO = "CO"
+	model.componentVR.attrNOx = "NOx"
+	model.componentVR.attrActualAGB = "AGB"
 
 	if (model.save == true) then 
-		for year= model.yearInit, model.yearFinal, 1 do 
+		for year = model.yearInit, model.yearFinal, 1 do 
 			model.componentVR.saveCount = model.componentVR.saveCount + 1
 			model.componentVR.saveAttrs[model.componentVR.saveCount] = model.componentVR.attrCO2..year
 			model.componentVR.saveCount = model.componentVR.saveCount + 1
@@ -352,7 +352,7 @@ function componentVR_init(model)
 			model.componentVR.saveCount = model.componentVR.saveCount + 1
 			model.componentVR.saveAttrs[model.componentVR.saveCount] = model.componentVR.attrCO..year
 			model.componentVR.saveCount = model.componentVR.saveCount + 1
-			model.componentVR.saveAttrs[model.componentVR.saveCount] = model.componentVR.attrNOx..year 
+			model.componentVR.saveAttrs[model.componentVR.saveCount] = model.componentVR.attrNOx..year
 		end	 
 	end
 
@@ -574,6 +574,7 @@ end
 -- @usage --DONTRUN
 -- componentSV_loadFromDB(model, cell_temp, cell, y) 
 function componentVR_loadFromDB(model, cell_temp, cell, y)
+	y = string.sub(y, string.len(y) - 1)
 	if (cell_temp[model.componentVR.attrAGBPercAGB..y] ~= nil) then
 		cell.VR_AGBPercAGB = cell_temp[model.componentVR.attrAGBPercAGB..y]
 	end

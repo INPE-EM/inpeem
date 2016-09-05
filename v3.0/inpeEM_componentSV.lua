@@ -126,7 +126,7 @@ function componentSV_computePastRegrow(cell, year, model)
 		attr_initial_rate_regrowth_period2 = model.componentSV.attr_initial_rate_acc_biomass_period2..y 
 		attr_rate_regrowth = model.componentSV.attr_rate_regrowth..y
 		attr_area_regrowth = model.componentSV.attr_area_regrowth..y
-		attr_biomass_regrowth	= model.componentSV.attr_biomass_regrowth..y
+		attr_biomass_regrowth = model.componentSV.attr_biomass_regrowth..y
 
 		cell.biomass_acc = cell.biomass_acc + cell[attr_rate_regrowth]
 		cell.area_total = cell.area_total + cell[attr_area_regrowth] 
@@ -205,8 +205,8 @@ end
 function componentSV_init(model)
 	model.componentSV.saveAttrs = {}
 	model.componentSV.saveCount = 0
-	model.componentSV.attrOutAreaVS = model.componentSV.name.."_OutAVS"
-	model.componentSV.attrOutAreaAGR = model.componentSV.name.."_OutAAGR"
+	model.componentSV.attrOutAreaVS = model.componentSV.name.."OutAVS"
+	model.componentSV.attrOutAreaAGR = model.componentSV.name.."OutAGR"
 
 	if (model.save == true) then 
 		for year = model.yearInit, model.yearFinal, 1 do 
@@ -338,6 +338,7 @@ end
 -- @usage --DONTRUN
 -- componentSV_loadFromDB(model, cell_temp, cell, y)
 function componentSV_loadFromDB(model, cell_temp, cell, y)
+	y = string.sub(y, string.len(y) - 1)
 	if (cell_temp[model.componentSV.attrAreaPercVegSec..y] ~= nil) then
 		cell.SV_AreaPercVegSec 	= cell_temp[model.componentSV.attrAreaPercVegSec..y]
 		
