@@ -32,7 +32,7 @@ function componentSV_execute(year, model)
 	local area_sf = 0
 
 	for i, cell in pairs( model.cs.cells) do
-		--------- STEP 1: compute how much secondary vegetation starts to grow following after current year's PF and SF deforestation 
+		-- STEP 1: compute how much secondary vegetation starts to grow following after current year's PF and SF deforestation 
 		regrow_area = cell.SV_AreaPercVegSec * cell.D_Area + cell.rel_area_cleared * cell.SV_AreaPercVegSec + cell.SV_AreaAccPercVegSec * cell.D_AreaAcc
 		regrow_area_biomass = regrow_area * cell.B_AGB + regrow_area * cell.B_AGB * cell.B_BGBPercAGB 
 		period1_acc_biomass = regrow_area_biomass * cell.SV_RecoveryPeriod1Perc
@@ -40,7 +40,7 @@ function componentSV_execute(year, model)
 		period2_acc_biomass = regrow_area_biomass * cell.SV_RecoveryPeriod2Perc
 		period2_rate_acc_biomass = period2_acc_biomass / cell.SV_RecoveryPeriod2
 
-		--------- STEP 2: initialize cell variables for dynamic updates
+		-- STEP 2: initialize cell variables for dynamic updates
 		cell[attr_initial_rate_acc_biomass_period1] = period1_rate_acc_biomass
 		cell[attr_initial_rate_acc_biomass_period2] = period2_rate_acc_biomass
 		cell[attr_initial_area] = regrow_area
