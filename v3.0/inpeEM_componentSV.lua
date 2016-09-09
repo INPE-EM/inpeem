@@ -339,6 +339,7 @@ end
 -- componentSV_loadFromDB(model, cell_temp, cell, y)
 function componentSV_loadFromDB(model, cell_temp, cell, y)
 	y = string.sub(y, string.len(y) - 1)
+	
 	if (cell_temp[model.componentSV.attrAreaPercVegSec..y] ~= nil) then
 		cell.SV_AreaPercVegSec 	= cell_temp[model.componentSV.attrAreaPercVegSec..y]
 		

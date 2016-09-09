@@ -575,6 +575,7 @@ end
 -- componentSV_loadFromDB(model, cell_temp, cell, y) 
 function componentVR_loadFromDB(model, cell_temp, cell, y)
 	y = string.sub(y, string.len(y) - 1)
+	
 	if (cell_temp[model.componentVR.attrAGBPercAGB..y] ~= nil) then
 		cell.VR_AGBPercAGB = cell_temp[model.componentVR.attrAGBPercAGB..y]
 	end
