@@ -3,7 +3,7 @@
 -- @arg model A INPE-EM Model.
 -- @usage --DONTRUN
 -- componentDEGRAD_execute(year, model)
-function componentDEGRAD_execute ( year, model)
+function componentDEGRAD_execute(year, model)
 
 	if (model.verbose) then 
 		print(year, "Executing Degrad - mode:"..model.mode)
@@ -26,22 +26,28 @@ function componentDEGRAD_execute ( year, model)
 	local cell_wood_degrad = 0
 	
 	for k, cell in pairs( model.cs.cells ) do
+		if (year == model.yearInit) then 
+			cell.B_ActualAGB = cell.B_AGB
+			cell.B_ActualAGB = cell.B_AGB * cell.B_BGBPercAGB
+		end
+		
 		if (model.mode == "non_spatial") then
 			if (cell.DEGRAD_Degrad > 0 and cell.DEGRAD_AGB_loss > 0) then
 				flagDEGRAD = true
 			end
+
 		end
 
 		cell_CO2_absorption_Degrad = 0
 		cell_CO2_emission_Degrad = 0
 
-		--Current average biomass in the cell
+		-- Current average biomass in the cell
 		if year == model.yearInit then 
 			cell.AGBRegrowRate = 0 	
 			cell.DegradLoss = 0
 			if (model.mode == "spatial") then
 				if (flagDEGRAD) then
-					cell.B_ActualAGB = cell.B_AGB*(1 - cell.DEGRAD_AGB_percReduction)
+					cell.B_ActualAGB = cell.B_AGB * (1 - cell.DEGRAD_AGB_percReduction)
 				end
 
 				-- Reinitialize the rate
@@ -100,7 +106,7 @@ function componentDEGRAD_execute ( year, model)
 			cell_wood_degrad = cell.B_ActualAGB * cell.DEGRAD_Degrad * cell.DEGRAD_DeadWood_loss * cell.B_DeadWoodPercAGB
 
 			-- Emissão decorrente da degradação
-			cell_CO2_emission_Degrad = (cell_agb_degrad + cell_bgb_degrad + cell_litter_degrad + cell_wood_degrad)* cell.B_FactorB_CO2_fire  
+			cell_CO2_emission_Degrad = (cell_agb_degrad + cell_bgb_degrad + cell_litter_degrad + cell_wood_degrad) * cell.B_FactorB_CO2_fire  
 			
 			-- Atualização da biomassa média 
 			if ((model.cs.cellarea - cell.D_AreaAcc + cell.D_Area) ~= 0) then
@@ -167,7 +173,7 @@ function componentDEGRAD_createNullComponent(model)
 								averAGB_loss = 0,
 								averBGB_loss = 0,
 								averDeadWood_loss = 0,
-								averLitter_loss  = 0,
+								averLitter_loss = 0,
 								averDegrad = 0,
 								PeriodRegrow = 1,
 								LimiarDegradYears = 1,
@@ -189,11 +195,11 @@ function componentDEGRAD_init(model)
 	model.componentDEGRAD.attrCountDegradYears = "Count_"
 
 	if (model.save == true) then 
-		for year= model.yearInit, model.yearFinal, 1 do                            
-		model.componentDEGRAD.saveCount = model.componentDEGRAD.saveCount + 1
-		model.componentDEGRAD.saveAttrs[model.componentDEGRAD.saveCount] = model.componentDEGRAD.attrActualAGB..year  
-		model.componentDEGRAD.saveCount = model.componentDEGRAD.saveCount + 1
-		model.componentDEGRAD.saveAttrs[model.componentDEGRAD.saveCount] = model.componentDEGRAD.attrCountDegradYears..year   
+		for year = model.yearInit, model.yearFinal, 1 do                            
+			model.componentDEGRAD.saveCount = model.componentDEGRAD.saveCount + 1
+			model.componentDEGRAD.saveAttrs[model.componentDEGRAD.saveCount] = model.componentDEGRAD.attrActualAGB..year  
+			model.componentDEGRAD.saveCount = model.componentDEGRAD.saveCount + 1
+			model.componentDEGRAD.saveAttrs[model.componentDEGRAD.saveCount] = model.componentDEGRAD.attrCountDegradYears..year   
 		end	    
 	end
 
@@ -312,7 +318,13 @@ end
 -- @arg y A year value.
 -- @usage --DONTRUN
 -- componentDEGRAD_loadFromDB(model, cell_temp, cell, y)
-function componentDEGRAD_loadFromDB (model, cell_temp, cell, y)
+function componentDEGRAD_loadFromDB(model, cell_temp, cell, y)
+	y = string.sub(y, string.len(y) - 1)
+	
+	if cell_temp[model.componentDEGRAD.attrDegrad..y] ~= nil then
+		cell.degrad = cell_temp[model.componentDEGRAD.attrDegrad..y]
+	end
+	
 	if (cell_temp[model.componentDEGRAD.attrAGB_loss..y] ~= nil) then
 		cell.DEGRAD_AGB_loss = cell_temp[model.componentDEGRAD.attrAGB_loss..y]
 	end
@@ -351,7 +363,7 @@ end
 -- @arg model A INPE-EM Model.
 -- @usage --DONTRUN
 -- componentD_loadFromTable(model)
-function componentDEGRAD_loadFromTable (model, cell, step)
+function componentDEGRAD_loadFromTable(model, cell, step)
 	if (model.dataTable.AGB_loss ~= nil) then
 		if (#model.dataTable.AGB_loss < step) then
 			error ("Time required exceeds the input table size: AGB loss", 2) 
