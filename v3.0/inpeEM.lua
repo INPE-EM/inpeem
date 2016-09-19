@@ -58,8 +58,9 @@ end
 -- @usage --DONTRUN
 -- inpeEM_init(model)
 function inpeEM_init(model)
+	print("\nInitializing Model")
 	error_flag = false
-
+	
 	if (model.verbose == nil) then
 		model.verbose = false 
 	end
@@ -302,7 +303,7 @@ end
 function inpeEM_loadFromTable(year, model)
 	local step = year - model.yearInit + 1
 	local cell = model.cs.cells[1]
-
+	
 	if (year == model.yearInit) then
 		cell.D_AreaAcc = model.componentD.initialArea
 		model.D_result_acc = cell.D_AreaAcc 
