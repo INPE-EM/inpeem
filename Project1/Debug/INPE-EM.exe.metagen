@@ -1,0 +1,92 @@
+  INPEEM.AboutForm.resources - Embedded, ContainedInManifestFile, 
+  INPEEM.LanguageForm.resources - Embedded, ContainedInManifestFile, 
+  INPEEM.MyForm.resources - Embedded, ContainedInManifestFile, 
+  INPEEM.NovoModelo.resources - Embedded, ContainedInManifestFile, 
+ImageRuntimeVersion: v4.0.30319
+Assembly INPE-EM, Version=0.0.*, Culture=Invariant Language (Invariant Country): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Assembly System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Class INPEEM.AboutForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String lLanguage : Public
+Class INPEEM.LanguageForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String lLanguage : Public
+Class INPEEM.MyForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String lLanguage : Public
+Class INPEEM.NovoModelo: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(System.String, Boolean, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Boolean closing : Public
+    Boolean forceWriting : Public
+    Boolean runnable : Public
+    Boolean lOpen : Public
+    System.String lLanguage : Public
+    Int32 lReturn : Public
+Class cReturn: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String Return : Public
+    System.String Language : Public
+Class cReturnPCVINPE: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String Return : Public
+    Int32 YearsForSimulation : Public
+    Boolean Empty : Public
+    Boolean ActiveComponent : Public
+    System.String StartTime : Public
+    System.String LUT : Public
+    System.String Language : Public
+Class cReturnCITwoMP: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String Return : Public
+    Int32 FinalYear : Public
+    Boolean Empty : Public
+    Boolean ActiveComponent : Public
+    System.String LUT : Public
+    System.String Language : Public
+Class cReturnCIThreeMP: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String Return : Public
+    Int32 MiddleYear : Public
+    Int32 FinalYear : Public
+    Boolean Empty : Public
+    Boolean ActiveComponent : Public
+    System.String LUT : Public
+    System.String Language : Public
+Class cReturnPotential: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String Return : Public
+    System.String LUT : Public
+    Int32 Component : Public
+    System.String Language : Public
+Class cReturnAllocation: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String Return : Public
+    System.String LUT : Public
+    Int32 Component : Public
+    System.String Language : Public

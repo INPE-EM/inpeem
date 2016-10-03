@@ -1,0 +1,31 @@
+1. Ter instalado o Inno Setup Compiler (5.5.6 ou mais recente) - http://www.jrsoftware.org/isdl.php
+
+2. Abrir o arquivo de criação do instalador: \LuccME\branches\Project1\Project1\Resources\instalador.iss
+
+3. Corrigir os endereços para o seu repositorio em: 
+	[Setup]
+	LicenseFile, OutputDir, SetupIconFile
+	
+	[Files]
+	Source:, Source:
+	
+4. Verificar a versão em: AppVersion, OutputBaseFilename	
+	
+Para 32-bits
+	5. Copiar as dlls da pasta: \LuccME\branches\Project1\Project1\Resources\dll\x86 para \LuccME\branches\Project1\Release
+	
+Para 64-bits
+	5. Copiar as dlls da pasta: \LuccME\branches\Project1\Project1\Resources\dll\x64 para \LuccME\branches\Project1\Release	
+	
+
+6. 	Clicar em Build->Compiler (ou no icone com um papel, uma engrenagem e uma janela)
+
+7. Verfique o arquivo na pasta de saída, por padrao nao vem com x64 ou x86 no final, renomeie antes de gerar a outra versão
+	
+	
+OBSERVACOES
+1. Os arquivos utilizados no instalador serao os que estao em 	\LuccME\branches\Project1\Release
+
+2. Caso deseje alterar o LuccME, altere em \LuccME\branches\Project1\Release\TerraME\bin\Lua\luccme
+
+3. Os arquivos de ajuda sao copiados na compilacao do Visual Studio
