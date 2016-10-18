@@ -88,6 +88,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AboutForm.cpp" />
+    <ClCompile Include="ComponentBiomass.cpp" />
+    <ClCompile Include="ComponentDeforest.cpp" />
     <ClCompile Include="LanguageForm.cpp" />
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="NovoModelo.cpp" />
@@ -96,6 +98,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AboutForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="ComponentBiomass.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="ComponentDeforest.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Function.h" />
@@ -114,6 +122,12 @@
   <ItemGroup>
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ComponentBiomass.resx">
+      <DependentUpon>ComponentBiomass.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ComponentDeforest.resx">
+      <DependentUpon>ComponentDeforest.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LanguageForm.resx">
       <DependentUpon>LanguageForm.h</DependentUpon>

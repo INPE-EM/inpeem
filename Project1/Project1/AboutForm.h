@@ -168,10 +168,10 @@ namespace INPEEM {
 			this->linkLabel1->AutoSize = true;
 			this->linkLabel1->Location = System::Drawing::Point(236, 268);
 			this->linkLabel1->Name = L"linkLabel1";
-			this->linkLabel1->Size = System::Drawing::Size(140, 13);
+			this->linkLabel1->Size = System::Drawing::Size(138, 13);
 			this->linkLabel1->TabIndex = 22;
 			this->linkLabel1->TabStop = true;
-			this->linkLabel1->Text = L"http://impe-em.ccst.inpe.br/";
+			this->linkLabel1->Text = L"http://inpe-em.ccst.inpe.br/";
 			this->linkLabel1->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &AboutForm::linkLabel1_LinkClicked);
 			// 
 			// AboutForm

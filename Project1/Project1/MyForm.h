@@ -211,14 +211,14 @@ namespace INPEEM {
 			// 
 			this->luccMEToolStripMenuItem->Name = L"luccMEToolStripMenuItem";
 			this->luccMEToolStripMenuItem->ShortcutKeys = System::Windows::Forms::Keys::F1;
-			this->luccMEToolStripMenuItem->Size = System::Drawing::Size(135, 22);
-			this->luccMEToolStripMenuItem->Text = L"INPEEM";
+			this->luccMEToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->luccMEToolStripMenuItem->Text = L"INPE-EM";
 			this->luccMEToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::luccMEToolStripMenuItem_Click);
 			// 
 			// sobreToolStripMenuItem
 			// 
 			this->sobreToolStripMenuItem->Name = L"sobreToolStripMenuItem";
-			this->sobreToolStripMenuItem->Size = System::Drawing::Size(135, 22);
+			this->sobreToolStripMenuItem->Size = System::Drawing::Size(152, 22);
 			this->sobreToolStripMenuItem->Text = L"Sobre";
 			this->sobreToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::sobreToolStripMenuItem_Click);
 			// 
