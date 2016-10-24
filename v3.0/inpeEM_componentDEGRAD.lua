@@ -4,7 +4,6 @@
 -- @usage --DONTRUN
 -- componentDEGRAD_execute(year, model)
 function componentDEGRAD_execute(year, model)
-
 	if (model.verbose) then 
 		print(year, "Executing Degrad - mode:"..model.mode)
 	end
@@ -133,9 +132,9 @@ function componentDEGRAD_execute(year, model)
 			cell.AGBRegrowRate = cell.AGBRegrowRate * (1 - cell.D_Area / (model.cs.cellarea - cell.D_AreaAcc + cell.D_Area))
 		end
 
-		if (cell.AGBRegrowRate > 4) then 
-			print (year, cell.B_AGB, AGBupdated, cell.B_ActualAGB, rate, rate2, cell.AGBRegrowRate) 
-		end
+		--if (cell.AGBRegrowRate > 4) then 
+			--print (year, cell.B_AGB, AGBupdated, cell.B_ActualAGB, rate, rate2, cell.AGBRegrowRate) 
+		--end
 
 		model.DEGRAD_result[year].DEGRAD_Area = model.DEGRAD_result[year].DEGRAD_Area + cell.DEGRAD_Degrad
 

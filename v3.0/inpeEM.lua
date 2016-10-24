@@ -391,10 +391,6 @@ function inpeEM_loadFromDB(year, model)
 														end
 													end 
 
-													if (cell_temp[model.componentB.attrPercCarbon] ~= nil) then --XXXXXXXXXXXXXXXXXXXXXXXX
-														cell.B_PercCarbon = cell_temp[model.componentB.attrPercCarbon]
-													end 
-
 													if (cell_temp[model.componentB.attrFactorB_CO2] ~= nil) then
 														cell.B_FactorB_CO2 = cell_temp[model.componentB.attrFactorB_CO2]
 													end 
@@ -492,7 +488,7 @@ end
 -- @usage --DONTRUN
 -- component.componentD_verify(model)
 function inpeEM_printReport(model)
-	file = io.open(PROJECTDIR.."\\"..model.name.."_results.txt","w")
+	file = io.open(MODELDIR..model.name.."_results.txt","w")
 	print("\n________________________________________________________________________________________________________")
 	file:write("________________________________________________________________________________________________________\n")
 	print("\nINPE-EM TOTAL RESULTS")
