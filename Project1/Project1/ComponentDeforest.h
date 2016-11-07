@@ -1,4 +1,5 @@
 #pragma once
+#include "Function.h"
 
 namespace INPEEM {
 
@@ -49,8 +50,9 @@ namespace INPEEM {
 
 	private: System::Windows::Forms::TextBox^  tInitialArea;
 	private: System::Windows::Forms::Label^  lTotalNoData;
+	private: System::Windows::Forms::TextBox^  tTotalNoData;
 
-	private: System::Windows::Forms::TextBox^  textBox1;
+
 
 
 	private:
@@ -76,14 +78,14 @@ namespace INPEEM {
 			this->lInitialArea = (gcnew System::Windows::Forms::Label());
 			this->tInitialArea = (gcnew System::Windows::Forms::TextBox());
 			this->lTotalNoData = (gcnew System::Windows::Forms::Label());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->tTotalNoData = (gcnew System::Windows::Forms::TextBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbLogo1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// pbLogo1
 			// 
 			this->pbLogo1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pbLogo1.Image")));
-			this->pbLogo1->Location = System::Drawing::Point(57, 12);
+			this->pbLogo1->Location = System::Drawing::Point(71, 12);
 			this->pbLogo1->Name = L"pbLogo1";
 			this->pbLogo1->Size = System::Drawing::Size(367, 134);
 			this->pbLogo1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
@@ -104,7 +106,7 @@ namespace INPEEM {
 			// 
 			// bSalvar
 			// 
-			this->bSalvar->Location = System::Drawing::Point(203, 483);
+			this->bSalvar->Location = System::Drawing::Point(212, 500);
 			this->bSalvar->Name = L"bSalvar";
 			this->bSalvar->Size = System::Drawing::Size(75, 23);
 			this->bSalvar->TabIndex = 88;
@@ -178,15 +180,15 @@ namespace INPEEM {
 			this->lTotalNoData->Text = L"totalNoData";
 			this->lTotalNoData->TextAlign = System::Drawing::ContentAlignment::TopRight;
 			// 
-			// textBox1
+			// tTotalNoData
 			// 
-			this->textBox1->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->textBox1->Location = System::Drawing::Point(147, 349);
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(89, 20);
-			this->textBox1->TabIndex = 89;
-			this->textBox1->Text = L"130311562";
-			this->textBox1->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tTotalNoData->ForeColor = System::Drawing::SystemColors::ScrollBar;
+			this->tTotalNoData->Location = System::Drawing::Point(147, 349);
+			this->tTotalNoData->Name = L"tTotalNoData";
+			this->tTotalNoData->Size = System::Drawing::Size(89, 20);
+			this->tTotalNoData->TabIndex = 89;
+			this->tTotalNoData->Text = L"130311562";
+			this->tTotalNoData->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			// 
 			// ComponentDeforest
 			// 
@@ -194,7 +196,7 @@ namespace INPEEM {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(495, 535);
 			this->Controls->Add(this->tDescription);
-			this->Controls->Add(this->textBox1);
+			this->Controls->Add(this->tTotalNoData);
 			this->Controls->Add(this->tInitialArea);
 			this->Controls->Add(this->tName);
 			this->Controls->Add(this->lTotalNoData);

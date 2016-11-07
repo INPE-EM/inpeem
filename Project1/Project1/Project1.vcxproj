@@ -90,8 +90,12 @@
     <ClCompile Include="AboutForm.cpp" />
     <ClCompile Include="ComponentBiomass.cpp" />
     <ClCompile Include="ComponentDeforest.cpp" />
+    <ClCompile Include="ComponentDegradation.cpp" />
+    <ClCompile Include="ComponentSecondaryVegetation.cpp" />
+    <ClCompile Include="ComponentVegetationRemoval.cpp" />
     <ClCompile Include="LanguageForm.cpp" />
     <ClCompile Include="MyForm.cpp" />
+    <ClCompile Include="NonSpatialDataTableForm.cpp" />
     <ClCompile Include="NovoModelo.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="stdafx.cpp" />
@@ -106,11 +110,23 @@
     <ClInclude Include="ComponentDeforest.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="ComponentDegradation.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="ComponentSecondaryVegetation.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="ComponentVegetationRemoval.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Function.h" />
     <ClInclude Include="LanguageForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="MyForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="NonSpatialDataTableForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="NovoModelo.h">
@@ -129,12 +145,24 @@
     <EmbeddedResource Include="ComponentDeforest.resx">
       <DependentUpon>ComponentDeforest.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ComponentDegradation.resx">
+      <DependentUpon>ComponentDegradation.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ComponentSecondaryVegetation.resx">
+      <DependentUpon>ComponentSecondaryVegetation.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ComponentVegetationRemoval.resx">
+      <DependentUpon>ComponentVegetationRemoval.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LanguageForm.resx">
       <DependentUpon>LanguageForm.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MyForm.resx">
       <DependentUpon>MyForm.h</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NonSpatialDataTableForm.resx">
+      <DependentUpon>NonSpatialDataTableForm.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NovoModelo.resx">
       <DependentUpon>NovoModelo.h</DependentUpon>
