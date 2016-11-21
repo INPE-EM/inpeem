@@ -10,21 +10,41 @@ function componentDEGRAD_execute(year, model)
 
 	local sum_cell_loss = 0
 	local num_cell_loss = 0
-	
 	local cell_CO2_absorption_Degrad = 0
 	local cell_CO2_emission_Degrad = 0
-	
 	local cell_agb_degrad_regrow = 0
     local cell_bgb_degrad_regrow = 0
-	
 	local percForLost = 0
-	
 	local cell_agb_degrad = 0
 	local cell_bgb_degrad = 0
 	local cell_litter_degrad = 0
 	local cell_wood_degrad = 0
 	
+	local cell_all_decay = 0
+	local cell_all_fire = 0
+	local cell_CH4_all_fire = 0
+	local cell_CO2eq_CH4_all_fire = 0
+	local cell_N2O_all_fire = 0
+	local cell_CO2eq_N2O_all_fire = 0
+	local cell_CO_all_fire = 0
+	local cell_CO2eq_CO_all_fire = 0
+	local cell_NOx_all_fire = 0
+	local cell_CO2eq_NOx_all_fire = 0
+	
 	for k, cell in pairs( model.cs.cells ) do
+		cell_all_decay = 0
+		cell_all_fire = 0
+		cell_CO2_all_fire = 0
+		cell_CO2_all_decay = 0
+		cell_CO2_all_components = 0
+		cell_CH4_all_fire = 0
+		cell_CO2eq_CH4_all_fire = 0
+		cell_N2O_all_fire = 0
+		cell_CO2eq_N2O_all_fire = 0
+		cell_CO_all_fire = 0
+		cell_CO2eq_CO_all_fire = 0
+		cell_NOx_all_fire = 0
+		cell_CO2eq_NOx_all_fire = 0
 		if (year == model.yearInit) then 
 			cell.B_ActualAGB = cell.B_AGB
 			cell.B_ActualAGB = cell.B_AGB * cell.B_BGBPercAGB
@@ -67,17 +87,14 @@ function componentDEGRAD_execute(year, model)
 				cell.B_ActualAGB = cell.B_ActualAGB + cell.AGBRegrowRate				
 			end
 
-			AGBupdated = cell.B_ActualAGB
-			rate = cell.AGBRegrowRate
-
 			-- Carbon uptake according to the rate
 			cell_agb_degrad_regrow = cell.AGBRegrowRate * (model.cs.cellarea - cell.D_AreaAcc + cell.D_Area)
 			cell_bgb_degrad_regrow = cell.AGBRegrowRate * cell.B_BGBPercAGB *(model.cs.cellarea - cell.D_AreaAcc + cell.D_Area)
 
 
 			-- recompute growth if area was deforested for next step assume part of it was lost
-			percForLost = cell.D_Area/(model.cs.cellarea - cell.D_AreaAcc + cell.D_Area)
-			cell.AGBRegrowRate = cell.AGBRegrowRate*(1-percForLost)
+			percForLost = cell.D_Area / (model.cs.cellarea - cell.D_AreaAcc + cell.D_Area)
+			cell.AGBRegrowRate = cell.AGBRegrowRate * (1 - percForLost)
 
 			-- Absorption in the cell
 			cell_CO2_absorption_Degrad = (cell_agb_degrad_regrow + cell_bgb_degrad_regrow) * cell.B_FactorB_CO2  
@@ -105,7 +122,27 @@ function componentDEGRAD_execute(year, model)
 			cell_wood_degrad = cell.B_ActualAGB * cell.DEGRAD_Degrad * cell.DEGRAD_DeadWood_loss * cell.B_DeadWoodPercAGB
 
 			-- Emissão decorrente da degradação
-			cell_CO2_emission_Degrad = (cell_agb_degrad + cell_bgb_degrad + cell_litter_degrad + cell_wood_degrad) * cell.B_FactorB_CO2_fire  
+            cell_all_fire = cell_agb_degrad + cell_bgb_degrad + cell_litter_degrad + cell_wood_degrad
+            
+			-- CO2 EMISSIONS
+			cell_CO2_emission_Degrad = cell_all_fire * cell.B_FactorB_CO2_fire  
+            
+            -- CH4 EMISSIONS - fire components
+            cell_CH4_all_fire = cell_all_fire * cell.B_FactorB_CH4_fire
+            cell_CO2eq_CH4_all_fire = cell_CH4_all_fire * gwp_CH4
+
+            -- N2O EMISSIONS - fire components
+            cell_N2O_all_fire = cell_all_fire * cell.B_FactorB_N2O_fire
+            cell_CO2eq_N2O_all_fire = cell_N2O_all_fire * gwp_N2O
+
+            -- CO EMISSIONS - fire components
+            cell_CO_all_fire = cell_all_fire * cell.B_FactorB_CO_fire
+            cell_CO2eq_CO_all_fire = cell_CO_all_fire * gwp_CO
+
+            -- NOx EMISSIONS - fire components
+            cell_NOx_all_fire = cell_all_fire * cell.B_FactorB_NOx_fire
+            cell_CO2eq_NOx_all_fire = cell_NOx_all_fire * gwp_NOx
+            
 			
 			-- Atualização da biomassa média 
 			if ((model.cs.cellarea - cell.D_AreaAcc + cell.D_Area) ~= 0) then
@@ -125,17 +162,23 @@ function componentDEGRAD_execute(year, model)
 			end
 		end   -- only if there was degration, otherwise emission is zero
 
-		local rate2 = cell.AGBRegrowRate
-
 		-- Correct Rate in case there is also deforestation in this step: for the next step regrow...  
 		if (model.cs.cellarea - cell.D_AreaAcc + cell.D_Area > 0) then
 			cell.AGBRegrowRate = cell.AGBRegrowRate * (1 - cell.D_Area / (model.cs.cellarea - cell.D_AreaAcc + cell.D_Area))
 		end
 
-		--if (cell.AGBRegrowRate > 4) then 
-			--print (year, cell.B_AGB, AGBupdated, cell.B_ActualAGB, rate, rate2, cell.AGBRegrowRate) 
-		--end
-
+		if (model.save == true) then 
+			cell[model.componentDEGRAD.attrActualAGB..year] = cell.B_ActualAGB  
+			cell[model.componentDEGRAD.attrCountDegradYears..year] = cell.countDegradYears  
+            
+            
+            cell[model.componentDEGRAD.attrCO2..year] = cell_CO2_emission_Degrad / 1000000    -- DIEGO - precisa acrescentar essas saidas no component degrad
+            cell[model.componentDEGRAD.attrCH4..year] = cell_CH4_all_fire / 1000000
+			cell[model.componentDEGRAD.attrN2O..year] = cell_N2O_all_fire / 1000000
+			cell[model.componentDEGRAD.attrCO..year] = cell_CO_all_fire / 1000000
+			cell[model.componentDEGRAD.attrNOx..year] = cell_NOx_all_fire / 1000000 
+		end 
+		
 		model.DEGRAD_result[year].DEGRAD_Area = model.DEGRAD_result[year].DEGRAD_Area + cell.DEGRAD_Degrad
 
 		-- Aggregating results at the regional level (summing cells)
@@ -146,12 +189,11 @@ function componentDEGRAD_execute(year, model)
 		if (cell.countDegradYears >=  cell.DEGRAD_LimiarDegradYears and cell.DegradLoss >= cell.DEGRAD_LimiarDegradLoss) then
 			model.DEGRAD_result[year].DEGRAD_CO2_emission_aboveDegradLimiar = model.DEGRAD_result[year].DEGRAD_CO2_emission_aboveDegradLimiar + cell_CO2_emission_Degrad
 			model.DEGRAD_result[year].DEGRAD_CO2_absorption_aboveDegradLimiar = model.DEGRAD_result[year].DEGRAD_CO2_absorption_aboveDegradLimiar + cell_CO2_absorption_Degrad 
+            model.DEGRAD_result[year].DEGRAD_CH4_CO2Eq_2ndOrder_fire = model.DEGRAD_result[year].DEGRAD_CH4_CO2Eq_2ndOrder_fire + cell_CO2eq_CH4_all_fire      
+            model.DEGRAD_result[year].DEGRAD_N2O_CO2Eq_2ndOrder_fire = model.DEGRAD_result[year].DEGRAD_N2O_CO2Eq_2ndOrder_fire + cell_CO2eq_N2O_all_fire
+            model.DEGRAD_result[year].DEGRAD_CO_CO2Eq_2ndOrder_fire = model.DEGRAD_result[year].DEGRAD_CO_CO2Eq_2ndOrder_fire + cell_CO2eq_CO_all_fire
+            model.DEGRAD_result[year].DEGRAD_NOx_CO2Eq_2ndOrder_fire = model.DEGRAD_result[year].DEGRAD_NOx_CO2Eq_2ndOrder_fire + cell_CO2eq_NOx_all_fire
 		end
-
-		if (model.save == true) then 
-			cell[model.componentDEGRAD.attrActualAGB..year] = cell.B_ActualAGB  
-			cell[model.componentDEGRAD.attrCountDegradYears..year] = cell.countDegradYears  
-		end 
 	end
 
 	if (num_cell_loss > 0) then 
@@ -192,6 +234,12 @@ function componentDEGRAD_init(model)
 
 	model.componentDEGRAD.attrActualAGB = "AGB_"
 	model.componentDEGRAD.attrCountDegradYears = "Count_"
+	
+	model.componentDEGRAD.attrCO2 = "CO2"
+	model.componentDEGRAD.attrCH4 = "CH4"
+	model.componentDEGRAD.attrN2O = "N2O"
+	model.componentDEGRAD.attrCO = "CO"
+	model.componentDEGRAD.attrNOx = "NOx"
 
 	if (model.save == true) then 
 		for year = model.yearInit, model.yearFinal, 1 do                            
@@ -199,6 +247,16 @@ function componentDEGRAD_init(model)
 			model.componentDEGRAD.saveAttrs[model.componentDEGRAD.saveCount] = model.componentDEGRAD.attrActualAGB..year  
 			model.componentDEGRAD.saveCount = model.componentDEGRAD.saveCount + 1
 			model.componentDEGRAD.saveAttrs[model.componentDEGRAD.saveCount] = model.componentDEGRAD.attrCountDegradYears..year   
+            model.componentDEGRAD.saveCount = model.componentDEGRAD.saveCount + 1
+			model.componentDEGRAD.saveAttrs[model.componentDEGRAD.saveCount] = model.componentDEGRAD.attrCO2..year
+            model.componentDEGRAD.saveCount = model.componentDEGRAD.saveCount + 1
+			model.componentDEGRAD.saveAttrs[model.componentDEGRAD.saveCount] = model.componentDEGRAD.attrCH4..year
+			model.componentDEGRAD.saveCount = model.componentDEGRAD.saveCount + 1
+			model.componentDEGRAD.saveAttrs[model.componentDEGRAD.saveCount] = model.componentDEGRAD.attrN2O..year
+			model.componentDEGRAD.saveCount = model.componentDEGRAD.saveCount + 1
+			model.componentDEGRAD.saveAttrs[model.componentDEGRAD.saveCount] = model.componentDEGRAD.attrCO..year
+			model.componentDEGRAD.saveCount = model.componentDEGRAD.saveCount + 1
+			model.componentDEGRAD.saveAttrs[model.componentDEGRAD.saveCount] = model.componentDEGRAD.attrNOx..year
 		end	    
 	end
 
@@ -226,7 +284,7 @@ function componentDEGRAD_init(model)
 
 							cell.countDegradYears = 0
 
-							componentDEGRAD_initCellAverComponentValues (cell, model)
+							componentDEGRAD_initCellAverComponentValues(cell, model)
 						end
 				)
 
@@ -243,7 +301,6 @@ function componentDEGRAD_initCellAttrNames(model)
 	model.componentDEGRAD.attrBGB_loss = model.componentDEGRAD.name.."_loss2"
 	model.componentDEGRAD.attrDeadWood_loss = model.componentDEGRAD.name.."_loss3"
 	model.componentDEGRAD.attrLitter_loss = model.componentDEGRAD.name.."_loss4"
-
 	model.componentDEGRAD.attrPeriodRegrow = model.componentDEGRAD.name.."_pr"	
 	model.componentDEGRAD.attrLimiarDegradYears = model.componentDEGRAD.name.."_lim1"	
 	model.componentDEGRAD.attrLimiarDegradLoss = model.componentDEGRAD.name.."_lim2"	

@@ -1,26 +1,13 @@
------------------------------------------------------
------------------------ EMISSION FACTORS
------------------------------------------------------
--- Global Warming Potential(GWP)(source: 2nd Brazil's National COmmunication to UNFCCC, Table 2.8)
--- local gwp_CO2 = 1.0
--- local gwp_CH4 = 21.0
--- local gwp_N2O = 310.0
--- local gwp_NOx = 0.0
--- local gwp_CO = 0.0
-
--- Global Warming Potential(GWP)(without carbon feedback - source: IPCC AR5 2013 - cap 8, p 713)
-local gwp_CH4 = 28.0
-local gwp_N2O = 265.0
-local gwp_NOx = 0.0
-local gwp_CO = 0.0
-local E = 2.718
-
 -- Handles with the Vegetation Removal component execution.
 -- @arg year A year for simulation.
 -- @arg model A INPE-EM Model.
 -- @usage --DONTRUN
 -- componentVR_execute(year, model)
 function componentVR_execute(year, model)
+	if (model.verbose) then
+		print(year, "Executing VR - mode:"..model.mode) 
+	end
+	
 	-- Attributes where the future emissions will be stored using the computeFutureSlashDecompositionFire and computeFutureDecomposition functions
 	local attr_agb_slash = model.componentVR.attr_agb_slash 
 	local attr_agb_slash_fire = model.componentVR.attr_agb_slash_fire 
@@ -65,10 +52,23 @@ function componentVR_execute(year, model)
 	local cell_agb_wood = 0
 	local cell_bgb_under = 0
 	local cell_elemental = 0	
-
-	if (model.verbose) then
-		print(year, "Executing VR - mode:"..model.mode) 
-	end
+	
+	local cell_dead_lost_1stOrder = 0
+	local cell_litter_lost_1stOrder = 0
+	local cell_CO2_lost_1stOrder = 0
+	local cell_all_decay = 0
+	local cell_all_fire = 0
+	local cell_CO2_all_fire = 0
+	local cell_CO2_all_decay = 0
+	local cell_CO2_all_components = 0
+	local cell_CH4_all_fire = 0
+	local cell_CO2eq_CH4_all_fire = 0
+	local cell_N2O_all_fire = 0
+	local cell_CO2eq_N2O_all_fire = 0
+	local cell_CO_all_fire = 0
+	local cell_CO2eq_CO_all_fire = 0
+	local cell_NOx_all_fire = 0
+	local cell_CO2eq_NOx_all_fire = 0
 	
 	for k, cell in pairs (model.cs.cells) do
 		-- check
@@ -90,6 +90,23 @@ function componentVR_execute(year, model)
 		cell_agb_wood = 0
 		cell_bgb_under = 0
 		cell_elemental = 0	
+		
+		cell_dead_lost_1stOrder = 0
+		cell_litter_lost_1stOrder = 0
+		cell_CO2_lost_1stOrder = 0
+		cell_all_decay = 0
+		cell_all_fire = 0
+		cell_CO2_all_fire = 0
+		cell_CO2_all_decay = 0
+		cell_CO2_all_components = 0
+		cell_CH4_all_fire = 0
+		cell_CO2eq_CH4_all_fire = 0
+		cell_N2O_all_fire = 0
+		cell_CO2eq_N2O_all_fire = 0
+		cell_CO_all_fire = 0
+		cell_CO2eq_CO_all_fire = 0
+		cell_NOx_all_fire = 0
+		cell_CO2eq_NOx_all_fire = 0
 
 		if (cell.D_Area > 0) then
 			cell_agb_disturbed = cell.D_Area * cell.B_AGB
@@ -183,7 +200,7 @@ function componentVR_execute(year, model)
 			cell[model.componentVR.attrNOx..year] = cell_NOx_all_fire / 1000000 
 			cell[model.componentVR.attrActualAGB..year] = cell.actualAGB 
 		end 
-
+			
 		-- Aggregating results at the regional level(summing cells)
 		model.VR_result[year].VR_CO2_1stOrder = model.VR_result[year].VR_CO2_1stOrder + cell_CO2_lost_1stOrder
 		model.VR_result[year].VR_CO2_2ndOrder = model.VR_result[year].VR_CO2_2ndOrder + cell_CO2_all_fire + cell_CO2_all_decay

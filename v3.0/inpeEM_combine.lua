@@ -203,7 +203,6 @@ function inpeEM_combineResultsNET(model_ns, model_s)
 	return net_result
 end
 
-
 -- Handles with the Disturbance for combine model.
 -- @arg model_ns A non-spatial INPE-EM model.
 -- @arg model_s A spatial INPE-EM model.

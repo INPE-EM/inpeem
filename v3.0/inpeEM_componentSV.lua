@@ -1,5 +1,3 @@
-local E = 2.718
-
 -- Handles with the Secondary Vegetation component execution.
 -- @arg year A year for simulation.
 -- @arg model A INPE-EM Model.
