@@ -8,9 +8,9 @@ function componentSV_execute(year, model)
 		print(year, "Executing SV - mode:"..model.mode) 
 	end
 
-	flagPrintAreaPercVegSec = true 	
-	flagPrintAreaAccPercVegSec = true
-	flagPrintHalfLife = true 		
+	local flagPrintAreaPercVegSec = true 	
+	local flagPrintAreaAccPercVegSec = true
+	local flagPrintHalfLife = true 		
 
 	-- declare cell attributes for the current year
 	local cs = model.cs 
@@ -20,7 +20,6 @@ function componentSV_execute(year, model)
 	local attr_rate_regrowth = model.componentSV.attr_rate_regrowth..year
 	local attr_area_regrowth = model.componentSV.attr_area_regrowth..year
 	local attr_biomass_regrowth	= model.componentSV.attr_biomass_regrowth..year
-	
 	local regrow_area = 0
 	local regrow_area_biomass = 0
 	local period1_acc_biomass = 0
@@ -29,7 +28,7 @@ function componentSV_execute(year, model)
 	local period2_rate_acc_biomass = 0
 	local area_sf = 0
 
-	for i, cell in pairs( model.cs.cells) do
+	for i, cell in pairs (model.cs.cells) do
 		-- STEP 1: compute how much secondary vegetation starts to grow following after current year's PF and SF deforestation 
 		regrow_area = cell.SV_AreaPercVegSec * cell.D_Area + cell.rel_area_cleared * cell.SV_AreaPercVegSec + cell.SV_AreaAccPercVegSec * cell.D_AreaAcc
 		regrow_area_biomass = regrow_area * cell.B_AGB + regrow_area * cell.B_AGB * cell.B_BGBPercAGB 
@@ -131,8 +130,6 @@ function componentSV_computePastRegrow(cell, year, model)
 		cell.area_growing = cell.area_growing + cell[attr_area_regrowth] 
 
 		cell[attr_biomass_regrowth] = cell[attr_biomass_regrowth] + cell[attr_rate_regrowth]
-
-
 
 		if (cell[attr_area_regrowth] > 0) then
 			area_cleared = computeAreaExpDecay(cell[attr_initial_area], halfLife[y], year - y - cell.SV_AgriculturalUseCycle - cell.SV_InitialAbandonmentCycle)

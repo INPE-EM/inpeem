@@ -19,7 +19,6 @@ function componentDEGRAD_execute(year, model)
 	local cell_bgb_degrad = 0
 	local cell_litter_degrad = 0
 	local cell_wood_degrad = 0
-	
 	local cell_all_decay = 0
 	local cell_all_fire = 0
 	local cell_CH4_all_fire = 0
@@ -31,7 +30,7 @@ function componentDEGRAD_execute(year, model)
 	local cell_NOx_all_fire = 0
 	local cell_CO2eq_NOx_all_fire = 0
 	
-	for k, cell in pairs( model.cs.cells ) do
+	for k, cell in pairs (model.cs.cells) do
 		cell_all_decay = 0
 		cell_all_fire = 0
 		cell_CO2_all_fire = 0
@@ -45,6 +44,7 @@ function componentDEGRAD_execute(year, model)
 		cell_CO2eq_CO_all_fire = 0
 		cell_NOx_all_fire = 0
 		cell_CO2eq_NOx_all_fire = 0
+		
 		if (year == model.yearInit) then 
 			cell.B_ActualAGB = cell.B_AGB
 			cell.B_ActualAGB = cell.B_AGB * cell.B_BGBPercAGB

@@ -158,7 +158,11 @@ function inpeEM_combineResultsDEGRAD(model_ns, model_s)
 								DEGRAD_CO2_emission_aboveDegradLimiar = model_ns.DEGRAD_result[y].DEGRAD_CO2_emission_aboveDegradLimiar,
 								DEGRAD_CO2_absorption_aboveDegradLimiar = model_ns.DEGRAD_result[y].DEGRAD_CO2_absorption_aboveDegradLimiar,
 								DEGRAD_CO2_BALANCE = model_ns.DEGRAD_result[y].DEGRAD_CO2_BALANCE,
-								DEGRAD_CO2_BALANCE2 = model_ns.DEGRAD_result[y].DEGRAD_CO2_BALANCE2
+								DEGRAD_CO2_BALANCE2 = model_ns.DEGRAD_result[y].DEGRAD_CO2_BALANCE2,
+								DEGRAD_CH4_CO2Eq_2ndOrder_fire = model_ns.DEGRAD_result[y].DEGRAD_CH4_CO2Eq_2ndOrder_fire,
+								DEGRAD_N2O_CO2Eq_2ndOrder_fire = model_ns.DEGRAD_result[y].DEGRAD_N2O_CO2Eq_2ndOrder_fire,
+								DEGRAD_CO_CO2Eq_2ndOrder_fire = model_ns.DEGRAD_result[y].DEGRAD_CO_CO2Eq_2ndOrder_fire,
+								DEGRAD_NOx_CO2Eq_2ndOrder_fire = model_ns.DEGRAD_result[y].DEGRAD_NOx_CO2Eq_2ndOrder_fire
 							}
 	end
     
@@ -166,12 +170,16 @@ function inpeEM_combineResultsDEGRAD(model_ns, model_s)
 		DEGRAD_result[y] = {
 								DEGRAD_Area = model_s.DEGRAD_result[y].DEGRAD_Area,
 								DEGRAD_AveLoss = model_s.DEGRAD_result[y].DEGRAD_AveLoss,
-								DEGRAD_CO2_emission = model_s.DEGRAD_result[y].DEGRAD_CO2_emission,
-								DEGRAD_CO2_absorption = model_s.DEGRAD_result[y].DEGRAD_CO2_absorption,
-								DEGRAD_CO2_emission_aboveDegradLimiar = model_s.DEGRAD_result[y].DEGRAD_CO2_emission_aboveDegradLimiar,
-								DEGRAD_CO2_absorption_aboveDegradLimiar = model_s.DEGRAD_result[y].DEGRAD_CO2_absorption_aboveDegradLimiar,
-								DEGRAD_CO2_BALANCE = model_s.DEGRAD_result[y].DEGRAD_CO2_BALANCE,
-								DEGRAD_CO2_BALANCE2 = model_s.DEGRAD_result[y].DEGRAD_CO2_BALANCE2 
+								DEGRAD_CO2_emission = model_ns.DEGRAD_result[y].DEGRAD_CO2_emission + model_s.DEGRAD_result[y].DEGRAD_CO2_emission,
+								DEGRAD_CO2_absorption = model_ns.DEGRAD_result[y].DEGRAD_CO2_absorption + model_s.DEGRAD_result[y].DEGRAD_CO2_absorption,
+								DEGRAD_CO2_emission_aboveDegradLimiar = model_ns.DEGRAD_result[y].DEGRAD_CO2_emission_aboveDegradLimiar + model_s.DEGRAD_result[y].DEGRAD_CO2_emission_aboveDegradLimiar,
+								DEGRAD_CO2_absorption_aboveDegradLimiar = model_ns.DEGRAD_result[y].DEGRAD_CO2_absorption_aboveDegradLimiar + model_s.DEGRAD_result[y].DEGRAD_CO2_absorption_aboveDegradLimiar,
+								DEGRAD_CO2_BALANCE = model_ns.DEGRAD_result[y].DEGRAD_CO2_BALANCE + model_s.DEGRAD_result[y].DEGRAD_CO2_BALANCE,
+								DEGRAD_CO2_BALANCE2 = model_ns.DEGRAD_result[y].DEGRAD_CO2_BALANCE2 + model_s.DEGRAD_result[y].DEGRAD_CO2_BALANCE2, 
+								DEGRAD_CH4_CO2Eq_2ndOrder_fire = model_ns.DEGRAD_result[y].DEGRAD_CH4_CO2Eq_2ndOrder_fire + model_s.DEGRAD_result[y].DEGRAD_CH4_CO2Eq_2ndOrder_fire,
+								DEGRAD_N2O_CO2Eq_2ndOrder_fire = model_ns.DEGRAD_result[y].DEGRAD_N2O_CO2Eq_2ndOrder_fire + model_s.DEGRAD_result[y].DEGRAD_N2O_CO2Eq_2ndOrder_fire,
+								DEGRAD_CO_CO2Eq_2ndOrder_fire = model_ns.DEGRAD_result[y].DEGRAD_CO_CO2Eq_2ndOrder_fire + model_s.DEGRAD_result[y].DEGRAD_CO_CO2Eq_2ndOrder_fire,
+								DEGRAD_NOx_CO2Eq_2ndOrder_fire = model_ns.DEGRAD_result[y].DEGRAD_NOx_CO2Eq_2ndOrder_fire + model_s.DEGRAD_result[y].DEGRAD_NOx_CO2Eq_2ndOrder_fire
 							}
 	end
 
