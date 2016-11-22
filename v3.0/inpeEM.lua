@@ -637,44 +637,44 @@ function inpeEM_printReport(model)
 
 		-- Only VR
 		if (model.VR_flag == true and model.SV_flag == false and model.DEGRAD_flag == false) then
-			print(y, a, b, "-", y, c, d, e, f, g, h)
-			file:write("\n"..y.."\t"..a.."\t"..b.."\t-\t"..y.."\t"..c.."\t"..d.."\t"..e.."\t"..f.."\t"..g.."\t"..h)
+			print(y, a, b, "-", c, d, e, f, g, h)
+			file:write("\n"..y.."\t"..a.."\t"..b.."\t-\t \t"..c.."\t"..d.."\t"..e.."\t"..f.."\t"..g.."\t"..h)
 		end
 		
 		-- Only SV
 		if (model.VR_flag == false and model.SV_flag == true and model.DEGRAD_flag == false) then
-			print(y, a, b, "-", y, k1, k,l, m)
-			file:write("\n"..y.."\t"..a.."\t"..b.."\t-\t"..y.."\t"..k1.."\t"..k.."\t"..l.."\t"..m)
+			print(y, a, b, "-", k1, k,l, m)
+			file:write("\n"..y.."\t"..a.."\t"..b.."\t-\t \t"..k1.."\t"..k.."\t"..l.."\t"..m)
 		end
 		
 		-- Only Degrad
 		if (model.VR_flag == false and model.SV_flag == false and model.DEGRAD_flag == true) then
-			print(y, a, b, "-", y, p, q, s, t, u, u2)
-			file:write("\n"..y.."\t"..a.."\t"..b.."\t-\t"..y.."\t"..p.."\t"..q.."\t"..s.."\t"..t.."\t"..u.."\t"..u2)
+			print(y, a, b, "-", p, q, s, t, u, u2)
+			file:write("\n"..y.."\t"..a.."\t"..b.."\t-\t \t"..p.."\t"..q.."\t"..s.."\t"..t.."\t"..u.."\t"..u2)
 		end		
 		
 		-- VR + SV
 		if (model.VR_flag == true and model.SV_flag == true and model.DEGRAD_flag == false) then
-			print(y, a, b, "-", y, c, d, e, f, g, h, k1, k, l, m, o)
-			file:write("\n"..y.."\t"..a.."\t"..b.."\t-\t"..y.."\t"..c.."\t"..d.."\t"..e.."\t"..f.."\t"..g.."\t"..h.."\t"..k1.."\t"..k.."\t"..l.."\t"..m.."\t"..o)
+			print(y, a, b, "-", c, d, e, f, g, h, k1, k, l, m, o)
+			file:write("\n"..y.."\t"..a.."\t"..b.."\t-\t \t"..c.."\t"..d.."\t"..e.."\t"..f.."\t"..g.."\t"..h.."\t"..k1.."\t"..k.."\t"..l.."\t"..m.."\t"..o)
 		end  
 
 		-- VR + Degrad
 		if (model.VR_flag == true and model.SV_flag == false and model.DEGRAD_flag == true) then
-			print(y, b, a, b1, "-", y, c, d, "-", y, p, q, s, t, u2, "-", r, o)  
-			file:write("\n"..y.."\t"..b.."\t"..a.."\t"..b1.."\t-\t"..y.."\t"..c.."\t"..d.."\t-\t"..y.."\t"..p.."\t"..q.."\t"..s.."\t"..t.."\t"..u2.."\t-\t"..r.."\t"..o)
+			print(y, b, a, b1, "-", c, d, "-", p, q, s, t, u2, "-", r, o)  
+			file:write("\n"..y.."\t"..b.."\t"..a.."\t"..b1.."\t-\t \t"..c.."\t"..d.."\t-\t \t"..p.."\t"..q.."\t"..s.."\t"..t.."\t"..u2.."\t-\t"..r.."\t"..o)
 		end			
 		
 		-- SV + Degrad
 		if (model.VR_flag and model.SV_flag and model.DEGRAD_flag) then
-			print(y, b, a, b1, "-", y, l, m, "-", y, p, q, s, t, u2, "-", r, o)  
-			file:write("\n"..y.."\t"..b.."\t"..a.."\t"..b1.."\t-\t"..y.."\t"..l.."\t"..m.."\t-\t"..y.."\t"..p.."\t"..q.."\t"..s.."\t"..t.."\t"..u2.."\t-\t"..r.."\t"..o)
+			print(y, b, a, b1, "-", l, m, "-", p, q, s, t, u2, "-", r, o)  
+			file:write("\n"..y.."\t"..b.."\t"..a.."\t"..b1.."\t-\t \t"..l.."\t"..m.."\t-\t \t"..p.."\t"..q.."\t"..s.."\t"..t.."\t"..u2.."\t-\t"..r.."\t"..o)
 		end	
 		
 		-- VR + SV + Degrad
 		if (model.VR_flag and model.SV_flag and model.DEGRAD_flag) then
-			print(y, b, a, b1, "-", y, c, d, l, m, "-", y, p, q, s, t, u2, "-", r, o)  
-			file:write("\n"..y.."\t"..b.."\t"..a.."\t"..b1.."\t-\t"..y.."\t"..c.."\t"..d.."\t"..l.."\t"..m.."\t-\t"..y.."\t"..p.."\t"..q.."\t"..s.."\t"..t.."\t"..u2.."\t-\t"..r.."\t"..o)
+			print(y, b, a, b1, "-", c, d, l, m, "-", p, q, s, t, u2, "-", r, o)  
+			file:write("\n"..y.."\t"..b.."\t"..a.."\t"..b1.."\t-\t \t"..c.."\t"..d.."\t"..l.."\t"..m.."\t-\t \t"..p.."\t"..q.."\t"..s.."\t"..t.."\t"..u2.."\t-\t"..r.."\t"..o)
 		end		
 		
 		io.flush()

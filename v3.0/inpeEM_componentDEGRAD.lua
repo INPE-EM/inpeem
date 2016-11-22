@@ -172,7 +172,7 @@ function componentDEGRAD_execute(year, model)
 			cell[model.componentDEGRAD.attrCountDegradYears..year] = cell.countDegradYears  
             
             
-            cell[model.componentDEGRAD.attrCO2..year] = cell_CO2_emission_Degrad / 1000000    -- DIEGO - precisa acrescentar essas saidas no component degrad
+            cell[model.componentDEGRAD.attrCO2..year] = cell_CO2_emission_Degrad / 1000000
             cell[model.componentDEGRAD.attrCH4..year] = cell_CH4_all_fire / 1000000
 			cell[model.componentDEGRAD.attrN2O..year] = cell_N2O_all_fire / 1000000
 			cell[model.componentDEGRAD.attrCO..year] = cell_CO_all_fire / 1000000
