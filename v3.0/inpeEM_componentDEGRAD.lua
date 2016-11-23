@@ -232,14 +232,14 @@ function componentDEGRAD_init(model)
 	model.componentDEGRAD.saveAttrs = {}
 	model.componentDEGRAD.saveCount = 0
 
-	model.componentDEGRAD.attrActualAGB = "AGB_"
+	model.componentDEGRAD.attrActualAGB = "dAGB_"
 	model.componentDEGRAD.attrCountDegradYears = "Count_"
 	
-	model.componentDEGRAD.attrCO2 = "CO2"
-	model.componentDEGRAD.attrCH4 = "CH4"
-	model.componentDEGRAD.attrN2O = "N2O"
-	model.componentDEGRAD.attrCO = "CO"
-	model.componentDEGRAD.attrNOx = "NOx"
+	model.componentDEGRAD.attrCO2 = "dCO2_"
+	model.componentDEGRAD.attrCH4 = "dCH4_"
+	model.componentDEGRAD.attrN2O = "dN2O_"
+	model.componentDEGRAD.attrCO = "dCO_"
+	model.componentDEGRAD.attrNOx = "dNOx_"
 
 	if (model.save == true) then 
 		for year = model.yearInit, model.yearFinal, 1 do                            

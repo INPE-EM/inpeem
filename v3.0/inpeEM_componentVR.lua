@@ -348,13 +348,13 @@ function componentVR_init(model)
 	model.componentVR.saveAttrs = {}
 	model.componentVR.saveCount = 0
 
-	model.componentVR.attrCO2 = "CO2"
-	model.componentVR.attrCO2fire = "CO2f"
-	model.componentVR.attrCH4 = "CH4"
-	model.componentVR.attrN2O = "N2O"
-	model.componentVR.attrCO = "CO"
-	model.componentVR.attrNOx = "NOx"
-	model.componentVR.attrActualAGB = "AGB"
+	model.componentVR.attrCO2 = "vCO2_"
+	model.componentVR.attrCO2fire = "vCO2f_"
+	model.componentVR.attrCH4 = "vCH4_"
+	model.componentVR.attrN2O = "vN2O_"
+	model.componentVR.attrCO = "vCO_"
+	model.componentVR.attrNOx = "vNOx_"
+	model.componentVR.attrActualAGB = "vAGB_"
 
 	if (model.save == true) then 
 		for year = model.yearInit, model.yearFinal, 1 do 
