@@ -211,14 +211,14 @@ namespace INPEEM {
 			// 
 			this->luccMEToolStripMenuItem->Name = L"luccMEToolStripMenuItem";
 			this->luccMEToolStripMenuItem->ShortcutKeys = System::Windows::Forms::Keys::F1;
-			this->luccMEToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->luccMEToolStripMenuItem->Size = System::Drawing::Size(140, 22);
 			this->luccMEToolStripMenuItem->Text = L"INPE-EM";
 			this->luccMEToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::luccMEToolStripMenuItem_Click);
 			// 
 			// sobreToolStripMenuItem
 			// 
 			this->sobreToolStripMenuItem->Name = L"sobreToolStripMenuItem";
-			this->sobreToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->sobreToolStripMenuItem->Size = System::Drawing::Size(140, 22);
 			this->sobreToolStripMenuItem->Text = L"Sobre";
 			this->sobreToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::sobreToolStripMenuItem_Click);
 			// 
@@ -235,7 +235,6 @@ namespace INPEEM {
 			this->Controls->Add(this->pbLogo1);
 			this->Controls->Add(this->pbLogo2);
 			this->HelpButton = true;
-			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"MyForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Gerenciador de Modelos";

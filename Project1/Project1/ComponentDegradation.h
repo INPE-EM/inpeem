@@ -132,6 +132,7 @@ namespace INPEEM {
 			this->tAverLimiarDegradLoss->TabIndex = 162;
 			this->tAverLimiarDegradLoss->Text = L"0.01";
 			this->tAverLimiarDegradLoss->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverLimiarDegradLoss->Enter += gcnew System::EventHandler(this, &ComponentDegradation::textBox_Enter);
 			// 
 			// lAverLimiarDegradLoss
 			// 
@@ -154,6 +155,7 @@ namespace INPEEM {
 			this->tAverLimiarDegradYears->TabIndex = 160;
 			this->tAverLimiarDegradYears->Text = L"1";
 			this->tAverLimiarDegradYears->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverLimiarDegradYears->Enter += gcnew System::EventHandler(this, &ComponentDegradation::textBox_Enter);
 			// 
 			// lAverLimiarDegradYears
 			// 
@@ -176,6 +178,7 @@ namespace INPEEM {
 			this->tAverAGB_percReduction->TabIndex = 158;
 			this->tAverAGB_percReduction->Text = L"0.034";
 			this->tAverAGB_percReduction->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverAGB_percReduction->Enter += gcnew System::EventHandler(this, &ComponentDegradation::textBox_Enter);
 			// 
 			// lAverAGB_percReduction
 			// 
@@ -198,6 +201,7 @@ namespace INPEEM {
 			this->tAverPeriodRegrow->TabIndex = 156;
 			this->tAverPeriodRegrow->Text = L"50";
 			this->tAverPeriodRegrow->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverPeriodRegrow->Enter += gcnew System::EventHandler(this, &ComponentDegradation::textBox_Enter);
 			// 
 			// lAverPeriodRegrow
 			// 
@@ -219,6 +223,7 @@ namespace INPEEM {
 			this->tDescription->Size = System::Drawing::Size(278, 20);
 			this->tDescription->TabIndex = 149;
 			this->tDescription->Text = L"Descriçao do Componente";
+			this->tDescription->Enter += gcnew System::EventHandler(this, &ComponentDegradation::textBox_Enter);
 			// 
 			// tAverLitter_loss
 			// 
@@ -229,6 +234,7 @@ namespace INPEEM {
 			this->tAverLitter_loss->TabIndex = 152;
 			this->tAverLitter_loss->Text = L"0";
 			this->tAverLitter_loss->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverLitter_loss->Enter += gcnew System::EventHandler(this, &ComponentDegradation::textBox_Enter);
 			// 
 			// tAverDeadWood_loss
 			// 
@@ -239,6 +245,7 @@ namespace INPEEM {
 			this->tAverDeadWood_loss->TabIndex = 151;
 			this->tAverDeadWood_loss->Text = L"0";
 			this->tAverDeadWood_loss->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverDeadWood_loss->Enter += gcnew System::EventHandler(this, &ComponentDegradation::textBox_Enter);
 			// 
 			// tAverBGB_loss
 			// 
@@ -249,6 +256,7 @@ namespace INPEEM {
 			this->tAverBGB_loss->TabIndex = 150;
 			this->tAverBGB_loss->Text = L"0";
 			this->tAverBGB_loss->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverBGB_loss->Enter += gcnew System::EventHandler(this, &ComponentDegradation::textBox_Enter);
 			// 
 			// lAverLitter_loss
 			// 
@@ -271,6 +279,7 @@ namespace INPEEM {
 			this->tAverAGB_loss->TabIndex = 153;
 			this->tAverAGB_loss->Text = L"0.4";
 			this->tAverAGB_loss->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverAGB_loss->Enter += gcnew System::EventHandler(this, &ComponentDegradation::textBox_Enter);
 			// 
 			// lAverDeadWood_loss
 			// 
@@ -295,6 +304,7 @@ namespace INPEEM {
 			this->tName->TabIndex = 154;
 			this->tName->Text = L"b";
 			this->tName->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tName->Enter += gcnew System::EventHandler(this, &ComponentDegradation::textBox_Enter);
 			// 
 			// lAverBGB_loss
 			// 
@@ -391,6 +401,7 @@ namespace INPEEM {
 			this->Controls->Add(this->bSalvar);
 			this->Controls->Add(this->pbLogo1);
 			this->Name = L"ComponentDegradation";
+			this->ShowInTaskbar = false;
 			this->Text = L"ComponentDegradation";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbLogo1))->EndInit();
 			this->ResumeLayout(false);
@@ -398,5 +409,6 @@ namespace INPEEM {
 
 		}
 #pragma endregion
+		private: System::Void textBox_Enter(System::Object^  sender, System::EventArgs^  e);
 	};
 }

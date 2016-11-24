@@ -143,6 +143,7 @@ namespace INPEEM {
 			this->tDescription->Size = System::Drawing::Size(278, 20);
 			this->tDescription->TabIndex = 94;
 			this->tDescription->Text = L"Descriçao do Componente";
+			this->tDescription->Enter += gcnew System::EventHandler(this, &ComponentBiomass::textBox_Enter);
 			// 
 			// tAverBGBPercAGB
 			// 
@@ -153,6 +154,7 @@ namespace INPEEM {
 			this->tAverBGBPercAGB->TabIndex = 95;
 			this->tAverBGBPercAGB->Text = L"0.258";
 			this->tAverBGBPercAGB->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverBGBPercAGB->Enter += gcnew System::EventHandler(this, &ComponentBiomass::textBox_Enter);
 			// 
 			// tAverAGB
 			// 
@@ -163,6 +165,7 @@ namespace INPEEM {
 			this->tAverAGB->TabIndex = 96;
 			this->tAverAGB->Text = L"240";
 			this->tAverAGB->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverAGB->Enter += gcnew System::EventHandler(this, &ComponentBiomass::textBox_Enter);
 			// 
 			// tName
 			// 
@@ -175,6 +178,7 @@ namespace INPEEM {
 			this->tName->TabIndex = 97;
 			this->tName->Text = L"b";
 			this->tName->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tName->Enter += gcnew System::EventHandler(this, &ComponentBiomass::textBox_Enter);
 			// 
 			// lAverBGBPercAGB
 			// 
@@ -245,6 +249,7 @@ namespace INPEEM {
 			this->tAverLitterPercAGB->TabIndex = 95;
 			this->tAverLitterPercAGB->Text = L"0.049";
 			this->tAverLitterPercAGB->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverLitterPercAGB->Enter += gcnew System::EventHandler(this, &ComponentBiomass::textBox_Enter);
 			// 
 			// lAverDeadWoodPercAGB
 			// 
@@ -267,6 +272,7 @@ namespace INPEEM {
 			this->tAverDeadWoodPercAGB->TabIndex = 95;
 			this->tAverDeadWoodPercAGB->Text = L"0.088";
 			this->tAverDeadWoodPercAGB->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverDeadWoodPercAGB->Enter += gcnew System::EventHandler(this, &ComponentBiomass::textBox_Enter);
 			// 
 			// tAverFactorB_CO2
 			// 
@@ -277,6 +283,7 @@ namespace INPEEM {
 			this->tAverFactorB_CO2->TabIndex = 99;
 			this->tAverFactorB_CO2->Text = L"1.7249";
 			this->tAverFactorB_CO2->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverFactorB_CO2->Enter += gcnew System::EventHandler(this, &ComponentBiomass::textBox_Enter);
 			// 
 			// lAverFactorB_CO2
 			// 
@@ -299,6 +306,7 @@ namespace INPEEM {
 			this->tAverFactorB_C->TabIndex = 101;
 			this->tAverFactorB_C->Text = L"0.47";
 			this->tAverFactorB_C->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverFactorB_C->Enter += gcnew System::EventHandler(this, &ComponentBiomass::textBox_Enter);
 			// 
 			// lAverFactorB_C
 			// 
@@ -321,6 +329,7 @@ namespace INPEEM {
 			this->tAverFactorB_CO2_fire->TabIndex = 103;
 			this->tAverFactorB_CO2_fire->Text = L"1.601";
 			this->tAverFactorB_CO2_fire->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverFactorB_CO2_fire->Enter += gcnew System::EventHandler(this, &ComponentBiomass::textBox_Enter);
 			// 
 			// lAverFactorB_CO2_fire
 			// 
@@ -343,6 +352,7 @@ namespace INPEEM {
 			this->tAverFactorB_CH4_fire->TabIndex = 105;
 			this->tAverFactorB_CH4_fire->Text = L"0.00625";
 			this->tAverFactorB_CH4_fire->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverFactorB_CH4_fire->Enter += gcnew System::EventHandler(this, &ComponentBiomass::textBox_Enter);
 			// 
 			// lAverFactorB_CH4_fire
 			// 
@@ -365,6 +375,7 @@ namespace INPEEM {
 			this->tAverFactorB_N2O_fire->TabIndex = 107;
 			this->tAverFactorB_N2O_fire->Text = L"0.0002";
 			this->tAverFactorB_N2O_fire->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverFactorB_N2O_fire->Enter += gcnew System::EventHandler(this, &ComponentBiomass::textBox_Enter);
 			// 
 			// lAverFactorB_N2O_fire
 			// 
@@ -387,6 +398,7 @@ namespace INPEEM {
 			this->tAverFactorB_NOx_fire->TabIndex = 109;
 			this->tAverFactorB_NOx_fire->Text = L"0.0017";
 			this->tAverFactorB_NOx_fire->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverFactorB_NOx_fire->Enter += gcnew System::EventHandler(this, &ComponentBiomass::textBox_Enter);
 			// 
 			// lAverFactorB_NOx_fire
 			// 
@@ -409,6 +421,7 @@ namespace INPEEM {
 			this->tAverFactorB_CO_fire->TabIndex = 111;
 			this->tAverFactorB_CO_fire->Text = L"0.1078";
 			this->tAverFactorB_CO_fire->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverFactorB_CO_fire->Enter += gcnew System::EventHandler(this, &ComponentBiomass::textBox_Enter);
 			// 
 			// lAverFactorB_CO_fire
 			// 
@@ -465,6 +478,7 @@ namespace INPEEM {
 			this->Controls->Add(this->bSalvar);
 			this->Controls->Add(this->pbLogo1);
 			this->Name = L"ComponentBiomass";
+			this->ShowInTaskbar = false;
 			this->Text = L"ComponentBiomass";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbLogo1))->EndInit();
 			this->ResumeLayout(false);
@@ -472,5 +486,6 @@ namespace INPEEM {
 
 		}
 #pragma endregion
+		private: System::Void textBox_Enter(System::Object^  sender, System::EventArgs^  e);
 };
 }

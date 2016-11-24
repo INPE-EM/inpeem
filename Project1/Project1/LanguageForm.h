@@ -122,6 +122,7 @@ namespace INPEEM {
 			this->Controls->Add(this->rLBr);
 			this->Controls->Add(this->pbLogo1);
 			this->Name = L"LanguageForm";
+			this->ShowInTaskbar = false;
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Seleção de Idioma";
 			this->Shown += gcnew System::EventHandler(this, &LanguageForm::LanguageForm_Shown);

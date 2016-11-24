@@ -124,6 +124,7 @@ namespace INPEEM {
 			this->tName->TabIndex = 89;
 			this->tName->Text = L"d";
 			this->tName->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tName->Enter += gcnew System::EventHandler(this, &ComponentDeforest::textBox_Enter);
 			// 
 			// lDescription
 			// 
@@ -145,6 +146,7 @@ namespace INPEEM {
 			this->tDescription->Size = System::Drawing::Size(278, 20);
 			this->tDescription->TabIndex = 89;
 			this->tDescription->Text = L"Descriçao do Componente";
+			this->tDescription->Enter += gcnew System::EventHandler(this, &ComponentDeforest::textBox_Enter);
 			// 
 			// lInitialArea
 			// 
@@ -167,6 +169,7 @@ namespace INPEEM {
 			this->tInitialArea->TabIndex = 89;
 			this->tInitialArea->Text = L"0";
 			this->tInitialArea->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tInitialArea->Enter += gcnew System::EventHandler(this, &ComponentDeforest::textBox_Enter);
 			// 
 			// lTotalNoData
 			// 
@@ -189,6 +192,7 @@ namespace INPEEM {
 			this->tTotalNoData->TabIndex = 89;
 			this->tTotalNoData->Text = L"130311562";
 			this->tTotalNoData->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tTotalNoData->Enter += gcnew System::EventHandler(this, &ComponentDeforest::textBox_Enter);
 			// 
 			// ComponentDeforest
 			// 
@@ -206,6 +210,7 @@ namespace INPEEM {
 			this->Controls->Add(this->lName);
 			this->Controls->Add(this->pbLogo1);
 			this->Name = L"ComponentDeforest";
+			this->ShowInTaskbar = false;
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Componente - Desmatamento";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbLogo1))->EndInit();
@@ -214,5 +219,6 @@ namespace INPEEM {
 
 		}
 #pragma endregion
+		private: System::Void textBox_Enter(System::Object^  sender, System::EventArgs^  e);
 	};
 }

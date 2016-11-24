@@ -149,7 +149,7 @@ namespace INPEEM {
 			this->lProgram->Font = (gcnew System::Drawing::Font(L"Calibri", 14));
 			this->lProgram->Location = System::Drawing::Point(17, 160);
 			this->lProgram->Name = L"lProgram";
-			this->lProgram->Size = System::Drawing::Size(269, 23);
+			this->lProgram->Size = System::Drawing::Size(271, 23);
 			this->lProgram->TabIndex = 19;
 			this->lProgram->Text = L"Gerenciador de Modelos INPE-EM";
 			// 
@@ -159,7 +159,7 @@ namespace INPEEM {
 			this->lCompatible->Font = (gcnew System::Drawing::Font(L"Calibri", 12));
 			this->lCompatible->Location = System::Drawing::Point(18, 182);
 			this->lCompatible->Name = L"lCompatible";
-			this->lCompatible->Size = System::Drawing::Size(200, 19);
+			this->lCompatible->Size = System::Drawing::Size(197, 19);
 			this->lCompatible->TabIndex = 21;
 			this->lCompatible->Text = L"Compatível com INPE-EM 3.0";
 			// 
@@ -192,6 +192,7 @@ namespace INPEEM {
 			this->MaximizeBox = false;
 			this->MinimizeBox = false;
 			this->Name = L"AboutForm";
+			this->ShowInTaskbar = false;
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Sobre";
 			this->Load += gcnew System::EventHandler(this, &AboutForm::AboutForm_Load);

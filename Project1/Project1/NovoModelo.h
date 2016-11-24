@@ -21,6 +21,8 @@ namespace INPEEM {
 		bool forceWriting = false;
 		bool runnable = false;
 		bool lOpen = false;
+		bool shape = false;
+
 		String^ lLanguage;
 		String^ gDeforest;
 		String^ gBiomass;
@@ -28,6 +30,13 @@ namespace INPEEM {
 		String^ gSecondaryVegetation;
 		String^ gVegetationRemoval;
 		String^ gNonSpatialTables;
+		String^ gSelectedFile = "";
+		String^ gSProjTitle = "";
+		String^ gSProjFilter = "";
+		String^ gSShape = "";
+		String^ gSShapeTitle = "";
+		String^ gSShapeFilter = "";
+
 
 	private: System::Windows::Forms::TabControl^  tNovoModelo;
 	private: System::Windows::Forms::TabPage^  tabDefModel;
@@ -61,60 +70,51 @@ namespace INPEEM {
 	private: System::Windows::Forms::TextBox^  tNonSpatialName;
 	private: System::Windows::Forms::Label^  lNonSpatialName;
 	private: System::Windows::Forms::TextBox^  tbTableData;
-
 	private: System::Windows::Forms::Button^  bTableData;
 	private: System::Windows::Forms::TextBox^  tNonSpatialInitialYear;
 	private: System::Windows::Forms::Label^  lNonSpatialInitialYear;
 	private: System::Windows::Forms::TextBox^  tNonSpatialFinalYear;
 	private: System::Windows::Forms::Label^  lNonSpatialFinalYear;
 	private: System::Windows::Forms::Label^  lNonSpatialComponentSelection;
-
 	private: System::Windows::Forms::CheckBox^  cbNonSpatialSecondaryVegetation;
 	private: System::Windows::Forms::CheckBox^  cbNonSpatialVegetationRemoval;
 	private: System::Windows::Forms::CheckBox^  cbNonSpatialBiomass;
 	private: System::Windows::Forms::CheckBox^  cbNonSpatialDeforest;
 	private: System::Windows::Forms::TextBox^  tNonSpatialArea;
-
 	private: System::Windows::Forms::Label^  lNonSpatialArea;
-
 	private: System::Windows::Forms::CheckBox^  cbNonSpatialDegradation;
 	private: System::Windows::Forms::Label^  lSpatialComponentSelection;
 	private: System::Windows::Forms::CheckBox^  cbSpatialDegradation;
-
-
 	private: System::Windows::Forms::CheckBox^  cbSpatialSecondaryVegetation;
-
 	private: System::Windows::Forms::CheckBox^  cbSpatialVegetationRemoval;
-
 	private: System::Windows::Forms::CheckBox^  cbSpatialBiomass;
-
 	private: System::Windows::Forms::CheckBox^  cbSpatialDeforest;
-
-
-
-
-
 	private: System::Windows::Forms::TextBox^  tSpatialFinalYear;
-
 	private: System::Windows::Forms::Label^  lSpatialFinalYear;
-
 	private: System::Windows::Forms::TextBox^  tSpatialInitialYear;
-
 	private: System::Windows::Forms::Label^  lSpatialInitialYear;
-
 	private: System::Windows::Forms::TextBox^  tSpatialName;
-
 	private: System::Windows::Forms::Label^  lSpatialName;
 	private: System::Windows::Forms::Label^  lTerraview;
 	private: System::Windows::Forms::Label^  lShape;
 	private: System::Windows::Forms::Button^  bShape;
-	private: System::Windows::Forms::TextBox^  tbSelectedBatabase;
-	private: System::Windows::Forms::Button^  bSelectDatabase;
+	private: System::Windows::Forms::Button^  bSelectProject;
 	private: System::Windows::Forms::TextBox^  tSpatialCellArea;
 	private: System::Windows::Forms::Label^  lSpatialCellArea;
 	private: System::Windows::Forms::TextBox^  tSpatialLayerName;
 	private: System::Windows::Forms::Label^  lSpatialLayerName;
 	private: System::Windows::Forms::Label^  lDatabase;
+	private: System::Windows::Forms::MenuStrip^  menuStrip1;
+	private: System::Windows::Forms::ToolStripMenuItem^  arquivoToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  novoToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  abrirToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  sairToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  preferênciasToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  idiomaToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  ajudaToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  luccMEToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  sobreToolStripMenuItem;
+	private: System::Windows::Forms::Label^  lSelectedFile;
 
 
 	public:
@@ -195,11 +195,11 @@ namespace INPEEM {
 			this->tbTableData = (gcnew System::Windows::Forms::TextBox());
 			this->bTableData = (gcnew System::Windows::Forms::Button());
 			this->tabSpatial = (gcnew System::Windows::Forms::TabPage());
+			this->lSelectedFile = (gcnew System::Windows::Forms::Label());
 			this->lTerraview = (gcnew System::Windows::Forms::Label());
 			this->lShape = (gcnew System::Windows::Forms::Label());
 			this->bShape = (gcnew System::Windows::Forms::Button());
-			this->tbSelectedBatabase = (gcnew System::Windows::Forms::TextBox());
-			this->bSelectDatabase = (gcnew System::Windows::Forms::Button());
+			this->bSelectProject = (gcnew System::Windows::Forms::Button());
 			this->tSpatialCellArea = (gcnew System::Windows::Forms::TextBox());
 			this->lSpatialCellArea = (gcnew System::Windows::Forms::Label());
 			this->tSpatialLayerName = (gcnew System::Windows::Forms::TextBox());
@@ -223,6 +223,16 @@ namespace INPEEM {
 			this->bGerarArquivos = (gcnew System::Windows::Forms::Button());
 			this->lFileMaker = (gcnew System::Windows::Forms::Label());
 			this->pbLogo1 = (gcnew System::Windows::Forms::PictureBox());
+			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
+			this->arquivoToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->novoToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->abrirToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->sairToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->preferênciasToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->idiomaToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->ajudaToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->luccMEToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->sobreToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->tNovoModelo->SuspendLayout();
 			this->tabDefModel->SuspendLayout();
 			this->tabComponents->SuspendLayout();
@@ -230,6 +240,7 @@ namespace INPEEM {
 			this->tabSpatial->SuspendLayout();
 			this->tabFileMaker->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbLogo1))->BeginInit();
+			this->menuStrip1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// tNovoModelo
@@ -295,6 +306,7 @@ namespace INPEEM {
 			this->tModelName->TabIndex = 66;
 			this->tModelName->Text = L"INPEEM_model";
 			this->tModelName->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tModelName->Enter += gcnew System::EventHandler(this, &NovoModelo::textBox_Enter);
 			// 
 			// lModelName
 			// 
@@ -313,7 +325,7 @@ namespace INPEEM {
 			this->lSelectedFolder->AutoSize = true;
 			this->lSelectedFolder->Font = (gcnew System::Drawing::Font(L"Calibri", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lSelectedFolder->Location = System::Drawing::Point(23, 132);
+			this->lSelectedFolder->Location = System::Drawing::Point(20, 117);
 			this->lSelectedFolder->Name = L"lSelectedFolder";
 			this->lSelectedFolder->Size = System::Drawing::Size(0, 19);
 			this->lSelectedFolder->TabIndex = 64;
@@ -326,6 +338,7 @@ namespace INPEEM {
 			this->bSelectFolder->TabIndex = 63;
 			this->bSelectFolder->Text = L"Selecionar";
 			this->bSelectFolder->UseVisualStyleBackColor = true;
+			this->bSelectFolder->Click += gcnew System::EventHandler(this, &NovoModelo::bSelectFolder_Click);
 			// 
 			// lDirProj
 			// 
@@ -588,6 +601,7 @@ namespace INPEEM {
 			this->tNonSpatialArea->TabIndex = 85;
 			this->tNonSpatialArea->Text = L"528125000";
 			this->tNonSpatialArea->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tNonSpatialArea->Enter += gcnew System::EventHandler(this, &NovoModelo::textBox_Enter);
 			// 
 			// lNonSpatialArea
 			// 
@@ -610,6 +624,7 @@ namespace INPEEM {
 			this->tNonSpatialFinalYear->TabIndex = 85;
 			this->tNonSpatialFinalYear->Text = L"2050";
 			this->tNonSpatialFinalYear->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tNonSpatialFinalYear->Enter += gcnew System::EventHandler(this, &NovoModelo::textBox_Enter);
 			// 
 			// lNonSpatialFinalYear
 			// 
@@ -632,6 +647,7 @@ namespace INPEEM {
 			this->tNonSpatialInitialYear->TabIndex = 85;
 			this->tNonSpatialInitialYear->Text = L"1960";
 			this->tNonSpatialInitialYear->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tNonSpatialInitialYear->Enter += gcnew System::EventHandler(this, &NovoModelo::textBox_Enter);
 			// 
 			// lNonSpatialInitialYear
 			// 
@@ -654,6 +670,7 @@ namespace INPEEM {
 			this->tNonSpatialName->TabIndex = 85;
 			this->tNonSpatialName->Text = L"NonSpatialModel";
 			this->tNonSpatialName->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tNonSpatialName->Enter += gcnew System::EventHandler(this, &NovoModelo::textBox_Enter);
 			// 
 			// lNonSpatialName
 			// 
@@ -692,11 +709,11 @@ namespace INPEEM {
 			// 
 			// tabSpatial
 			// 
+			this->tabSpatial->Controls->Add(this->lSelectedFile);
 			this->tabSpatial->Controls->Add(this->lTerraview);
 			this->tabSpatial->Controls->Add(this->lShape);
 			this->tabSpatial->Controls->Add(this->bShape);
-			this->tabSpatial->Controls->Add(this->tbSelectedBatabase);
-			this->tabSpatial->Controls->Add(this->bSelectDatabase);
+			this->tabSpatial->Controls->Add(this->bSelectProject);
 			this->tabSpatial->Controls->Add(this->tSpatialCellArea);
 			this->tabSpatial->Controls->Add(this->lSpatialCellArea);
 			this->tabSpatial->Controls->Add(this->tSpatialLayerName);
@@ -721,12 +738,22 @@ namespace INPEEM {
 			this->tabSpatial->Text = L"Modelo Espacial";
 			this->tabSpatial->UseVisualStyleBackColor = true;
 			// 
+			// lSelectedFile
+			// 
+			this->lSelectedFile->AutoSize = true;
+			this->lSelectedFile->Font = (gcnew System::Drawing::Font(L"Calibri", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lSelectedFile->Location = System::Drawing::Point(15, 271);
+			this->lSelectedFile->Name = L"lSelectedFile";
+			this->lSelectedFile->Size = System::Drawing::Size(0, 19);
+			this->lSelectedFile->TabIndex = 112;
+			// 
 			// lTerraview
 			// 
 			this->lTerraview->AutoSize = true;
 			this->lTerraview->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lTerraview->Location = System::Drawing::Point(100, 196);
+			this->lTerraview->Location = System::Drawing::Point(99, 196);
 			this->lTerraview->Name = L"lTerraview";
 			this->lTerraview->Size = System::Drawing::Size(151, 23);
 			this->lTerraview->TabIndex = 111;
@@ -738,7 +765,7 @@ namespace INPEEM {
 			this->lShape->AutoSize = true;
 			this->lShape->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lShape->Location = System::Drawing::Point(277, 196);
+			this->lShape->Location = System::Drawing::Point(279, 196);
 			this->lShape->Name = L"lShape";
 			this->lShape->Size = System::Drawing::Size(58, 23);
 			this->lShape->TabIndex = 110;
@@ -753,35 +780,28 @@ namespace INPEEM {
 			this->bShape->TabIndex = 109;
 			this->bShape->Text = L"Selecionar";
 			this->bShape->UseVisualStyleBackColor = true;
+			this->bShape->Click += gcnew System::EventHandler(this, &NovoModelo::bShape_Click);
 			// 
-			// tbSelectedBatabase
+			// bSelectProject
 			// 
-			this->tbSelectedBatabase->BackColor = System::Drawing::SystemColors::Control;
-			this->tbSelectedBatabase->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			this->tbSelectedBatabase->Location = System::Drawing::Point(14, 256);
-			this->tbSelectedBatabase->Multiline = true;
-			this->tbSelectedBatabase->Name = L"tbSelectedBatabase";
-			this->tbSelectedBatabase->Size = System::Drawing::Size(355, 98);
-			this->tbSelectedBatabase->TabIndex = 108;
-			// 
-			// bSelectDatabase
-			// 
-			this->bSelectDatabase->Location = System::Drawing::Point(133, 222);
-			this->bSelectDatabase->Name = L"bSelectDatabase";
-			this->bSelectDatabase->Size = System::Drawing::Size(75, 23);
-			this->bSelectDatabase->TabIndex = 103;
-			this->bSelectDatabase->Text = L"Selecionar";
-			this->bSelectDatabase->UseVisualStyleBackColor = true;
+			this->bSelectProject->Location = System::Drawing::Point(133, 222);
+			this->bSelectProject->Name = L"bSelectProject";
+			this->bSelectProject->Size = System::Drawing::Size(75, 23);
+			this->bSelectProject->TabIndex = 103;
+			this->bSelectProject->Text = L"Selecionar";
+			this->bSelectProject->UseVisualStyleBackColor = true;
+			this->bSelectProject->Click += gcnew System::EventHandler(this, &NovoModelo::bSelectProject_Click);
 			// 
 			// tSpatialCellArea
 			// 
 			this->tSpatialCellArea->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tSpatialCellArea->Location = System::Drawing::Point(177, 422);
+			this->tSpatialCellArea->Location = System::Drawing::Point(177, 377);
 			this->tSpatialCellArea->Name = L"tSpatialCellArea";
 			this->tSpatialCellArea->Size = System::Drawing::Size(80, 20);
 			this->tSpatialCellArea->TabIndex = 107;
 			this->tSpatialCellArea->Text = L"6.25";
 			this->tSpatialCellArea->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tSpatialCellArea->Enter += gcnew System::EventHandler(this, &NovoModelo::textBox_Enter);
 			// 
 			// lSpatialCellArea
 			// 
@@ -789,7 +809,7 @@ namespace INPEEM {
 			this->lSpatialCellArea->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->lSpatialCellArea->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->lSpatialCellArea->Location = System::Drawing::Point(12, 421);
+			this->lSpatialCellArea->Location = System::Drawing::Point(12, 376);
 			this->lSpatialCellArea->Name = L"lSpatialCellArea";
 			this->lSpatialCellArea->Size = System::Drawing::Size(157, 23);
 			this->lSpatialCellArea->TabIndex = 106;
@@ -799,12 +819,13 @@ namespace INPEEM {
 			// tSpatialLayerName
 			// 
 			this->tSpatialLayerName->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tSpatialLayerName->Location = System::Drawing::Point(177, 379);
+			this->tSpatialLayerName->Location = System::Drawing::Point(177, 334);
 			this->tSpatialLayerName->Name = L"tSpatialLayerName";
 			this->tSpatialLayerName->Size = System::Drawing::Size(192, 20);
 			this->tSpatialLayerName->TabIndex = 105;
 			this->tSpatialLayerName->Text = L"layer_name";
 			this->tSpatialLayerName->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tSpatialLayerName->Enter += gcnew System::EventHandler(this, &NovoModelo::textBox_Enter);
 			// 
 			// lSpatialLayerName
 			// 
@@ -812,7 +833,7 @@ namespace INPEEM {
 			this->lSpatialLayerName->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->lSpatialLayerName->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->lSpatialLayerName->Location = System::Drawing::Point(12, 378);
+			this->lSpatialLayerName->Location = System::Drawing::Point(12, 333);
 			this->lSpatialLayerName->Name = L"lSpatialLayerName";
 			this->lSpatialLayerName->Size = System::Drawing::Size(127, 23);
 			this->lSpatialLayerName->TabIndex = 104;
@@ -907,6 +928,7 @@ namespace INPEEM {
 			this->tSpatialFinalYear->TabIndex = 93;
 			this->tSpatialFinalYear->Text = L"2050";
 			this->tSpatialFinalYear->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tSpatialFinalYear->Enter += gcnew System::EventHandler(this, &NovoModelo::textBox_Enter);
 			// 
 			// lSpatialFinalYear
 			// 
@@ -929,6 +951,7 @@ namespace INPEEM {
 			this->tSpatialInitialYear->TabIndex = 94;
 			this->tSpatialInitialYear->Text = L"1960";
 			this->tSpatialInitialYear->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tSpatialInitialYear->Enter += gcnew System::EventHandler(this, &NovoModelo::textBox_Enter);
 			// 
 			// lSpatialInitialYear
 			// 
@@ -951,6 +974,7 @@ namespace INPEEM {
 			this->tSpatialName->TabIndex = 95;
 			this->tSpatialName->Text = L"NonSpatialModel";
 			this->tSpatialName->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tSpatialName->Enter += gcnew System::EventHandler(this, &NovoModelo::textBox_Enter);
 			// 
 			// lSpatialName
 			// 
@@ -1025,12 +1049,89 @@ namespace INPEEM {
 			// pbLogo1
 			// 
 			this->pbLogo1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pbLogo1.Image")));
-			this->pbLogo1->Location = System::Drawing::Point(178, 12);
+			this->pbLogo1->Location = System::Drawing::Point(178, 25);
 			this->pbLogo1->Name = L"pbLogo1";
 			this->pbLogo1->Size = System::Drawing::Size(367, 134);
 			this->pbLogo1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->pbLogo1->TabIndex = 20;
 			this->pbLogo1->TabStop = false;
+			// 
+			// menuStrip1
+			// 
+			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
+				this->arquivoToolStripMenuItem,
+					this->preferênciasToolStripMenuItem, this->ajudaToolStripMenuItem
+			});
+			this->menuStrip1->Location = System::Drawing::Point(0, 0);
+			this->menuStrip1->Name = L"menuStrip1";
+			this->menuStrip1->Size = System::Drawing::Size(745, 24);
+			this->menuStrip1->TabIndex = 21;
+			this->menuStrip1->Text = L"menuStrip1";
+			// 
+			// arquivoToolStripMenuItem
+			// 
+			this->arquivoToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
+				this->novoToolStripMenuItem,
+					this->abrirToolStripMenuItem, this->sairToolStripMenuItem
+			});
+			this->arquivoToolStripMenuItem->Name = L"arquivoToolStripMenuItem";
+			this->arquivoToolStripMenuItem->Size = System::Drawing::Size(61, 20);
+			this->arquivoToolStripMenuItem->Text = L"Arquivo";
+			// 
+			// novoToolStripMenuItem
+			// 
+			this->novoToolStripMenuItem->Name = L"novoToolStripMenuItem";
+			this->novoToolStripMenuItem->Size = System::Drawing::Size(103, 22);
+			this->novoToolStripMenuItem->Text = L"Novo";
+			// 
+			// abrirToolStripMenuItem
+			// 
+			this->abrirToolStripMenuItem->Name = L"abrirToolStripMenuItem";
+			this->abrirToolStripMenuItem->Size = System::Drawing::Size(103, 22);
+			this->abrirToolStripMenuItem->Text = L"Abrir";
+			// 
+			// sairToolStripMenuItem
+			// 
+			this->sairToolStripMenuItem->Name = L"sairToolStripMenuItem";
+			this->sairToolStripMenuItem->Size = System::Drawing::Size(103, 22);
+			this->sairToolStripMenuItem->Text = L"Sair";
+			// 
+			// preferênciasToolStripMenuItem
+			// 
+			this->preferênciasToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->idiomaToolStripMenuItem });
+			this->preferênciasToolStripMenuItem->Name = L"preferênciasToolStripMenuItem";
+			this->preferênciasToolStripMenuItem->Size = System::Drawing::Size(83, 20);
+			this->preferênciasToolStripMenuItem->Text = L"Preferências";
+			// 
+			// idiomaToolStripMenuItem
+			// 
+			this->idiomaToolStripMenuItem->Name = L"idiomaToolStripMenuItem";
+			this->idiomaToolStripMenuItem->Size = System::Drawing::Size(111, 22);
+			this->idiomaToolStripMenuItem->Text = L"Idioma";
+			// 
+			// ajudaToolStripMenuItem
+			// 
+			this->ajudaToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+				this->luccMEToolStripMenuItem,
+					this->sobreToolStripMenuItem
+			});
+			this->ajudaToolStripMenuItem->Name = L"ajudaToolStripMenuItem";
+			this->ajudaToolStripMenuItem->Size = System::Drawing::Size(50, 20);
+			this->ajudaToolStripMenuItem->Text = L"Ajuda";
+			// 
+			// luccMEToolStripMenuItem
+			// 
+			this->luccMEToolStripMenuItem->Name = L"luccMEToolStripMenuItem";
+			this->luccMEToolStripMenuItem->ShortcutKeys = System::Windows::Forms::Keys::F1;
+			this->luccMEToolStripMenuItem->Size = System::Drawing::Size(135, 22);
+			this->luccMEToolStripMenuItem->Text = L"LuccME";
+			// 
+			// sobreToolStripMenuItem
+			// 
+			this->sobreToolStripMenuItem->Name = L"sobreToolStripMenuItem";
+			this->sobreToolStripMenuItem->Size = System::Drawing::Size(135, 22);
+			this->sobreToolStripMenuItem->Text = L"Sobre";
+			this->sobreToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::sobreToolStripMenuItem_Click);
 			// 
 			// NovoModelo
 			// 
@@ -1039,11 +1140,13 @@ namespace INPEEM {
 			this->AutoScroll = true;
 			this->AutoSize = true;
 			this->ClientSize = System::Drawing::Size(745, 677);
+			this->Controls->Add(this->menuStrip1);
 			this->Controls->Add(this->pbLogo1);
 			this->Controls->Add(this->tNovoModelo);
 			this->Name = L"NovoModelo";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Criando um Novo Modelo";
+			this->Load += gcnew System::EventHandler(this, &NovoModelo::NovoModelo_Load);
 			this->tNovoModelo->ResumeLayout(false);
 			this->tabDefModel->ResumeLayout(false);
 			this->tabDefModel->PerformLayout();
@@ -1056,15 +1159,25 @@ namespace INPEEM {
 			this->tabFileMaker->ResumeLayout(false);
 			this->tabFileMaker->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbLogo1))->EndInit();
+			this->menuStrip1->ResumeLayout(false);
+			this->menuStrip1->PerformLayout();
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 #pragma endregion
+	private: System::Void checkLanguage();
+	private: System::Void textBox_Enter(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bDeforest_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bBiomass_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bVegetationRemoval_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bSecondVegetation_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bDegrad_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bTableData_Click(System::Object^  sender, System::EventArgs^  e);
-};
+	private: System::Void bSelectFolder_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void sobreToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void bSelectProject_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void NovoModelo_Load(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void bShape_Click(System::Object^  sender, System::EventArgs^  e);
+	};
 }

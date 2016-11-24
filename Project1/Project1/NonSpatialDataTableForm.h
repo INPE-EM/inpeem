@@ -184,6 +184,7 @@ namespace INPEEM {
 			this->Controls->Add(this->lArea);
 			this->Controls->Add(this->pbLogo1);
 			this->Name = L"NonSpatialDataTableForm";
+			this->ShowInTaskbar = false;
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Non Spatial - Data Tables";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbLogo1))->EndInit();

@@ -180,6 +180,7 @@ namespace INPEEM {
 			this->tAverDecompositonPercElementalCarbon->TabIndex = 137;
 			this->tAverDecompositonPercElementalCarbon->Text = L"0.02";
 			this->tAverDecompositonPercElementalCarbon->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverDecompositonPercElementalCarbon->Enter += gcnew System::EventHandler(this, &ComponentVegetationRemoval::textBox_Enter);
 			// 
 			// lAverDecompositonPercElementalCarbon
 			// 
@@ -202,6 +203,7 @@ namespace INPEEM {
 			this->tAverDecompositionFireCyclePeriod->TabIndex = 135;
 			this->tAverDecompositionFireCyclePeriod->Text = L"3";
 			this->tAverDecompositionFireCyclePeriod->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverDecompositionFireCyclePeriod->Enter += gcnew System::EventHandler(this, &ComponentVegetationRemoval::textBox_Enter);
 			// 
 			// lAverDecompositionFireCyclePeriod
 			// 
@@ -224,6 +226,7 @@ namespace INPEEM {
 			this->tAverBGBPercDecompositionUnder->TabIndex = 133;
 			this->tAverBGBPercDecompositionUnder->Text = L"1";
 			this->tAverBGBPercDecompositionUnder->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverBGBPercDecompositionUnder->Enter += gcnew System::EventHandler(this, &ComponentVegetationRemoval::textBox_Enter);
 			// 
 			// lAverBGBPercDecompositionUnder
 			// 
@@ -246,6 +249,7 @@ namespace INPEEM {
 			this->averBGBPercDecompositionAbove->TabIndex = 131;
 			this->averBGBPercDecompositionAbove->Text = L"0";
 			this->averBGBPercDecompositionAbove->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->averBGBPercDecompositionAbove->Enter += gcnew System::EventHandler(this, &ComponentVegetationRemoval::textBox_Enter);
 			// 
 			// lAverBGBPercDecompositionAbove
 			// 
@@ -268,6 +272,7 @@ namespace INPEEM {
 			this->tAverBGBPercInstantaneous->TabIndex = 129;
 			this->tAverBGBPercInstantaneous->Text = L"0";
 			this->tAverBGBPercInstantaneous->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverBGBPercInstantaneous->Enter += gcnew System::EventHandler(this, &ComponentVegetationRemoval::textBox_Enter);
 			// 
 			// lAverBGBPercInstantaneous
 			// 
@@ -290,6 +295,7 @@ namespace INPEEM {
 			this->tAverAGBPercDecomposition->TabIndex = 127;
 			this->tAverAGBPercDecomposition->Text = L"0.425";
 			this->tAverAGBPercDecomposition->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverAGBPercDecomposition->Enter += gcnew System::EventHandler(this, &ComponentVegetationRemoval::textBox_Enter);
 			// 
 			// lAverAGBPercDecomposition
 			// 
@@ -312,6 +318,7 @@ namespace INPEEM {
 			this->tAverBGBPercBGB->TabIndex = 125;
 			this->tAverBGBPercBGB->Text = L"0";
 			this->tAverBGBPercBGB->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverBGBPercBGB->Enter += gcnew System::EventHandler(this, &ComponentVegetationRemoval::textBox_Enter);
 			// 
 			// lAverBGBPercBGB
 			// 
@@ -333,6 +340,7 @@ namespace INPEEM {
 			this->tDescription->Size = System::Drawing::Size(278, 20);
 			this->tDescription->TabIndex = 118;
 			this->tDescription->Text = L"Descriçao do Componente";
+			this->tDescription->Enter += gcnew System::EventHandler(this, &ComponentVegetationRemoval::textBox_Enter);
 			// 
 			// tAverAGBPercInstantaneous
 			// 
@@ -343,6 +351,7 @@ namespace INPEEM {
 			this->tAverAGBPercInstantaneous->TabIndex = 121;
 			this->tAverAGBPercInstantaneous->Text = L"0.425";
 			this->tAverAGBPercInstantaneous->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverAGBPercInstantaneous->Enter += gcnew System::EventHandler(this, &ComponentVegetationRemoval::textBox_Enter);
 			// 
 			// tAverAGBPercWoodProducts
 			// 
@@ -353,6 +362,7 @@ namespace INPEEM {
 			this->tAverAGBPercWoodProducts->TabIndex = 119;
 			this->tAverAGBPercWoodProducts->Text = L"0.15";
 			this->tAverAGBPercWoodProducts->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverAGBPercWoodProducts->Enter += gcnew System::EventHandler(this, &ComponentVegetationRemoval::textBox_Enter);
 			// 
 			// lAverAGBPercInstantaneous
 			// 
@@ -375,6 +385,7 @@ namespace INPEEM {
 			this->tAverAGBPercAGB->TabIndex = 122;
 			this->tAverAGBPercAGB->Text = L"0";
 			this->tAverAGBPercAGB->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverAGBPercAGB->Enter += gcnew System::EventHandler(this, &ComponentVegetationRemoval::textBox_Enter);
 			// 
 			// tName
 			// 
@@ -387,6 +398,7 @@ namespace INPEEM {
 			this->tName->TabIndex = 123;
 			this->tName->Text = L"vr";
 			this->tName->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tName->Enter += gcnew System::EventHandler(this, &ComponentVegetationRemoval::textBox_Enter);
 			// 
 			// lAverAGBPercWoodProducts
 			// 
@@ -481,6 +493,7 @@ namespace INPEEM {
 			this->tAverLitterPercInstantaneous->TabIndex = 122;
 			this->tAverLitterPercInstantaneous->Text = L"1";
 			this->tAverLitterPercInstantaneous->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverLitterPercInstantaneous->Enter += gcnew System::EventHandler(this, &ComponentVegetationRemoval::textBox_Enter);
 			// 
 			// lAverDeadWoodPercDecomposition
 			// 
@@ -503,6 +516,7 @@ namespace INPEEM {
 			this->tAverLitterPercDecomposition->TabIndex = 119;
 			this->tAverLitterPercDecomposition->Text = L"0";
 			this->tAverLitterPercDecomposition->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverLitterPercDecomposition->Enter += gcnew System::EventHandler(this, &ComponentVegetationRemoval::textBox_Enter);
 			// 
 			// tAverDeadWoodPercInstantaneous
 			// 
@@ -513,6 +527,7 @@ namespace INPEEM {
 			this->tAverDeadWoodPercInstantaneous->TabIndex = 120;
 			this->tAverDeadWoodPercInstantaneous->Text = L"0.5";
 			this->tAverDeadWoodPercInstantaneous->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverDeadWoodPercInstantaneous->Enter += gcnew System::EventHandler(this, &ComponentVegetationRemoval::textBox_Enter);
 			// 
 			// tAverDeadWoodPercDecomposition
 			// 
@@ -523,6 +538,7 @@ namespace INPEEM {
 			this->tAverDeadWoodPercDecomposition->TabIndex = 121;
 			this->tAverDeadWoodPercDecomposition->Text = L"0.5";
 			this->tAverDeadWoodPercDecomposition->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverDeadWoodPercDecomposition->Enter += gcnew System::EventHandler(this, &ComponentVegetationRemoval::textBox_Enter);
 			// 
 			// lAverDecayRateElementalCarbon
 			// 
@@ -545,6 +561,7 @@ namespace INPEEM {
 			this->tAverDecayRateElementalCarbon->TabIndex = 125;
 			this->tAverDecayRateElementalCarbon->Text = L"0.001";
 			this->tAverDecayRateElementalCarbon->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverDecayRateElementalCarbon->Enter += gcnew System::EventHandler(this, &ComponentVegetationRemoval::textBox_Enter);
 			// 
 			// lAverDecayRateWoodProducts
 			// 
@@ -567,6 +584,7 @@ namespace INPEEM {
 			this->tAverDecayRateWoodProducts->TabIndex = 127;
 			this->tAverDecayRateWoodProducts->Text = L"0.1";
 			this->tAverDecayRateWoodProducts->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverDecayRateWoodProducts->Enter += gcnew System::EventHandler(this, &ComponentVegetationRemoval::textBox_Enter);
 			// 
 			// lAverDecayRateAGBDecomposition
 			// 
@@ -589,6 +607,7 @@ namespace INPEEM {
 			this->tAverDecayRateAGBDecomposition->TabIndex = 129;
 			this->tAverDecayRateAGBDecomposition->Text = L"0.4";
 			this->tAverDecayRateAGBDecomposition->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverDecayRateAGBDecomposition->Enter += gcnew System::EventHandler(this, &ComponentVegetationRemoval::textBox_Enter);
 			// 
 			// lAverDecayRateBGBDecompositionAbove
 			// 
@@ -611,6 +630,7 @@ namespace INPEEM {
 			this->tAverDecayRateBGBDecompositionAbove->TabIndex = 131;
 			this->tAverDecayRateBGBDecompositionAbove->Text = L"0.4";
 			this->tAverDecayRateBGBDecompositionAbove->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverDecayRateBGBDecompositionAbove->Enter += gcnew System::EventHandler(this, &ComponentVegetationRemoval::textBox_Enter);
 			// 
 			// lAverDecayRateBGBDecompositionUnder
 			// 
@@ -633,6 +653,7 @@ namespace INPEEM {
 			this->tAverDecayRateBGBDecompositionUnder->TabIndex = 133;
 			this->tAverDecayRateBGBDecompositionUnder->Text = L"0.7";
 			this->tAverDecayRateBGBDecompositionUnder->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverDecayRateBGBDecompositionUnder->Enter += gcnew System::EventHandler(this, &ComponentVegetationRemoval::textBox_Enter);
 			// 
 			// lAverDecayRateLitterDecomposition
 			// 
@@ -655,6 +676,7 @@ namespace INPEEM {
 			this->tAverDecayRateLitterDecomposition->TabIndex = 135;
 			this->tAverDecayRateLitterDecomposition->Text = L"0.4";
 			this->tAverDecayRateLitterDecomposition->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverDecayRateLitterDecomposition->Enter += gcnew System::EventHandler(this, &ComponentVegetationRemoval::textBox_Enter);
 			// 
 			// lAverDecayRateDeadWoodDecomposition
 			// 
@@ -677,6 +699,7 @@ namespace INPEEM {
 			this->tAverDecayRateDeadWoodDecomposition->TabIndex = 137;
 			this->tAverDecayRateDeadWoodDecomposition->Text = L"0.4";
 			this->tAverDecayRateDeadWoodDecomposition->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverDecayRateDeadWoodDecomposition->Enter += gcnew System::EventHandler(this, &ComponentVegetationRemoval::textBox_Enter);
 			// 
 			// bSalvar
 			// 
@@ -768,6 +791,7 @@ namespace INPEEM {
 			this->Controls->Add(this->lName);
 			this->Controls->Add(this->pbLogo1);
 			this->Name = L"ComponentVegetationRemoval";
+			this->ShowInTaskbar = false;
 			this->Text = L"Componente - Vegetação Primária";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbLogo1))->EndInit();
 			this->ResumeLayout(false);
@@ -775,5 +799,6 @@ namespace INPEEM {
 
 		}
 #pragma endregion
+		private: System::Void textBox_Enter(System::Object^  sender, System::EventArgs^  e);
 	};
 }
