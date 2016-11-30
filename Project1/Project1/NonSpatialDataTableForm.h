@@ -10,14 +10,27 @@ namespace INPEEM {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
+
 	/// <summary>
 	/// Summary for NonSpatialDataTableForm
 	/// </summary>
 	public ref class NonSpatialDataTableForm : public System::Windows::Forms::Form
 	{
+	public: 
+		String^ gSYear = "";
+		String^ gSCells = "";
+		String^ gSCellsTitle = "";
+		String^ gSDataMod = "";
+		String^ gSExit = "";
+		String^ gSCopyPasteTitle = "";
+		String^ gSCopyPaste = "";
+		String^ gSPasteTitle = "";
+		String^ gSPaste = "";
+		String^ gSValues = "";
+
 	public:
-		cReturn^ lReturn;
-		NonSpatialDataTableForm(cReturn^ pTables)
+		cReturnNSDTF^ lReturn;
+		NonSpatialDataTableForm(cReturnNSDTF^ pTables)
 		{
 			InitializeComponent();
 			lReturn = pTables;
@@ -91,9 +104,10 @@ namespace INPEEM {
 			this->bSalvar->Location = System::Drawing::Point(335, 642);
 			this->bSalvar->Name = L"bSalvar";
 			this->bSalvar->Size = System::Drawing::Size(75, 23);
-			this->bSalvar->TabIndex = 44;
+			this->bSalvar->TabIndex = 103;
 			this->bSalvar->Text = L"Salvar";
 			this->bSalvar->UseVisualStyleBackColor = true;
+			this->bSalvar->Click += gcnew System::EventHandler(this, &NonSpatialDataTableForm::bSalvar_Click);
 			// 
 			// dgArea
 			// 
@@ -106,7 +120,7 @@ namespace INPEEM {
 			this->dgArea->Name = L"dgArea";
 			this->dgArea->RowHeadersWidthSizeMode = System::Windows::Forms::DataGridViewRowHeadersWidthSizeMode::DisableResizing;
 			this->dgArea->Size = System::Drawing::Size(226, 426);
-			this->dgArea->TabIndex = 43;
+			this->dgArea->TabIndex = 100;
 			// 
 			// lArea
 			// 
@@ -143,7 +157,7 @@ namespace INPEEM {
 			this->dgHalfLife->Name = L"dgHalfLife";
 			this->dgHalfLife->RowHeadersWidthSizeMode = System::Windows::Forms::DataGridViewRowHeadersWidthSizeMode::DisableResizing;
 			this->dgHalfLife->Size = System::Drawing::Size(226, 426);
-			this->dgHalfLife->TabIndex = 43;
+			this->dgHalfLife->TabIndex = 101;
 			// 
 			// lDegrad
 			// 
@@ -168,7 +182,7 @@ namespace INPEEM {
 			this->dgDegrad->Name = L"dgDegrad";
 			this->dgDegrad->RowHeadersWidthSizeMode = System::Windows::Forms::DataGridViewRowHeadersWidthSizeMode::DisableResizing;
 			this->dgDegrad->Size = System::Drawing::Size(226, 426);
-			this->dgDegrad->TabIndex = 43;
+			this->dgDegrad->TabIndex = 102;
 			// 
 			// NonSpatialDataTableForm
 			// 
@@ -187,6 +201,7 @@ namespace INPEEM {
 			this->ShowInTaskbar = false;
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Non Spatial - Data Tables";
+			this->Shown += gcnew System::EventHandler(this, &NonSpatialDataTableForm::NonSpatialDataTableForm_Shown);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbLogo1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgArea))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgHalfLife))->EndInit();
@@ -196,5 +211,7 @@ namespace INPEEM {
 
 		}
 #pragma endregion
-	};
+	private: System::Void NonSpatialDataTableForm_Shown(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void bSalvar_Click(System::Object^  sender, System::EventArgs^  e);
+};
 }

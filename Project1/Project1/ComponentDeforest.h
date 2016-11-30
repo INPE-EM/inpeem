@@ -16,6 +16,10 @@ namespace INPEEM {
 	public ref class ComponentDeforest : public System::Windows::Forms::Form
 	{
 	public:
+		String^ gSDataMissing = "";
+		String^ gSDataMissingTitle = "";
+
+	public:
 		cReturn^ lReturn;
 		ComponentDeforest(cReturn^ pDeforest)
 		{
@@ -39,21 +43,14 @@ namespace INPEEM {
 		}
 	private: System::Windows::Forms::PictureBox^  pbLogo1;
 	private: System::Windows::Forms::Label^  lName;
-	protected:
-
 	private: System::Windows::Forms::Button^  bSalvar;
 	private: System::Windows::Forms::TextBox^  tName;
 	private: System::Windows::Forms::Label^  lDescription;
 	private: System::Windows::Forms::TextBox^  tDescription;
 	private: System::Windows::Forms::Label^  lInitialArea;
-
-
 	private: System::Windows::Forms::TextBox^  tInitialArea;
 	private: System::Windows::Forms::Label^  lTotalNoData;
 	private: System::Windows::Forms::TextBox^  tTotalNoData;
-
-
-
 
 	private:
 		/// <summary>
@@ -112,6 +109,7 @@ namespace INPEEM {
 			this->bSalvar->TabIndex = 88;
 			this->bSalvar->Text = L"Salvar";
 			this->bSalvar->UseVisualStyleBackColor = true;
+			this->bSalvar->Click += gcnew System::EventHandler(this, &ComponentDeforest::bSalvar_Click);
 			// 
 			// tName
 			// 
@@ -131,8 +129,10 @@ namespace INPEEM {
 			this->lDescription->AutoSize = true;
 			this->lDescription->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lDescription->Location = System::Drawing::Point(57, 268);
+			this->lDescription->ImageAlign = System::Drawing::ContentAlignment::MiddleRight;
+			this->lDescription->Location = System::Drawing::Point(58, 268);
 			this->lDescription->Name = L"lDescription";
+			this->lDescription->RightToLeft = System::Windows::Forms::RightToLeft::No;
 			this->lDescription->Size = System::Drawing::Size(87, 23);
 			this->lDescription->TabIndex = 87;
 			this->lDescription->Text = L"Descrição";
@@ -213,12 +213,15 @@ namespace INPEEM {
 			this->ShowInTaskbar = false;
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Componente - Desmatamento";
+			this->Shown += gcnew System::EventHandler(this, &ComponentDeforest::ComponentDeforest_Shown);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbLogo1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
-		private: System::Void textBox_Enter(System::Object^  sender, System::EventArgs^  e);
-	};
+	private: System::Void textBox_Enter(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void ComponentDeforest_Shown(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void bSalvar_Click(System::Object^  sender, System::EventArgs^  e);
+};
 }

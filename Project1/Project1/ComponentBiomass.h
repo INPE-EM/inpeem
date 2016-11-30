@@ -16,6 +16,10 @@ namespace INPEEM {
 	public ref class ComponentBiomass : public System::Windows::Forms::Form
 	{
 	public:
+		String^ gSDataMissing = "";
+		String^ gSDataMissingTitle = "";
+
+	public:
 		cReturn^ lReturn;
 		ComponentBiomass(cReturn^ pBiomass)
 		{
@@ -134,13 +138,14 @@ namespace INPEEM {
 			this->bSalvar->TabIndex = 89;
 			this->bSalvar->Text = L"Salvar";
 			this->bSalvar->UseVisualStyleBackColor = true;
+			this->bSalvar->Click += gcnew System::EventHandler(this, &ComponentBiomass::bSalvar_Click);
 			// 
 			// tDescription
 			// 
 			this->tDescription->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tDescription->Location = System::Drawing::Point(146, 193);
+			this->tDescription->Location = System::Drawing::Point(155, 193);
 			this->tDescription->Name = L"tDescription";
-			this->tDescription->Size = System::Drawing::Size(278, 20);
+			this->tDescription->Size = System::Drawing::Size(264, 20);
 			this->tDescription->TabIndex = 94;
 			this->tDescription->Text = L"Descriçao do Componente";
 			this->tDescription->Enter += gcnew System::EventHandler(this, &ComponentBiomass::textBox_Enter);
@@ -171,7 +176,7 @@ namespace INPEEM {
 			// 
 			this->tName->CharacterCasing = System::Windows::Forms::CharacterCasing::Lower;
 			this->tName->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tName->Location = System::Drawing::Point(116, 167);
+			this->tName->Location = System::Drawing::Point(155, 166);
 			this->tName->MaxLength = 2;
 			this->tName->Name = L"tName";
 			this->tName->Size = System::Drawing::Size(53, 20);
@@ -197,7 +202,7 @@ namespace INPEEM {
 			this->lDescription->AutoSize = true;
 			this->lDescription->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lDescription->Location = System::Drawing::Point(56, 190);
+			this->lDescription->Location = System::Drawing::Point(61, 193);
 			this->lDescription->Name = L"lDescription";
 			this->lDescription->Size = System::Drawing::Size(87, 23);
 			this->lDescription->TabIndex = 91;
@@ -221,7 +226,7 @@ namespace INPEEM {
 			this->lName->AutoSize = true;
 			this->lName->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lName->Location = System::Drawing::Point(55, 164);
+			this->lName->Location = System::Drawing::Point(90, 164);
 			this->lName->Name = L"lName";
 			this->lName->Size = System::Drawing::Size(58, 23);
 			this->lName->TabIndex = 93;
@@ -313,7 +318,7 @@ namespace INPEEM {
 			this->lAverFactorB_C->AutoSize = true;
 			this->lAverFactorB_C->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lAverFactorB_C->Location = System::Drawing::Point(126, 402);
+			this->lAverFactorB_C->Location = System::Drawing::Point(124, 402);
 			this->lAverFactorB_C->Name = L"lAverFactorB_C";
 			this->lAverFactorB_C->Size = System::Drawing::Size(124, 23);
 			this->lAverFactorB_C->TabIndex = 100;
@@ -479,13 +484,17 @@ namespace INPEEM {
 			this->Controls->Add(this->pbLogo1);
 			this->Name = L"ComponentBiomass";
 			this->ShowInTaskbar = false;
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"ComponentBiomass";
+			this->Shown += gcnew System::EventHandler(this, &ComponentBiomass::ComponentBiomass_Shown);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbLogo1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
-		private: System::Void textBox_Enter(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void textBox_Enter(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void bSalvar_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void ComponentBiomass_Shown(System::Object^  sender, System::EventArgs^  e);
 };
 }

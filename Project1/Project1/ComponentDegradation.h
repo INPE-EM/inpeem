@@ -16,6 +16,10 @@ namespace INPEEM {
 	public ref class ComponentDegradation : public System::Windows::Forms::Form
 	{
 	public:
+		String^ gSDataMissing = "";
+		String^ gSDataMissingTitle = "";
+
+	public:
 		cReturn^ lReturn;
 		ComponentDegradation(cReturn^ pDegradation)
 		{
@@ -38,48 +42,26 @@ namespace INPEEM {
 			}
 		}
 
-	protected:
-
-
-
-
-
-
+	private: System::Windows::Forms::CheckBox^  cbSave;
 	private: System::Windows::Forms::TextBox^  tAverLimiarDegradLoss;
-
 	private: System::Windows::Forms::Label^  lAverLimiarDegradLoss;
-
 	private: System::Windows::Forms::TextBox^  tAverLimiarDegradYears;
-
 	private: System::Windows::Forms::Label^  lAverLimiarDegradYears;
-
 	private: System::Windows::Forms::TextBox^  tAverAGB_percReduction;
-
 	private: System::Windows::Forms::Label^  lAverAGB_percReduction;
 	private: System::Windows::Forms::TextBox^  tAverPeriodRegrow;
-
-
 	private: System::Windows::Forms::Label^  lAverPeriodRegrow;
-
 	private: System::Windows::Forms::TextBox^  tDescription;
 	private: System::Windows::Forms::TextBox^  tAverLitter_loss;
-
 	private: System::Windows::Forms::TextBox^  tAverDeadWood_loss;
-
 	private: System::Windows::Forms::TextBox^  tAverBGB_loss;
 	private: System::Windows::Forms::Label^  lAverLitter_loss;
-
-
 	private: System::Windows::Forms::TextBox^  tAverAGB_loss;
 	private: System::Windows::Forms::Label^  lAverDeadWood_loss;
-
-
 	private: System::Windows::Forms::TextBox^  tName;
 	private: System::Windows::Forms::Label^  lAverBGB_loss;
-
 	private: System::Windows::Forms::Label^  lDescription;
 	private: System::Windows::Forms::Label^  lAverAGB_loss;
-
 	private: System::Windows::Forms::Label^  lName;
 	private: System::Windows::Forms::Button^  bSalvar;
 	private: System::Windows::Forms::PictureBox^  pbLogo1;
@@ -120,13 +102,14 @@ namespace INPEEM {
 			this->lName = (gcnew System::Windows::Forms::Label());
 			this->bSalvar = (gcnew System::Windows::Forms::Button());
 			this->pbLogo1 = (gcnew System::Windows::Forms::PictureBox());
+			this->cbSave = (gcnew System::Windows::Forms::CheckBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbLogo1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// tAverLimiarDegradLoss
 			// 
 			this->tAverLimiarDegradLoss->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tAverLimiarDegradLoss->Location = System::Drawing::Point(266, 572);
+			this->tAverLimiarDegradLoss->Location = System::Drawing::Point(263, 535);
 			this->tAverLimiarDegradLoss->Name = L"tAverLimiarDegradLoss";
 			this->tAverLimiarDegradLoss->Size = System::Drawing::Size(89, 20);
 			this->tAverLimiarDegradLoss->TabIndex = 162;
@@ -139,7 +122,7 @@ namespace INPEEM {
 			this->lAverLimiarDegradLoss->AutoSize = true;
 			this->lAverLimiarDegradLoss->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lAverLimiarDegradLoss->Location = System::Drawing::Point(77, 570);
+			this->lAverLimiarDegradLoss->Location = System::Drawing::Point(74, 533);
 			this->lAverLimiarDegradLoss->Name = L"lAverLimiarDegradLoss";
 			this->lAverLimiarDegradLoss->Size = System::Drawing::Size(185, 23);
 			this->lAverLimiarDegradLoss->TabIndex = 161;
@@ -149,7 +132,7 @@ namespace INPEEM {
 			// tAverLimiarDegradYears
 			// 
 			this->tAverLimiarDegradYears->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tAverLimiarDegradYears->Location = System::Drawing::Point(266, 531);
+			this->tAverLimiarDegradYears->Location = System::Drawing::Point(263, 494);
 			this->tAverLimiarDegradYears->Name = L"tAverLimiarDegradYears";
 			this->tAverLimiarDegradYears->Size = System::Drawing::Size(89, 20);
 			this->tAverLimiarDegradYears->TabIndex = 160;
@@ -162,7 +145,7 @@ namespace INPEEM {
 			this->lAverLimiarDegradYears->AutoSize = true;
 			this->lAverLimiarDegradYears->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lAverLimiarDegradYears->Location = System::Drawing::Point(69, 529);
+			this->lAverLimiarDegradYears->Location = System::Drawing::Point(66, 492);
 			this->lAverLimiarDegradYears->Name = L"lAverLimiarDegradYears";
 			this->lAverLimiarDegradYears->Size = System::Drawing::Size(193, 23);
 			this->lAverLimiarDegradYears->TabIndex = 159;
@@ -172,7 +155,7 @@ namespace INPEEM {
 			// tAverAGB_percReduction
 			// 
 			this->tAverAGB_percReduction->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tAverAGB_percReduction->Location = System::Drawing::Point(266, 449);
+			this->tAverAGB_percReduction->Location = System::Drawing::Point(263, 412);
 			this->tAverAGB_percReduction->Name = L"tAverAGB_percReduction";
 			this->tAverAGB_percReduction->Size = System::Drawing::Size(89, 20);
 			this->tAverAGB_percReduction->TabIndex = 158;
@@ -185,7 +168,7 @@ namespace INPEEM {
 			this->lAverAGB_percReduction->AutoSize = true;
 			this->lAverAGB_percReduction->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lAverAGB_percReduction->Location = System::Drawing::Point(58, 447);
+			this->lAverAGB_percReduction->Location = System::Drawing::Point(55, 410);
 			this->lAverAGB_percReduction->Name = L"lAverAGB_percReduction";
 			this->lAverAGB_percReduction->Size = System::Drawing::Size(204, 23);
 			this->lAverAGB_percReduction->TabIndex = 157;
@@ -195,7 +178,7 @@ namespace INPEEM {
 			// tAverPeriodRegrow
 			// 
 			this->tAverPeriodRegrow->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tAverPeriodRegrow->Location = System::Drawing::Point(266, 490);
+			this->tAverPeriodRegrow->Location = System::Drawing::Point(263, 453);
 			this->tAverPeriodRegrow->Name = L"tAverPeriodRegrow";
 			this->tAverPeriodRegrow->Size = System::Drawing::Size(89, 20);
 			this->tAverPeriodRegrow->TabIndex = 156;
@@ -208,7 +191,7 @@ namespace INPEEM {
 			this->lAverPeriodRegrow->AutoSize = true;
 			this->lAverPeriodRegrow->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lAverPeriodRegrow->Location = System::Drawing::Point(104, 488);
+			this->lAverPeriodRegrow->Location = System::Drawing::Point(101, 451);
 			this->lAverPeriodRegrow->Name = L"lAverPeriodRegrow";
 			this->lAverPeriodRegrow->Size = System::Drawing::Size(158, 23);
 			this->lAverPeriodRegrow->TabIndex = 155;
@@ -218,7 +201,7 @@ namespace INPEEM {
 			// tDescription
 			// 
 			this->tDescription->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tDescription->Location = System::Drawing::Point(156, 213);
+			this->tDescription->Location = System::Drawing::Point(154, 186);
 			this->tDescription->Name = L"tDescription";
 			this->tDescription->Size = System::Drawing::Size(278, 20);
 			this->tDescription->TabIndex = 149;
@@ -228,7 +211,7 @@ namespace INPEEM {
 			// tAverLitter_loss
 			// 
 			this->tAverLitter_loss->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tAverLitter_loss->Location = System::Drawing::Point(266, 408);
+			this->tAverLitter_loss->Location = System::Drawing::Point(263, 371);
 			this->tAverLitter_loss->Name = L"tAverLitter_loss";
 			this->tAverLitter_loss->Size = System::Drawing::Size(89, 20);
 			this->tAverLitter_loss->TabIndex = 152;
@@ -239,7 +222,7 @@ namespace INPEEM {
 			// tAverDeadWood_loss
 			// 
 			this->tAverDeadWood_loss->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tAverDeadWood_loss->Location = System::Drawing::Point(266, 367);
+			this->tAverDeadWood_loss->Location = System::Drawing::Point(263, 330);
 			this->tAverDeadWood_loss->Name = L"tAverDeadWood_loss";
 			this->tAverDeadWood_loss->Size = System::Drawing::Size(89, 20);
 			this->tAverDeadWood_loss->TabIndex = 151;
@@ -250,7 +233,7 @@ namespace INPEEM {
 			// tAverBGB_loss
 			// 
 			this->tAverBGB_loss->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tAverBGB_loss->Location = System::Drawing::Point(266, 326);
+			this->tAverBGB_loss->Location = System::Drawing::Point(263, 289);
 			this->tAverBGB_loss->Name = L"tAverBGB_loss";
 			this->tAverBGB_loss->Size = System::Drawing::Size(89, 20);
 			this->tAverBGB_loss->TabIndex = 150;
@@ -263,7 +246,7 @@ namespace INPEEM {
 			this->lAverLitter_loss->AutoSize = true;
 			this->lAverLitter_loss->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lAverLitter_loss->Location = System::Drawing::Point(135, 406);
+			this->lAverLitter_loss->Location = System::Drawing::Point(132, 369);
 			this->lAverLitter_loss->Name = L"lAverLitter_loss";
 			this->lAverLitter_loss->Size = System::Drawing::Size(127, 23);
 			this->lAverLitter_loss->TabIndex = 145;
@@ -273,7 +256,7 @@ namespace INPEEM {
 			// tAverAGB_loss
 			// 
 			this->tAverAGB_loss->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tAverAGB_loss->Location = System::Drawing::Point(266, 285);
+			this->tAverAGB_loss->Location = System::Drawing::Point(263, 248);
 			this->tAverAGB_loss->Name = L"tAverAGB_loss";
 			this->tAverAGB_loss->Size = System::Drawing::Size(89, 20);
 			this->tAverAGB_loss->TabIndex = 153;
@@ -286,7 +269,7 @@ namespace INPEEM {
 			this->lAverDeadWood_loss->AutoSize = true;
 			this->lAverDeadWood_loss->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lAverDeadWood_loss->Location = System::Drawing::Point(90, 365);
+			this->lAverDeadWood_loss->Location = System::Drawing::Point(87, 328);
 			this->lAverDeadWood_loss->Name = L"lAverDeadWood_loss";
 			this->lAverDeadWood_loss->Size = System::Drawing::Size(172, 23);
 			this->lAverDeadWood_loss->TabIndex = 144;
@@ -297,12 +280,12 @@ namespace INPEEM {
 			// 
 			this->tName->CharacterCasing = System::Windows::Forms::CharacterCasing::Lower;
 			this->tName->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tName->Location = System::Drawing::Point(126, 187);
+			this->tName->Location = System::Drawing::Point(154, 160);
 			this->tName->MaxLength = 2;
 			this->tName->Name = L"tName";
 			this->tName->Size = System::Drawing::Size(53, 20);
 			this->tName->TabIndex = 154;
-			this->tName->Text = L"b";
+			this->tName->Text = L"dg";
 			this->tName->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tName->Enter += gcnew System::EventHandler(this, &ComponentDegradation::textBox_Enter);
 			// 
@@ -311,7 +294,7 @@ namespace INPEEM {
 			this->lAverBGB_loss->AutoSize = true;
 			this->lAverBGB_loss->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lAverBGB_loss->Location = System::Drawing::Point(143, 324);
+			this->lAverBGB_loss->Location = System::Drawing::Point(140, 287);
 			this->lAverBGB_loss->Name = L"lAverBGB_loss";
 			this->lAverBGB_loss->Size = System::Drawing::Size(119, 23);
 			this->lAverBGB_loss->TabIndex = 143;
@@ -323,7 +306,7 @@ namespace INPEEM {
 			this->lDescription->AutoSize = true;
 			this->lDescription->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lDescription->Location = System::Drawing::Point(66, 210);
+			this->lDescription->Location = System::Drawing::Point(64, 183);
 			this->lDescription->Name = L"lDescription";
 			this->lDescription->Size = System::Drawing::Size(87, 23);
 			this->lDescription->TabIndex = 146;
@@ -335,7 +318,7 @@ namespace INPEEM {
 			this->lAverAGB_loss->AutoSize = true;
 			this->lAverAGB_loss->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lAverAGB_loss->Location = System::Drawing::Point(142, 283);
+			this->lAverAGB_loss->Location = System::Drawing::Point(139, 246);
 			this->lAverAGB_loss->Name = L"lAverAGB_loss";
 			this->lAverAGB_loss->Size = System::Drawing::Size(120, 23);
 			this->lAverAGB_loss->TabIndex = 147;
@@ -347,7 +330,7 @@ namespace INPEEM {
 			this->lName->AutoSize = true;
 			this->lName->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lName->Location = System::Drawing::Point(65, 184);
+			this->lName->Location = System::Drawing::Point(93, 157);
 			this->lName->Name = L"lName";
 			this->lName->Size = System::Drawing::Size(58, 23);
 			this->lName->TabIndex = 148;
@@ -362,6 +345,7 @@ namespace INPEEM {
 			this->bSalvar->TabIndex = 142;
 			this->bSalvar->Text = L"Salvar";
 			this->bSalvar->UseVisualStyleBackColor = true;
+			this->bSalvar->Click += gcnew System::EventHandler(this, &ComponentDegradation::bSalvar_Click);
 			// 
 			// pbLogo1
 			// 
@@ -373,11 +357,23 @@ namespace INPEEM {
 			this->pbLogo1->TabIndex = 141;
 			this->pbLogo1->TabStop = false;
 			// 
+			// cbSave
+			// 
+			this->cbSave->AutoSize = true;
+			this->cbSave->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold));
+			this->cbSave->Location = System::Drawing::Point(165, 597);
+			this->cbSave->Name = L"cbSave";
+			this->cbSave->Size = System::Drawing::Size(170, 27);
+			this->cbSave->TabIndex = 163;
+			this->cbSave->Text = L"Salvar em arquivo";
+			this->cbSave->UseVisualStyleBackColor = true;
+			// 
 			// ComponentDegradation
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(495, 677);
+			this->Controls->Add(this->cbSave);
 			this->Controls->Add(this->tAverLimiarDegradLoss);
 			this->Controls->Add(this->lAverLimiarDegradLoss);
 			this->Controls->Add(this->tAverLimiarDegradYears);
@@ -402,13 +398,17 @@ namespace INPEEM {
 			this->Controls->Add(this->pbLogo1);
 			this->Name = L"ComponentDegradation";
 			this->ShowInTaskbar = false;
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"ComponentDegradation";
+			this->Shown += gcnew System::EventHandler(this, &ComponentDegradation::ComponentDegradation_Shown);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbLogo1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
-		private: System::Void textBox_Enter(System::Object^  sender, System::EventArgs^  e);
-	};
+	private: System::Void textBox_Enter(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void ComponentDegradation_Shown(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void bSalvar_Click(System::Object^  sender, System::EventArgs^  e);
+};
 }
