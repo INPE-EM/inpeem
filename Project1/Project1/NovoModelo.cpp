@@ -23,6 +23,7 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 	if (lLanguage == "en") {
 		//Form
 		this->Text = "INPE-EM - Creating a new model";
+
 		//Menu
 		arquivoToolStripMenuItem->Text = "File";
 		novoToolStripMenuItem->Text = "New";
@@ -32,26 +33,58 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		idiomaToolStripMenuItem->Text = "Language";
 		ajudaToolStripMenuItem->Text = "Help";
 		sobreToolStripMenuItem->Text = "About";
+		
 		//tabModel
 		tabDefModel->Text = "Model Definitions";
-		lArquivos->Text = "     Files";
+		lArquivos->Text = "    Files";
 		lDirProj->Text = "Folder to Save the Model";
 		bSelectFolder->Text = "Select";
 		lDefinicoesModelo->Text = "   Model Definitions";
 		lModelName->Text = "Model Name";
+		
 		//tabComponents
-		tabComponents->Text = "Componentes";
-		lComponentes->Text = "Configure os Componentes";
+		tabComponents->Text = "Components";
+		lComponentes->Text = "Components Configuration";
 		bDeforest->Text = "Deforest";
 		bBiomass->Text = "Biomass";
 		bVegetationRemoval->Text = "Vegetation Removal";
 		bSecondVegetation->Text = "Secondary Vegetation";
 		bDegrad->Text = "Degradation";
+
+		//tabNonSpatialModel
+		tabNonSpatial->Text = "Non Spatial Model";
+		lNonSpatialName->Text = "Name of Non Spatial Model";
+		cbNonSpatialVerbose->Text = "Verbose";
+		lNonSpatialInitialYear->Text = "Initial Year";
+		lNonSpatialFinalYear->Text = "Final Year";
+		lNonSpatialArea->Text = "Total Area";
+		lNonSpatialComponentSelection->Text = "Components Selection";
+		cbNonSpatialBiomass->Text = "Biomass";
+		cbNonSpatialDeforest->Text = "Deforest";
+		cbNonSpatialDegradation->Text = "Degradation";
+		cbNonSpatialSecondaryVegetation->Text = "Secondary Vegetation";
+		cbNonSpatialVegetationRemoval->Text = "Vegetation Removal";
+		bTableData->Text = "Non Spatial Data Table";
+		
+		//tabSpatialModel
+		tabSpatial->Text = "Spatial Model";
+		lSpatialName->Text = "Name of Spatial Model";
+		cbNonSpatialVerbose->Text = "Verbose";
+		lSpatialInitialYear->Text = "Initial Year";
+		lSpatialFinalYear->Text = "Final Year";
 		lDatabase->Text = "File:";
 		lTerraview->Text = "Terraview Project";
-		lComponentes->Text = "   Select the Components";
+		lSpatialLayerName->Text = "Layer Name";
+		lSpatialCellArea->Text = "Cell Size";
+		lSpatialComponentSelection->Text = "Components Selection";
+		cbSpatialBiomass->Text = "Biomass";
+		cbSpatialDeforest->Text = "Deforest";
+		cbSpatialDegradation->Text = "Degradation";
+		cbSpatialSecondaryVegetation->Text = "Secondary Vegetation";
+		cbSpatialVegetationRemoval->Text = "Vegetation Removal";
+				
 		//tabFileMaker
-		lFileMaker->Text = "       Files Maker";
+		lFileMaker->Text = "     Files Maker";
 		bGerarArquivos->Text = "Make Files";
 		lRunModel->Text = "       Run Model";
 		bRun->Text = "Run Model";
@@ -71,12 +104,32 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		gSCVRName = "Component - Vegetation Removal";
 		gSCSVName = "Component - Secondary Vegetation";
 		gSCDegradName = "Component - Degradation";
-		gSModelSelect = "A Model Type Must be Selected on Files Maker.";
 		gSModelSelectTitle = "Error - Model Type not Selected";
-		gSFolder = "Project folder not selected in Model Definition.";
+		gSModelSelect = "A Model Type Must be Selected on Files Maker.";
 		gSFolderTitle = "Error - Project folder is missing";
-		gSModelName = "Model Name not defined in Model Definition.";
+		gSFolder = "Project folder not selected in Model Definition.";
 		gSModelNameTitle = "Error - Model Name is missing";
+		gSModelName = "Model Name not defined in Model Definition.";
+		gSNSModelName = "Non Spatial Model Name not defined in Non Spatial Model.";
+		gSSModelName = "Spatial Model Name not defined in Spatial Model.";
+		gSStartTimeTitle = "Error - Initial Year is missing";
+		gSNSStartTime = "Initial Year not defined in Non Spatial Model.";
+		gSStartTime = "Initial Year not defined in Spatial Model.";
+		gSStopTimeTitle = "Error - Final Year is missing";
+		gSNSStopTime = "Final Year not defined in Non Spatial Model.";
+		gSStopTime = "Final Year not defined in Spatial Model.";
+		gSNSAreaTitle = "Error - Non Spatial Model Total Area is missing";
+		gSNSArea = "Total Area not defined";
+		gSNSTableDataTitle = "Error - Non Spatial Data Table is missing";
+		gSNSTableData = "Non Spatial Data Table not defined in Non Spatial Model"; 
+		gSSFileTitle = "Error - Spatial Data is missing";
+		gSSFile = "A Shape file or Terraview Project must be selected in Spatial Model.";
+		gSCellAreaTitle = "Error - Cell Area is missing";
+		gSCellArea = "Cell Are not define in Spatial Model.";
+		gSLayerNameTitle = "Error - Layer Name is missing";
+		gSLayerName = "Layer Name not defined in Spatial Model";
+		gSUnauthorized = "You do not have writting permission on the selected folder.\nTry a different one or run LuccME as admin.";
+		gSUnauthorizedTitle = "Error - Writting Permimission";
 
 		//Combo Box
 		cbModelType->Items->Clear();
@@ -87,6 +140,7 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 	else {
 		//Form
 		this->Text = "INPE-EM - Criando um novo modelo";
+		
 		//Menu
 		arquivoToolStripMenuItem->Text = "Arquivo";
 		novoToolStripMenuItem->Text = "Novo";
@@ -96,6 +150,7 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		idiomaToolStripMenuItem->Text = "Idioma";
 		ajudaToolStripMenuItem->Text = "Ajuda";
 		sobreToolStripMenuItem->Text = "Sobre";
+		
 		//tabModel
 		tabDefModel->Text = "Definições do Modelo";
 		lArquivos->Text = "Arquivos";
@@ -103,6 +158,7 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		bSelectFolder->Text = "Selecionar";
 		lDefinicoesModelo->Text = "Definições do Modelo";
 		lModelName->Text = "Nome do Modelo";
+		
 		//tabComponents
 		tabComponents->Text = "Componentes";
 		lComponentes->Text = "Configure os Componentes";
@@ -111,9 +167,38 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		bVegetationRemoval->Text = "Vegetação Primária";
 		bSecondVegetation->Text = "Vegetação Secundária";
 		bDegrad->Text = "Degradação";
-
+		
+		//tabNonSpatialModel
+		tabNonSpatial->Text = "Modelo Não Espacial";
+		lNonSpatialName->Text = "Nome do Modelo Não Espacial";
+		cbNonSpatialVerbose->Text = "Verboso";
+		lNonSpatialInitialYear->Text = "Ano de Início";
+		lNonSpatialFinalYear->Text = "Ano de Término";
+		lNonSpatialArea->Text = "Área Total";
+		lNonSpatialComponentSelection->Text = "Seleção de Componentes";
+		cbNonSpatialBiomass->Text = "Biomassa";
+		cbNonSpatialDeforest->Text = "Desmatamento";
+		cbNonSpatialDegradation->Text = "Degradação";
+		cbNonSpatialSecondaryVegetation->Text = "Vegetação Secundária";
+		cbNonSpatialVegetationRemoval->Text = "Vegetação Primária";
+		bTableData->Text = "Tabela de Dados Não Espaciais";
+		
+		//tabSpatialModel
+		tabSpatial->Text = "Modelo Espacial";
+		lSpatialName->Text = "Nome do Modelo Espacial";
+		cbNonSpatialVerbose->Text = "Verboso";
+		lSpatialInitialYear->Text = "Ano de Início";
+		lSpatialFinalYear->Text = "Ano de Término";
+		lTerraview->Text = "Projeto Terraview";
 		lDatabase->Text = "Arquivo:";
-		lComponentes->Text = "Selecione os Componentes";
+		lSpatialLayerName->Text = "Nome do Layer";
+		lSpatialCellArea->Text = "Tamanho da Célula";
+		lSpatialComponentSelection->Text = "Seleção de Componentes";
+		cbSpatialBiomass->Text = "Biomassa";
+		cbSpatialDeforest->Text = "Desmatamento";
+		cbSpatialDegradation->Text = "Degradação";
+		cbSpatialSecondaryVegetation->Text = "Vegetação Secundária";
+		cbSpatialVegetationRemoval->Text = "Vegetação Primária";
 	
 		//tabFileMaker
 		lFileMaker->Text = "Gerar os Arquivos";
@@ -136,12 +221,32 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		gSCVRName = "Componente - Vegetação Primária";
 		gSCSVName = "Componente - Vegetação Secundária";
 		gSCDegradName = "Componente - Degradação";
+		gSModelSelectTitle = "Erro - Tipo de Modelo não Selecionado";
 		gSModelSelect = "Um Tipo de Modelo deve ser selecionado em Gerar Arquivos.";
-		gSModelSelectTitle = "Erro - TIpo de Modelo não Selecionado";
-		gSFolder = "Pasta do projeto não selecionada em Definições do Modelo.";
 		gSFolderTitle = "Erro - Pasta do projeto não selecionada";
-		gSModelName = "Nome do Modelo não definido em Definições do Modelo.";
+		gSFolder = "Pasta do projeto não selecionada em Definições do Modelo.";
 		gSModelNameTitle = "Erro - Nome do Modelo não definido";
+		gSModelName = "Nome do Modelo não definido em Definições do Modelo.";
+		gSNSModelName = "Nome do Modelo Não Espacial não definido em Modelo Não Espacial.";
+		gSSModelName = "Nome do Modelo Espacial não definido em Modelo Espacial.";
+		gSStartTimeTitle = "Erro - Ano de Início não preenchido";
+		gSNSStartTime = "Ano de Início não definido em Modelo Não Espacial.";
+		gSStartTime = "Ano de Início não definido em Modelo Espacial.";
+		gSStopTimeTitle = "Erro - Ano de Termino não preenchido";
+		gSNSStopTime = "Ano de Termino não definido em Modelo Não Espacial.";
+		gSStopTime = "Ano de Termino não definido em Modelo Espacial.";
+		gSNSAreaTitle = "Erro - Área Total do Modelo Não Espacial não definido";
+		gSNSArea = "Área Total não definida em Modelo Não Espacial.";
+		gSNSTableDataTitle = "Erro - Non Spatial Data Table não preenchido";
+		gSNSTableData = "Non Spatial Data Table não definida em Modelo Não Espacial.";
+		gSSFileTitle = "Erro - Dado espacial não selecionado";
+		gSSFile = "Um arquivo Shape ou um Projeto Terraview deve ser selecionado em Modelo Espacial";
+		gSCellAreaTitle = "Erro - Cell Area não definido";
+		gSCellArea = "Cell Are não definido no Modelo Espacial.";
+		gSLayerNameTitle = "Erro - Nome do Layer não preenchido";
+		gSLayerName = "Nome do Layer não definido em MOdelo Espacial";
+		gSUnauthorized = "Você não possui permissão de escrita no diretório selecionado.\nEscolha outro diretório ou execute o LuccME como administrador.";
+		gSUnauthorizedTitle = "Erro - Permissão de escrita";
 
 		//Combo Box
 		cbModelType->Items->Clear();
@@ -523,7 +628,7 @@ System::Void INPEEM::NovoModelo::showReturnDegradation()
 	lines[10] = "averAGB_percReduction = " + auxDegradation[6] + ",";
 	lines[11] = "averPeriodRegrow = " + auxDegradation[7] + ",";
 	lines[12] = "averLimiarDegradYears = " + auxDegradation[8] + ",";
-	lines[13] = "averLimiarDegradLoss = " + auxDegradation[9] + ",";
+	lines[13] = "averLimiarDegradLoss = " + auxDegradation[9];
 	lines[14] = "}";
 
 	tbDegrad->Lines = lines;
@@ -556,7 +661,7 @@ System::Void INPEEM::NovoModelo::showReturnSecondaryVegetation()
 	lines[12] = "averRecoveryPeriod2 = " + auxSecondaryVegetatin[9] + ",";
 	lines[13] = "averAgriculturalUseCycle = " + auxSecondaryVegetatin[10] + ",";
 	lines[14] = "averInitialAbandonmentCycle = " + auxSecondaryVegetatin[11] + ",";
-	lines[15] = "averBGBpercBGB = " + auxSecondaryVegetatin[12] + ",";
+	lines[15] = "averBGBpercBGB = " + auxSecondaryVegetatin[12];
 	lines[16] = "}";
 
 	tbSecondVegetation->Lines = lines;
@@ -604,7 +709,7 @@ System::Void INPEEM::NovoModelo::showReturnVegetationRemoval()
 	lines[27] = "averDecayRateBGBDecompositionAbove = " + auxVegetationRemoval[20] + ",";
 	lines[28] = "averDecayRateBGBDecompositionUnder = " + auxVegetationRemoval[21] + ",";
 	lines[29] = "averDecayRateLitterDecomposition = " + auxVegetationRemoval[22] + ",";
-	lines[30] = "averDecayRateDeadWoodDecomposition = " + auxVegetationRemoval[23] + ",";
+	lines[30] = "averDecayRateDeadWoodDecomposition = " + auxVegetationRemoval[23];
 	lines[31] = "}";
 
 	tbVegetationRemoval->Lines = lines;
@@ -652,1099 +757,496 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 		checked = false;
 	}
 
-	//else if (tStartTime->Text == "") {
-	//	MessageBox::Show(gSStartTime, gSStartTimeTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-	//	checked = false;
-	//}
-
-	//else if (tEndTime->Text == "") {
-	//	MessageBox::Show(gSEndTime, gSEndTimeTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-	//	checked = false;
-	//}
-
-	//else if (tbSelectedBatabase->Text == "") {
-	//	MessageBox::Show(gSDBSave, gSDBSaveTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-	//	checked = false;
-	//}
-
-	//else if (tThemeName->Text == "") {
-	//	MessageBox::Show(gSThemeName, gSThemeNameTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-	//	checked = false;
-	//}
-
-	//else if (tCellArea->Text == "") {
-	//	MessageBox::Show(gSCellArea, gSCellAreaTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-	//	checked = false;
-	//}
-
-	//else if (lLUTShow->Text == "") {
-	//	MessageBox::Show(gSLUTShow, gSLUTShowTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-	//	checked = false;
-	//}
-
-	//else if (lLUNDShow->Text == "") {
-	//	MessageBox::Show(gSLUTNDShow, gSLUTNDShowTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-	//	checked = false;
-	//}
-
-	//else if (gDemandComponent == NONE) {
-	//	MessageBox::Show(gSDemandnS, gSDemandnSTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-	//	checked = false;
-	//}
-
-	//else if (gPotentialComponent == NONE) {
-	//	MessageBox::Show(gSPotentialnS, gSPotentialnSTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-	//	checked = false;
-	//}
-
-	//else if (gAllocationComponent == NONE) {
-	//	MessageBox::Show(gSAllocationnS, gSAllocationnSTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-	//	checked = false;
-	//}
-
-	//else if (tOutputTheme->Text == "") {
-	//	MessageBox::Show(gSOutputTheme, gSOutputThemeTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-	//	checked = false;
-	//}
-
-	//else if (lYearsToSave->Text == "" && cSaveYearly->Checked == false) {
-	//	MessageBox::Show(gSYearSave, gSYearSaveTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-	//	checked = false;
-	//}
-
-	//else if ((lYearsToSave->Text != "" || cSaveYearly->Checked == true) && (lAttrToSave->Text == "")) {
-	//	MessageBox::Show(gSAttribToSave, gSAttribToSaveTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-	//	checked = false;
-	//}
-
-	//else if (gPotentialComponent > NUMDISCPOTCOMP && (gAllocationComponent > NONE && gAllocationComponent <= NUMDISCALLOCCOMP)) {
-	//	MessageBox::Show(gSPotContAlocDisc, gSPotContAlocDiscTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-	//	checked = false;
-	//}
-
-	//else if ((gPotentialComponent > NONE && gPotentialComponent <= NUMDISCPOTCOMP) && gAllocationComponent > NUMDISCALLOCCOMP) {
-	//	MessageBox::Show(gSPotDiscAlocCont, gSPotContAlocDiscTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-	//	checked = false;
-	//}
-
-	//else if (cDynamicVariables->Checked == true) {
-	//	if (lDynamicConfirm->Text == "") {
-	//		MessageBox::Show(gSCheckDyn, gSCheckDynTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-	//		checked = false;
-	//	}
-	//}
-
-	//else if (cScenario->Checked == true) {
-	//	if (cDynamicVariables->Checked == false) {
-	//		MessageBox::Show(gSCheckDyn, gSCheckDynTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-	//		checked = false;
-	//	}
-	//	else if (tScenarioName->Text == "") {
-	//		MessageBox::Show(gSScenName, gSScenNameTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-	//		checked = false;
-	//	}
-	//	else if (tScenariosStartTime->Text == "") {
-	//		MessageBox::Show(gSScenST, gSScenSTTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-	//		checked = false;
-	//	}
-	//	else if (shape) {
-	//		if (lScenarioYearsConfirm->Text == "") {
-	//			MessageBox::Show(gSScenSYU, gSScenSYUTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-	//			checked = false;
-	//		}
-	//	}
-	//}
-
-	//if (checked) {
-	//	bool mainFile = false;
-	//	bool subFile = false;
-
-	//	DateTime now = DateTime::Now;
-	//	String^ dateTime = now.ToString("d") + " at " + now.ToString("T");
-
-	//	//Creating main File
-	//	String^ path = lSelectedFolder->Text->Replace("\\", "\\\\") + "\\" + tModelName->Text->ToLower() + "_main.lua";
-	//	path = path->Replace("\\\\\\\\", "\\\\");
-
-
-	//	StreamWriter^ sw = nullptr;
-
-	//	try {
-	//		//Sometimes Widows got and error to access the file, this force to retry
-	//		try
-	//		{
-	//			if (File::Exists(path))
-	//			{
-	//				File::Delete(path);
-	//			}
-	//			sw = File::CreateText(path);
-	//		}
-	//		catch (UnauthorizedAccessException^)
-	//		{
-	//			MessageBox::Show(gSUnauthorized, gSUnauthorizedTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-	//			checked = false;
-	//		}
-
-	//		if (checked) {
-	//			sw->WriteLine("--------------------------------------------------------------");
-	//			sw->WriteLine("-- This file contains a LUCCME APPLICATION MODEL definition --");
-	//			sw->WriteLine("--               Compatible with LuccME 3.0                 --");
-	//			sw->WriteLine("--        Generated with LuccMe Model Configurator          --");
-	//			sw->WriteLine("--               " + dateTime + "                     --");
-	//			sw->WriteLine("--------------------------------------------------------------\n");
-
-	//			if (shape) {
-	//				sw->WriteLine("--------------------------------------------------------------");
-	//				sw->WriteLine("-- Creating Terraview Project                               --");
-	//				sw->WriteLine("--------------------------------------------------------------");
-	//				sw->WriteLine("");
-	//				sw->WriteLine("import(\"terralib\")\n");
-	//				sw->WriteLine("proj = Project {");
-	//				sw->WriteLine("\tfile = \"t3mp.tview\",");
-	//				sw->WriteLine("\tclean = true");
-	//				sw->WriteLine("}\n");
-
-	//				sw->WriteLine("l1 = Layer{");
-	//				sw->WriteLine("\tproject = proj,");
-	//				sw->WriteLine("\tname = \"" + tThemeName->Text + "\",");
-	//				sw->WriteLine("\tfile = \"" + tbSelectedBatabase->Lines[1]->ToString()->Replace("\\", "\\\\") + "\"");
-	//				sw->WriteLine("}\n");
-
-	//				int dynamicVariables = 0;
-	//				if (cDynamicVariables->Checked == true && lDynamicConfirm->Text != "") {
-	//					int updateYearsCount = countCaracter(lDynamicConfirm->Text, ',') + 1;
-	//					array<String^>^ updateYearsArray = gcnew array<String^>(updateYearsCount);
-	//					String^ layerName = tbSelectedBatabase->Lines[1]->ToString()->Replace("\\", "\\\\");
-	//					layerName = layerName->Replace(".shp", "");
-	//					int caracter = 0;
-
-	//					for (int i = 0; i < updateYearsArray->Length; i++) {
-	//						while (lDynamicConfirm->Text[caracter] != ',') {
-	//							updateYearsArray[i] += lDynamicConfirm->Text[caracter];
-	//							caracter++;
-	//							if (caracter == lDynamicConfirm->Text->Length) {
-	//								break;
-	//							}
-	//						}
-	//						caracter++;
-	//					}
-
-	//					for (int i = 0; i < updateYearsArray->Length; i++) {
-	//						sw->WriteLine("l" + (i + 2) + " = Layer{");
-	//						sw->WriteLine("\tproject = proj,");
-	//						sw->WriteLine("\tname = \"" + tThemeName->Text + "_" + updateYearsArray[i]->Replace(" ", "") + "\",");
-	//						sw->WriteLine("\tfile = \"" + layerName + "_" + updateYearsArray[i]->Replace(" ", "") + ".shp\"");
-	//						sw->WriteLine("}\n");
-	//					}
-	//					dynamicVariables = updateYearsCount;
-	//				}
-
-	//				if (cScenario->Checked == true && lScenarioYearsConfirm->Text != "" && tScenarioName->Text != "") {
-	//					int updateYearsCount = countCaracter(lScenarioYearsConfirm->Text, ',') + 1;
-	//					array<String^>^ updateYearsArray = gcnew array<String^>(updateYearsCount);
-	//					String^ layerName = tbSelectedBatabase->Lines[1]->ToString()->Replace("\\", "\\\\");
-	//					layerName = layerName->Replace(".shp", "");
-	//					int caracter = 0;
-
-	//					for (int i = 0; i < updateYearsArray->Length; i++) {
-	//						while (lScenarioYearsConfirm->Text[caracter] != ',') {
-	//							updateYearsArray[i] += lScenarioYearsConfirm->Text[caracter];
-	//							caracter++;
-	//							if (caracter == lScenarioYearsConfirm->Text->Length) {
-	//								break;
-	//							}
-	//						}
-	//						caracter++;
-	//					}
-
-	//					for (int i = 0; i < updateYearsArray->Length; i++) {
-	//						sw->WriteLine("l" + (i + 2 + dynamicVariables) + " = Layer{");
-	//						sw->WriteLine("\tproject = proj,");
-	//						sw->WriteLine("\tname = \"" + tThemeName->Text + "_" + tScenarioName->Text + "_" + updateYearsArray[i]->Replace(" ", "") + "\",");
-	//						sw->WriteLine("\tfile = \"" + layerName + "_" + tScenarioName->Text + "_" + updateYearsArray[i]->Replace(" ", "") + ".shp\"");
-	//						sw->WriteLine("}\n");
-	//					}
-	//				}
-	//				sw->WriteLine("--------------------------------------------------------------");
-	//				sw->WriteLine("-- LuccME Model                                             --");
-	//				sw->WriteLine("--------------------------------------------------------------");
-	//			}
-
-	//			sw->WriteLine("");
-	//			sw->WriteLine("import(\"luccme\")\n");
-	//			String^ folderAux = lSelectedFolder->Text->Replace("\\", "\\\\");
-	//			if (folderAux->Length > ROOTDIR) {
-	//				sw->WriteLine("dofile(\"" + folderAux + "\\\\" + tModelName->Text->ToLower() + "_submodel.lua\")\n");
-	//			}
-	//			else {
-	//				sw->WriteLine("dofile(\"" + folderAux + tModelName->Text->ToLower() + "_submodel.lua\")\n");
-	//			}
-	//			sw->WriteLine();
-
-	//			sw->WriteLine("--------------------------------------------------------------");
-	//			sw->WriteLine("-- LuccME APPLICATION MODEL DEFINITION                      --");
-	//			sw->WriteLine("--------------------------------------------------------------");
-
-	//			sw->WriteLine(tModelName->Text + " = LuccMEModel");
-	//			sw->WriteLine("{");
-	//			sw->WriteLine("\tname = \"" + tModelName->Text + "\",\n");
-
-	//			sw->WriteLine("\t-----------------------------------------------------");
-	//			sw->WriteLine("\t-- Temporal dimension definition                   --");
-	//			sw->WriteLine("\t-----------------------------------------------------");
-	//			sw->WriteLine("\tstartTime = " + tStartTime->Text + ",");
-	//			sw->WriteLine("\tendTime = " + tEndTime->Text + ",\n");
-
-	//			sw->WriteLine("\t-----------------------------------------------------");
-	//			sw->WriteLine("\t-- Spatial dimension definition                    --");
-	//			sw->WriteLine("\t-----------------------------------------------------");
-
-	//			if (tbSelectedBatabase->Lines[0]->ToString() == gSShape) {
-	//				sw->WriteLine("\tcs = CellularSpace");
-	//				sw->WriteLine("\t{");
-	//				sw->WriteLine("\t\tproject = \"t3mp.tview\",");
-	//				sw->WriteLine("\t\tlayer = \"" + tThemeName->Text + "\",");
-	//				sw->WriteLine("\t\tcellArea = " + tCellArea->Text + ",");
-	//				sw->WriteLine("\t},");
-	//			}
-	//			else {
-	//				sw->WriteLine("\tcs = CellularSpace");
-	//				sw->WriteLine("\t{");
-	//				sw->WriteLine("\t\tproject = \"" + tbSelectedBatabase->Lines[1]->ToString()->Replace("\\", "\\\\") + "\",");
-	//				sw->WriteLine("\t\tlayer = \"" + tThemeName->Text + "\",");
-	//				sw->WriteLine("\t\tcellArea = " + tCellArea->Text + ",");
-	//				sw->WriteLine("\t},");
-	//			}
-
-	//			if (cDynamicVariables->Checked == true) {
-	//				sw->WriteLine();
-	//				sw->WriteLine("\t-----------------------------------------------------");
-	//				sw->WriteLine("\t-- Dynamic variables definition                    --");
-	//				sw->WriteLine("\t-----------------------------------------------------");
-	//				sw->WriteLine("\tupdateYears = {" + lDynamicConfirm->Text + "},");
-
-	//				if (cScenario->Checked == true) {
-	//					sw->WriteLine("\tscenarioStartTime = " + tScenariosStartTime->Text + ",");
-	//					sw->WriteLine("\tscenarioName = \"" + tScenarioName->Text + "\",");
-	//				}
-	//			}
-
-	//			sw->WriteLine();
-	//			sw->WriteLine("\t-----------------------------------------------------");
-	//			sw->WriteLine("\t-- Land use variables definition                   --");
-	//			sw->WriteLine("\t-----------------------------------------------------");
-	//			sw->WriteLine("\tlandUseTypes =");
-	//			sw->WriteLine("\t{");
-	//			sw->WriteLine("\t\t" + lLUTShow->Text->Replace(",", ", "));
-	//			sw->WriteLine("\t},\n");
-	//			sw->WriteLine("\tlandUseNoData	= " + lLUNDShow->Text->Replace(",", ", ") + ",\n");
-
-	//			sw->WriteLine("\t-----------------------------------------------------");
-	//			sw->WriteLine("\t-- Behaviour dimension definition:                 --");
-	//			sw->WriteLine("\t-- DEMAND, POTENTIAL AND ALLOCATION COMPONENTS     --");
-	//			sw->WriteLine("\t-----------------------------------------------------");
-	//			sw->WriteLine("\tdemand = D1,");
-	//			sw->WriteLine("\tpotential = P1,");
-	//			sw->WriteLine("\tallocation = A1,\n");
-
-	//			sw->WriteLine("\tsave  =");
-	//			sw->WriteLine("\t{");
-	//			sw->WriteLine("\t\toutputTheme = \"" + tOutputTheme->Text + "\",");
-	//			sw->WriteLine("\t\tmode = \"multiple\",");
-	//			if (cSaveYearly->Checked) {
-	//				int time = Convert::ToInt16(tEndTime->Text) - Convert::ToInt16(tStartTime->Text);
-	//				int tempTime = Convert::ToInt16(tStartTime->Text);
-	//				String^ tempYears = "";
-	//				for (int i = 0; i <= time; i++) {
-	//					tempYears += Convert::ToString(tempTime + i);
-	//					if (i < time) {
-	//						tempYears += ",";
-	//					}
-	//				}
-	//				sw->WriteLine("\t\tsaveYears = {" + tempYears + "},");
-	//			}
-	//			else {
-	//				sw->WriteLine("\t\tsaveYears = {" + lYearsToSave->Text + "},");
-	//			}
-
-	//			if (lAttrToSave->Text != "") {
-	//				sw->WriteLine("\t\tsaveAttrs = ");
-	//				sw->WriteLine("\t\t{");
-	//				String^ aux = "";
-	//				for (int i = 0; i < lAttrToSave->Text->Length; i++) {
-	//					if (lAttrToSave->Text[i] != ',') {
-	//						aux += lAttrToSave->Text[i];
-	//					}
-	//					else {
-	//						if (aux[0] == ' ') {
-	//							aux = aux->Remove(0, 1);
-	//						}
-	//						sw->WriteLine("\t\t\t\"" + aux + "_out\",");
-	//						if (cChange->Checked) {
-	//							sw->WriteLine("\t\t\t\"" + aux + "_chtot\",");
-	//							sw->WriteLine("\t\t\t\"" + aux + "_chpast\",");
-	//						}
-	//						if (cPot->Checked) {
-	//							sw->WriteLine("\t\t\t\"" + aux + "_pot\",");
-	//						}
-	//						if (cReg->Checked) {
-	//							sw->WriteLine("\t\t\t\"" + aux + "_reg\",");
-	//						}
-	//						aux = "";
-
-	//					}
-	//				}
-	//				if (aux != "") {
-	//					if (aux[0] == ' ') {
-	//						aux = aux->Remove(0, 1);
-	//					}
-	//					sw->WriteLine("\t\t\t\"" + aux + "_out\",");
-	//					if (cChange->Checked) {
-	//						sw->WriteLine("\t\t\t\"" + aux + "_chtot\",");
-	//						sw->WriteLine("\t\t\t\"" + aux + "_chpast\",");
-	//					}
-	//					if (cPot->Checked) {
-	//						sw->WriteLine("\t\t\t\"" + aux + "_pot\",");
-	//					}
-	//					if (cReg->Checked) {
-	//						sw->WriteLine("\t\t\t\"" + aux + "_reg\",");
-	//					}
-	//				}
-	//				sw->WriteLine("\t\t},\n");
-	//			}
-	//			sw->WriteLine("\t},\n");
-
-	//			if (cAuxOut->Checked) {
-	//				sw->WriteLine("\thasAuxiliaryOutputs = true,");
-	//			}
-
-	//			if (cIsCoupled->Checked) {
-	//				sw->WriteLine("\tisCoupled = true");
-	//			}
-	//			else {
-	//				sw->WriteLine("\tisCoupled = false");
-	//			}
-	//			sw->WriteLine("}  -- END LuccME application model definition\n");
-
-	//			sw->WriteLine("-----------------------------------------------------");
-	//			sw->WriteLine("-- ENVIROMMENT DEFINITION                          --");
-	//			sw->WriteLine("-----------------------------------------------------");
-	//			sw->WriteLine("timer = Timer");
-	//			sw->WriteLine("{");
-	//			sw->WriteLine("\tEvent");
-	//			sw->WriteLine("\t{");
-	//			sw->WriteLine("\t\tstart = " + tModelName->Text + ".startTime,");
-	//			sw->WriteLine("\t\taction = function(event)");
-	//			sw->WriteLine("\t\t\t\t\t" + tModelName->Text + ":run(event)");
-	//			sw->WriteLine("\t\t\t\t  end");
-	//			sw->WriteLine("\t}");
-	//			sw->WriteLine("}\n");
-
-	//			sw->WriteLine("env_" + tModelName->Text + " = Environment{}");
-	//			sw->WriteLine("env_" + tModelName->Text + ":add(timer)\n");
-
-	//			sw->WriteLine("-----------------------------------------------------");
-	//			sw->WriteLine("-- ENVIROMMENT EXECUTION                           --");
-	//			sw->WriteLine("-----------------------------------------------------");
-	//			sw->WriteLine("if " + tModelName->Text + ".isCoupled == false then");
-	//			sw->WriteLine("\ttsave = databaseSave(" + tModelName->Text + ")");
-	//			sw->WriteLine("\tenv_" + tModelName->Text + ":add(tsave)");
-	//			sw->WriteLine("\tenv_" + tModelName->Text + ":run(" + tModelName->Text + ".endTime)");
-	//			sw->WriteLine("\tsaveSingleTheme (" + tModelName->Text + ", true)");
-
-	//			if (shape) {
-	//				sw->WriteLine("\tlocal projFile = File(\"t3mp.tview\")");
-	//				sw->WriteLine("\tif(projFile:exists()) then");
-	//				sw->WriteLine("\t\tprojFile:delete()");
-	//				sw->WriteLine("\tend");
-	//			}
-
-	//			sw->WriteLine("end");
-	//			sw->Close();
-
-	//			if (File::Exists(path))
-	//			{
-	//				mainFile = true;
-	//			}
-
-	//			//Creating Submodel File
-	//			path = lSelectedFolder->Text->Replace("\\", "\\\\") + "\\" + tModelName->Text->ToLower() + "_submodel.lua";
-	//			path = path->Replace("\\\\\\\\", "\\\\");
-
-	//			if (File::Exists(path))
-	//			{
-	//				File::Delete(path);
-	//			}
-
-	//			sw = File::CreateText(path);
-
-	//			sw->WriteLine("--------------------------------------------------------------");
-	//			sw->WriteLine("--       This file contains the COMPONENTS definition       --");
-	//			sw->WriteLine("--               Compatible with LuccME 3.0                 --");
-	//			sw->WriteLine("--        Generated with LuccMe Model Configurator          --");
-	//			sw->WriteLine("--               " + dateTime + "                     --");
-	//			sw->WriteLine("--------------------------------------------------------------\n");
-
-	//			if (tbDemand->Lines->Length > 0) {
-	//				sw->WriteLine("-----------------------------------------------------");
-	//				sw->WriteLine("-- Demand                                          --");
-	//				sw->WriteLine("-----------------------------------------------------");
-
-	//				int tempYear = 0;
-	//				switch (gDemandComponent)
-	//				{
-	//				case PCVINPE:
-	//					sw->WriteLine("D1 = " + tbDemand->Lines[0]);
-	//					sw->WriteLine("{");
-	//					sw->WriteLine("\tannualDemand =");
-	//					sw->WriteLine("\t{");
-	//					sw->WriteLine("\t\t-- " + tbDemand->Lines[1]->ToString()->Replace(",", ", "));
-	//					tempYear = Convert::ToInt16(tStartTime->Text);
-	//					for (int i = 2; i < tbDemand->Lines->Length; i++) {
-	//						sw->WriteLine("\t\t" + tbDemand->Lines[i]->ToString()->Replace(",", ", ") + "\t-- " + Convert::ToString(tempYear + i - 2));
-	//					}
-	//					sw->WriteLine("\t}");
-	//					sw->WriteLine("}\n");
-	//					break;
-
-	//				case CITWODM:
-	//					sw->WriteLine("D1 = " + tbDemand->Lines[0]);
-	//					sw->WriteLine("{");
-	//					sw->WriteLine("\t" + tbDemand->Lines[1]->ToString()->Replace(",", ", ") + ",");
-	//					sw->WriteLine("\tfinalLandUseTypesForInterpolation = {" + tbDemand->Lines[3]->ToString()->Replace(",", ", ") + "},");
-	//					sw->WriteLine("}\n");
-	//					break;
-
-	//				case CITHREEDM:
-	//					sw->WriteLine("D1 = " + tbDemand->Lines[0]);
-	//					sw->WriteLine("{");
-	//					sw->WriteLine("\t" + tbDemand->Lines[1]->ToString()->Replace(",", ", ") + ",");
-	//					sw->WriteLine("\tmiddleLandUseTypesForInterpolation = {" + tbDemand->Lines[4]->ToString()->Replace(",", ", ") + "},");
-	//					sw->WriteLine("\t" + tbDemand->Lines[2]->ToString()->Replace(",", ", ") + ",");
-	//					sw->WriteLine("\tfinalLandUseTypesForInterpolation = {" + tbDemand->Lines[5]->ToString()->Replace(",", ", ") + "},");
-	//					sw->WriteLine("}\n");
-	//					break;
-
-	//				default:
-	//					break;
-	//				}
-	//			}
-
-	//			if (tbPotential->Lines->Length > 0) {
-	//				sw->WriteLine("-----------------------------------------------------");
-	//				sw->WriteLine("-- Potential                                       --");
-	//				sw->WriteLine("-----------------------------------------------------");
-
-	//				array<String^>^ tempLUTs = gcnew array<String^>(50);
-	//				int row = 0;
-	//				String^ aux = "";
-	//				String^ tempBetas = "";
-	//				for (int i = 0; i < gLandUseTypes->Length; i++) {
-	//					if (gLandUseTypes[i] != ',') {
-	//						if (gLandUseTypes[i] != '\"') {
-	//							aux += gLandUseTypes[i];
-	//						}
-	//					}
-	//					else {
-	//						tempLUTs[row] = aux;
-	//						aux = "";
-	//						row++;
-	//					}
-	//				}
-	//				if (aux != "") {
-	//					tempLUTs[row] = aux;
-	//				}
-
-	//				int activeRegion = 1;
-	//				int nLut = countCaracter(gPotentialLUT, ',') + 1;
-	//				int endRegion = 0;
-	//				int activeLUT = 0;
-	//				int startAffinity = 0;
-
-	//				switch (gPotentialComponent)
-	//				{
-	//				case POTENTIALDNEIGHSIMPLERULE:
-	//					sw->WriteLine("P1 = " + tbPotential->Lines[0] + "\n");
-	//					break;
-
-	//				case POTENTIALDNEIGHINVERSEDISTANCERULE:
-	//				case POTENTIALDINVERSEDISTANCERULE:
-	//				case POTENTIALDLOGISTICREGRESSION:
-	//				case POTENTIALDLOGISTICREGRESSIONNEIGHATTRACT:
-	//				case POTENTIALCLINEARREGRESSION:
-	//				case POTENTIALCSPATIALLAGREGRESSION:
-	//					sw->WriteLine("P1 = " + tbPotential->Lines[0]);
-	//					sw->WriteLine("{");
-	//					sw->WriteLine("\tpotentialData =");
-	//					sw->WriteLine("\t{");
-	//					if (gPotentialRegression > 1) {
-	//						sw->WriteLine("\t\tregionAttr = \"region\",");
-	//						sw->WriteLine("");
-	//					}
-	//					for (int k = 1; k < tbPotential->Lines->Length; k += nLut) {
-	//						sw->WriteLine("\t\t-- Region " + activeRegion.ToString());
-	//						sw->WriteLine("\t\t{");
-	//						if (gPotentialRegression == 1) {
-	//							endRegion = (tbPotential->Lines->Length - 1);
-	//						}
-	//						else {
-	//							endRegion = ((tbPotential->Lines->Length - 1) / gPotentialRegression)*activeRegion;
-	//						}
-	//						for (int i = k; i <= endRegion; i++) {
-	//							if (tbPotential->Lines[i]->ToString() != "") {
-	//								sw->WriteLine("\t\t\t-- " + tempLUTs[activeLUT]);
-	//								activeLUT++;
-	//								sw->WriteLine("\t\t\t{");
-	//								aux = tbPotential->Lines[i]->ToString()->Replace("betas", "$betas");
-	//								int j = 0;
-	//								while (aux[j] != '$') {
-	//									if (aux[j] != ',') {
-	//										if (aux[j] != ' ') {
-	//											tempBetas += aux[j];
-	//										}
-	//									}
-	//									else {
-	//										sw->WriteLine("\t\t\t\t" + tempBetas->Replace("=", " = ") + ",");
-	//										tempBetas = "";
-	//									}
-	//									j++;
-	//								}
-	//								j++;
-	//								sw->WriteLine("\n\t\t\t\t" + aux->Substring(j, 7)); //Betas
-	//								sw->WriteLine("\t\t\t\t{");
-	//								j += 9;
-	//								for (int k = j; k < aux->Length; k++) {
-	//									if (aux[k] != ',') {
-	//										if (aux[k] != '}') {
-	//											if (aux[k] != ' ') {
-	//												tempBetas += aux[k];
-	//											}
-	//										}
-	//										else {
-	//											sw->WriteLine("\t\t\t\t\t" + tempBetas->Replace("=", " = "));
-	//											sw->WriteLine("\t\t\t\t}");
-	//											if (activeLUT != nLut) {
-	//												sw->WriteLine("\t\t\t},\n");
-	//											}
-	//											else {
-	//												sw->WriteLine("\t\t\t}");
-	//											}
-	//											tempBetas = "";
-	//											break;
-	//										}
-	//									}
-	//									else {
-	//										sw->WriteLine("\t\t\t\t\t" + tempBetas->Replace("=", " = ") + ",");
-	//										tempBetas = "";
-	//									}
-	//								}
-	//							}
-	//						}
-	//						activeRegion++;
-	//						activeLUT = 0;
-	//						if (activeRegion <= gPotentialRegression) {
-	//							sw->WriteLine("\t\t},\n");
-	//						}
-	//						else {
-	//							sw->WriteLine("\t\t}");
-	//						}
-	//					}
-
-	//					sw->WriteLine("\t}");
-	//					sw->WriteLine("}\n");
-	//					break;
-
-	//				case POTENTIALDLOGISTICREGRESSIONNEIGHATTRACTREPULSION:
-	//					sw->WriteLine("P1 = " + tbPotential->Lines[0]);
-	//					sw->WriteLine("{");
-	//					sw->WriteLine("\tpotentialData =");
-	//					sw->WriteLine("\t{");
-	//					if (gPotentialRegression > 1) {
-	//						sw->WriteLine("\t\tregionAttr = \"region\",");
-	//						sw->WriteLine("");
-	//					}
-
-	//					for (int k = 1; k < tbPotential->Lines->Length - (nLut*gPotentialRegression) - 2; k += nLut) {
-	//						sw->WriteLine("\t\t-- Region " + activeRegion.ToString());
-	//						sw->WriteLine("\t\t{");
-	//						if (gPotentialRegression == 1) {
-	//							endRegion = tbPotential->Lines->Length - (nLut*gPotentialRegression) - 2;
-	//						}
-	//						else {
-	//							endRegion = ((tbPotential->Lines->Length - (nLut*gPotentialRegression) - 2) / gPotentialRegression)*activeRegion;
-	//						}
-	//						for (int i = k; i <= endRegion; i++) {
-	//							if (tbPotential->Lines[i]->ToString() != "") {
-	//								sw->WriteLine("\t\t\t-- " + tempLUTs[activeLUT]);
-	//								activeLUT++;
-	//								sw->WriteLine("\t\t\t{");
-	//								aux = tbPotential->Lines[i]->ToString()->Replace("betas", "$betas");
-	//								int j = 0;
-	//								while (aux[j] != '$') {
-	//									if (aux[j] != ',') {
-	//										if (aux[j] != ' ') {
-	//											tempBetas += aux[j];
-	//										}
-	//									}
-	//									else {
-	//										sw->WriteLine("\t\t\t\t" + tempBetas->Replace("=", " = ") + ",");
-	//										tempBetas = "";
-	//									}
-	//									j++;
-	//								}
-	//								j++;
-	//								sw->WriteLine("\n\t\t\t\t" + aux->Substring(j, 7)); //Betas
-	//								sw->WriteLine("\t\t\t\t{");
-	//								j += 9;
-	//								for (int k = j; k < aux->Length; k++) {
-	//									if (aux[k] != ',') {
-	//										if (aux[k] != '}') {
-	//											if (aux[k] != ' ') {
-	//												tempBetas += aux[k];
-	//											}
-	//										}
-	//										else {
-	//											sw->WriteLine("\t\t\t\t\t" + tempBetas->Replace("=", " = "));
-	//											sw->WriteLine("\t\t\t\t}");
-	//											if (activeLUT != nLut) {
-	//												sw->WriteLine("\t\t\t},\n");
-	//											}
-	//											else {
-	//												sw->WriteLine("\t\t\t}");
-	//											}
-	//											tempBetas = "";
-	//											break;
-	//										}
-	//									}
-	//									else {
-	//										sw->WriteLine("\t\t\t\t\t" + tempBetas->Replace("=", " = ") + ",");
-	//										tempBetas = "";
-	//									}
-	//								}
-	//							}
-	//						}
-	//						activeRegion++;
-	//						activeLUT = 0;
-	//						if (activeRegion <= gPotentialRegression) {
-	//							sw->WriteLine("\t\t},\n");
-	//						}
-	//						else {
-	//							sw->WriteLine("\t\t}");
-	//						}
-	//					}
-	//					sw->WriteLine("\t},\n");
-	//					sw->WriteLine("\taffinityMatrix = ");
-	//					sw->WriteLine("\t{");
-	//					activeRegion = 1;
-	//					startAffinity = endRegion + 2;
-	//					for (int k = startAffinity; k < tbPotential->Lines->Length; k += nLut) {
-	//						endRegion = startAffinity + (nLut * activeRegion);
-	//						sw->WriteLine("\t\t-- Region " + activeRegion.ToString());
-	//						sw->WriteLine("\t\t{");
-	//						for (int i = k; i < endRegion; i++) {
-	//							if (i + 1 < endRegion) {
-	//								sw->WriteLine("\t\t\t{" + tbPotential->Lines[i] + "},");
-	//							}
-	//							else {
-	//								sw->WriteLine("\t\t\t{" + tbPotential->Lines[i] + "}");
-	//								break;
-	//							}
-	//						}
-	//						if (k + nLut < tbPotential->Lines->Length) {
-	//							sw->WriteLine("\t\t},\n");
-	//						}
-	//						else {
-	//							sw->WriteLine("\t\t}");
-	//						}
-	//						activeRegion++;
-	//					}
-
-	//					sw->WriteLine("\t}");
-	//					sw->WriteLine("}\n");
-	//					break;
-	//				case POTENTIALCSPATIALLAGLINEARREGRESSIONMIX:
-	//					sw->WriteLine("P1 = " + tbPotential->Lines[0]);
-	//					sw->WriteLine("{");
-	//					sw->WriteLine("\tpotentialData =");
-	//					sw->WriteLine("\t{");
-	//					sw->WriteLine("\t\t-- Region 1");
-	//					sw->WriteLine("\t\t{");
-
-	//					for (int i = 1; i < tbPotential->Lines->Length; i++) {
-	//						if (tbPotential->Lines[i]->ToString() != "") {
-	//							sw->WriteLine("\t\t\t-- " + tempLUTs[i - 1]);
-	//							sw->WriteLine("\t\t\t{");
-	//							aux = tbPotential->Lines[i]->ToString()->Replace("betas", "$betas");
-	//							aux = aux->Replace("roadsModel", "%roadsModel");
-	//							int j = 0;
-	//							while (aux[j] != '$') {
-	//								if (aux[j] != ',') {
-	//									if (aux[j] != ' ') {
-	//										tempBetas += aux[j];
-	//									}
-	//								}
-	//								else {
-	//									sw->WriteLine("\t\t\t\t" + tempBetas->Replace("=", " = ") + ",");
-	//									tempBetas = "";
-	//								}
-	//								j++;
-	//							}
-	//							j++;
-	//							sw->WriteLine("\n\t\t\t\t" + aux->Substring(j, 9)); //Betas
-	//							sw->WriteLine("\t\t\t\t{");
-	//							j += 11;
-	//							while (aux[j] != '%') {
-	//								if (aux[j] != ',') {
-	//									if (aux[j] != '}') {
-	//										if (aux[j] != ' ') {
-	//											tempBetas += aux[j];
-	//										}
-	//									}
-	//									else {
-	//										sw->WriteLine("\t\t\t\t\t" + tempBetas->Replace("=", " = "));
-	//										sw->WriteLine("\t\t\t\t},");
-	//										tempBetas = "";
-	//										break;
-	//									}
-	//								}
-	//								else {
-	//									sw->WriteLine("\t\t\t\t\t" + tempBetas->Replace("=", " = ") + ",");
-	//									tempBetas = "";
-	//								}
-	//								j++;
-	//							}
-	//							j += 4;
-	//							sw->WriteLine("\n\t\t\t\t" + aux->Substring(j, 13)); //roadsModel
-	//							sw->WriteLine("\t\t\t\t{");
-	//							j += 15;
-	//							sw->WriteLine("\t\t\t\t\t" + aux->Substring(j, 8)); //attrs
-	//							sw->WriteLine("\t\t\t\t\t{");
-	//							j += 9;
-	//							while (aux[j] != '}') {
-	//								if (aux[j] != ',') {
-	//									if (aux[j] != ' ') {
-	//										tempBetas += aux[j];
-	//									}
-	//								}
-	//								else {
-	//									sw->WriteLine("\t\t\t\t\t\t" + tempBetas + ",");
-	//									tempBetas = "";
-	//								}
-	//								j++;
-	//							}
-	//							if (tempBetas != "") {
-	//								sw->WriteLine("\t\t\t\t\t\t" + tempBetas);
-	//								tempBetas = "";
-	//							}
-	//							sw->WriteLine("\t\t\t\t\t},");
-	//							j += 2;
-	//							while (aux[j] != '$') {
-	//								if (aux[j] != ',') {
-	//									if (aux[j] != '}') {
-	//										if (aux[j] != ' ') {
-	//											tempBetas += aux[j];
-	//										}
-	//									}
-	//									else {
-	//										sw->WriteLine("\t\t\t\t\t" + tempBetas->Replace("=", " = "));
-	//										sw->WriteLine("\t\t\t\t},");
-	//										tempBetas = "";
-	//										break;
-	//									}
-	//								}
-	//								else {
-	//									sw->WriteLine("\t\t\t\t\t" + tempBetas->Replace("=", " = ") + ",");
-	//									tempBetas = "";
-	//								}
-	//								j++;
-	//							}
-	//							j++;
-	//							sw->WriteLine("\n\t\t\t\t\t" + aux->Substring(j, 7)); //Betas
-	//							sw->WriteLine("\t\t\t\t\t{");
-	//							j += 9;
-	//							for (int k = j; k < aux->Length; k++) {
-	//								if (aux[k] != ',') {
-	//									if (aux[k] != '}') {
-	//										if (aux[k] != ' ') {
-	//											tempBetas += aux[k];
-	//										}
-	//									}
-	//									else {
-	//										sw->WriteLine("\t\t\t\t\t\t" + tempBetas->Replace("=", " = "));
-	//										sw->WriteLine("\t\t\t\t\t}");
-	//										sw->WriteLine("\t\t\t\t}");
-	//										sw->WriteLine("\t\t\t},\n");
-	//										tempBetas = "";
-	//										break;
-	//									}
-	//								}
-	//								else {
-	//									sw->WriteLine("\t\t\t\t\t\t" + tempBetas->Replace("=", " = ") + ",");
-	//									tempBetas = "";
-	//								}
-	//							}
-
-	//						}
-	//					}
-
-	//					sw->WriteLine("\t\t}");
-	//					sw->WriteLine("\t}");
-	//					sw->WriteLine("}\n");
-	//					break;
-
-	//				case POTENTIALDSAMPLEBASED:
-	//				case POTENTIALCSAMPLEBASED:
-	//					sw->WriteLine("P1 = " + tbPotential->Lines[0]);
-	//					sw->WriteLine("{");
-	//					sw->WriteLine("\tpotentialData =");
-	//					sw->WriteLine("\t{");
-	//					sw->WriteLine("\t\t-- Region 1");
-	//					sw->WriteLine("\t\t{");
-
-	//					for (int i = 1; i < tbPotential->Lines->Length; i++) {
-	//						if (tbPotential->Lines[i]->ToString() != "") {
-	//							sw->WriteLine("\t\t\t-- " + tempLUTs[i - 1]);
-	//							sw->WriteLine("\t\t\t{");
-
-	//							aux = tbPotential->Lines[i]->ToString()->Replace("attributesPerc", "$attributesPerc");
-	//							aux = aux->Replace(", attributesClass", "attributesClass");
-
-	//							int j = 0;
-	//							String^ auxAttributes = "";
-
-	//							//cellUsePercentage
-	//							while (aux[j] != '$') {
-	//								auxAttributes += aux[j];
-	//								j++;
-	//							}
-
-	//							sw->WriteLine("\t\t\t\t" + auxAttributes);
-	//							sw->WriteLine("");
-	//							auxAttributes = "";
-	//							j++;
-
-
-	//							//attributesPerc
-	//							while (aux[j] != '{') {
-	//								auxAttributes += aux[j];
-	//								j++;
-	//							}
-
-	//							sw->WriteLine("\t\t\t\t" + auxAttributes);
-	//							sw->WriteLine("\t\t\t\t{");
-	//							auxAttributes = "";
-	//							j++;
-
-	//							while (aux[j] != '}') {
-	//								if (aux[j] != ',') {
-	//									auxAttributes += aux[j];
-	//								}
-	//								else {
-	//									if (aux[j + 1] != '}') {
-	//										sw->WriteLine("\t\t\t\t\t" + auxAttributes->Replace(" \"", "\"") + ",");
-	//									}
-	//									else {
-	//										sw->WriteLine("\t\t\t\t\t" + auxAttributes->Replace(" \"", "\""));
-	//									}
-	//									auxAttributes = "";
-	//								}
-	//								j++;
-	//							}
-
-	//							if (auxAttributes != "") {
-	//								sw->WriteLine("\t\t\t\t\t" + auxAttributes->Replace(" \"", "\""));
-	//							}
-
-	//							sw->WriteLine("\t\t\t\t},");
-	//							sw->WriteLine("");
-	//							auxAttributes = "";
-	//							j++;
-
-	//							//attributesClass
-	//							while (aux[j] != '{') {
-	//								auxAttributes += aux[j];
-	//								j++;
-	//							}
-
-	//							sw->WriteLine("\t\t\t\t" + auxAttributes);
-	//							sw->WriteLine("\t\t\t\t{");
-	//							auxAttributes = "";
-	//							j++;
-
-	//							while (aux[j] != '}') {
-	//								if (aux[j] != ',') {
-	//									auxAttributes += aux[j];
-	//								}
-	//								else {
-	//									if (aux[j + 1] != '}') {
-	//										sw->WriteLine("\t\t\t\t\t" + auxAttributes->Replace(" \"", "\"") + ",");
-	//									}
-	//									else {
-	//										sw->WriteLine("\t\t\t\t\t" + auxAttributes->Replace(" \"", "\""));
-	//									}
-	//									auxAttributes = "";
-	//								}
-	//								j++;
-	//							}
-
-	//							if (auxAttributes != "") {
-	//								sw->WriteLine("\t\t\t\t\t" + auxAttributes->Replace(" \"", "\""));
-	//							}
-
-	//							if (aux[j + 1] != '}') {
-	//								sw->WriteLine("\t\t\t\t},");
-	//							}
-	//							else {
-	//								sw->WriteLine("\t\t\t\t}");
-	//							}
-	//							auxAttributes = "";
-	//							j++;
-
-	//							if (i + 1 < tbPotential->Lines->Length) {
-	//								sw->WriteLine("\t\t\t},");
-	//								sw->WriteLine("");
-	//							}
-	//							else {
-	//								sw->WriteLine("\t\t\t}");
-	//							}
-	//						}
-	//					}
-
-	//					sw->WriteLine("\t\t}");
-	//					sw->WriteLine("\t}");
-	//					sw->WriteLine("}\n");
-	//					break;
-
-	//				default:
-	//					break;
-	//				}
-	//			}
-
-	//			if (tbAllocation->Lines->Length > 0) {
-	//				sw->WriteLine("-----------------------------------------------------");
-	//				sw->WriteLine("-- Allocation                                      --");
-	//				sw->WriteLine("-----------------------------------------------------");
-
-	//				array<String^>^ tempLUTs = gcnew array<String^>(50);
-	//				int row = 0;
-	//				String^ aux = "";
-	//				String^ tempBetas = "";
-	//				for (int i = 0; i < gLandUseTypes->Length; i++) {
-	//					if (gLandUseTypes[i] != ',') {
-	//						if (gLandUseTypes[i] != '\"') {
-	//							aux += gLandUseTypes[i];
-	//						}
-	//					}
-	//					else {
-	//						tempLUTs[row] = aux;
-	//						aux = "";
-	//						row++;
-	//					}
-	//				}
-	//				if (aux != "") {
-	//					tempLUTs[row] = aux;
-	//				}
-
-	//				switch (gAllocationComponent)
-	//				{
-	//				case ALLOCATIONDSIMPLEORDERING:
-	//					sw->WriteLine("A1 = " + tbAllocation->Lines[0]);
-	//					sw->WriteLine("{");
-	//					sw->WriteLine("\t" + tbAllocation->Lines[1]);
-	//					sw->WriteLine("}\n");
-	//					break;
-
-	//				case ALLOCATIONDCLUESNEIGHORDERING:
-	//				case ALLOCATIONDCLUESLIKE:
-	//					sw->WriteLine("A1 = " + tbAllocation->Lines[0]);
-	//					sw->WriteLine("{");
-	//					sw->WriteLine("\t" + tbAllocation->Lines[1] + ",");
-	//					sw->WriteLine("\t" + tbAllocation->Lines[2] + ",");
-	//					sw->WriteLine("\t" + tbAllocation->Lines[3] + ",");
-	//					sw->WriteLine("\t" + tbAllocation->Lines[4] + " =");
-	//					sw->WriteLine("\t{");
-	//					sw->WriteLine("\t\t--Region 1");
-	//					sw->WriteLine("\t\t{");
-	//					for (int i = 5; tbAllocation->Lines->Length - 1; i++) {
-	//						if (i + 1 < tbAllocation->Lines->Length) {
-	//							sw->WriteLine("\t\t\t{" + tbAllocation->Lines[i] + "},");
-	//						}
-	//						else {
-	//							sw->WriteLine("\t\t\t{" + tbAllocation->Lines[i] + "}");
-	//							break;
-	//						}
-	//					}
-	//					sw->WriteLine("\t\t}");
-	//					sw->WriteLine("\t}");
-	//					sw->WriteLine("}\n");
-	//					break;
-
-	//				case ALLOCATIONCCLUELIKE:
-	//					sw->WriteLine("A1 = " + tbAllocation->Lines[0]);
-	//					sw->WriteLine("{");
-	//					sw->WriteLine("\t" + tbAllocation->Lines[1] + ",");
-	//					sw->WriteLine("\t" + tbAllocation->Lines[2] + ",");
-	//					sw->WriteLine("\t" + tbAllocation->Lines[3] + ",");
-	//					sw->WriteLine("\t" + tbAllocation->Lines[4] + ",");
-	//					sw->WriteLine("\t" + tbAllocation->Lines[5] + ",");
-	//					sw->WriteLine("\t" + tbAllocation->Lines[6]->ToString()->Replace("= ", "= \"") + "\",");
-	//					sw->WriteLine("\t" + tbAllocation->Lines[7] + " =");
-	//					sw->WriteLine("\t{");
-	//					for (int i = 8; i < tbAllocation->Lines->Length - 1; i++) {
-	//						if (tbAllocation->Lines[i] != "") {
-	//							if (i + 1 < tbAllocation->Lines->Length) {
-	//								sw->WriteLine("\t\t{" + tbAllocation->Lines[i] + "},\t-- " + tempLUTs[i - 8]);
-	//							}
-	//							else {
-	//								sw->WriteLine("\t\t{" + tbAllocation->Lines[i] + "}\t-- " + tempLUTs[i - 8]);
-	//								break;
-	//							}
-	//						}
-	//					}
-	//					sw->WriteLine("\t}");
-	//					sw->WriteLine("}\n");
-	//					break;
-
-	//				case ALLOCATIONCCLUELIKESATURATION:
-	//					sw->WriteLine("A1 = " + tbAllocation->Lines[0]);
-	//					sw->WriteLine("{");
-	//					sw->WriteLine("\t" + tbAllocation->Lines[1] + ",");
-	//					sw->WriteLine("\t" + tbAllocation->Lines[2] + ",");
-	//					sw->WriteLine("\t" + tbAllocation->Lines[3] + ",");
-	//					sw->WriteLine("\t" + tbAllocation->Lines[4] + ",");
-	//					sw->WriteLine("\t" + tbAllocation->Lines[5] + ",");
-	//					sw->WriteLine("\t" + tbAllocation->Lines[6]->ToString()->Replace("= ", "= \"") + "\",");
-	//					sw->WriteLine("\t" + tbAllocation->Lines[7]->ToString()->Replace("= ", "= \"") + "\",");
-	//					sw->WriteLine("\t" + tbAllocation->Lines[8]->ToString()->Replace("= ", "= \"") + "\",");
-	//					sw->WriteLine("\t" + tbAllocation->Lines[9] + " =");
-	//					sw->WriteLine("\t{");
-	//					for (int i = 10; i < tbAllocation->Lines->Length; i++) {
-	//						if (tbAllocation->Lines[i] != "") {
-	//							if (i + 1 < tbAllocation->Lines->Length) {
-	//								sw->WriteLine("\t\t{" + tbAllocation->Lines[i] + "},\t-- " + tempLUTs[i - 10]);
-	//							}
-	//							else {
-	//								sw->WriteLine("\t\t{" + tbAllocation->Lines[i] + "}\t-- " + tempLUTs[i - 10]);
-	//								break;
-	//							}
-	//						}
-	//					}
-	//					sw->WriteLine("\t}");
-	//					sw->WriteLine("}\n");
-	//					break;
-	//				default:
-	//					break;
-	//				}
-
-	//			}
-	//			sw->Close();
-
-	//			if (File::Exists(path))
-	//			{
-	//				subFile = true;
-
-	//			}
-
+	if (cbModelType->SelectedIndex == NSPATIALTYPE || cbModelType->SelectedIndex == COMBINETYPE) {
+		if (tNonSpatialName->Text == "") {
+			MessageBox::Show(gSNSModelName, gSModelNameTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+			checked = false;
+		}
+
+		else if (tNonSpatialInitialYear->Text == "") {
+			MessageBox::Show(gSNSStartTime, gSStartTimeTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+			checked = false;
+		}
+
+		else if (tNonSpatialFinalYear->Text == "") {
+			MessageBox::Show(gSNSStopTime, gSStopTimeTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+			checked = false;
+		}
+
+		else if (tNonSpatialArea->Text == "") {
+			MessageBox::Show(gSNSArea, gSNSAreaTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+			checked = false;
+		}
+
+		else if (tbTableData->Lines->Length == NONE) {
+			MessageBox::Show(gSNSTableData, gSNSTableDataTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+			checked = false;
+		}
+	}
+
+	if (cbModelType->SelectedIndex == SPATIALTYPE || cbModelType->SelectedIndex == COMBINETYPE) {
+		if (tSpatialName->Text == "") {
+			MessageBox::Show(gSSModelName, gSModelNameTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+			checked = false;
+		}
+
+		else if (tSpatialInitialYear->Text == "") {
+			MessageBox::Show(gSStartTime, gSStartTimeTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+			checked = false;
+		}
+
+		else if (tSpatialFinalYear->Text == "") {
+			MessageBox::Show(gSStopTime, gSStopTimeTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+			checked = false;
+		}
+
+		else if (lSelectedFile->Text == "") {
+			MessageBox::Show(gSSFile, gSSFileTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+			checked = false;
+		}
+
+		else if (!shape) {
+			if (tSpatialLayerName->Text == "") {
+				MessageBox::Show(gSLayerName, gSLayerNameTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+				checked = false;
+			}
+		}
+
+		else if (tSpatialCellArea->Text == "") {
+			MessageBox::Show(gSCellArea, gSCellAreaTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+			checked = false;
+		}
+	}
+	
+	if (checked) {
+		bool mainFile = false;
+		bool subFile = false;
+		bool nsFile = false;
+
+		DateTime now = DateTime::Now;
+		String^ dateTime = now.ToString("d") + " at " + now.ToString("T");
+
+		//Creating main File
+		String^ path = lSelectedFolder->Text->Replace("\\", "\\\\") + "\\" + tModelName->Text->ToLower() + "_main.lua";
+		path = path->Replace("\\\\\\\\", "\\\\");
+
+
+		StreamWriter^ sw = nullptr;
+
+		try {
+			//Sometimes Widows got and error to access the file, this force to retry
+			try
+			{
+				if (File::Exists(path))
+				{
+					File::Delete(path);
+				}
+				sw = File::CreateText(path);
+			}
+			catch (UnauthorizedAccessException^)
+			{
+				MessageBox::Show(gSUnauthorized, gSUnauthorizedTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+				checked = false;
+			}
+
+			if (checked) {
+				sw->WriteLine("---------------------------------------------------------------");
+				sw->WriteLine("-- This file contains a INPE-EM APPLICATION MODEL definition --");
+				sw->WriteLine("--              Compatible with INPE-EM 3.0                  --");
+				sw->WriteLine("--       Generated with INPE-EM Model Configurator           --");
+				sw->WriteLine("--                 " + dateTime + "                    --");
+				sw->WriteLine("---------------------------------------------------------------\n");
+
+				if (shape && (cbModelType->SelectedIndex == SPATIALTYPE || cbModelType->SelectedIndex == COMBINETYPE)) {
+					sw->WriteLine("--------------------------------------------------------------");
+					sw->WriteLine("-- Creating Terraview Project                               --");
+					sw->WriteLine("--------------------------------------------------------------");
+					sw->WriteLine("");
+					sw->WriteLine("import(\"terralib\")\n");
+					sw->WriteLine("proj = Project {");
+					sw->WriteLine("\tfile = \"t3mp.tview\",");
+					sw->WriteLine("\tclean = true");
+					sw->WriteLine("}\n");
+
+					sw->WriteLine("l1 = Layer{");
+					sw->WriteLine("\tproject = proj,");
+					sw->WriteLine("\tname = \"" + tSpatialLayerName->Text + "\",");
+					sw->WriteLine("\tfile = \"" + lSelectedFile->Text->Replace("\\", "\\\\") + "\"");
+					sw->WriteLine("}\n");
+				}
+	
+				sw->WriteLine("--------------------------------------------------------------");
+				sw->WriteLine("-- INPE-EM Model                                            --");
+				sw->WriteLine("--------------------------------------------------------------");
+				sw->WriteLine("");
+				sw->WriteLine("dofile(\"C:\\\\INPE-EM\\\\Source\\\\inpeEM.lua\\\")");
+				
+				String^ folderAux = lSelectedFolder->Text->Replace("\\", "\\\\");
+				
+				if (folderAux->Length > ROOTDIR) {
+					sw->WriteLine("dofile(\"" + folderAux + "\\\\" + tModelName->Text->ToLower() + "_submodel.lua\")");
+					
+					if (cbModelType->SelectedIndex == NSPATIALTYPE || cbModelType->SelectedIndex == COMBINETYPE) {
+						sw->WriteLine("dofile(\"" + folderAux + "\\\\" + tModelName->Text->ToLower() + "_nsdata.lua\")");
+					}
+				}
+				else {
+					sw->WriteLine("dofile(\"" + folderAux + tModelName->Text->ToLower() + "_submodel.lua\")");
+					
+					if (cbModelType->SelectedIndex == NSPATIALTYPE || cbModelType->SelectedIndex == COMBINETYPE) {
+						sw->WriteLine("dofile(\"" + folderAux + tModelName->Text->ToLower() + "_nsdata.lua\")");
+					}
+				}
+
+				sw->WriteLine();
+
+				if (cbModelType->SelectedIndex == NSPATIALTYPE || cbModelType->SelectedIndex == COMBINETYPE) {
+					sw->WriteLine("--------------------------------------------------------------");
+					sw->WriteLine("-- INPE-EM NON SPATIAL MODEL DEFINITION                     --");
+					sw->WriteLine("--------------------------------------------------------------");
+					sw->WriteLine("nonSpatialModel =");
+					sw->WriteLine("{");
+					sw->WriteLine("\tname = \"" + tNonSpatialName->Text + "\",");
+					sw->WriteLine("");
+					sw->WriteLine("\tyearInit = " + tNonSpatialInitialYear->Text + ",");
+					sw->WriteLine("\tyearFinal = " + tNonSpatialFinalYear->Text + ",");
+					sw->WriteLine("");
+					
+					if (cbNonSpatialDeforest->Checked) {
+						sw->WriteLine("\tcomponentD = D1,");
+					}
+
+					if (cbNonSpatialBiomass->Checked) {
+						sw->WriteLine("\tcomponentB = B1,");
+					}
+
+					if (cbNonSpatialVegetationRemoval->Checked) {
+						sw->WriteLine("\tcomponentVR = VR1,");
+					}
+
+					if (cbNonSpatialSecondaryVegetation->Checked) {
+						sw->WriteLine("\tcomponentSV = SV1,");
+					}
+
+					if (cbNonSpatialDegradation->Checked) {
+						sw->WriteLine("\tcomponentDEGRAD = DG1,");
+					}
+
+					sw->WriteLine("");
+					sw->WriteLine("\tdataTable = NSDATA1,");
+					sw->WriteLine("\tarea = " + tNonSpatialArea->Text + ",");
+					sw->WriteLine("");
+					sw->WriteLine("\tmode = \"non_spatial\",");
+					
+					if (cbNonSpatialVerbose->Checked) {
+						sw->WriteLine("\tverbose = true");
+					}
+					else {
+						sw->WriteLine("\tverbose = false");
+					}
+
+					sw->WriteLine("}");
+				}
+
+				if (cbModelType->SelectedIndex == SPATIALTYPE || cbModelType->SelectedIndex == COMBINETYPE) {
+					sw->WriteLine("--------------------------------------------------------------");
+					sw->WriteLine("-- INPE-EM SPATIAL MODEL DEFINITION                         --");
+					sw->WriteLine("--------------------------------------------------------------");
+					sw->WriteLine("spatialModel =");
+					sw->WriteLine("{");
+					sw->WriteLine("\tname = \"" + tSpatialName->Text + "\",");
+					sw->WriteLine("");
+					sw->WriteLine("\tyearInit = " + tSpatialInitialYear->Text + ",");
+					sw->WriteLine("\tyearFinal = " + tSpatialFinalYear->Text + ",");
+					sw->WriteLine("\tcellarea = " + tSpatialCellArea->Text + ",");
+					sw->WriteLine("");
+
+					if (cbSpatialDeforest->Checked) {
+						sw->WriteLine("\tcomponentD = D1,");
+					}
+
+					if (cbSpatialBiomass->Checked) {
+						sw->WriteLine("\tcomponentB = B1,");
+					}
+
+					if (cbSpatialVegetationRemoval->Checked) {
+						sw->WriteLine("\tcomponentVR = VR1,");
+					}
+
+					if (cbSpatialSecondaryVegetation->Checked) {
+						sw->WriteLine("\tcomponentSV = SV1,");
+					}
+
+					if (cbSpatialDegradation->Checked) {
+						sw->WriteLine("\tcomponentDEGRAD = DG1,");
+					}
+
+					sw->WriteLine("");
+					if (!shape) {
+						sw->WriteLine("\tproject = \"" + lSelectedFile + "\",");
+					}
+					else {
+						sw->WriteLine("\tproject = \"t3mp.tview\",");
+					}
+
+					sw->WriteLine("\tlayer = \"" + tSpatialLayerName->Text + "\",");
+					sw->WriteLine("");
+					sw->WriteLine("\tmode = \"spatial\",");
+
+					if (cbSpatialVerbose->Checked) {
+						sw->WriteLine("\tverbose = true,");
+					}
+					else {
+						sw->WriteLine("\tverbose = false,");
+					}
+
+					bool saveModel = false;
+					if (cbSpatialVegetationRemoval->Checked) {
+						if (tbVegetationRemoval->Lines[4] != nullptr) {
+							if (tbVegetationRemoval->Lines[4]->Contains("true")) {
+								saveModel = true;
+							}
+						}
+					}
+
+					if (cbSpatialSecondaryVegetation->Checked) {
+						if (tbSecondVegetation->Lines[4] != nullptr) {
+							if (tbSecondVegetation->Lines[4]->Contains("true")) {
+								saveModel = true;
+							}
+						}
+					}
+
+					if (cbSpatialDegradation->Checked) {
+						if (tbDegrad->Lines[4] != nullptr) {
+							if (tbDegrad->Lines[4]->Contains("true")) {
+								saveModel = true;
+							}
+						}
+					}
+
+					if (saveModel) {
+						sw->WriteLine("\tsave = true");
+					}
+					else {
+						sw->WriteLine("\tsave = false");
+					}
+
+					sw->WriteLine("}");
+				}
+
+				if (cbModelType->SelectedIndex == COMBINETYPE) {
+					sw->WriteLine("--------------------------------------------------------------");
+					sw->WriteLine("-- INPE-EM COMBINE MODEL DEFINITION                         --");
+					sw->WriteLine("--------------------------------------------------------------");
+					sw->WriteLine("combineModel =");
+					sw->WriteLine("{");
+					sw->WriteLine("\tname = \"" + tModelName->Text + "\",");
+					sw->WriteLine("");
+					sw->WriteLine("\tmodel_ns = nonSpatialModel,");
+					sw->WriteLine("\tmodel_s = spatialModel,");
+					sw->WriteLine("");
+					sw->WriteLine("\tmode = \"combine\"");
+					
+					if (cbNonSpatialVerbose->Checked || cbSpatialVerbose->Checked) {
+						sw->WriteLine("\tverbose = true,");
+					}
+					else {
+						sw->WriteLine("\tverbose = false");
+					}
+
+					sw->WriteLine("}");
+				}
+
+				sw->WriteLine("");
+				if (cbModelType->SelectedIndex == NSPATIALTYPE) {
+					sw->WriteLine("inpeEM_execute(nonSpatialModel)");
+				} else if (cbModelType->SelectedIndex == SPATIALTYPE) {
+					sw->WriteLine("inpeEM_execute(spatialModel)");
+				} else if (cbModelType->SelectedIndex == COMBINETYPE) {
+					sw->WriteLine("inpeEM_execute(combineModel)");
+				}
+
+				if (shape && (cbModelType->SelectedIndex == SPATIALTYPE || cbModelType->SelectedIndex == COMBINETYPE)) {
+					sw->WriteLine("");
+					sw->WriteLine("local projFile = File(\"t3mp.tview\")");
+					sw->WriteLine("if(projFile:exists()) then");
+					sw->WriteLine("\tprojFile:delete()");
+					sw->WriteLine("end");
+				}
+
+				sw->Close();
+
+				if (File::Exists(path))
+				{
+					mainFile = true;
+				}
+
+				//Creating Submodel File
+				path = lSelectedFolder->Text->Replace("\\", "\\\\") + "\\" + tModelName->Text->ToLower() + "_submodel.lua";
+				path = path->Replace("\\\\\\\\", "\\\\");
+
+				if (File::Exists(path))
+				{
+					File::Delete(path);
+				}
+
+				sw = File::CreateText(path);
+
+				sw->WriteLine("---------------------------------------------------------------");
+				sw->WriteLine("--       This file contains the COMPONENTS definition        --");
+				sw->WriteLine("--              Compatible with INPE-EM 3.0                  --");
+				sw->WriteLine("--       Generated with INPE-EM Model Configurator           --");
+				sw->WriteLine("--                 " + dateTime + "                    --");
+				sw->WriteLine("---------------------------------------------------------------\n");
+
+				if (cbNonSpatialDeforest->Checked || cbSpatialDeforest->Checked) {
+					sw->WriteLine("--------------------------------------------------------------");
+					sw->WriteLine("-- DEFOREST COMPONENT DEFINITION                            --");
+					sw->WriteLine("--------------------------------------------------------------");
+					sw->WriteLine(tbDeforest->Lines[0]); 
+					sw->WriteLine(tbDeforest->Lines[1]);
+					
+					for (int i = 2; i < tbDeforest->Lines->Length - 1; i++) {
+						sw->WriteLine("\t" + tbDeforest->Lines[i]);
+					}
+
+					sw->WriteLine(tbDeforest->Lines[tbDeforest->Lines->Length - 1]);
+					sw->WriteLine("");
+				}
+
+				if (cbNonSpatialBiomass->Checked || cbSpatialBiomass->Checked) {
+					sw->WriteLine("--------------------------------------------------------------");
+					sw->WriteLine("-- BIOMASS COMPONENT DEFINITION                             --");
+					sw->WriteLine("--------------------------------------------------------------");
+					sw->WriteLine(tbBiomass->Lines[0]);
+					sw->WriteLine(tbBiomass->Lines[1]);
+
+					for (int i = 2; i < tbBiomass->Lines->Length - 1; i++) {
+						sw->WriteLine("\t" + tbBiomass->Lines[i]);
+					}
+
+					sw->WriteLine(tbBiomass->Lines[tbBiomass->Lines->Length - 1]);
+					sw->WriteLine("");
+				}
+
+				if (cbNonSpatialVegetationRemoval->Checked || cbSpatialVegetationRemoval->Checked) {
+					sw->WriteLine("--------------------------------------------------------------");
+					sw->WriteLine("-- VEGETATION REMOVAL COMPONENT DEFINITION                  --");
+					sw->WriteLine("--------------------------------------------------------------");
+					sw->WriteLine(tbVegetationRemoval->Lines[0]);
+					sw->WriteLine(tbVegetationRemoval->Lines[1]);
+
+					for (int i = 2; i < tbVegetationRemoval->Lines->Length - 1; i++) {
+						sw->WriteLine("\t" + tbVegetationRemoval->Lines[i]);
+					}
+
+					sw->WriteLine(tbVegetationRemoval->Lines[tbVegetationRemoval->Lines->Length - 1]);
+					sw->WriteLine("");
+				}
+
+				if (cbNonSpatialSecondaryVegetation->Checked || cbSpatialSecondaryVegetation->Checked) {
+					sw->WriteLine("--------------------------------------------------------------");
+					sw->WriteLine("-- SECONDARY VEGETATION COMPONENT DEFINITION                --");
+					sw->WriteLine("--------------------------------------------------------------");
+					sw->WriteLine(tbSecondVegetation->Lines[0]);
+					sw->WriteLine(tbSecondVegetation->Lines[1]);
+
+					for (int i = 2; i < tbSecondVegetation->Lines->Length - 1; i++) {
+						sw->WriteLine("\t" + tbSecondVegetation->Lines[i]);
+					}
+
+					sw->WriteLine(tbSecondVegetation->Lines[tbSecondVegetation->Lines->Length - 1]);
+					sw->WriteLine("");
+				}
+
+				if (cbNonSpatialDegradation->Checked || cbSpatialDegradation->Checked) {
+					sw->WriteLine("--------------------------------------------------------------");
+					sw->WriteLine("-- DEGRADATION COMPONENT DEFINITION                         --");
+					sw->WriteLine("--------------------------------------------------------------");
+					sw->WriteLine(tbDegrad->Lines[0]);
+					sw->WriteLine(tbDegrad->Lines[1]);
+
+					for (int i = 2; i < tbDegrad->Lines->Length - 1; i++) {
+						sw->WriteLine("\t" + tbDegrad->Lines[i]);
+					}
+
+					sw->WriteLine(tbDegrad->Lines[tbDegrad->Lines->Length - 1]);
+					sw->WriteLine("");
+				}
+
+				sw->Close();
+
+				if (File::Exists(path))
+				{
+					subFile = true;
+
+				}
+
+				//Creating Non Spatial Data File
+				if (cbModelType->SelectedIndex == NSPATIALTYPE || cbModelType->SelectedIndex == COMBINETYPE) {
+					path = lSelectedFolder->Text->Replace("\\", "\\\\") + "\\" + tModelName->Text->ToLower() + "_nsdata.lua";
+					path = path->Replace("\\\\\\\\", "\\\\");
+
+					if (File::Exists(path))
+					{
+						File::Delete(path);
+					}
+
+					sw = File::CreateText(path);
+
+					sw->WriteLine("---------------------------------------------------------------");
+					sw->WriteLine("--    This file contains the Non Statial Data definition     --");
+					sw->WriteLine("--              Compatible with INPE-EM 3.0                  --");
+					sw->WriteLine("--       Generated with INPE-EM Model Configurator           --");
+					sw->WriteLine("--                 " + dateTime + "                    --");
+					sw->WriteLine("---------------------------------------------------------------\n");
+
+					sw->WriteLine("NSDATA1 =");
+					sw->WriteLine("{");
+
+					int countTables = 0;
+					
+					for (int i = 0; i < tbTableData->Lines->Length; i++) {
+						if (tbTableData->Lines[i]->Contains("Area")) {
+							countTables++;
+						} else if(tbTableData->Lines[i]->Contains("HalfLife")) {
+							countTables++;
+						} else if (tbTableData->Lines[i]->Contains("Degrad")) {
+							countTables++;
+						}
+					}
+
+					int j = 0;
+
+					for (int i = 0; i < countTables; i++) {
+						sw->WriteLine("\t" + tbTableData->Lines[j]);
+						j++;
+						sw->WriteLine("\t" + tbTableData->Lines[j]);
+						j++;
+						while (!tbTableData->Lines[j]->Contains("}")) {
+							sw->WriteLine("\t\t" + tbTableData->Lines[j]);
+							j++;
+						}
+						sw->WriteLine("\t" + tbTableData->Lines[j]);
+						if (j + 1 < tbTableData->Lines->Length) {
+							sw->WriteLine("");
+						}
+						j++;
+					}
+
+
+					sw->WriteLine(tbTableData->Lines[tbTableData->Lines->Length - 1]);
+					sw->WriteLine("");
+
+					sw->Close();
+
+					if (File::Exists(path))
+					{
+						nsFile = true;
+
+					}
+				}
 	//			if (mainFile && subFile) {
 	//				if (lSelectedFolder->Text->Length > ROOTDIR) {
 	//					MessageBox::Show(gSSuccess + lSelectedFolder->Text + "\\" + tModelName->Text->ToLower() + "_main.lua" +
@@ -1788,60 +1290,60 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 	//					MessageBox::Show(gSFileMissing2 + lSelectedFolder->Text, gSFileMissingTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
 	//				}
 	//			}
-	//		}
-	//	}
-	//	catch (Exception^) {
-	//		if (!mainFile) {
-	//			if (forceWriting) {
-	//				MessageBox::Show(gSMFE + lSelectedFolder->Text, gSMFETitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-	//				closing = true;
-	//				this->Close();
-	//			}
-	//			else {
-	//				System::Threading::Thread::Sleep(SECOND);
-	//				if (File::Exists(path))
-	//				{
-	//					File::Delete(path);
-	//				}
+			}
+		}
+		catch (Exception^) {
+			//if (!mainFile) {
+			//	if (forceWriting) {
+			//		MessageBox::Show(gSMFE + lSelectedFolder->Text, gSMFETitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+			//		closing = true;
+			//		this->Close();
+			//	}
+			//	else {
+			//		System::Threading::Thread::Sleep(SECOND);
+			//		if (File::Exists(path))
+			//		{
+			//			File::Delete(path);
+			//		}
 
-	//				forceWriting = true;
-	//				bGerarArquivos_Click(sender, e);
-	//			}
-	//		}
-	//		else if (!subFile) {
-	//			if (forceWriting) {
-	//				MessageBox::Show(gSSMFE + lSelectedFolder->Text, gSMFETitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-	//				closing = true;
-	//				this->Close();
-	//			}
-	//			else {
-	//				System::Threading::Thread::Sleep(SECOND);
-	//				if (File::Exists(path))
-	//				{
-	//					File::Delete(path);
-	//				}
+			//		forceWriting = true;
+			//		bGerarArquivos_Click(sender, e);
+			//	}
+			//}
+			//else if (!subFile) {
+			//	if (forceWriting) {
+			//		MessageBox::Show(gSSMFE + lSelectedFolder->Text, gSMFETitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+			//		closing = true;
+			//		this->Close();
+			//	}
+			//	else {
+			//		System::Threading::Thread::Sleep(SECOND);
+			//		if (File::Exists(path))
+			//		{
+			//			File::Delete(path);
+			//		}
 
-	//				forceWriting = true;
-	//				bGerarArquivos_Click(sender, e);
-	//			}
-	//		}
-	//		else {
-	//			if (forceWriting) {
-	//				MessageBox::Show(gSFE + lSelectedFolder->Text, gSMFETitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-	//				closing = true;
-	//				this->Close();
-	//			}
-	//			else {
-	//				System::Threading::Thread::Sleep(SECOND);
-	//				if (File::Exists(path))
-	//				{
-	//					File::Delete(path);
-	//				}
+			//		forceWriting = true;
+			//		bGerarArquivos_Click(sender, e);
+			//	}
+			//}
+			//else {
+			//	if (forceWriting) {
+			//		MessageBox::Show(gSFE + lSelectedFolder->Text, gSMFETitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+			//		closing = true;
+			//		this->Close();
+			//	}
+			//	else {
+			//		System::Threading::Thread::Sleep(SECOND);
+			//		if (File::Exists(path))
+			//		{
+			//			File::Delete(path);
+			//		}
 
-	//				forceWriting = true;
-	//				bGerarArquivos_Click(sender, e);
-	//			}
-	//		}
-	//	}
-	//}
+			//		forceWriting = true;
+			//		bGerarArquivos_Click(sender, e);
+			//	}
+			//}
+		}
+	}
 }

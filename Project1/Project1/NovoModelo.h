@@ -48,13 +48,33 @@ namespace INPEEM {
 		String^ gSMTNonSpatial = "";
 		String^ gSMTSpatial = "";
 		String^ gSMTCombine = "";
-		String^ gSModelSelect = "";
 		String^ gSModelSelectTitle = "";
-		String^ gSFolder = "";
+		String^ gSModelSelect = "";
 		String^ gSFolderTitle = "";
-		String^ gSModelName = "";
+		String^ gSFolder = "";
 		String^ gSModelNameTitle = "";
-
+		String^ gSModelName = "";
+		String^ gSNSModelName = "";
+		String^ gSSModelName = "";
+		String^ gSStartTimeTitle = "";
+		String^ gSNSStartTime = "";
+		String^ gSStopTimeTitle = "";
+		String^ gSNSStopTime = "";
+		String^ gSNSAreaTitle = "";
+		String^ gSNSArea = "";
+		String^ gSNSTableDataTitle = "";
+		String^ gSNSTableData = "";
+		String^ gSStartTime = "";
+		String^ gSStopTime = "";
+		String^ gSCellAreaTitle = "";
+		String^ gSCellArea = "";
+		String^ gSLayerNameTitle = "";
+		String^ gSLayerName = "";
+		String^ gSSFileTitle = "";
+		String^ gSSFile = "";
+		String^ gSUnauthorized = "";
+		String^ gSUnauthorizedTitle = "";
+		
 	private: System::Windows::Forms::TabControl^  tNovoModelo;
 	private: System::Windows::Forms::TabPage^  tabDefModel;
 	private: System::Windows::Forms::Label^  lDefinicoesModelo;
@@ -133,6 +153,9 @@ namespace INPEEM {
 	private: System::Windows::Forms::ToolStripMenuItem^  sobreToolStripMenuItem;
 	private: System::Windows::Forms::Label^  lSelectedFile;
 private: System::Windows::Forms::ComboBox^  cbModelType;
+private: System::Windows::Forms::CheckBox^  cbNonSpatialVerbose;
+private: System::Windows::Forms::CheckBox^  cbSpatialVerbose;
+
 
 
 	public:
@@ -252,6 +275,8 @@ private: System::Windows::Forms::ComboBox^  cbModelType;
 			this->ajudaToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->luccMEToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->sobreToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->cbNonSpatialVerbose = (gcnew System::Windows::Forms::CheckBox());
+			this->cbSpatialVerbose = (gcnew System::Windows::Forms::CheckBox());
 			this->tNovoModelo->SuspendLayout();
 			this->tabDefModel->SuspendLayout();
 			this->tabComponents->SuspendLayout();
@@ -319,7 +344,7 @@ private: System::Windows::Forms::ComboBox^  cbModelType;
 			// tModelName
 			// 
 			this->tModelName->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tModelName->Location = System::Drawing::Point(249, 214);
+			this->tModelName->Location = System::Drawing::Point(248, 214);
 			this->tModelName->Name = L"tModelName";
 			this->tModelName->Size = System::Drawing::Size(194, 20);
 			this->tModelName->TabIndex = 66;
@@ -520,6 +545,7 @@ private: System::Windows::Forms::ComboBox^  cbModelType;
 			// 
 			// tabNonSpatial
 			// 
+			this->tabNonSpatial->Controls->Add(this->cbNonSpatialVerbose);
 			this->tabNonSpatial->Controls->Add(this->lNonSpatialComponentSelection);
 			this->tabNonSpatial->Controls->Add(this->cbNonSpatialDegradation);
 			this->tabNonSpatial->Controls->Add(this->cbNonSpatialSecondaryVegetation);
@@ -627,7 +653,7 @@ private: System::Windows::Forms::ComboBox^  cbModelType;
 			this->lNonSpatialArea->AutoSize = true;
 			this->lNonSpatialArea->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lNonSpatialArea->Location = System::Drawing::Point(24, 206);
+			this->lNonSpatialArea->Location = System::Drawing::Point(24, 205);
 			this->lNonSpatialArea->Name = L"lNonSpatialArea";
 			this->lNonSpatialArea->Size = System::Drawing::Size(90, 23);
 			this->lNonSpatialArea->TabIndex = 84;
@@ -650,7 +676,7 @@ private: System::Windows::Forms::ComboBox^  cbModelType;
 			this->lNonSpatialFinalYear->AutoSize = true;
 			this->lNonSpatialFinalYear->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lNonSpatialFinalYear->Location = System::Drawing::Point(24, 167);
+			this->lNonSpatialFinalYear->Location = System::Drawing::Point(24, 165);
 			this->lNonSpatialFinalYear->Name = L"lNonSpatialFinalYear";
 			this->lNonSpatialFinalYear->Size = System::Drawing::Size(134, 23);
 			this->lNonSpatialFinalYear->TabIndex = 84;
@@ -683,7 +709,7 @@ private: System::Windows::Forms::ComboBox^  cbModelType;
 			// tNonSpatialName
 			// 
 			this->tNonSpatialName->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tNonSpatialName->Location = System::Drawing::Point(276, 54);
+			this->tNonSpatialName->Location = System::Drawing::Point(276, 53);
 			this->tNonSpatialName->Name = L"tNonSpatialName";
 			this->tNonSpatialName->Size = System::Drawing::Size(194, 20);
 			this->tNonSpatialName->TabIndex = 85;
@@ -728,6 +754,7 @@ private: System::Windows::Forms::ComboBox^  cbModelType;
 			// 
 			// tabSpatial
 			// 
+			this->tabSpatial->Controls->Add(this->cbSpatialVerbose);
 			this->tabSpatial->Controls->Add(this->lSelectedFile);
 			this->tabSpatial->Controls->Add(this->lTerraview);
 			this->tabSpatial->Controls->Add(this->lShape);
@@ -854,9 +881,9 @@ private: System::Windows::Forms::ComboBox^  cbModelType;
 			this->lSpatialLayerName->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			this->lSpatialLayerName->Location = System::Drawing::Point(12, 333);
 			this->lSpatialLayerName->Name = L"lSpatialLayerName";
-			this->lSpatialLayerName->Size = System::Drawing::Size(127, 23);
+			this->lSpatialLayerName->Size = System::Drawing::Size(129, 23);
 			this->lSpatialLayerName->TabIndex = 104;
-			this->lSpatialLayerName->Text = L"Nome do Tema";
+			this->lSpatialLayerName->Text = L"Nome do Layer";
 			this->lSpatialLayerName->TextAlign = System::Drawing::ContentAlignment::TopRight;
 			// 
 			// lDatabase
@@ -987,11 +1014,11 @@ private: System::Windows::Forms::ComboBox^  cbModelType;
 			// tSpatialName
 			// 
 			this->tSpatialName->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tSpatialName->Location = System::Drawing::Point(245, 54);
+			this->tSpatialName->Location = System::Drawing::Point(245, 53);
 			this->tSpatialName->Name = L"tSpatialName";
 			this->tSpatialName->Size = System::Drawing::Size(194, 20);
 			this->tSpatialName->TabIndex = 95;
-			this->tSpatialName->Text = L"NonSpatialModel";
+			this->tSpatialName->Text = L"SpatialModel";
 			this->tSpatialName->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tSpatialName->Enter += gcnew System::EventHandler(this, &NovoModelo::textBox_Enter);
 			// 
@@ -1032,7 +1059,7 @@ private: System::Windows::Forms::ComboBox^  cbModelType;
 			// 
 			// bRun
 			// 
-			this->bRun->Location = System::Drawing::Point(264, 281);
+			this->bRun->Location = System::Drawing::Point(263, 281);
 			this->bRun->Name = L"bRun";
 			this->bRun->Size = System::Drawing::Size(185, 47);
 			this->bRun->TabIndex = 91;
@@ -1045,7 +1072,7 @@ private: System::Windows::Forms::ComboBox^  cbModelType;
 			this->lRunModel->AutoSize = true;
 			this->lRunModel->Font = (gcnew System::Drawing::Font(L"Calibri", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lRunModel->Location = System::Drawing::Point(281, 234);
+			this->lRunModel->Location = System::Drawing::Point(280, 234);
 			this->lRunModel->Name = L"lRunModel";
 			this->lRunModel->Size = System::Drawing::Size(151, 26);
 			this->lRunModel->TabIndex = 90;
@@ -1055,7 +1082,7 @@ private: System::Windows::Forms::ComboBox^  cbModelType;
 			// 
 			// bGerarArquivos
 			// 
-			this->bGerarArquivos->Location = System::Drawing::Point(264, 112);
+			this->bGerarArquivos->Location = System::Drawing::Point(263, 112);
 			this->bGerarArquivos->Name = L"bGerarArquivos";
 			this->bGerarArquivos->Size = System::Drawing::Size(185, 47);
 			this->bGerarArquivos->TabIndex = 89;
@@ -1068,7 +1095,7 @@ private: System::Windows::Forms::ComboBox^  cbModelType;
 			this->lFileMaker->AutoSize = true;
 			this->lFileMaker->Font = (gcnew System::Drawing::Font(L"Calibri", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lFileMaker->Location = System::Drawing::Point(274, 29);
+			this->lFileMaker->Location = System::Drawing::Point(273, 29);
 			this->lFileMaker->Name = L"lFileMaker";
 			this->lFileMaker->Size = System::Drawing::Size(165, 26);
 			this->lFileMaker->TabIndex = 87;
@@ -1164,6 +1191,28 @@ private: System::Windows::Forms::ComboBox^  cbModelType;
 			this->sobreToolStripMenuItem->Size = System::Drawing::Size(135, 22);
 			this->sobreToolStripMenuItem->Text = L"Sobre";
 			this->sobreToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::sobreToolStripMenuItem_Click);
+			// 
+			// cbNonSpatialVerbose
+			// 
+			this->cbNonSpatialVerbose->AutoSize = true;
+			this->cbNonSpatialVerbose->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold));
+			this->cbNonSpatialVerbose->Location = System::Drawing::Point(566, 50);
+			this->cbNonSpatialVerbose->Name = L"cbNonSpatialVerbose";
+			this->cbNonSpatialVerbose->Size = System::Drawing::Size(94, 27);
+			this->cbNonSpatialVerbose->TabIndex = 94;
+			this->cbNonSpatialVerbose->Text = L"Verbose";
+			this->cbNonSpatialVerbose->UseVisualStyleBackColor = true;
+			// 
+			// cbSpatialVerbose
+			// 
+			this->cbSpatialVerbose->AutoSize = true;
+			this->cbSpatialVerbose->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold));
+			this->cbSpatialVerbose->Location = System::Drawing::Point(566, 50);
+			this->cbSpatialVerbose->Name = L"cbSpatialVerbose";
+			this->cbSpatialVerbose->Size = System::Drawing::Size(94, 27);
+			this->cbSpatialVerbose->TabIndex = 113;
+			this->cbSpatialVerbose->Text = L"Verbose";
+			this->cbSpatialVerbose->UseVisualStyleBackColor = true;
 			// 
 			// NovoModelo
 			// 
