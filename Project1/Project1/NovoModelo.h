@@ -74,6 +74,67 @@ namespace INPEEM {
 		String^ gSSFile = "";
 		String^ gSUnauthorized = "";
 		String^ gSUnauthorizedTitle = "";
+		String^ gSExitTitle = "";
+		String^ gSExit = "";
+		String^ gSSuccessTitle = "";
+		String^ gSSuccess = "";
+		String^ gSEditing = "";
+		String^ gSNewModelTitle = "";
+		String^ gSNewModel = "";
+		String^ gSOpenModelTitle = "";
+		String^ gSMainImportTitle = "";
+		String^	gSMainImport = "";
+		String^	gSMainLoadTitle = "";
+		String^	gSMainLoad = "";
+		String^	gSMainFile = "";
+		String^	gSSubmodelFile = "";
+		String^	gSFileMissingTitle = "";
+		String^	gSFileMissing = "";
+		String^	gSFileMissing2 = "";
+		String^	gSFileMissing3 = "";
+		String^	gSMFETitle = "";
+		String^	gSFE = "";
+		String^	gSMFE = "";
+		String^	gSSMFE = "";
+		String^	gSNSDFE = "";
+		String^	gSCoponentTitle = "";
+		String^	gStbBiomass = "";
+		String^	gStbDeforest = "";
+		String^	gSDegradation = "";
+		String^	gSSecondaryVegetation = "";
+		String^	gSVegetationRemoval = "";
+		String^	gSNSModel = "";
+		String^	gSSModel = "";
+		String^	gSLuaFile = "";
+		String^	gSImportErrorTitle = "";
+		String^	gSImportError = "";
+
+		array<String^>^ gParametersValues = gcnew array<String^>(24);
+		//[0] = lSelectedFolder->Text;
+		//[1] = tModelName->Text;
+		//[2] = tNonSpatialName->Text;
+		//[3] = tNonSpatialInitialYear->Text;
+		//[4] = tNonSpatialFinalYear->Text;
+		//[5] = tNonSpatialArea->Text;
+		//[6] = cbNonSpatialDeforest->Checked->ToString();
+		//[7] = cbNonSpatialBiomass->Checked->ToString();
+		//[8] = cbNonSpatialVegetationRemoval->Checked->ToString();
+		//[9] = cbNonSpatialSecondaryVegetation->Checked->ToString();
+		//[10] = cbNonSpatialDegradation->Checked->ToString();
+		//[11] = cbNonSpatialVerbose->Checked->ToString();
+		//[12] = tSpatialName->Text;
+		//[13] = tSpatialInitialYear->Text;
+		//[14] = tSpatialFinalYear->Text;
+		//[15] = lSelectedFile->Text;
+		//[16] = tSpatialLayerName->Text;
+		//[17] = tSpatialCellArea->Text;
+		//[18] = cbSpatialDeforest->Checked->ToString();
+		//[19] = cbSpatialBiomass->Checked->ToString();
+		//[20] = cbSpatialVegetationRemoval->Checked->ToString();
+		//[21] = cbSpatialSecondaryVegetation->Checked->ToString();
+		//[22] = cbSpatialDegradation->Checked->ToString();
+		//[23] = cbSpatialVerbose->Checked->ToString();
+
 		
 	private: System::Windows::Forms::TabControl^  tNovoModelo;
 	private: System::Windows::Forms::TabPage^  tabDefModel;
@@ -152,9 +213,9 @@ namespace INPEEM {
 	private: System::Windows::Forms::ToolStripMenuItem^  luccMEToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  sobreToolStripMenuItem;
 	private: System::Windows::Forms::Label^  lSelectedFile;
-private: System::Windows::Forms::ComboBox^  cbModelType;
-private: System::Windows::Forms::CheckBox^  cbNonSpatialVerbose;
-private: System::Windows::Forms::CheckBox^  cbSpatialVerbose;
+	private: System::Windows::Forms::ComboBox^  cbModelType;
+	private: System::Windows::Forms::CheckBox^  cbNonSpatialVerbose;
+	private: System::Windows::Forms::CheckBox^  cbSpatialVerbose;
 
 
 
@@ -219,6 +280,7 @@ private: System::Windows::Forms::CheckBox^  cbSpatialVerbose;
 			this->bDeforest = (gcnew System::Windows::Forms::Button());
 			this->lComponentes = (gcnew System::Windows::Forms::Label());
 			this->tabNonSpatial = (gcnew System::Windows::Forms::TabPage());
+			this->cbNonSpatialVerbose = (gcnew System::Windows::Forms::CheckBox());
 			this->lNonSpatialComponentSelection = (gcnew System::Windows::Forms::Label());
 			this->cbNonSpatialDegradation = (gcnew System::Windows::Forms::CheckBox());
 			this->cbNonSpatialSecondaryVegetation = (gcnew System::Windows::Forms::CheckBox());
@@ -236,6 +298,7 @@ private: System::Windows::Forms::CheckBox^  cbSpatialVerbose;
 			this->tbTableData = (gcnew System::Windows::Forms::TextBox());
 			this->bTableData = (gcnew System::Windows::Forms::Button());
 			this->tabSpatial = (gcnew System::Windows::Forms::TabPage());
+			this->cbSpatialVerbose = (gcnew System::Windows::Forms::CheckBox());
 			this->lSelectedFile = (gcnew System::Windows::Forms::Label());
 			this->lTerraview = (gcnew System::Windows::Forms::Label());
 			this->lShape = (gcnew System::Windows::Forms::Label());
@@ -275,8 +338,6 @@ private: System::Windows::Forms::CheckBox^  cbSpatialVerbose;
 			this->ajudaToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->luccMEToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->sobreToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->cbNonSpatialVerbose = (gcnew System::Windows::Forms::CheckBox());
-			this->cbSpatialVerbose = (gcnew System::Windows::Forms::CheckBox());
 			this->tNovoModelo->SuspendLayout();
 			this->tabDefModel->SuspendLayout();
 			this->tabComponents->SuspendLayout();
@@ -420,7 +481,7 @@ private: System::Windows::Forms::CheckBox^  cbSpatialVerbose;
 			// 
 			this->tbBiomass->BackColor = System::Drawing::SystemColors::Control;
 			this->tbBiomass->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			this->tbBiomass->Location = System::Drawing::Point(395, 120);
+			this->tbBiomass->Location = System::Drawing::Point(140, 120);
 			this->tbBiomass->Multiline = true;
 			this->tbBiomass->Name = L"tbBiomass";
 			this->tbBiomass->ReadOnly = true;
@@ -431,7 +492,7 @@ private: System::Windows::Forms::CheckBox^  cbSpatialVerbose;
 			// 
 			// bBiomass
 			// 
-			this->bBiomass->Location = System::Drawing::Point(395, 75);
+			this->bBiomass->Location = System::Drawing::Point(140, 75);
 			this->bBiomass->Name = L"bBiomass";
 			this->bBiomass->Size = System::Drawing::Size(171, 39);
 			this->bBiomass->TabIndex = 79;
@@ -512,7 +573,7 @@ private: System::Windows::Forms::CheckBox^  cbSpatialVerbose;
 			// 
 			this->tbDeforest->BackColor = System::Drawing::SystemColors::Control;
 			this->tbDeforest->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			this->tbDeforest->Location = System::Drawing::Point(140, 120);
+			this->tbDeforest->Location = System::Drawing::Point(395, 120);
 			this->tbDeforest->Multiline = true;
 			this->tbDeforest->Name = L"tbDeforest";
 			this->tbDeforest->ReadOnly = true;
@@ -523,7 +584,7 @@ private: System::Windows::Forms::CheckBox^  cbSpatialVerbose;
 			// 
 			// bDeforest
 			// 
-			this->bDeforest->Location = System::Drawing::Point(140, 75);
+			this->bDeforest->Location = System::Drawing::Point(395, 75);
 			this->bDeforest->Name = L"bDeforest";
 			this->bDeforest->Size = System::Drawing::Size(171, 39);
 			this->bDeforest->TabIndex = 78;
@@ -569,6 +630,17 @@ private: System::Windows::Forms::CheckBox^  cbSpatialVerbose;
 			this->tabNonSpatial->TabIndex = 1;
 			this->tabNonSpatial->Text = L"Modelo Não Espacial";
 			this->tabNonSpatial->UseVisualStyleBackColor = true;
+			// 
+			// cbNonSpatialVerbose
+			// 
+			this->cbNonSpatialVerbose->AutoSize = true;
+			this->cbNonSpatialVerbose->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold));
+			this->cbNonSpatialVerbose->Location = System::Drawing::Point(566, 50);
+			this->cbNonSpatialVerbose->Name = L"cbNonSpatialVerbose";
+			this->cbNonSpatialVerbose->Size = System::Drawing::Size(94, 27);
+			this->cbNonSpatialVerbose->TabIndex = 94;
+			this->cbNonSpatialVerbose->Text = L"Verbose";
+			this->cbNonSpatialVerbose->UseVisualStyleBackColor = true;
 			// 
 			// lNonSpatialComponentSelection
 			// 
@@ -618,8 +690,11 @@ private: System::Windows::Forms::CheckBox^  cbSpatialVerbose;
 			// cbNonSpatialBiomass
 			// 
 			this->cbNonSpatialBiomass->AutoSize = true;
+			this->cbNonSpatialBiomass->Checked = true;
+			this->cbNonSpatialBiomass->CheckState = System::Windows::Forms::CheckState::Checked;
+			this->cbNonSpatialBiomass->Enabled = false;
 			this->cbNonSpatialBiomass->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold));
-			this->cbNonSpatialBiomass->Location = System::Drawing::Point(388, 200);
+			this->cbNonSpatialBiomass->Location = System::Drawing::Point(388, 167);
 			this->cbNonSpatialBiomass->Name = L"cbNonSpatialBiomass";
 			this->cbNonSpatialBiomass->Size = System::Drawing::Size(104, 27);
 			this->cbNonSpatialBiomass->TabIndex = 90;
@@ -630,7 +705,7 @@ private: System::Windows::Forms::CheckBox^  cbSpatialVerbose;
 			// 
 			this->cbNonSpatialDeforest->AutoSize = true;
 			this->cbNonSpatialDeforest->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold));
-			this->cbNonSpatialDeforest->Location = System::Drawing::Point(388, 167);
+			this->cbNonSpatialDeforest->Location = System::Drawing::Point(388, 200);
 			this->cbNonSpatialDeforest->Name = L"cbNonSpatialDeforest";
 			this->cbNonSpatialDeforest->Size = System::Drawing::Size(151, 27);
 			this->cbNonSpatialDeforest->TabIndex = 89;
@@ -783,6 +858,17 @@ private: System::Windows::Forms::CheckBox^  cbSpatialVerbose;
 			this->tabSpatial->TabIndex = 6;
 			this->tabSpatial->Text = L"Modelo Espacial";
 			this->tabSpatial->UseVisualStyleBackColor = true;
+			// 
+			// cbSpatialVerbose
+			// 
+			this->cbSpatialVerbose->AutoSize = true;
+			this->cbSpatialVerbose->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold));
+			this->cbSpatialVerbose->Location = System::Drawing::Point(566, 50);
+			this->cbSpatialVerbose->Name = L"cbSpatialVerbose";
+			this->cbSpatialVerbose->Size = System::Drawing::Size(94, 27);
+			this->cbSpatialVerbose->TabIndex = 113;
+			this->cbSpatialVerbose->Text = L"Verbose";
+			this->cbSpatialVerbose->UseVisualStyleBackColor = true;
 			// 
 			// lSelectedFile
 			// 
@@ -946,8 +1032,11 @@ private: System::Windows::Forms::CheckBox^  cbSpatialVerbose;
 			// cbSpatialBiomass
 			// 
 			this->cbSpatialBiomass->AutoSize = true;
+			this->cbSpatialBiomass->Checked = true;
+			this->cbSpatialBiomass->CheckState = System::Windows::Forms::CheckState::Checked;
+			this->cbSpatialBiomass->Enabled = false;
 			this->cbSpatialBiomass->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold));
-			this->cbSpatialBiomass->Location = System::Drawing::Point(423, 200);
+			this->cbSpatialBiomass->Location = System::Drawing::Point(423, 167);
 			this->cbSpatialBiomass->Name = L"cbSpatialBiomass";
 			this->cbSpatialBiomass->Size = System::Drawing::Size(104, 27);
 			this->cbSpatialBiomass->TabIndex = 103;
@@ -958,7 +1047,7 @@ private: System::Windows::Forms::CheckBox^  cbSpatialVerbose;
 			// 
 			this->cbSpatialDeforest->AutoSize = true;
 			this->cbSpatialDeforest->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold));
-			this->cbSpatialDeforest->Location = System::Drawing::Point(423, 167);
+			this->cbSpatialDeforest->Location = System::Drawing::Point(423, 200);
 			this->cbSpatialDeforest->Name = L"cbSpatialDeforest";
 			this->cbSpatialDeforest->Size = System::Drawing::Size(151, 27);
 			this->cbSpatialDeforest->TabIndex = 102;
@@ -1137,20 +1226,21 @@ private: System::Windows::Forms::CheckBox^  cbSpatialVerbose;
 			// novoToolStripMenuItem
 			// 
 			this->novoToolStripMenuItem->Name = L"novoToolStripMenuItem";
-			this->novoToolStripMenuItem->Size = System::Drawing::Size(103, 22);
+			this->novoToolStripMenuItem->Size = System::Drawing::Size(152, 22);
 			this->novoToolStripMenuItem->Text = L"Novo";
 			this->novoToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::novoToolStripMenuItem_Click);
 			// 
 			// abrirToolStripMenuItem
 			// 
 			this->abrirToolStripMenuItem->Name = L"abrirToolStripMenuItem";
-			this->abrirToolStripMenuItem->Size = System::Drawing::Size(103, 22);
+			this->abrirToolStripMenuItem->Size = System::Drawing::Size(152, 22);
 			this->abrirToolStripMenuItem->Text = L"Abrir";
+			this->abrirToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::abrirToolStripMenuItem_Click);
 			// 
 			// sairToolStripMenuItem
 			// 
 			this->sairToolStripMenuItem->Name = L"sairToolStripMenuItem";
-			this->sairToolStripMenuItem->Size = System::Drawing::Size(103, 22);
+			this->sairToolStripMenuItem->Size = System::Drawing::Size(152, 22);
 			this->sairToolStripMenuItem->Text = L"Sair";
 			this->sairToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::sairToolStripMenuItem_Click);
 			// 
@@ -1191,28 +1281,6 @@ private: System::Windows::Forms::CheckBox^  cbSpatialVerbose;
 			this->sobreToolStripMenuItem->Size = System::Drawing::Size(135, 22);
 			this->sobreToolStripMenuItem->Text = L"Sobre";
 			this->sobreToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::sobreToolStripMenuItem_Click);
-			// 
-			// cbNonSpatialVerbose
-			// 
-			this->cbNonSpatialVerbose->AutoSize = true;
-			this->cbNonSpatialVerbose->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold));
-			this->cbNonSpatialVerbose->Location = System::Drawing::Point(566, 50);
-			this->cbNonSpatialVerbose->Name = L"cbNonSpatialVerbose";
-			this->cbNonSpatialVerbose->Size = System::Drawing::Size(94, 27);
-			this->cbNonSpatialVerbose->TabIndex = 94;
-			this->cbNonSpatialVerbose->Text = L"Verbose";
-			this->cbNonSpatialVerbose->UseVisualStyleBackColor = true;
-			// 
-			// cbSpatialVerbose
-			// 
-			this->cbSpatialVerbose->AutoSize = true;
-			this->cbSpatialVerbose->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold));
-			this->cbSpatialVerbose->Location = System::Drawing::Point(566, 50);
-			this->cbSpatialVerbose->Name = L"cbSpatialVerbose";
-			this->cbSpatialVerbose->Size = System::Drawing::Size(94, 27);
-			this->cbSpatialVerbose->TabIndex = 113;
-			this->cbSpatialVerbose->Text = L"Verbose";
-			this->cbSpatialVerbose->UseVisualStyleBackColor = true;
 			// 
 			// NovoModelo
 			// 
@@ -1269,6 +1337,7 @@ private: System::Windows::Forms::CheckBox^  cbSpatialVerbose;
 	private: System::Void sairToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void idiomaToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void novoToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void abrirToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bGerarArquivos_Click(System::Object^  sender, System::EventArgs^  e);
 };
 }

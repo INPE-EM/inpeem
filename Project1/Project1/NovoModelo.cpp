@@ -130,7 +130,41 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		gSLayerName = "Layer Name not defined in Spatial Model";
 		gSUnauthorized = "You do not have writting permission on the selected folder.\nTry a different one or run LuccME as admin.";
 		gSUnauthorizedTitle = "Error - Writting Permimission";
-
+		gSExitTitle = "Exiting - Data not saved";
+		gSExit = "The data changed will be lost.\nDo you want to proceed?";
+		gSSuccessTitle = "Files successfully generate";
+		gSSuccess = "Files successfully recorded:\n";
+		gSEditing = "LuccME - Editing a model";
+		gSNewModelTitle = "Create a New Model";
+		gSNewModel = "All the data will be lost.\nDo you want to proceed?";
+		gSOpenModelTitle = "Open a New Model";
+		gSMainImportTitle = "Main File Loaded, Select Submodel";
+		gSMainImport = "Main file imported with sucess.\nSelect the Submodel File.";
+		gSMainLoadTitle = "Main File to Import";
+		gSMainLoad = "Select the Main File.";
+		gSMainFile = "Select Main File";
+		gSSubmodelFile = "Select Submodel File";
+		gSFileMissingTitle = "Make Files Error";
+		gSFileMissing = "Error writing the main File.\nCheck the path:";
+		gSFileMissing2 = "Error writing the submodel File.\nCheck the path:";
+		gSFileMissing3 = "Error writing the nsData File.\nCheck the path:";
+		gSMFETitle = "Error - Files Generation";
+		gSFE = "An unexpected error while recording the files.";
+		gSMFE = "Error recording the main file.";
+		gSSMFE = "Error recording the submodel file.";
+		gSNSDFE = "Error recording the nsdata file.";
+		gSCoponentTitle = "Error - Component select but not defined";
+		gStbBiomass = "Biomass Component not defined in Component, but selected in ";
+		gStbDeforest = "Deforest Component not defined in Component, but selected in ";
+		gSDegradation = "Degradation Component not defined in Component, but selected in ";
+		gSSecondaryVegetation = "Secondary Vegetation Component not defined in Component, but selected in ";
+		gSVegetationRemoval = "Vegetation Removal Component not defined in Component, but selected in ";
+		gSNSModel = "Non Spatial Model.";
+		gSSModel = "Spatial Model.";
+		gSLuaFile = "Lua File(*.lua)|*.lua";
+		gSImportErrorTitle = "Error - Importing Files";
+		gSImportError = "Incloplete file, can't import it.";
+		
 		//Combo Box
 		cbModelType->Items->Clear();
 		cbModelType->Items->Add("Non Spatial Model");
@@ -247,6 +281,40 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		gSLayerName = "Nome do Layer não definido em MOdelo Espacial";
 		gSUnauthorized = "Você não possui permissão de escrita no diretório selecionado.\nEscolha outro diretório ou execute o LuccME como administrador.";
 		gSUnauthorizedTitle = "Erro - Permissão de escrita";
+		gSExitTitle = "Saindo - Dados não salvos";
+		gSExit = "Os dados alterados serão perdidos.\nDeseja Continuar?";
+		gSSuccessTitle = "Arquivos gerados com Sucesso";
+		gSSuccess = "Arquivos gravados com sucesso:\n";
+		gSEditing = "INPE-EM - Editando um modelo";
+		gSNewModelTitle = "Criar um Novo Modelo";
+		gSNewModel = "Todos os dados serão perdidos.\nDeseja Continuar?";
+		gSOpenModelTitle = "Abrir um Novo Modelo";
+		gSMainImportTitle = "Arquivo Main Carregado, Selecione o Submodelo";
+		gSMainImport = "Arquivo Main importado com sucesso.\nSelecione o Arquivo do Submodelo.";
+		gSMainLoadTitle = "Arquivo Main a ser Importado";
+		gSMainLoad = "Selecione o Arquivo Main.";
+		gSMainFile = "Selecione o arquivo Main";
+		gSSubmodelFile = "Selecione o arquivo Submodel";
+		gSFileMissingTitle = "Erro na geração dos Arquivos";
+		gSFileMissing = "Erro na gravação do arquivo Principal.\nVerifique o caminho:";
+		gSFileMissing2 = "Erro na gravação do arquivo de Sub-Modelo.\nVerifique o caminho:";
+		gSFileMissing3 = "Erro na gravação do arquivo de Dados Não Espaciais.\nVerifique o caminho:";
+		gSMFETitle = "Erro - Geração dos Arquivos";
+		gSFE = "Erro não esperado gravando os arquivos.";
+		gSMFE = "Erro na gravação do arquivo Main.";
+		gSSMFE = "Erro na gravação do arquivo Submodel.";
+		gSNSDFE = "Erro na gravação do arquivo Non Spatial Data.";
+		gSCoponentTitle = "Erro - Componente selecionado, mas não preenchido";
+		gStbBiomass = "O Componente de Biomassa não foi preenchindo, mas foi selecionado em ";
+		gStbDeforest = "O Componente de Desmatamento não foi preenchindo, mas foi selecionado em ";
+		gSDegradation = "O Componente de Degradação não foi preenchindo, mas foi selecionado em ";
+		gSSecondaryVegetation = "O Componente de Vegetação Secundária não foi preenchindo, mas foi selecionado em ";
+		gSVegetationRemoval = "O Componente de Vegetação Primária não foi preenchindo, mas foi selecionado em ";
+		gSNSModel = "Modelo Não Espacial.";
+		gSSModel = "Modelo Espacial.";
+		gSLuaFile = "Arquivo Lua (*.lua)|*.lua";
+		gSImportErrorTitle = "Erro - Importando Arquivos";
+		gSImportError = "Arquivo incompleto, não pode ser carregado.";
 
 		//Combo Box
 		cbModelType->Items->Clear();
@@ -266,28 +334,168 @@ System::Void INPEEM::NovoModelo::textBox_Enter(System::Object ^ sender, System::
 	}
 }
 
-System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System::EventArgs^  e)
+System::Void INPEEM::NovoModelo::novoToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 {
+	lReturn = NEWMODEL;
+	this->Close();
+}
+
+Void INPEEM::NovoModelo::abrirToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+{
+	lReturn = OPENMODEL;
+	this->Close();
+}
+
+System::Void INPEEM::NovoModelo::idiomaToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+{
+	LanguageForm^ languageForm = gcnew LanguageForm(lLanguage);
+	languageForm->ShowInTaskbar = false;
+	languageForm->MinimizeBox = false;
+	languageForm->MaximizeBox = false;
+	languageForm->ShowDialog();
+	lLanguage = languageForm->lLanguage;
 	checkLanguage();
 	NovoModelo::Update();
 }
 
-Void INPEEM::NovoModelo::bDeforest_Click(System::Object^  sender, System::EventArgs^  e)
+Void INPEEM::NovoModelo::sobreToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 {
-	cReturn^ lDeforest = gcnew cReturn();
-	lDeforest->Language = lLanguage;
-	
-	if (gDeforest != "") {
-		lDeforest->Return = gDeforest;
-	}
-	
-	ComponentDeforest^ deforestForm = gcnew ComponentDeforest(lDeforest);
-	deforestForm->Text = gSCDeforestName;
-	deforestForm->ShowDialog();
+	AboutForm^ aboutForm = gcnew AboutForm(lLanguage);
+	aboutForm->ShowInTaskbar = false;
+	aboutForm->ShowDialog();
+}
 
-	if (lDeforest->Return != "") {
-		gDeforest = lDeforest->Return;
-		showReturnDeforest();
+System::Void INPEEM::NovoModelo::sairToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+{
+	Application::Exit();
+}
+
+System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System::EventArgs^  e)
+{
+	checkLanguage();
+	NovoModelo::Update();
+
+	if (lOpen) {
+		try {
+			bool main = false;
+			bool submodel = false;
+			bool imported = true;
+
+			MessageBox::Show(gSMainLoad, gSMainLoadTitle, MessageBoxButtons::OK, MessageBoxIcon::Information);
+
+			INPEEM::OpenFileDialog^ mainFile = gcnew OpenFileDialog;
+			mainFile->Title = gSMainFile;
+			mainFile->Multiselect = false;
+			mainFile->Filter = gSLuaFile;
+			mainFile->FilterIndex = 1;
+			mainFile->ShowHelp = true;
+
+			if (mainFile->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+			{
+				String^ fileName = mainFile->FileName;
+				System::IO::StreamReader^ sw = gcnew System::IO::StreamReader(fileName);
+				bool found = false;
+
+				String^ line = sw->ReadLine();
+
+				while (sw->EndOfStream == false) {
+					if (line->Contains("submodel.lua") != TRUE) {
+						line = sw->ReadLine();
+					}
+					else {
+						found = true;
+						break;
+					}
+				}
+
+				String^ tempLine = "";
+				int lastSlash = 0;
+				int j = 0;
+
+				if (found) {
+					while (line[j] != '\"') {
+						j++;
+					}
+
+					j++;
+					line = line->Replace("\\\\", "\\");
+
+					for (int i = j; i < line->Length; i++) {
+						if (line[i] != '\\') {
+							tempLine += line[i];
+						}
+						else {
+							if (line[i] == '\\') {
+								tempLine += line[i];
+								lastSlash = i;
+							}
+						}
+					}
+
+					lSelectedFolder->Text = tempLine->Substring(0, lastSlash - j);
+					if (lSelectedFolder->Text->Length == 2) {
+						lSelectedFolder->Text += "\\";
+					}
+				}
+
+				gParametersValues[0] = lSelectedFolder->Text;
+				found = false;
+				sw->Close();
+
+
+				
+
+				sw->Close();
+				main = true;
+				MessageBox::Show(gSMainImport, gSMainImportTitle, MessageBoxButtons::OK, MessageBoxIcon::Information);
+			}
+
+			INPEEM::OpenFileDialog^ submodelFile = gcnew OpenFileDialog;
+			submodelFile->Title = gSSubmodelFile;
+			submodelFile->Multiselect = false;
+			submodelFile->Filter = gSLuaFile;
+			submodelFile->FilterIndex = 1;
+			submodelFile->ShowHelp = true;
+
+			if (submodelFile->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+			{
+				String^ fileName = submodelFile->FileName;
+				System::IO::StreamReader^ sw = gcnew System::IO::StreamReader(fileName);
+
+				String^ line = sw->ReadLine();
+				while (line->Contains("=") != TRUE) {
+					line = sw->ReadLine();
+				}
+
+				
+			}
+
+			if (main && submodel && imported) {
+				lRunModel->Visible = true;
+				bRun->Visible = true;
+				runnable = true;
+				checkLanguage();
+				this->Text = gSEditing;
+			}
+		}
+		catch (Exception^ e) {
+			if (e->GetType()->ToString() == "System.IndexOutOfRangeException") {
+				MessageBox::Show(gSImportError, gSImportErrorTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+				closing = true;
+				this->Close();
+			}
+		}
+	}
+}
+
+Void INPEEM::NovoModelo::bSelectFolder_Click(System::Object^  sender, System::EventArgs^  e)
+{
+	//Open the dialog to select a folder and return the path
+	INPEEM::FolderBrowserDialog^ modelFolder = gcnew FolderBrowserDialog();
+
+	if (modelFolder->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+	{
+		lSelectedFolder->Text = modelFolder->SelectedPath;
 	}
 }
 
@@ -309,6 +517,26 @@ Void INPEEM::NovoModelo::bBiomass_Click(System::Object^  sender, System::EventAr
 		showReturnBiomass();
 	}
 }
+
+Void INPEEM::NovoModelo::bDeforest_Click(System::Object^  sender, System::EventArgs^  e)
+{
+	cReturn^ lDeforest = gcnew cReturn();
+	lDeforest->Language = lLanguage;
+	
+	if (gDeforest != "") {
+		lDeforest->Return = gDeforest;
+	}
+	
+	ComponentDeforest^ deforestForm = gcnew ComponentDeforest(lDeforest);
+	deforestForm->Text = gSCDeforestName;
+	deforestForm->ShowDialog();
+
+	if (lDeforest->Return != "") {
+		gDeforest = lDeforest->Return;
+		showReturnDeforest();
+	}
+}
+
 
 Void INPEEM::NovoModelo::bVegetationRemoval_Click(System::Object^  sender, System::EventArgs^  e)
 {
@@ -402,24 +630,6 @@ Void INPEEM::NovoModelo::bTableData_Click(System::Object^  sender, System::Event
 			showReturnNonSpatialDataTable();
 		}
 	}
-}
-
-Void INPEEM::NovoModelo::bSelectFolder_Click(System::Object^  sender, System::EventArgs^  e)
-{
-	//Open the dialog to select a folder and return the path
-	INPEEM::FolderBrowserDialog^ modelFolder = gcnew FolderBrowserDialog();
-
-	if (modelFolder->ShowDialog() == System::Windows::Forms::DialogResult::OK)
-	{
-		lSelectedFolder->Text = modelFolder->SelectedPath;
-	}
-}
-
-Void INPEEM::NovoModelo::sobreToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
-{
-	AboutForm^ aboutForm = gcnew AboutForm(lLanguage);
-	aboutForm->ShowInTaskbar = false;
-	aboutForm->ShowDialog();
 }
 
 Void INPEEM::NovoModelo::bSelectProject_Click(System::Object^  sender, System::EventArgs^  e)
@@ -715,29 +925,6 @@ System::Void INPEEM::NovoModelo::showReturnVegetationRemoval()
 	tbVegetationRemoval->Lines = lines;
 }
 
-System::Void INPEEM::NovoModelo::sairToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
-{
-	Application::Exit();
-}
-
-System::Void INPEEM::NovoModelo::idiomaToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
-{
-	LanguageForm^ languageForm = gcnew LanguageForm(lLanguage);
-	languageForm->ShowInTaskbar = false;
-	languageForm->MinimizeBox = false;
-	languageForm->MaximizeBox = false;
-	languageForm->ShowDialog();
-	lLanguage = languageForm->lLanguage;
-	checkLanguage();
-	NovoModelo::Update();
-}
-
-System::Void INPEEM::NovoModelo::novoToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
-{
-	lReturn = NEWMODEL;
-	this->Close();
-}
-
 System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, System::EventArgs^  e)
 {
 	bool checked = true;
@@ -757,7 +944,7 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 		checked = false;
 	}
 
-	if (cbModelType->SelectedIndex == NSPATIALTYPE || cbModelType->SelectedIndex == COMBINETYPE) {
+	else if (cbModelType->SelectedIndex == NSPATIALTYPE || cbModelType->SelectedIndex == COMBINETYPE) {
 		if (tNonSpatialName->Text == "") {
 			MessageBox::Show(gSNSModelName, gSModelNameTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
 			checked = false;
@@ -782,9 +969,35 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 			MessageBox::Show(gSNSTableData, gSNSTableDataTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
 			checked = false;
 		}
+
+		else if (cbNonSpatialBiomass->Checked && tbBiomass->Lines->Length == NONE) {
+			MessageBox::Show(gStbBiomass + gSNSModel, gSCoponentTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+			checked = false;
+		}
+		
+		else if (cbNonSpatialDeforest->Checked && tbDeforest->Lines->Length == NONE) {
+			MessageBox::Show(gStbDeforest + gSNSModel, gSCoponentTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+			checked = false;
+		}
+		
+		else if (cbNonSpatialDegradation->Checked && tbDegrad->Lines->Length == NONE) {
+			MessageBox::Show(gSDegradation + gSNSModel, gSCoponentTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+			checked = false;
+		}
+		
+		else if (cbNonSpatialSecondaryVegetation->Checked && tbSecondVegetation->Lines->Length == NONE) {
+			MessageBox::Show(gSSecondaryVegetation + gSNSModel, gSCoponentTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+			checked = false;
+		}
+		
+		else if (cbNonSpatialVegetationRemoval->Checked && tbVegetationRemoval->Lines->Length == NONE) {
+			MessageBox::Show(gSVegetationRemoval + gSNSModel, gSCoponentTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+			checked = false;
+		}
 	}
 
-	if (cbModelType->SelectedIndex == SPATIALTYPE || cbModelType->SelectedIndex == COMBINETYPE) {
+
+	else if (cbModelType->SelectedIndex == SPATIALTYPE || cbModelType->SelectedIndex == COMBINETYPE) {
 		if (tSpatialName->Text == "") {
 			MessageBox::Show(gSSModelName, gSModelNameTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
 			checked = false;
@@ -814,6 +1027,31 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 
 		else if (tSpatialCellArea->Text == "") {
 			MessageBox::Show(gSCellArea, gSCellAreaTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+			checked = false;
+		}
+
+		else if (cbSpatialBiomass->Checked && tbBiomass->Lines->Length == NONE) {
+			MessageBox::Show(gStbBiomass + gSSModel, gSCoponentTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+			checked = false;
+		}
+
+		else if (cbSpatialDeforest->Checked && tbDeforest->Lines->Length == NONE) {
+			MessageBox::Show(gStbDeforest + gSSModel, gSCoponentTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+			checked = false;
+		}
+
+		else if (cbSpatialDegradation->Checked && tbDegrad->Lines->Length == NONE) {
+			MessageBox::Show(gSDegradation + gSSModel, gSCoponentTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+			checked = false;
+		}
+
+		else if (cbSpatialSecondaryVegetation->Checked && tbSecondVegetation->Lines->Length == NONE) {
+			MessageBox::Show(gSSecondaryVegetation + gSSModel, gSCoponentTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+			checked = false;
+		}
+
+		else if (cbSpatialVegetationRemoval->Checked && tbVegetationRemoval->Lines->Length == NONE) {
+			MessageBox::Show(gSVegetationRemoval + gSSModel, gSCoponentTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
 			checked = false;
 		}
 	}
@@ -879,7 +1117,7 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 				sw->WriteLine("-- INPE-EM Model                                            --");
 				sw->WriteLine("--------------------------------------------------------------");
 				sw->WriteLine("");
-				sw->WriteLine("dofile(\"C:\\\\INPE-EM\\\\Source\\\\inpeEM.lua\\\")");
+				sw->WriteLine("dofile(\"C:\\\\INPE-EM\\\\Source\\\\inpeEM.lua\")");
 				
 				String^ folderAux = lSelectedFolder->Text->Replace("\\", "\\\\");
 				
@@ -1100,21 +1338,6 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 				sw->WriteLine("--                 " + dateTime + "                    --");
 				sw->WriteLine("---------------------------------------------------------------\n");
 
-				if (cbNonSpatialDeforest->Checked || cbSpatialDeforest->Checked) {
-					sw->WriteLine("--------------------------------------------------------------");
-					sw->WriteLine("-- DEFOREST COMPONENT DEFINITION                            --");
-					sw->WriteLine("--------------------------------------------------------------");
-					sw->WriteLine(tbDeforest->Lines[0]); 
-					sw->WriteLine(tbDeforest->Lines[1]);
-					
-					for (int i = 2; i < tbDeforest->Lines->Length - 1; i++) {
-						sw->WriteLine("\t" + tbDeforest->Lines[i]);
-					}
-
-					sw->WriteLine(tbDeforest->Lines[tbDeforest->Lines->Length - 1]);
-					sw->WriteLine("");
-				}
-
 				if (cbNonSpatialBiomass->Checked || cbSpatialBiomass->Checked) {
 					sw->WriteLine("--------------------------------------------------------------");
 					sw->WriteLine("-- BIOMASS COMPONENT DEFINITION                             --");
@@ -1127,6 +1350,21 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 					}
 
 					sw->WriteLine(tbBiomass->Lines[tbBiomass->Lines->Length - 1]);
+					sw->WriteLine("");
+				}
+
+				if (cbNonSpatialDeforest->Checked || cbSpatialDeforest->Checked) {
+					sw->WriteLine("--------------------------------------------------------------");
+					sw->WriteLine("-- DEFOREST COMPONENT DEFINITION                            --");
+					sw->WriteLine("--------------------------------------------------------------");
+					sw->WriteLine(tbDeforest->Lines[0]); 
+					sw->WriteLine(tbDeforest->Lines[1]);
+					
+					for (int i = 2; i < tbDeforest->Lines->Length - 1; i++) {
+						sw->WriteLine("\t" + tbDeforest->Lines[i]);
+					}
+
+					sw->WriteLine(tbDeforest->Lines[tbDeforest->Lines->Length - 1]);
 					sw->WriteLine("");
 				}
 
@@ -1247,103 +1485,129 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 
 					}
 				}
-	//			if (mainFile && subFile) {
-	//				if (lSelectedFolder->Text->Length > ROOTDIR) {
-	//					MessageBox::Show(gSSuccess + lSelectedFolder->Text + "\\" + tModelName->Text->ToLower() + "_main.lua" +
-	//						"\n" + lSelectedFolder->Text + "\\" + tModelName->Text->ToLower() + "_submodel.lua", gSSuccessTitle,
-	//						MessageBoxButtons::OK, MessageBoxIcon::Information);
-	//				}
-	//				else {
-	//					MessageBox::Show(gSSuccess + lSelectedFolder->Text + tModelName->Text->ToLower() + "_main.lua" +
-	//						"\n" + lSelectedFolder->Text + tModelName->Text->ToLower() + "_submodel.lua", gSSuccessTitle,
-	//						MessageBoxButtons::OK, MessageBoxIcon::Information);
-	//				}
+				if (mainFile && subFile && nsFile) {
+					if (lSelectedFolder->Text->Length > ROOTDIR) {
+						MessageBox::Show(gSSuccess + lSelectedFolder->Text + "\\" + tModelName->Text->ToLower() + "_main.lua" + "\n" + lSelectedFolder->Text + "\\" + tModelName->Text->ToLower() + "_submodel.lua" + 
+										 "\n" + lSelectedFolder->Text + "\\" + tModelName->Text->ToLower() + "_nsdata.lua", gSSuccessTitle,	MessageBoxButtons::OK, MessageBoxIcon::Information);
+					}
+					else {
+						MessageBox::Show(gSSuccess + lSelectedFolder->Text + tModelName->Text->ToLower() + "_main.lua" + "\n" + lSelectedFolder->Text + tModelName->Text->ToLower() + "_submodel.lua" + 
+										 "\n" + lSelectedFolder->Text + tModelName->Text->ToLower() + "_nsdata.lua", gSSuccessTitle, MessageBoxButtons::OK, MessageBoxIcon::Information);
+					}
 
-	//				lRunModel->Visible = true;
-	//				bRun->Visible = true;
-	//				runnable = true;
+					lRunModel->Visible = true;
+					bRun->Visible = true;
+					runnable = true;
 
-	//				gParametersValues[0] = lSelectedFolder->Text;
-	//				gParametersValues[1] = tModelName->Text;
-	//				gParametersValues[2] = tStartTime->Text;
-	//				gParametersValues[3] = tEndTime->Text;
-	//				gParametersValues[4] = tThemeName->Text;
-	//				gParametersValues[5] = tbSelectedBatabase->Lines[1]->ToString();
-	//				gParametersValues[6] = tCellArea->Text;
-	//				gParametersValues[7] = lDynamicConfirm->Text;
-	//				gParametersValues[8] = tScenariosStartTime->Text;
-	//				gParametersValues[9] = tScenarioName->Text;
-	//				gParametersValues[10] = lLUTShow->Text;
-	//				gParametersValues[11] = lLUNDShow->Text;
-	//				gParametersValues[12] = tOutputTheme->Text;
-	//				gParametersValues[13] = lYearsToSave->Text;
-	//				gParametersValues[14] = lAttrToSave->Text;
-	//				gParametersValues[15] = tbDemand->Lines[0]->ToString();
-	//				gParametersValues[16] = tbPotential->Lines[0]->ToString();
-	//				gParametersValues[17] = tbAllocation->Lines[0]->ToString();
-	//			}
-	//			else {
-	//				if (!mainFile) {
-	//					MessageBox::Show(gSFileMissing + lSelectedFolder->Text, gSFileMissingTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-	//				}
-	//				else {
-	//					MessageBox::Show(gSFileMissing2 + lSelectedFolder->Text, gSFileMissingTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-	//				}
-	//			}
+					gParametersValues[0] = lSelectedFolder->Text;
+					gParametersValues[1] = tModelName->Text;
+					
+					if (cbModelType->SelectedIndex == NSPATIALTYPE || cbModelType->SelectedIndex == COMBINETYPE) {
+						gParametersValues[2] = tNonSpatialName->Text;
+						gParametersValues[3] = tNonSpatialInitialYear->Text;
+						gParametersValues[4] = tNonSpatialFinalYear->Text;
+						gParametersValues[5] = tNonSpatialArea->Text;
+						gParametersValues[6] = cbNonSpatialDeforest->Checked.ToString();
+						gParametersValues[7] = cbNonSpatialBiomass->Checked.ToString();
+						gParametersValues[8] = cbNonSpatialVegetationRemoval->Checked.ToString();
+						gParametersValues[9] = cbNonSpatialSecondaryVegetation->Checked.ToString();
+						gParametersValues[10] = cbNonSpatialDegradation->Checked.ToString();
+						gParametersValues[11] = cbNonSpatialVerbose->Checked.ToString();
+					}
+					if (cbModelType->SelectedIndex == SPATIALTYPE || cbModelType->SelectedIndex == COMBINETYPE) {
+						gParametersValues[12] = tSpatialName->Text;
+						gParametersValues[13] = tSpatialInitialYear->Text;
+						gParametersValues[14] = tSpatialFinalYear->Text;
+						gParametersValues[15] = lSelectedFile->Text;
+						gParametersValues[16] = tSpatialLayerName->Text;
+						gParametersValues[17] = tSpatialCellArea->Text;
+						gParametersValues[18] = cbSpatialDeforest->Checked.ToString();
+						gParametersValues[19] = cbSpatialBiomass->Checked.ToString();
+						gParametersValues[20] = cbSpatialVegetationRemoval->Checked.ToString();
+						gParametersValues[21] = cbSpatialSecondaryVegetation->Checked.ToString();
+						gParametersValues[22] = cbSpatialDegradation->Checked.ToString();
+						gParametersValues[23] = cbSpatialVerbose->Checked.ToString();
+					}
+				}
+				else {
+					if (!mainFile) {
+						MessageBox::Show(gSFileMissing + lSelectedFolder->Text, gSFileMissingTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+					}
+					else {
+						MessageBox::Show(gSFileMissing2 + lSelectedFolder->Text, gSFileMissingTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+					}
+				}
 			}
 		}
 		catch (Exception^) {
-			//if (!mainFile) {
-			//	if (forceWriting) {
-			//		MessageBox::Show(gSMFE + lSelectedFolder->Text, gSMFETitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-			//		closing = true;
-			//		this->Close();
-			//	}
-			//	else {
-			//		System::Threading::Thread::Sleep(SECOND);
-			//		if (File::Exists(path))
-			//		{
-			//			File::Delete(path);
-			//		}
+			if (!mainFile) {
+				if (forceWriting) {
+					MessageBox::Show(gSMFE + lSelectedFolder->Text, gSMFETitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+					closing = true;
+					this->Close();
+				}
+				else {
+					System::Threading::Thread::Sleep(SECOND);
+					if (File::Exists(path))
+					{
+						File::Delete(path);
+					}
 
-			//		forceWriting = true;
-			//		bGerarArquivos_Click(sender, e);
-			//	}
-			//}
-			//else if (!subFile) {
-			//	if (forceWriting) {
-			//		MessageBox::Show(gSSMFE + lSelectedFolder->Text, gSMFETitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-			//		closing = true;
-			//		this->Close();
-			//	}
-			//	else {
-			//		System::Threading::Thread::Sleep(SECOND);
-			//		if (File::Exists(path))
-			//		{
-			//			File::Delete(path);
-			//		}
+					forceWriting = true;
+					bGerarArquivos_Click(sender, e);
+				}
+			}
+			else if (!subFile) {
+				if (forceWriting) {
+					MessageBox::Show(gSSMFE + lSelectedFolder->Text, gSMFETitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+					closing = true;
+					this->Close();
+				}
+				else {
+					System::Threading::Thread::Sleep(SECOND);
+					if (File::Exists(path))
+					{
+						File::Delete(path);
+					}
 
-			//		forceWriting = true;
-			//		bGerarArquivos_Click(sender, e);
-			//	}
-			//}
-			//else {
-			//	if (forceWriting) {
-			//		MessageBox::Show(gSFE + lSelectedFolder->Text, gSMFETitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-			//		closing = true;
-			//		this->Close();
-			//	}
-			//	else {
-			//		System::Threading::Thread::Sleep(SECOND);
-			//		if (File::Exists(path))
-			//		{
-			//			File::Delete(path);
-			//		}
+					forceWriting = true;
+					bGerarArquivos_Click(sender, e);
+				}
+			}
+			else if (!nsFile) {
+				if (forceWriting) {
+					MessageBox::Show(gSNSDFE + lSelectedFolder->Text, gSMFETitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+					closing = true;
+					this->Close();
+				}
+				else {
+					System::Threading::Thread::Sleep(SECOND);
+					if (File::Exists(path))
+					{
+						File::Delete(path);
+					}
 
-			//		forceWriting = true;
-			//		bGerarArquivos_Click(sender, e);
-			//	}
-			//}
+					forceWriting = true;
+					bGerarArquivos_Click(sender, e);
+				}
+			}
+			else {
+				if (forceWriting) {
+					MessageBox::Show(gSFE + lSelectedFolder->Text, gSMFETitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+					closing = true;
+					this->Close();
+				}
+				else {
+					System::Threading::Thread::Sleep(SECOND);
+					if (File::Exists(path))
+					{
+						File::Delete(path);
+					}
+
+					forceWriting = true;
+					bGerarArquivos_Click(sender, e);
+				}
+			}
 		}
 	}
 }
