@@ -140,10 +140,13 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		gSOpenModelTitle = "Open a New Model";
 		gSMainImportTitle = "Main File Loaded, Select Submodel";
 		gSMainImport = "Main file imported with sucess.\nSelect the Submodel File.";
+		gSSubModelImportTitle = "Submodel File Loaded, Select Non Spatial Data";
+		gSSubmodelImport = "Submodel file imported with sucess.\nSelect the Non Spatial Data File.";
 		gSMainLoadTitle = "Main File to Import";
 		gSMainLoad = "Select the Main File.";
 		gSMainFile = "Select Main File";
 		gSSubmodelFile = "Select Submodel File";
+		gSNSDFile = "Select Non Spatial Data File";
 		gSFileMissingTitle = "Make Files Error";
 		gSFileMissing = "Error writing the main File.\nCheck the path:";
 		gSFileMissing2 = "Error writing the submodel File.\nCheck the path:";
@@ -291,10 +294,13 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		gSOpenModelTitle = "Abrir um Novo Modelo";
 		gSMainImportTitle = "Arquivo Main Carregado, Selecione o Submodelo";
 		gSMainImport = "Arquivo Main importado com sucesso.\nSelecione o Arquivo do Submodelo.";
+		gSSubModelImportTitle = "Arquivo Submodel Carregado, Selecione o Dado Não Espacial";
+		gSSubmodelImport = "Arquivo Submodel importado com sucesso.\nSelecione o Arquivo do Dado Não Espacial.";
 		gSMainLoadTitle = "Arquivo Main a ser Importado";
 		gSMainLoad = "Selecione o Arquivo Main.";
 		gSMainFile = "Selecione o arquivo Main";
 		gSSubmodelFile = "Selecione o arquivo Submodel";
+		gSNSDFile = "Selecione o arquivo de Dados Não Espaciais";
 		gSFileMissingTitle = "Erro na geração dos Arquivos";
 		gSFileMissing = "Erro na gravação do arquivo Principal.\nVerifique o caminho:";
 		gSFileMissing2 = "Erro na gravação do arquivo de Sub-Modelo.\nVerifique o caminho:";
@@ -379,7 +385,10 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 		try {
 			bool main = false;
 			bool submodel = false;
+			bool nsData = false;
+			bool hasNonSpatialData = false;
 			bool imported = true;
+			int cbSelection = 0;
 
 			MessageBox::Show(gSMainLoad, gSMainLoadTitle, MessageBoxButtons::OK, MessageBoxIcon::Information);
 
@@ -397,6 +406,21 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 				bool found = false;
 
 				String^ line = sw->ReadLine();
+				line = sw->ReadLine();
+
+				while (sw->EndOfStream == false) {
+					if (line->Contains("import(\"terralib\")") != TRUE) {
+						line = sw->ReadLine();
+					}
+					else {
+						shape = true;
+						break;
+					}
+				}
+
+				sw->Close();
+				sw = gcnew System::IO::StreamReader(fileName);
+				line = sw->ReadLine();
 
 				while (sw->EndOfStream == false) {
 					if (line->Contains("submodel.lua") != TRUE) {
@@ -433,23 +457,289 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 					}
 
 					lSelectedFolder->Text = tempLine->Substring(0, lastSlash - j);
-					if (lSelectedFolder->Text->Length == 2) {
+					
+					if (lSelectedFolder->Text->Length == OPENROOTDIR) {
 						lSelectedFolder->Text += "\\";
 					}
+
+					tModelName->Text = line->Substring(lastSlash + 1, line->Length - lastSlash - 3);
+					tModelName->Text = tModelName->Text->Replace("_submodel.lua", "");
+					tModelName->ForeColor = System::Drawing::Color::Black;
 				}
 
 				gParametersValues[0] = lSelectedFolder->Text;
+				gParametersValues[1] = tModelName->Text;
 				found = false;
 				sw->Close();
 
+				//Non Spatial Model
+				sw = gcnew System::IO::StreamReader(fileName);
+				line = sw->ReadLine();
 
+				while (sw->EndOfStream == false) {
+					if (line->Contains("nonSpatialModel") != TRUE) {
+						line = sw->ReadLine();
+					}
+					else {
+						found = true;
+						break;
+					}
+				}
+
+				if (found) {
+					tempLine = "";
+					while (line->Contains("}") != TRUE) {
+						line = sw->ReadLine();
+						tempLine += line + "#";
+					}
+
+					tempLine = tempLine->Replace("##", "#");
+					tempLine = tempLine->Replace("\t", "");
+					tempLine = tempLine->Replace("\r", "");
+					tempLine = tempLine->Substring(0, tempLine->Length - 1);
+					
+					array<String^>^ auxNonSpatialModel = tempLine->Split('#');
+					
+					auxNonSpatialModel[1] = auxNonSpatialModel[1]->Replace("name = \"", "");
+					auxNonSpatialModel[1] = auxNonSpatialModel[1]->Replace("\",", "");
+
+					tNonSpatialName->Text = auxNonSpatialModel[1];
+					tNonSpatialName->ForeColor = System::Drawing::Color::Black;
+
+					auxNonSpatialModel[2] = auxNonSpatialModel[2]->Replace("yearInit = ", "");
+					auxNonSpatialModel[2] = auxNonSpatialModel[2]->Replace(",", "");
+
+					tNonSpatialInitialYear->Text = auxNonSpatialModel[2];
+					tNonSpatialInitialYear->ForeColor = System::Drawing::Color::Black;
+
+					auxNonSpatialModel[3] = auxNonSpatialModel[3]->Replace("yearFinal = ", "");
+					auxNonSpatialModel[3] = auxNonSpatialModel[3]->Replace(",", "");
+
+					tNonSpatialFinalYear->Text = auxNonSpatialModel[3];
+					tNonSpatialFinalYear->ForeColor = System::Drawing::Color::Black;
+
+					for (int i = 4; i < auxNonSpatialModel->Length; i++) {
+						if (auxNonSpatialModel[i]->Contains("componentB =")) {
+							cbNonSpatialBiomass->Checked = true;
+						}
+
+						else if (auxNonSpatialModel[i]->Contains("componentD =")) {
+							cbNonSpatialDeforest->Checked = true;
+						}
+
+						else if (auxNonSpatialModel[i]->Contains("componentVR =")) {
+							cbNonSpatialVegetationRemoval->Checked = true;
+						}
+
+						else if (auxNonSpatialModel[i]->Contains("componentSV =")) {
+							cbNonSpatialSecondaryVegetation->Checked = true;
+						}
+
+						else if (auxNonSpatialModel[i]->Contains("componentSV =")) {
+							cbNonSpatialSecondaryVegetation->Checked = true;
+						}
+
+						else if (auxNonSpatialModel[i]->Contains("componentDEGRAD =")) {
+							cbNonSpatialDegradation->Checked = true;
+						}
+
+						else if (auxNonSpatialModel[i]->Contains("dataTable =")) {
+							hasNonSpatialData = true;
+						}
+
+						else if (auxNonSpatialModel[i]->Contains("verbose =")) {
+							cbNonSpatialVerbose->Checked = true;
+						}
+
+						else if (auxNonSpatialModel[i]->Contains("area =")) {
+							auxNonSpatialModel[i] = auxNonSpatialModel[i]->Replace("area = ", "");
+							auxNonSpatialModel[i] = auxNonSpatialModel[i]->Replace(",", "");
+
+							tNonSpatialArea->Text = auxNonSpatialModel[i];
+							tNonSpatialArea->ForeColor = System::Drawing::Color::Black;
+						}
+					}
+
+					cbSelection = NSPATIALTYPE;
+				}
+
+				found = false;
+				sw->Close();
+
+				//Spatial Model
+				sw = gcnew System::IO::StreamReader(fileName);
+				line = sw->ReadLine();
+
+				while (sw->EndOfStream == false) {
+					if (line->Contains("spatialModel") != TRUE) {
+						line = sw->ReadLine();
+					}
+					else {
+						found = true;
+						break;
+					}
+				}
+
+				if (found) {
+					tempLine = "";
+					while (line->Contains("}") != TRUE) {
+						line = sw->ReadLine();
+						tempLine += line + "#";
+					}
+
+					tempLine = tempLine->Replace("##", "#");
+					tempLine = tempLine->Replace("\t", "");
+					tempLine = tempLine->Replace("\r", "");
+					tempLine = tempLine->Substring(0, tempLine->Length - 1);
+
+					array<String^>^ auxSpatialModel = tempLine->Split('#');
+
+					auxSpatialModel[1] = auxSpatialModel[1]->Replace("name = \"", "");
+					auxSpatialModel[1] = auxSpatialModel[1]->Replace("\",", "");
+
+					tSpatialName->Text = auxSpatialModel[1];
+					tSpatialName->ForeColor = System::Drawing::Color::Black;
+
+					auxSpatialModel[2] = auxSpatialModel[2]->Replace("yearInit = ", "");
+					auxSpatialModel[2] = auxSpatialModel[2]->Replace(",", "");
+
+					tSpatialInitialYear->Text = auxSpatialModel[2];
+					tSpatialInitialYear->ForeColor = System::Drawing::Color::Black;
+
+					auxSpatialModel[3] = auxSpatialModel[3]->Replace("yearFinal = ", "");
+					auxSpatialModel[3] = auxSpatialModel[3]->Replace(",", "");
+
+					tSpatialFinalYear->Text = auxSpatialModel[3];
+					tSpatialFinalYear->ForeColor = System::Drawing::Color::Black;
+
+					auxSpatialModel[4] = auxSpatialModel[4]->Replace("cellarea = ", "");
+					auxSpatialModel[4] = auxSpatialModel[4]->Replace(",", "");
+
+					tSpatialCellArea->Text = auxSpatialModel[4];
+					tSpatialCellArea->ForeColor = System::Drawing::Color::Black;
+
+					for (int i = 4; i < auxSpatialModel->Length; i++) {
+						if (auxSpatialModel[i]->Contains("componentB =")) {
+							cbSpatialBiomass->Checked = true;
+						}
+
+						else if (auxSpatialModel[i]->Contains("componentD =")) {
+							cbSpatialDeforest->Checked = true;
+						}
+
+						else if (auxSpatialModel[i]->Contains("componentVR =")) {
+							cbSpatialVegetationRemoval->Checked = true;
+						}
+
+						else if (auxSpatialModel[i]->Contains("componentSV =")) {
+							cbSpatialSecondaryVegetation->Checked = true;
+						}
+
+						else if (auxSpatialModel[i]->Contains("componentSV =")) {
+							cbSpatialSecondaryVegetation->Checked = true;
+						}
+
+						else if (auxSpatialModel[i]->Contains("componentDEGRAD =")) {
+							cbSpatialDegradation->Checked = true;
+						}
+
+						else if (auxSpatialModel[i]->Contains("verbose =")) {
+							cbSpatialVerbose->Checked = true;
+						}
+
+						else if (auxSpatialModel[i]->Contains("project =")) {
+							auxSpatialModel[i] = auxSpatialModel[i]->Replace("project = ", "");
+							auxSpatialModel[i] = auxSpatialModel[i]->Replace("\"", "");
+							auxSpatialModel[i] = auxSpatialModel[i]->Replace(",", "");
+
+							if (!shape) {
+								lSelectedFile->Text = auxSpatialModel[i]->Replace("\\\\","\\");
+							}
+						}
+
+						else if (auxSpatialModel[i]->Contains("layer =")) {
+							auxSpatialModel[i] = auxSpatialModel[i]->Replace("layer = ", "");
+							auxSpatialModel[i] = auxSpatialModel[i]->Replace("\"", "");
+							auxSpatialModel[i] = auxSpatialModel[i]->Replace(",", "");
+
+							lSpatialLayerName->Text = auxSpatialModel[i];
+							lSpatialLayerName->ForeColor = System::Drawing::Color::Black;
+
+							if (shape) {
+								lSpatialLayerName->Enabled = false;
+							}
+						}
+					}
+					
+					sw->Close();
+
+					if (shape) {
+						sw = gcnew System::IO::StreamReader(fileName);
+
+						line = sw->ReadLine();
+						while (sw->EndOfStream == false) {
+							if (line->Contains("Layer {") != TRUE) {
+								line = sw->ReadLine();
+							}
+							else {
+								while (line->Contains("file =") != TRUE) {
+									line = sw->ReadLine();
+								}
+								line = line->Replace("file = ", "");
+								line = line->Replace("\"", "");
+								line = line->Replace("\\\\", "\\");
+
+								lSelectedFile->Text = line;
+							}
+						}
+						sw->Close();
+					}
+
+					cbSelection = SPATIALTYPE;
+				}
 				
+				//Combine Model
+				sw = gcnew System::IO::StreamReader(fileName);
+				line = sw->ReadLine();
+
+				while (sw->EndOfStream == false) {
+					if (line->Contains("combineModel") != TRUE) {
+						line = sw->ReadLine();
+					}
+					else {
+						found = true;
+						break;
+					}
+				}
+
+				if (found) {
+					tempLine = "";
+					while (line->Contains("}") != TRUE) {
+						line = sw->ReadLine();
+						tempLine += line + "#";
+					}
+
+					tempLine = tempLine->Replace("##", "#");
+					tempLine = tempLine->Replace("\t", "");
+					tempLine = tempLine->Replace("\r", "");
+					tempLine = tempLine->Substring(0, tempLine->Length - 1);
+
+					array<String^>^ auxCombineModel = tempLine->Split('#');
+
+					auxCombineModel[1] = auxCombineModel[1]->Replace("name = ", "");
+					auxCombineModel[1] = auxCombineModel[1]->Replace("\"", "");
+					auxCombineModel[1] = auxCombineModel[1]->Replace(",", "");
+
+					tModelName->Text = auxCombineModel[1];
+					cbSelection = COMBINETYPE;
+				}
 
 				sw->Close();
 				main = true;
 				MessageBox::Show(gSMainImport, gSMainImportTitle, MessageBoxButtons::OK, MessageBoxIcon::Information);
 			}
 
+			//Submodel Fiel
 			INPEEM::OpenFileDialog^ submodelFile = gcnew OpenFileDialog;
 			submodelFile->Title = gSSubmodelFile;
 			submodelFile->Multiselect = false;
@@ -461,13 +751,386 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 			{
 				String^ fileName = submodelFile->FileName;
 				System::IO::StreamReader^ sw = gcnew System::IO::StreamReader(fileName);
-
 				String^ line = sw->ReadLine();
-				while (line->Contains("=") != TRUE) {
-					line = sw->ReadLine();
+				String^ tempLine = "";
+				bool found = false;
+
+				//Biomass Component
+				while (sw->EndOfStream == false) {
+					if (line->Contains("B1 =") != TRUE) {
+						line = sw->ReadLine();
+					}
+					else {
+						found = true;
+						break;
+					}
 				}
 
+				if (found) {
+					tempLine = "";
+					while (line->Contains("}") != TRUE) {
+						tempLine += line + ";";
+						line = sw->ReadLine();
+					}
+					
+					tempLine += line + ";";
+					tempLine = tempLine->Replace("\t", "");
+					tempLine = tempLine->Replace("\r", "");
+					tempLine = tempLine->Replace("\"", "");
+					tempLine = tempLine->Replace(",", "");
+					tempLine = tempLine->Replace("{", "");
+					tempLine = tempLine->Replace("}", "");
+					tempLine = tempLine->Replace("B1 = ", "");
+					tempLine = tempLine->Replace("name = ", "");
+					tempLine = tempLine->Replace("description = ", "");
+					tempLine = tempLine->Replace("averAGB = ", "");
+					tempLine = tempLine->Replace("averBGBPercAGB = ", "");
+					tempLine = tempLine->Replace("averLitterPercAGB = ", "");
+					tempLine = tempLine->Replace("averDeadWoodPercAGB = ", "");
+					tempLine = tempLine->Replace("averFactorB_C = ", "");
+					tempLine = tempLine->Replace("averFactorB_CO2 = ", "");
+					tempLine = tempLine->Replace("averFactorB_CO2_fire = ", "");
+					tempLine = tempLine->Replace("averFactorB_CH4_fire = ", "");
+					tempLine = tempLine->Replace("averFactorB_N2O_fire = ", "");
+					tempLine = tempLine->Replace("averFactorB_NOx_fire = ", "");
+					tempLine = tempLine->Replace("averFactorB_CO_fire = ", "");
+					tempLine = tempLine->Replace(";;", ";");
+
+					tempLine = tempLine->Substring(1, tempLine->Length - 1);
+
+					gBiomass = tempLine;
+					showReturnBiomass();
+				}
 				
+				sw->Close();
+				sw = gcnew System::IO::StreamReader(fileName);
+				line = sw->ReadLine();
+				tempLine = "";
+				found = false;
+
+				while (sw->EndOfStream == false) {
+					if (line->Contains("D1 =") != TRUE) {
+						line = sw->ReadLine();
+					}
+					else {
+						found = true;
+						break;
+					}
+				}
+
+				if (found) {
+					tempLine = "";
+					while (line->Contains("}") != TRUE) {
+						tempLine += line + ";";
+						line = sw->ReadLine();
+					}
+
+					tempLine += line + ";";
+					tempLine = tempLine->Replace("\t", "");
+					tempLine = tempLine->Replace("\r", "");
+					tempLine = tempLine->Replace("\"", "");
+					tempLine = tempLine->Replace(",", "");
+					tempLine = tempLine->Replace("{", "");
+					tempLine = tempLine->Replace("}", "");
+					tempLine = tempLine->Replace("D1 = ", "");
+					tempLine = tempLine->Replace("name = ", "");
+					tempLine = tempLine->Replace("description = ", "");
+					tempLine = tempLine->Replace("initialArea = ", "");
+					tempLine = tempLine->Replace("TotalNoData = ", "");
+					tempLine = tempLine->Replace(";;", ";");
+
+					tempLine = tempLine->Substring(1, tempLine->Length - 1);
+
+					gDeforest = tempLine;
+					showReturnDeforest();
+				}
+
+				sw->Close();
+				sw = gcnew System::IO::StreamReader(fileName);
+				line = sw->ReadLine();
+				tempLine = "";
+				found = false;
+
+				while (sw->EndOfStream == false) {
+					if (line->Contains("VR1 =") != TRUE) {
+						line = sw->ReadLine();
+					}
+					else {
+						found = true;
+						break;
+					}
+				}
+
+				if (found) {
+					tempLine = "";
+					while (line->Contains("}") != TRUE) {
+						tempLine += line + ";";
+						line = sw->ReadLine();
+					}
+
+					tempLine += line + ";";
+					tempLine = tempLine->Replace("\t", "");
+					tempLine = tempLine->Replace("\r", "");
+					tempLine = tempLine->Replace("\"", "");
+					tempLine = tempLine->Replace(",", "");
+					tempLine = tempLine->Replace("{", "");
+					tempLine = tempLine->Replace("}", "");
+					tempLine = tempLine->Replace("VR1 = ", "");
+					tempLine = tempLine->Replace("name = ", "");
+					tempLine = tempLine->Replace("description = ", "");
+					tempLine = tempLine->Replace("save = ", "");
+					tempLine = tempLine->Replace("averAGBPercAGB = ", "");
+					tempLine = tempLine->Replace("averAGBPercWoodProducts = ", "");
+					tempLine = tempLine->Replace("averAGBPercInstantaneous = ", "");
+					tempLine = tempLine->Replace("averAGBPercDecomposition = ", "");
+					tempLine = tempLine->Replace("averBGBPercBGB = ", "");
+					tempLine = tempLine->Replace("averBGBPercInstantaneous = ", "");
+					tempLine = tempLine->Replace("averBGBPercDecompositionAbove = ", "");
+					tempLine = tempLine->Replace("averBGBPercDecompositionUnder = ", "");
+					tempLine = tempLine->Replace("averDecompositionFireCyclePeriod = ", "");
+					tempLine = tempLine->Replace("averDecompositonPercElementalCarbon = ", "");
+					tempLine = tempLine->Replace("averLitterPercInstantaneous = ", "");
+					tempLine = tempLine->Replace("averLitterPercDecomposition = ", "");
+					tempLine = tempLine->Replace("averDeadWoodPercInstantaneous = ", "");
+					tempLine = tempLine->Replace("averDeadWoodPercDecomposition = ", "");
+					tempLine = tempLine->Replace("averDecayRateWoodProducts = ", "");
+					tempLine = tempLine->Replace("averDecayRateElementalCarbon = ", "");
+					tempLine = tempLine->Replace("averDecayRateAGBDecomposition = ", "");
+					tempLine = tempLine->Replace("averDecayRateBGBDecompositionAbove = ", "");
+					tempLine = tempLine->Replace("averDecayRateBGBDecompositionUnder = ", "");
+					tempLine = tempLine->Replace("averDecayRateLitterDecomposition = ", "");
+					tempLine = tempLine->Replace("averDecayRateDeadWoodDecomposition = ", "");
+					tempLine = tempLine->Replace(";;", ";");
+
+					tempLine = tempLine->Substring(1, tempLine->Length - 1);
+
+					gVegetationRemoval = tempLine;
+					showReturnVegetationRemoval();
+				}
+
+				sw->Close();
+				sw = gcnew System::IO::StreamReader(fileName);
+				line = sw->ReadLine();
+				tempLine = "";
+				found = false;
+
+				while (sw->EndOfStream == false) {
+					if (line->Contains("SV1 =") != TRUE) {
+						line = sw->ReadLine();
+					}
+					else {
+						found = true;
+						break;
+					}
+				}
+
+				if (found) {
+					tempLine = "";
+					while (line->Contains("}") != TRUE) {
+						tempLine += line + ";";
+						line = sw->ReadLine();
+					}
+
+					tempLine += line + ";";
+					tempLine = tempLine->Replace("\t", "");
+					tempLine = tempLine->Replace("\r", "");
+					tempLine = tempLine->Replace("\"", "");
+					tempLine = tempLine->Replace(",", "");
+					tempLine = tempLine->Replace("{", "");
+					tempLine = tempLine->Replace("}", "");
+					tempLine = tempLine->Replace("SV1 = ", "");
+					tempLine = tempLine->Replace("name = ", "");
+					tempLine = tempLine->Replace("description = ", "");
+					tempLine = tempLine->Replace("save = ", "");
+					tempLine = tempLine->Replace("averHalfLife = ", "");
+					tempLine = tempLine->Replace("averAreaPercVegSec = ", "");
+					tempLine = tempLine->Replace("averAreaAccPercVegSec = ", "");
+					tempLine = tempLine->Replace("averRecoveryPeriod1Perc = ", "");
+					tempLine = tempLine->Replace("averRecoveryPeriod1 = ", "");
+					tempLine = tempLine->Replace("averRecoveryPeriod2Perc = ", "");
+					tempLine = tempLine->Replace("averRecoveryPeriod2 = ", "");
+					tempLine = tempLine->Replace("averAgriculturalUseCycle = ", "");
+					tempLine = tempLine->Replace("averInitialAbandonmentCycle = ", "");
+					tempLine = tempLine->Replace("averBGBpercBGB = ", "");
+					tempLine = tempLine->Replace(";;", ";");
+
+					tempLine = tempLine->Substring(1, tempLine->Length - 1);
+
+					gSecondaryVegetation = tempLine;
+					showReturnSecondaryVegetation();
+				}
+
+				sw->Close();
+				sw = gcnew System::IO::StreamReader(fileName);
+				line = sw->ReadLine();
+				tempLine = "";
+				found = false;
+
+				while (sw->EndOfStream == false) {
+					if (line->Contains("DG1 =") != TRUE) {
+						line = sw->ReadLine();
+					}
+					else {
+						found = true;
+						break;
+					}
+				}
+
+				if (found) {
+					tempLine = "";
+					while (line->Contains("}") != TRUE) {
+						tempLine += line + ";";
+						line = sw->ReadLine();
+					}
+
+					tempLine += line + ";";
+					tempLine = tempLine->Replace("\t", "");
+					tempLine = tempLine->Replace("\r", "");
+					tempLine = tempLine->Replace("\"", "");
+					tempLine = tempLine->Replace(",", "");
+					tempLine = tempLine->Replace("{", "");
+					tempLine = tempLine->Replace("}", "");
+					tempLine = tempLine->Replace("DG1 = ", "");
+					tempLine = tempLine->Replace("name = ", "");
+					tempLine = tempLine->Replace("description = ", "");
+					tempLine = tempLine->Replace("save = ", "");
+					tempLine = tempLine->Replace("averAGB_loss = ", "");
+					tempLine = tempLine->Replace("averBGB_loss = ", "");
+					tempLine = tempLine->Replace("averDeadWood_loss = ", "");
+					tempLine = tempLine->Replace("averAGB_percReduction = ", "");
+					tempLine = tempLine->Replace("averPeriodRegrow = ", "");
+					tempLine = tempLine->Replace("averLimiarDegradYears = ", "");
+					tempLine = tempLine->Replace("averLimiarDegradLoss = ", "");
+					tempLine = tempLine->Replace(";;", ";");
+
+					tempLine = tempLine->Substring(1, tempLine->Length - 1);
+
+					gDegradation = tempLine;
+					showReturnDegradation();
+				}
+
+				sw->Close();
+				submodel = true;
+
+				if (hasNonSpatialData) {
+					MessageBox::Show(gSSubmodelImport, gSSubModelImportTitle, MessageBoxButtons::OK, MessageBoxIcon::Information);
+				}
+
+			}
+
+			//Non Spatial Data File
+			if (hasNonSpatialData) {
+				INPEEM::OpenFileDialog^ nsDataFile = gcnew OpenFileDialog;
+				nsDataFile->Title = gSNSDFile;
+				nsDataFile->Multiselect = false;
+				nsDataFile->Filter = gSLuaFile;
+				nsDataFile->FilterIndex = 1;
+				nsDataFile->ShowHelp = true;
+
+				if (nsDataFile->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+				{
+					String^ fileName = nsDataFile->FileName;
+					System::IO::StreamReader^ sw = gcnew System::IO::StreamReader(fileName);
+					String^ line = sw->ReadLine();
+					String^ tempLine = "";
+					bool found = false;
+					
+					while (sw->EndOfStream == false) {
+						if (line->Contains("Area =") != TRUE) {
+							line = sw->ReadLine();
+						}
+						else {
+							found = true;
+							break;
+						}
+					}
+
+					if (found) {
+						tempLine = "";
+						while (line->Contains("}") != TRUE) {
+							tempLine += line;
+							line = sw->ReadLine();
+						}
+						
+						tempLine = tempLine->Replace("\t", ""); 
+						tempLine = tempLine->Replace("\r", "");
+						tempLine = tempLine->Replace("\n", "");
+						tempLine = tempLine->Replace("Area =", "");
+						tempLine = tempLine->Replace("{", "");
+						tempLine = tempLine->Replace("}", "");
+		
+						gNonSpatialTables += tempLine + ";";
+					}
+				
+					sw->Close();
+					sw = gcnew System::IO::StreamReader(fileName);
+					line = sw->ReadLine();
+					tempLine = "";
+					found = false;
+
+					while (sw->EndOfStream == false) {
+						if (line->Contains("HalfLife =") != TRUE) {
+							line = sw->ReadLine();
+						}
+						else {
+							found = true;
+							break;
+						}
+					}
+
+					if (found) {
+						tempLine = "";
+						while (line->Contains("}") != TRUE) {
+							tempLine += line;
+							line = sw->ReadLine();
+						}
+
+						tempLine = tempLine->Replace("\t", "");
+						tempLine = tempLine->Replace("\r", "");
+						tempLine = tempLine->Replace("\n", "");
+						tempLine = tempLine->Replace("HalfLife =", "");
+						tempLine = tempLine->Replace("{", "");
+						tempLine = tempLine->Replace("}", "");
+
+						gNonSpatialTables += tempLine + ";";
+					}
+
+					sw->Close();
+					sw = gcnew System::IO::StreamReader(fileName);
+					line = sw->ReadLine();
+					tempLine = "";
+					found = false;
+
+					while (sw->EndOfStream == false) {
+						if (line->Contains("Degrad =") != TRUE) {
+							line = sw->ReadLine();
+						}
+						else {
+							found = true;
+							break;
+						}
+					}
+
+					if (found) {
+						tempLine = "";
+						while (line->Contains("}") != TRUE) {
+							tempLine += line;
+							line = sw->ReadLine();
+						}
+
+						tempLine = tempLine->Replace("\t", "");
+						tempLine = tempLine->Replace("\r", "");
+						tempLine = tempLine->Replace("\n", "");
+						tempLine = tempLine->Replace("Degrad =", "");
+						tempLine = tempLine->Replace("{", "");
+						tempLine = tempLine->Replace("}", "");
+
+						gNonSpatialTables += tempLine + ";";
+					}
+					
+					showReturnNonSpatialDataTable();
+					sw->Close();
+				}
 			}
 
 			if (main && submodel && imported) {
@@ -475,6 +1138,7 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 				bRun->Visible = true;
 				runnable = true;
 				checkLanguage();
+				cbModelType->SelectedIndex = cbSelection;
 				this->Text = gSEditing;
 			}
 		}
@@ -1106,7 +1770,7 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 					sw->WriteLine("\tclean = true");
 					sw->WriteLine("}\n");
 
-					sw->WriteLine("l1 = Layer{");
+					sw->WriteLine("l1 = Layer {");
 					sw->WriteLine("\tproject = proj,");
 					sw->WriteLine("\tname = \"" + tSpatialLayerName->Text + "\",");
 					sw->WriteLine("\tfile = \"" + lSelectedFile->Text->Replace("\\", "\\\\") + "\"");
@@ -1150,12 +1814,12 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 					sw->WriteLine("\tyearFinal = " + tNonSpatialFinalYear->Text + ",");
 					sw->WriteLine("");
 					
-					if (cbNonSpatialDeforest->Checked) {
-						sw->WriteLine("\tcomponentD = D1,");
-					}
-
 					if (cbNonSpatialBiomass->Checked) {
 						sw->WriteLine("\tcomponentB = B1,");
+					}
+
+					if (cbNonSpatialDeforest->Checked) {
+						sw->WriteLine("\tcomponentD = D1,");
 					}
 
 					if (cbNonSpatialVegetationRemoval->Checked) {
@@ -1199,12 +1863,12 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 					sw->WriteLine("\tcellarea = " + tSpatialCellArea->Text + ",");
 					sw->WriteLine("");
 
-					if (cbSpatialDeforest->Checked) {
-						sw->WriteLine("\tcomponentD = D1,");
-					}
-
 					if (cbSpatialBiomass->Checked) {
 						sw->WriteLine("\tcomponentB = B1,");
+					}
+
+					if (cbSpatialDeforest->Checked) {
+						sw->WriteLine("\tcomponentD = D1,");
 					}
 
 					if (cbSpatialVegetationRemoval->Checked) {
@@ -1284,7 +1948,7 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 					sw->WriteLine("\tmodel_ns = nonSpatialModel,");
 					sw->WriteLine("\tmodel_s = spatialModel,");
 					sw->WriteLine("");
-					sw->WriteLine("\tmode = \"combine\"");
+					sw->WriteLine("\tmode = \"combine\",");
 					
 					if (cbNonSpatialVerbose->Checked || cbSpatialVerbose->Checked) {
 						sw->WriteLine("\tverbose = true,");

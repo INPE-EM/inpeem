@@ -84,10 +84,13 @@ namespace INPEEM {
 		String^ gSOpenModelTitle = "";
 		String^ gSMainImportTitle = "";
 		String^	gSMainImport = "";
+		String^	gSSubModelImportTitle = "";
+		String^	gSSubmodelImport = "";
 		String^	gSMainLoadTitle = "";
 		String^	gSMainLoad = "";
 		String^	gSMainFile = "";
 		String^	gSSubmodelFile = "";
+		String^	gSNSDFile = "";
 		String^	gSFileMissingTitle = "";
 		String^	gSFileMissing = "";
 		String^	gSFileMissing2 = "";

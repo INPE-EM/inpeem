@@ -22,7 +22,9 @@ System::Void INPEEM::ComponentBiomass::ComponentBiomass_Shown(System::Object^  s
 		gSDataMissing = "Todos os parâmetros devem ser preenchidos.";
 	}
 
-	ComponentBiomass::Update();
+	if (lReturn->Return != "") {
+		
+	}
 }
 
 System::Void INPEEM::ComponentBiomass::textBox_Enter(System::Object ^ sender, System::EventArgs ^ e)
