@@ -1058,10 +1058,9 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 						tempLine = tempLine->Replace("Area =", "");
 						tempLine = tempLine->Replace("{", "");
 						tempLine = tempLine->Replace("}", "");
-		
-						gNonSpatialTables += tempLine + ";";
 					}
 				
+					gNonSpatialTables += tempLine + ";";
 					sw->Close();
 					sw = gcnew System::IO::StreamReader(fileName);
 					line = sw->ReadLine();
@@ -1091,10 +1090,9 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 						tempLine = tempLine->Replace("HalfLife =", "");
 						tempLine = tempLine->Replace("{", "");
 						tempLine = tempLine->Replace("}", "");
-
-						gNonSpatialTables += tempLine + ";";
 					}
 
+					gNonSpatialTables += tempLine + ";";
 					sw->Close();
 					sw = gcnew System::IO::StreamReader(fileName);
 					line = sw->ReadLine();
@@ -1124,10 +1122,9 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 						tempLine = tempLine->Replace("Degrad =", "");
 						tempLine = tempLine->Replace("{", "");
 						tempLine = tempLine->Replace("}", "");
-
-						gNonSpatialTables += tempLine + ";";
 					}
 					
+					gNonSpatialTables += tempLine;
 					showReturnNonSpatialDataTable();
 					sw->Close();
 				}
@@ -1498,12 +1495,13 @@ System::Void INPEEM::NovoModelo::showReturnDegradation()
 	lines[6] = "averAGB_loss = " + auxDegradation[3] + ",";
 	lines[7] = "averBGB_loss = " + auxDegradation[4] + ",";
 	lines[8] = "averDeadWood_loss = " + auxDegradation[5] + ",";
-	lines[9] = "";
-	lines[10] = "averAGB_percReduction = " + auxDegradation[6] + ",";
-	lines[11] = "averPeriodRegrow = " + auxDegradation[7] + ",";
-	lines[12] = "averLimiarDegradYears = " + auxDegradation[8] + ",";
-	lines[13] = "averLimiarDegradLoss = " + auxDegradation[9];
-	lines[14] = "}";
+	lines[9] = "averLitter_loss = " + auxDegradation[6] + ",";
+	lines[10] = "";
+	lines[11] = "averAGB_percReduction = " + auxDegradation[7] + ",";
+	lines[12] = "averPeriodRegrow = " + auxDegradation[8] + ",";
+	lines[13] = "averLimiarDegradYears = " + auxDegradation[9] + ",";
+	lines[14] = "averLimiarDegradLoss = " + auxDegradation[10];
+	lines[15] = "}";
 
 	tbDegrad->Lines = lines;
 }

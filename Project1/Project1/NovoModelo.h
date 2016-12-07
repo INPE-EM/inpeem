@@ -220,8 +220,6 @@ namespace INPEEM {
 	private: System::Windows::Forms::CheckBox^  cbNonSpatialVerbose;
 	private: System::Windows::Forms::CheckBox^  cbSpatialVerbose;
 
-
-
 	public:
 		int lReturn;
 		NovoModelo(String^ pLanguage, bool pOpen, int pReturn)
@@ -1229,21 +1227,21 @@ namespace INPEEM {
 			// novoToolStripMenuItem
 			// 
 			this->novoToolStripMenuItem->Name = L"novoToolStripMenuItem";
-			this->novoToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->novoToolStripMenuItem->Size = System::Drawing::Size(103, 22);
 			this->novoToolStripMenuItem->Text = L"Novo";
 			this->novoToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::novoToolStripMenuItem_Click);
 			// 
 			// abrirToolStripMenuItem
 			// 
 			this->abrirToolStripMenuItem->Name = L"abrirToolStripMenuItem";
-			this->abrirToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->abrirToolStripMenuItem->Size = System::Drawing::Size(103, 22);
 			this->abrirToolStripMenuItem->Text = L"Abrir";
 			this->abrirToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::abrirToolStripMenuItem_Click);
 			// 
 			// sairToolStripMenuItem
 			// 
 			this->sairToolStripMenuItem->Name = L"sairToolStripMenuItem";
-			this->sairToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->sairToolStripMenuItem->Size = System::Drawing::Size(103, 22);
 			this->sairToolStripMenuItem->Text = L"Sair";
 			this->sairToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::sairToolStripMenuItem_Click);
 			// 

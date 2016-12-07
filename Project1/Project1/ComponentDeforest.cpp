@@ -30,6 +30,22 @@ System::Void INPEEM::ComponentDeforest::ComponentDeforest_Shown(System::Object^ 
 		gSDataMissingTitle = "Erro - Dados não preenchidos";
 		gSDataMissing = "Todos os parâmetros devem ser preenchidos.";
 	}
+
+	if (lReturn->Return != "") {
+		array<String^>^ auxDeforest = lReturn->Return->Split(';');
+
+		tName->Text = auxDeforest[0];
+		tName->ForeColor = System::Drawing::Color::Black;
+		
+		tDescription->Text = auxDeforest[1];
+		tDescription->ForeColor = System::Drawing::Color::Black;
+
+		tInitialArea->Text = auxDeforest[2];
+		tInitialArea->ForeColor = System::Drawing::Color::Black;
+
+		tTotalNoData->Text = auxDeforest[3];
+		tTotalNoData->ForeColor = System::Drawing::Color::Black;
+	}
 }
 
 System::Void INPEEM::ComponentDeforest::bSalvar_Click(System::Object^  sender, System::EventArgs^  e)

@@ -24,7 +24,7 @@
 #define DEFORESTLINES 7
 
 //Degradation Component
-#define DEGRADATIONLINES 15
+#define DEGRADATIONLINES 16
 
 //Secondary Vegetation Component
 #define SECONDARYVEGETATIONLINES 17

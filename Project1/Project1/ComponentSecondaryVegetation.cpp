@@ -31,6 +31,53 @@ System::Void INPEEM::ComponentSecondaryVegetation::ComponentSecondaryVegetation_
 		gSDataMissing = "Todos os parâmetros devem ser preenchidos.";
 		cbSave->Text = "Salvar em aquivo";
 	}
+
+	if (lReturn->Return != "") {
+		array<String^>^ auxSecondaryVegetation = lReturn->Return->Split(';');
+
+		tName->Text = auxSecondaryVegetation[0];
+		tName->ForeColor = System::Drawing::Color::Black;
+
+		tDescription->Text = auxSecondaryVegetation[1];
+		tDescription->ForeColor = System::Drawing::Color::Black;
+
+		if (auxSecondaryVegetation[2]->ToLower()->Contains("true")) {
+			cbSave->Checked = true;
+		}
+		else {
+			cbSave->Checked = false;
+		}
+
+		taverHalfLife->Text = auxSecondaryVegetation[3];
+		taverHalfLife->ForeColor = System::Drawing::Color::Black;
+
+		tAverAreaPercVegSec->Text = auxSecondaryVegetation[4];
+		tAverAreaPercVegSec->ForeColor = System::Drawing::Color::Black;
+
+		tAverAreaAccPercVegSec->Text = auxSecondaryVegetation[5];
+		tAverAreaAccPercVegSec->ForeColor = System::Drawing::Color::Black;
+
+		tAverRecoveryPeriod1Perc->Text = auxSecondaryVegetation[6];
+		tAverRecoveryPeriod1Perc->ForeColor = System::Drawing::Color::Black;
+
+		tAverRecoveryPeriod1->Text = auxSecondaryVegetation[7];
+		tAverRecoveryPeriod1->ForeColor = System::Drawing::Color::Black;
+
+		tAverRecoveryPeriod2Perc->Text = auxSecondaryVegetation[8];
+		tAverRecoveryPeriod2Perc->ForeColor = System::Drawing::Color::Black;
+
+		tAverRecoveryPeriod2->Text = auxSecondaryVegetation[9];
+		tAverRecoveryPeriod2->ForeColor = System::Drawing::Color::Black;
+
+		tAverAgriculturalUseCycle->Text = auxSecondaryVegetation[10];
+		tAverAgriculturalUseCycle->ForeColor = System::Drawing::Color::Black;
+
+		tAverInitialAbandonmentCycle->Text = auxSecondaryVegetation[11];
+		tAverInitialAbandonmentCycle->ForeColor = System::Drawing::Color::Black;
+
+		tAverBGBpercBGB->Text = auxSecondaryVegetation[12];
+		tAverBGBpercBGB->ForeColor = System::Drawing::Color::Black;
+	}
 }
 
 System::Void INPEEM::ComponentSecondaryVegetation::bSalvar_Click(System::Object^  sender, System::EventArgs^  e)

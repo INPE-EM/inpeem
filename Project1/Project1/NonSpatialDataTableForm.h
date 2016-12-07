@@ -19,6 +19,9 @@ namespace INPEEM {
 	public: 
 		String^ gSYear = "";
 		String^ gSCells = "";
+		String^ gSCellsArea = "";
+		String^ gSCellsHalfLife = "";
+		String^ gSCellsDegrad = "";
 		String^ gSCellsTitle = "";
 		String^ gSDataMod = "";
 		String^ gSExit = "";
@@ -27,6 +30,25 @@ namespace INPEEM {
 		String^ gSPasteTitle = "";
 		String^ gSPaste = "";
 		String^ gSValues = "";
+
+	private: System::Windows::Forms::ContextMenuStrip^  cmsHalfLife;
+	private: System::Windows::Forms::ToolStripMenuItem^  tsmCopyHalfLife;
+	private: System::Windows::Forms::ToolStripMenuItem^  tsmPasteHalfLife;
+	private: System::Windows::Forms::ContextMenuStrip^  cmsArea;
+	private: System::Windows::Forms::ToolStripMenuItem^  tsmCopyArea;
+	private: System::Windows::Forms::ToolStripMenuItem^  tsmPasteArea;
+	private: System::Windows::Forms::ContextMenuStrip^  cmsDegrad;
+	private: System::Windows::Forms::ToolStripMenuItem^  tsmCopyDegrad;
+	private: System::Windows::Forms::ToolStripMenuItem^  tsmPasteDegrad;
+	private: System::Windows::Forms::PictureBox^  pbLogo1;
+	private: System::Windows::Forms::Button^  bSalvar;
+	private: System::Windows::Forms::DataGridView^  dgArea;
+	private: System::Windows::Forms::Label^  lArea;
+	private: System::Windows::Forms::Label^  lHalfLife;
+	private: System::Windows::Forms::DataGridView^  dgHalfLife;
+	private: System::Windows::Forms::Label^  lDegrad;
+	private: System::Windows::Forms::DataGridView^  dgDegrad;
+	private: System::ComponentModel::IContainer^  components;
 
 	public:
 		cReturnNSDTF^ lReturn;
@@ -50,14 +72,6 @@ namespace INPEEM {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::PictureBox^  pbLogo1;
-	private: System::Windows::Forms::Button^  bSalvar;
-	private: System::Windows::Forms::DataGridView^  dgArea;
-	private: System::Windows::Forms::Label^  lArea;
-	private: System::Windows::Forms::Label^  lHalfLife;
-	private: System::Windows::Forms::DataGridView^  dgHalfLife;
-	private: System::Windows::Forms::Label^  lDegrad;
-	private: System::Windows::Forms::DataGridView^  dgDegrad;
 
 	protected:
 
@@ -65,7 +79,7 @@ namespace INPEEM {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -74,19 +88,32 @@ namespace INPEEM {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(NonSpatialDataTableForm::typeid));
 			this->pbLogo1 = (gcnew System::Windows::Forms::PictureBox());
 			this->bSalvar = (gcnew System::Windows::Forms::Button());
 			this->dgArea = (gcnew System::Windows::Forms::DataGridView());
+			this->cmsArea = (gcnew System::Windows::Forms::ContextMenuStrip(this->components));
+			this->tsmCopyArea = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->tsmPasteArea = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->lArea = (gcnew System::Windows::Forms::Label());
 			this->lHalfLife = (gcnew System::Windows::Forms::Label());
 			this->dgHalfLife = (gcnew System::Windows::Forms::DataGridView());
+			this->cmsHalfLife = (gcnew System::Windows::Forms::ContextMenuStrip(this->components));
+			this->tsmCopyHalfLife = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->tsmPasteHalfLife = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->lDegrad = (gcnew System::Windows::Forms::Label());
 			this->dgDegrad = (gcnew System::Windows::Forms::DataGridView());
+			this->cmsDegrad = (gcnew System::Windows::Forms::ContextMenuStrip(this->components));
+			this->tsmCopyDegrad = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->tsmPasteDegrad = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbLogo1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgArea))->BeginInit();
+			this->cmsArea->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgHalfLife))->BeginInit();
+			this->cmsHalfLife->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgDegrad))->BeginInit();
+			this->cmsDegrad->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// pbLogo1
@@ -116,11 +143,33 @@ namespace INPEEM {
 			this->dgArea->AllowUserToResizeColumns = false;
 			this->dgArea->AllowUserToResizeRows = false;
 			this->dgArea->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dgArea->ContextMenuStrip = this->cmsArea;
 			this->dgArea->Location = System::Drawing::Point(16, 196);
 			this->dgArea->Name = L"dgArea";
 			this->dgArea->RowHeadersWidthSizeMode = System::Windows::Forms::DataGridViewRowHeadersWidthSizeMode::DisableResizing;
 			this->dgArea->Size = System::Drawing::Size(226, 426);
 			this->dgArea->TabIndex = 100;
+			this->dgArea->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &NonSpatialDataTableForm::dgAttr_KeyDown);
+			// 
+			// cmsArea
+			// 
+			this->cmsArea->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) { this->tsmCopyArea, this->tsmPasteArea });
+			this->cmsArea->Name = L"contextMenuStrip1";
+			this->cmsArea->Size = System::Drawing::Size(103, 48);
+			// 
+			// tsmCopyArea
+			// 
+			this->tsmCopyArea->Name = L"tsmCopyArea";
+			this->tsmCopyArea->Size = System::Drawing::Size(102, 22);
+			this->tsmCopyArea->Text = L"Copy";
+			this->tsmCopyArea->Click += gcnew System::EventHandler(this, &NonSpatialDataTableForm::tsmCopyArea_Click);
+			// 
+			// tsmPasteArea
+			// 
+			this->tsmPasteArea->Name = L"tsmPasteArea";
+			this->tsmPasteArea->Size = System::Drawing::Size(102, 22);
+			this->tsmPasteArea->Text = L"Paste";
+			this->tsmPasteArea->Click += gcnew System::EventHandler(this, &NonSpatialDataTableForm::tsmPasteArea_Click);
 			// 
 			// lArea
 			// 
@@ -153,11 +202,36 @@ namespace INPEEM {
 			this->dgHalfLife->AllowUserToResizeColumns = false;
 			this->dgHalfLife->AllowUserToResizeRows = false;
 			this->dgHalfLife->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dgHalfLife->ContextMenuStrip = this->cmsHalfLife;
 			this->dgHalfLife->Location = System::Drawing::Point(259, 196);
 			this->dgHalfLife->Name = L"dgHalfLife";
 			this->dgHalfLife->RowHeadersWidthSizeMode = System::Windows::Forms::DataGridViewRowHeadersWidthSizeMode::DisableResizing;
 			this->dgHalfLife->Size = System::Drawing::Size(226, 426);
 			this->dgHalfLife->TabIndex = 101;
+			this->dgHalfLife->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &NonSpatialDataTableForm::dgAttr_KeyDown);
+			// 
+			// cmsHalfLife
+			// 
+			this->cmsHalfLife->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+				this->tsmCopyHalfLife,
+					this->tsmPasteHalfLife
+			});
+			this->cmsHalfLife->Name = L"contextMenuStrip1";
+			this->cmsHalfLife->Size = System::Drawing::Size(103, 48);
+			// 
+			// tsmCopyHalfLife
+			// 
+			this->tsmCopyHalfLife->Name = L"tsmCopyHalfLife";
+			this->tsmCopyHalfLife->Size = System::Drawing::Size(102, 22);
+			this->tsmCopyHalfLife->Text = L"Copy";
+			this->tsmCopyHalfLife->Click += gcnew System::EventHandler(this, &NonSpatialDataTableForm::tsmCopyHalfLife_Click);
+			// 
+			// tsmPasteHalfLife
+			// 
+			this->tsmPasteHalfLife->Name = L"tsmPasteHalfLife";
+			this->tsmPasteHalfLife->Size = System::Drawing::Size(102, 22);
+			this->tsmPasteHalfLife->Text = L"Paste";
+			this->tsmPasteHalfLife->Click += gcnew System::EventHandler(this, &NonSpatialDataTableForm::tsmPasteHalfLife_Click);
 			// 
 			// lDegrad
 			// 
@@ -178,11 +252,33 @@ namespace INPEEM {
 			this->dgDegrad->AllowUserToResizeColumns = false;
 			this->dgDegrad->AllowUserToResizeRows = false;
 			this->dgDegrad->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dgDegrad->ContextMenuStrip = this->cmsDegrad;
 			this->dgDegrad->Location = System::Drawing::Point(501, 196);
 			this->dgDegrad->Name = L"dgDegrad";
 			this->dgDegrad->RowHeadersWidthSizeMode = System::Windows::Forms::DataGridViewRowHeadersWidthSizeMode::DisableResizing;
 			this->dgDegrad->Size = System::Drawing::Size(226, 426);
 			this->dgDegrad->TabIndex = 102;
+			this->dgDegrad->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &NonSpatialDataTableForm::dgAttr_KeyDown);
+			// 
+			// cmsDegrad
+			// 
+			this->cmsDegrad->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) { this->tsmCopyDegrad, this->tsmPasteDegrad });
+			this->cmsDegrad->Name = L"contextMenuStrip1";
+			this->cmsDegrad->Size = System::Drawing::Size(103, 48);
+			// 
+			// tsmCopyDegrad
+			// 
+			this->tsmCopyDegrad->Name = L"tsmCopyDegrad";
+			this->tsmCopyDegrad->Size = System::Drawing::Size(102, 22);
+			this->tsmCopyDegrad->Text = L"Copy";
+			this->tsmCopyDegrad->Click += gcnew System::EventHandler(this, &NonSpatialDataTableForm::tsmCopyDegrad_Click);
+			// 
+			// tsmPasteDegrad
+			// 
+			this->tsmPasteDegrad->Name = L"tsmPasteDegrad";
+			this->tsmPasteDegrad->Size = System::Drawing::Size(102, 22);
+			this->tsmPasteDegrad->Text = L"Paste";
+			this->tsmPasteDegrad->Click += gcnew System::EventHandler(this, &NonSpatialDataTableForm::tsmPasteDegrad_Click);
 			// 
 			// NonSpatialDataTableForm
 			// 
@@ -204,8 +300,11 @@ namespace INPEEM {
 			this->Shown += gcnew System::EventHandler(this, &NonSpatialDataTableForm::NonSpatialDataTableForm_Shown);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbLogo1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgArea))->EndInit();
+			this->cmsArea->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgHalfLife))->EndInit();
+			this->cmsHalfLife->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgDegrad))->EndInit();
+			this->cmsDegrad->ResumeLayout(false);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -213,5 +312,15 @@ namespace INPEEM {
 #pragma endregion
 	private: System::Void NonSpatialDataTableForm_Shown(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bSalvar_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Windows::Forms::DataGridViewCell^ GetStartCell(System::Windows::Forms::DataGridView^ dgAttr);
+	private: System::Void dgAttr_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e);
+	private: System::Void CopyToClipboard(DataGridView^ dgAttr);
+	private: System::Void PasteClipboardValue(DataGridView^ dgAttr);
+	private: System::Void tsmCopyArea_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void tsmPasteArea_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void tsmCopyHalfLife_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void tsmPasteHalfLife_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void tsmCopyDegrad_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void tsmPasteDegrad_Click(System::Object^  sender, System::EventArgs^  e);
 };
 }

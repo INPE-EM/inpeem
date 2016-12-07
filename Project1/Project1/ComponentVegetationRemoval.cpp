@@ -31,6 +31,86 @@ System::Void INPEEM::ComponentVegetationRemoval::ComponentVegetationRemoval_Show
 		gSDataMissing = "Todos os parâmetros devem ser preenchidos.";
 		cbSave->Text = "Salvar em aquivo";
 	}
+
+	if (lReturn->Return != "") {
+		array<String^>^ auxVegetationRemoval = lReturn->Return->Split(';');
+
+		tName->Text = auxVegetationRemoval[0];
+		tName->ForeColor = System::Drawing::Color::Black;
+
+		tDescription->Text = auxVegetationRemoval[1];
+		tDescription->ForeColor = System::Drawing::Color::Black;
+
+		if (auxVegetationRemoval[2]->ToLower()->Contains("true")) {
+			cbSave->Checked = true;
+		}
+		else {
+			cbSave->Checked = false;
+		}
+
+		tAverAGBPercAGB->Text = auxVegetationRemoval[3];
+		tAverAGBPercAGB->ForeColor = System::Drawing::Color::Black;
+
+		tAverAGBPercWoodProducts->Text = auxVegetationRemoval[4];
+		tAverAGBPercWoodProducts->ForeColor = System::Drawing::Color::Black;
+
+		tAverAGBPercInstantaneous->Text = auxVegetationRemoval[5];
+		tAverAGBPercInstantaneous->ForeColor = System::Drawing::Color::Black;
+
+		tAverAGBPercDecomposition->Text = auxVegetationRemoval[6];
+		tAverAGBPercDecomposition->ForeColor = System::Drawing::Color::Black;
+
+		tAverBGBPercBGB->Text = auxVegetationRemoval[7];
+		tAverBGBPercBGB->ForeColor = System::Drawing::Color::Black;
+
+		tAverBGBPercInstantaneous->Text = auxVegetationRemoval[8];
+		tAverBGBPercInstantaneous->ForeColor = System::Drawing::Color::Black;
+
+		tAverBGBPercDecompositionAbove->Text = auxVegetationRemoval[9];
+		tAverBGBPercDecompositionAbove->ForeColor = System::Drawing::Color::Black;
+
+		tAverBGBPercDecompositionUnder->Text = auxVegetationRemoval[10];
+		tAverBGBPercDecompositionUnder->ForeColor = System::Drawing::Color::Black;
+
+		tAverDecompositionFireCyclePeriod->Text = auxVegetationRemoval[11];
+		tAverDecompositionFireCyclePeriod->ForeColor = System::Drawing::Color::Black;
+
+		tAverDecompositonPercElementalCarbon->Text = auxVegetationRemoval[12];
+		tAverDecompositonPercElementalCarbon->ForeColor = System::Drawing::Color::Black;
+
+		tAverLitterPercInstantaneous->Text = auxVegetationRemoval[13];
+		tAverLitterPercInstantaneous->ForeColor = System::Drawing::Color::Black;
+
+		tAverLitterPercDecomposition->Text = auxVegetationRemoval[14];
+		tAverLitterPercDecomposition->ForeColor = System::Drawing::Color::Black;
+
+		tAverDeadWoodPercInstantaneous->Text = auxVegetationRemoval[15];
+		tAverDeadWoodPercInstantaneous->ForeColor = System::Drawing::Color::Black;
+
+		tAverDeadWoodPercDecomposition->Text = auxVegetationRemoval[16];
+		tAverDeadWoodPercDecomposition->ForeColor = System::Drawing::Color::Black;
+
+		tAverDecayRateWoodProducts->Text = auxVegetationRemoval[17];
+		tAverDecayRateWoodProducts->ForeColor = System::Drawing::Color::Black;
+
+		tAverDecayRateElementalCarbon->Text = auxVegetationRemoval[18];
+		tAverDecayRateElementalCarbon->ForeColor = System::Drawing::Color::Black;
+
+		tAverDecayRateAGBDecomposition->Text = auxVegetationRemoval[19];
+		tAverDecayRateAGBDecomposition->ForeColor = System::Drawing::Color::Black;
+
+		tAverDecayRateBGBDecompositionAbove->Text = auxVegetationRemoval[20];
+		tAverDecayRateBGBDecompositionAbove->ForeColor = System::Drawing::Color::Black;
+
+		tAverDecayRateBGBDecompositionUnder->Text = auxVegetationRemoval[21];
+		tAverDecayRateBGBDecompositionUnder->ForeColor = System::Drawing::Color::Black;
+
+		tAverDecayRateLitterDecomposition->Text = auxVegetationRemoval[22];
+		tAverDecayRateLitterDecomposition->ForeColor = System::Drawing::Color::Black;
+
+		tAverDecayRateDeadWoodDecomposition->Text = auxVegetationRemoval[23];
+		tAverDecayRateDeadWoodDecomposition->ForeColor = System::Drawing::Color::Black;
+	}
 }
 
 System::Void INPEEM::ComponentVegetationRemoval::bSalvar_Click(System::Object^  sender, System::EventArgs^  e)
