@@ -5,10 +5,10 @@ gwp_NOx = 0.0
 gwp_CO = 0.0
 E = 2.718
 
-dofile(PROJECTDIR.."inpe_EM_3_0\\inpeEM_combine.lua")
-dofile(PROJECTDIR.."inpe_EM_3_0\\inpeEM_componentVR.lua")
-dofile(PROJECTDIR.."inpe_EM_3_0\\inpeEM_componentSV.lua")
-dofile(PROJECTDIR.."inpe_EM_3_0\\inpeEM_componentDEGRAD.lua")
+dofile("C:\\INPE-EM\\TerraME\\bin\\packages\\inpeem\\inpeEM_combine.lua")
+dofile("C:\\INPE-EM\\TerraME\\bin\\packages\\inpeem\\inpeEM_componentVR.lua")
+dofile("C:\\INPE-EM\\TerraME\\bin\\packages\\inpeem\\inpeEM_componentSV.lua")
+dofile("C:\\INPE-EM\\TerraME\\bin\\packages\\inpeem\\inpeEM_componentDEGRAD.lua")
 
 -- Handles with the model execution.
 -- @arg model A INPE-EM Model.
