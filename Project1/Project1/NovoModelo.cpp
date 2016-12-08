@@ -419,11 +419,12 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 				}
 
 				sw->Close();
+				
 				sw = gcnew System::IO::StreamReader(fileName);
 				line = sw->ReadLine();
 
 				while (sw->EndOfStream == false) {
-					if (line->Contains("submodel.lua") != TRUE) {
+					if (line->Contains("MODELDIR") != TRUE) {
 						line = sw->ReadLine();
 					}
 					else {
@@ -433,42 +434,61 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 				}
 
 				String^ tempLine = "";
-				int lastSlash = 0;
-				int j = 0;
 
 				if (found) {
-					while (line[j] != '\"') {
-						j++;
+					tempLine = line;
+					tempLine = tempLine->Replace("MODELDIR = ", "");
+					tempLine = tempLine->Replace("\"", "");
+					tempLine = tempLine->Replace("\\\\", "\\");
+
+					if (tempLine->Length > OPENROOTDIR) {
+						lSelectedFolder->Text = tempLine->Substring(0, tempLine->Length - 1);
 					}
-
-					j++;
-					line = line->Replace("\\\\", "\\");
-
-					for (int i = j; i < line->Length; i++) {
-						if (line[i] != '\\') {
-							tempLine += line[i];
-						}
-						else {
-							if (line[i] == '\\') {
-								tempLine += line[i];
-								lastSlash = i;
-							}
-						}
+					else {
+						lSelectedFolder->Text = tempLine;
 					}
-
-					lSelectedFolder->Text = tempLine->Substring(0, lastSlash - j);
-					
-					if (lSelectedFolder->Text->Length == OPENROOTDIR) {
-						lSelectedFolder->Text += "\\";
-					}
-
-					tModelName->Text = line->Substring(lastSlash + 1, line->Length - lastSlash - 3);
-					tModelName->Text = tModelName->Text->Replace("_submodel.lua", "");
-					tModelName->ForeColor = System::Drawing::Color::Black;
 				}
 
 				gParametersValues[0] = lSelectedFolder->Text;
+				found = false;
+				sw->Close();
+				
+				sw = gcnew System::IO::StreamReader(fileName);
+				line = sw->ReadLine();
+
+				while (sw->EndOfStream == false) {
+					if (line->Contains("submodel") != TRUE) {
+						line = sw->ReadLine();
+					}
+					else {
+						found = true;
+						break;
+					}
+				}
+
+				tempLine = "";
+
+				if (found) {
+					tempLine = line;
+					tempLine = tempLine->Replace("dofile(MODELDIR..", "");
+					tempLine = tempLine->Replace("_submodel.lua\")", "");
+					tempLine = tempLine->Replace("\"", "");
+
+					tModelName->Text = tempLine;
+					tModelName->ForeColor = System::Drawing::Color::Black;
+				}
+
 				gParametersValues[1] = tModelName->Text;
+
+				String^ path = "";
+				path = lSelectedFolder->Text + "\\" + tModelName->Text + "_main.lua";
+
+				if (!File::Exists(path))
+				{
+					imported = false;
+					lSelectedFolder->Text = "";
+				}
+
 				found = false;
 				sw->Close();
 
@@ -547,7 +567,7 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 							hasNonSpatialData = true;
 						}
 
-						else if (auxNonSpatialModel[i]->Contains("verbose =")) {
+						else if (auxNonSpatialModel[i]->Contains("verbose = true")) {
 							cbNonSpatialVerbose->Checked = true;
 						}
 
@@ -643,7 +663,7 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 							cbSpatialDegradation->Checked = true;
 						}
 
-						else if (auxSpatialModel[i]->Contains("verbose =")) {
+						else if (auxSpatialModel[i]->Contains("verbose = true")) {
 							cbSpatialVerbose->Checked = true;
 						}
 
@@ -655,6 +675,12 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 							if (!shape) {
 								lSelectedFile->Text = auxSpatialModel[i]->Replace("\\\\","\\");
 							}
+
+							if (!File::Exists(lSelectedFile->Text))
+							{
+								imported = false;
+								lSelectedFile->Text = "";
+							}
 						}
 
 						else if (auxSpatialModel[i]->Contains("layer =")) {
@@ -662,8 +688,8 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 							auxSpatialModel[i] = auxSpatialModel[i]->Replace("\"", "");
 							auxSpatialModel[i] = auxSpatialModel[i]->Replace(",", "");
 
-							lSpatialLayerName->Text = auxSpatialModel[i];
-							lSpatialLayerName->ForeColor = System::Drawing::Color::Black;
+							tSpatialLayerName->Text = auxSpatialModel[i];
+							tSpatialLayerName->ForeColor = System::Drawing::Color::Black;
 
 							if (shape) {
 								lSpatialLayerName->Enabled = false;
@@ -808,6 +834,7 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 				tempLine = "";
 				found = false;
 
+				//Deforest Component
 				while (sw->EndOfStream == false) {
 					if (line->Contains("D1 =") != TRUE) {
 						line = sw->ReadLine();
@@ -851,6 +878,7 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 				tempLine = "";
 				found = false;
 
+				//Vegetation Removal Component
 				while (sw->EndOfStream == false) {
 					if (line->Contains("VR1 =") != TRUE) {
 						line = sw->ReadLine();
@@ -914,6 +942,7 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 				tempLine = "";
 				found = false;
 
+				//Secondary Vegetation Component
 				while (sw->EndOfStream == false) {
 					if (line->Contains("SV1 =") != TRUE) {
 						line = sw->ReadLine();
@@ -966,6 +995,7 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 				tempLine = "";
 				found = false;
 
+				//Degradation Component
 				while (sw->EndOfStream == false) {
 					if (line->Contains("DG1 =") != TRUE) {
 						line = sw->ReadLine();
@@ -997,6 +1027,7 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 					tempLine = tempLine->Replace("averAGB_loss = ", "");
 					tempLine = tempLine->Replace("averBGB_loss = ", "");
 					tempLine = tempLine->Replace("averDeadWood_loss = ", "");
+					tempLine = tempLine->Replace("averLitter_loss = ", "");
 					tempLine = tempLine->Replace("averAGB_percReduction = ", "");
 					tempLine = tempLine->Replace("averPeriodRegrow = ", "");
 					tempLine = tempLine->Replace("averLimiarDegradYears = ", "");
@@ -1134,10 +1165,11 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 				lRunModel->Visible = true;
 				bRun->Visible = true;
 				runnable = true;
-				checkLanguage();
-				cbModelType->SelectedIndex = cbSelection;
-				this->Text = gSEditing;
 			}
+
+			checkLanguage();
+			this->Text = gSEditing;
+			cbModelType->SelectedIndex = cbSelection;
 		}
 		catch (Exception^ e) {
 			if (e->GetType()->ToString() == "System.IndexOutOfRangeException") {
@@ -1606,7 +1638,7 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 		checked = false;
 	}
 
-	else if (cbModelType->SelectedIndex == NSPATIALTYPE || cbModelType->SelectedIndex == COMBINETYPE) {
+	if (cbModelType->SelectedIndex == NSPATIALTYPE || cbModelType->SelectedIndex == COMBINETYPE) {
 		if (tNonSpatialName->Text == "") {
 			MessageBox::Show(gSNSModelName, gSModelNameTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
 			checked = false;
@@ -1659,7 +1691,7 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 	}
 
 
-	else if (cbModelType->SelectedIndex == SPATIALTYPE || cbModelType->SelectedIndex == COMBINETYPE) {
+	if (cbModelType->SelectedIndex == SPATIALTYPE || cbModelType->SelectedIndex == COMBINETYPE) {
 		if (tSpatialName->Text == "") {
 			MessageBox::Show(gSSModelName, gSModelNameTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
 			checked = false;
@@ -1727,7 +1759,7 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 		String^ dateTime = now.ToString("d") + " at " + now.ToString("T");
 
 		//Creating main File
-		String^ path = lSelectedFolder->Text->Replace("\\", "\\\\") + "\\" + tModelName->Text->ToLower() + "_main.lua";
+		String^ path = lSelectedFolder->Text->Replace("\\", "\\\\") + "\\\\" + tModelName->Text->ToLower() + "_main.lua";
 		path = path->Replace("\\\\\\\\", "\\\\");
 
 
@@ -1779,22 +1811,25 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 				sw->WriteLine("-- INPE-EM Model                                            --");
 				sw->WriteLine("--------------------------------------------------------------");
 				sw->WriteLine("");
-				sw->WriteLine("dofile(\"C:\\\\INPE-EM\\\\Source\\\\inpeEM.lua\")");
-				
+								
 				String^ folderAux = lSelectedFolder->Text->Replace("\\", "\\\\");
 				
 				if (folderAux->Length > ROOTDIR) {
-					sw->WriteLine("dofile(\"" + folderAux + "\\\\" + tModelName->Text->ToLower() + "_submodel.lua\")");
+					sw->WriteLine("MODELDIR = \"" + folderAux + "\\\\\"");
+					sw->WriteLine("dofile(\"C:\\\\INPE-EM\\\\TerraME\\\\bin\\\\packages\\\\inpeem\\\\inpeEM.lua\")");
+					sw->WriteLine("dofile(MODELDIR..\"" + tModelName->Text->ToLower() + "_submodel.lua\")");
 					
 					if (cbModelType->SelectedIndex == NSPATIALTYPE || cbModelType->SelectedIndex == COMBINETYPE) {
-						sw->WriteLine("dofile(\"" + folderAux + "\\\\" + tModelName->Text->ToLower() + "_nsdata.lua\")");
+						sw->WriteLine("dofile(MODELDIR..\"" + tModelName->Text->ToLower() + "_nsdata.lua\")");
 					}
 				}
 				else {
-					sw->WriteLine("dofile(\"" + folderAux + tModelName->Text->ToLower() + "_submodel.lua\")");
+					sw->WriteLine("MODELDIR = \"" + folderAux + "\"");
+					sw->WriteLine("dofile(\"C:\\\\INPE-EM\\\\TerraME\\\\bin\\\\packages\\\\inpeem\\\\inpeEM.lua\")");
+					sw->WriteLine("dofile(MODELDIR..\"" + tModelName->Text->ToLower() + "_submodel.lua\")");
 					
 					if (cbModelType->SelectedIndex == NSPATIALTYPE || cbModelType->SelectedIndex == COMBINETYPE) {
-						sw->WriteLine("dofile(\"" + folderAux + tModelName->Text->ToLower() + "_nsdata.lua\")");
+						sw->WriteLine("dofile(MODELDIR..\"" + tModelName->Text->ToLower() + "_nsdata.lua\")");
 					}
 				}
 
@@ -1883,7 +1918,7 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 
 					sw->WriteLine("");
 					if (!shape) {
-						sw->WriteLine("\tproject = \"" + lSelectedFile + "\",");
+						sw->WriteLine("\tproject = \"" + lSelectedFile->Text->Replace("\\","\\\\") + "\",");
 					}
 					else {
 						sw->WriteLine("\tproject = \"t3mp.tview\",");
@@ -1983,7 +2018,7 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 				}
 
 				//Creating Submodel File
-				path = lSelectedFolder->Text->Replace("\\", "\\\\") + "\\" + tModelName->Text->ToLower() + "_submodel.lua";
+				path = lSelectedFolder->Text->Replace("\\", "\\\\") + "\\\\" + tModelName->Text->ToLower() + "_submodel.lua";
 				path = path->Replace("\\\\\\\\", "\\\\");
 
 				if (File::Exists(path))
@@ -2272,4 +2307,29 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 			}
 		}
 	}
+}
+
+System::Void INPEEM::NovoModelo::bRun_Click(System::Object^  sender, System::EventArgs^  e)
+{
+	Environment::SetEnvironmentVariable("TME_PATH", "C:\\INPE-EM\\Terrame\\bin");
+	Environment::SetEnvironmentVariable("PATH", "C:\\INPE-EM\\Terrame\\bin");
+
+	String^ arguments = "";
+
+	if (lSelectedFolder->Text[lSelectedFolder->Text->Length - 1] != '\\') {
+		arguments = "\"" + lSelectedFolder->Text->Replace("\\", "\\\\") + "\\\\" + tModelName->Text->ToLower() + "_main.lua\"";
+	}
+	else {
+		arguments = "\"" + lSelectedFolder->Text->Replace("\\", "\\\\") + tModelName->Text->ToLower() + "_main.lua\"";
+	}
+
+	System::Diagnostics::Process^ cmd = gcnew System::Diagnostics::Process;
+	cmd->StartInfo->FileName = "C:\\INPE-EM\\TerraME\\bin\\TerraME.exe";
+	cmd->StartInfo->Arguments = arguments;
+	cmd->Start();
+	cmd->WaitForExit();
+	cmd->Close();
+
+	cmd = gcnew System::Diagnostics::Process;
+	arguments = "";
 }

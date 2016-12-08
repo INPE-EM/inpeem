@@ -47,5 +47,5 @@
 
 //Miscellaneous
 #define ROOTDIR	4
-#define OPENROOTDIR 2
+#define OPENROOTDIR 3
 #define SECOND	1000

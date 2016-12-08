@@ -1156,6 +1156,7 @@ namespace INPEEM {
 			this->bRun->Text = L"Rodar Modelo";
 			this->bRun->UseVisualStyleBackColor = true;
 			this->bRun->Visible = false;
+			this->bRun->Click += gcnew System::EventHandler(this, &NovoModelo::bRun_Click);
 			// 
 			// lRunModel
 			// 
@@ -1340,5 +1341,6 @@ namespace INPEEM {
 	private: System::Void novoToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void abrirToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bGerarArquivos_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void bRun_Click(System::Object^  sender, System::EventArgs^  e);
 };
 }
