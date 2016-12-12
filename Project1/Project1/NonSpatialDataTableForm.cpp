@@ -26,7 +26,7 @@ Void INPEEM::NonSpatialDataTableForm::NonSpatialDataTableForm_Shown(System::Obje
 		gSValues = "Values";
 	}
 	else {
-		this->Text = "Non Spatial Data Tables";
+		this->Text = "Tabela de Dados Não Espaciais";
 		lArea->Text = "Área";
 		lHalfLife->Text = "Meia Vida";
 		lDegrad->Text = "Degradação";
