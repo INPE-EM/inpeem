@@ -16,10 +16,10 @@ DefaultDirName=C:\INPE-EM
 DisableDirPage=yes
 DefaultGroupName=INPE-EM
 DisableProgramGroupPage=yes
-LicenseFile=D:\_SVN\INPE-EM\branches\Project1\Project1\Resources\comment.txt
+LicenseFile=D:\_SVN\INPE-EM\branches\Diego\Project1\Project1\Resources\comment.txt
 OutputDir=D:\Diego Melo\Desktop
 OutputBaseFilename=INPE-EM_3.0.2.0
-SetupIconFile=D:\_SVN\INPE-EM\branches\Project1\Project1\Resources\icon.ico
+SetupIconFile=D:\_SVN\INPE-EM\branches\Diego\Project1\Project1\Resources\icon.ico
 Compression=lzma
 SolidCompression=yes
 UninstallFilesDir=C:\INPE-EM
@@ -34,8 +34,8 @@ Name: "brazilianportuguese"; MessagesFile: "compiler:Languages\BrazilianPortugue
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}";
 
 [Files]
-Source: "D:\_SVN\INPE-EM\branches\Project1\Release\INPE-EM.exe"; DestDir: "C:\INPE-EM"; Flags: ignoreversion;
-Source: "D:\_SVN\INPE-EM\branches\Project1\Release\*"; DestDir: "C:\INPE-EM"; Flags: ignoreversion recursesubdirs createallsubdirs;
+Source: "D:\_SVN\INPE-EM\branches\Diego\Project1\Release\INPE-EM.exe"; DestDir: "C:\INPE-EM"; Flags: ignoreversion;
+Source: "D:\_SVN\INPE-EM\branches\Diego\Project1\Release\*"; DestDir: "C:\INPE-EM"; Flags: ignoreversion recursesubdirs createallsubdirs;
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
