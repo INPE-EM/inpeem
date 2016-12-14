@@ -84,6 +84,7 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		cbSpatialVegetationRemoval->Text = "Vegetation Removal";
 				
 		//tabFileMaker
+		tabFileMaker->Text = "Files Maker";
 		lFileMaker->Text = "     Files Maker";
 		bGerarArquivos->Text = "Make Files";
 		lRunModel->Text = "       Run Model";
@@ -238,6 +239,7 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		cbSpatialVegetationRemoval->Text = "Vegetação Primária";
 	
 		//tabFileMaker
+		tabFileMaker->Text = "Gerar Arquivos";
 		lFileMaker->Text = "Gerar os Arquivos";
 		bGerarArquivos->Text = "Gerar Arquivos";
 		lRunModel->Text = "Rodar o Modelo";

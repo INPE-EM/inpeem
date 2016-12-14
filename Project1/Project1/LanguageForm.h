@@ -36,10 +36,11 @@ namespace INPEEM {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::PictureBox^  pbLogo1;
+
 	private: System::Windows::Forms::RadioButton^  rLBr;
 	private: System::Windows::Forms::RadioButton^  rLEn;
 	private: System::Windows::Forms::Button^  bSelectLanguage;
+	private: System::Windows::Forms::PictureBox^  pbLogo1;
 
 
 
@@ -60,22 +61,12 @@ namespace INPEEM {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(LanguageForm::typeid));
-			this->pbLogo1 = (gcnew System::Windows::Forms::PictureBox());
 			this->rLBr = (gcnew System::Windows::Forms::RadioButton());
 			this->rLEn = (gcnew System::Windows::Forms::RadioButton());
 			this->bSelectLanguage = (gcnew System::Windows::Forms::Button());
+			this->pbLogo1 = (gcnew System::Windows::Forms::PictureBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbLogo1))->BeginInit();
 			this->SuspendLayout();
-			// 
-			// pbLogo1
-			// 
-			this->pbLogo1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pbLogo1.Image")));
-			this->pbLogo1->Location = System::Drawing::Point(58, 12);
-			this->pbLogo1->Name = L"pbLogo1";
-			this->pbLogo1->Size = System::Drawing::Size(367, 134);
-			this->pbLogo1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
-			this->pbLogo1->TabIndex = 13;
-			this->pbLogo1->TabStop = false;
 			// 
 			// rLBr
 			// 
@@ -111,16 +102,26 @@ namespace INPEEM {
 			this->bSelectLanguage->UseVisualStyleBackColor = true;
 			this->bSelectLanguage->Click += gcnew System::EventHandler(this, &LanguageForm::bSelectLanguage_Click);
 			// 
+			// pbLogo1
+			// 
+			this->pbLogo1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pbLogo1.Image")));
+			this->pbLogo1->Location = System::Drawing::Point(45, 12);
+			this->pbLogo1->Name = L"pbLogo1";
+			this->pbLogo1->Size = System::Drawing::Size(367, 134);
+			this->pbLogo1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->pbLogo1->TabIndex = 65;
+			this->pbLogo1->TabStop = false;
+			// 
 			// LanguageForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(96, 96);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Dpi;
 			this->AutoScroll = true;
 			this->ClientSize = System::Drawing::Size(471, 352);
+			this->Controls->Add(this->pbLogo1);
 			this->Controls->Add(this->bSelectLanguage);
 			this->Controls->Add(this->rLEn);
 			this->Controls->Add(this->rLBr);
-			this->Controls->Add(this->pbLogo1);
 			this->Name = L"LanguageForm";
 			this->ShowInTaskbar = false;
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
