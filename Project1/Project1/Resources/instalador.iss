@@ -5,7 +5,7 @@
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{1F80FBB1-2C18-4FC0-85FB-E82346A23938}
+AppId={{3D787912-FD76-425C-BAD6-34F78CF226A4}
 AppName=INPE-EM
 AppVersion=3.0.2.0
 AppPublisher=CCST - INPE
@@ -17,7 +17,7 @@ DisableDirPage=yes
 DefaultGroupName=INPE-EM
 DisableProgramGroupPage=yes
 LicenseFile=D:\_SVN\INPE-EM\branches\Diego\Project1\Project1\Resources\comment.txt
-OutputDir=D:\Diego Melo\Desktop
+OutputDir=D:\Diego\Desktop
 OutputBaseFilename=INPE-EM_3.0.2.0
 SetupIconFile=D:\_SVN\INPE-EM\branches\Diego\Project1\Project1\Resources\icon.ico
 Compression=lzma
