@@ -40,5 +40,5 @@ Source: "D:\_SVN\INPE-EM\branches\Diego\Project1\Release\*"; DestDir: "C:\INPE-E
 
 [Icons]
 Name: "{group}\INPE-EM"; Filename: "C:\INPE-EM\INPE-EM.exe"
-Name: "{group}\{cm:UninstallProgram,LuccME}"; Filename: "{uninstallexe}"
+Name: "{group}\{cm:UninstallProgram,INPE-EM}"; Filename: "{uninstallexe}"
 Name: "{commondesktop}\INPE-EM"; Filename: "C:\INPE-EM\INPE-EM.exe"; Tasks: desktopicon

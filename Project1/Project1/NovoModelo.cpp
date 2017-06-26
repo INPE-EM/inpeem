@@ -2326,7 +2326,7 @@ System::Void INPEEM::NovoModelo::bRun_Click(System::Object^  sender, System::Eve
 	}
 
 	System::Diagnostics::Process^ cmd = gcnew System::Diagnostics::Process;
-	cmd->StartInfo->FileName = "C:\\INPE-EM\\TerraME\\bin\\TerraME.exe";
+	cmd->StartInfo->FileName = "C:\\INPE-EM\\TerraME\\bin\\inpeem.bat";
 	cmd->StartInfo->Arguments = arguments;
 	cmd->Start();
 	cmd->WaitForExit();
