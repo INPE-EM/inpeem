@@ -699,6 +699,7 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 						}
 					}
 					
+					found = false;
 					sw->Close();
 
 					if (shape) {
@@ -716,6 +717,8 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 								line = line->Replace("file = ", "");
 								line = line->Replace("\"", "");
 								line = line->Replace("\\\\", "\\");
+								line = line->Replace("\t", "");
+								line = line->Replace("\r", "");
 
 								lSelectedFile->Text = line;
 							}
@@ -767,7 +770,7 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 				MessageBox::Show(gSMainImport, gSMainImportTitle, MessageBoxButtons::OK, MessageBoxIcon::Information);
 			}
 
-			//Submodel Fiel
+			//Submodel File
 			INPEEM::OpenFileDialog^ submodelFile = gcnew OpenFileDialog;
 			submodelFile->Title = gSSubmodelFile;
 			submodelFile->Multiselect = false;
@@ -1763,8 +1766,9 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 		//Creating main File
 		String^ path = lSelectedFolder->Text->Replace("\\", "\\\\") + "\\\\" + tModelName->Text->ToLower() + "_main.lua";
 		path = path->Replace("\\\\\\\\", "\\\\");
-
-
+		path = path->Replace("\t", "");
+		path = path->Replace("\n", "");
+		
 		StreamWriter^ sw = nullptr;
 
 		try {
@@ -2022,6 +2026,8 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 				//Creating Submodel File
 				path = lSelectedFolder->Text->Replace("\\", "\\\\") + "\\\\" + tModelName->Text->ToLower() + "_submodel.lua";
 				path = path->Replace("\\\\\\\\", "\\\\");
+				path = path->Replace("\t", "");
+				path = path->Replace("\n", "");
 
 				if (File::Exists(path))
 				{
@@ -2117,7 +2123,10 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 				if (File::Exists(path))
 				{
 					subFile = true;
+				}
 
+				if (cbModelType->SelectedIndex == SPATIALTYPE) {
+					nsFile = true;
 				}
 
 				//Creating Non Spatial Data File
@@ -2185,13 +2194,23 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 					}
 				}
 				if (mainFile && subFile && nsFile) {
-					if (lSelectedFolder->Text->Length > ROOTDIR) {
-						MessageBox::Show(gSSuccess + lSelectedFolder->Text + "\\" + tModelName->Text->ToLower() + "_main.lua" + "\n" + lSelectedFolder->Text + "\\" + tModelName->Text->ToLower() + "_submodel.lua" + 
-										 "\n" + lSelectedFolder->Text + "\\" + tModelName->Text->ToLower() + "_nsdata.lua", gSSuccessTitle,	MessageBoxButtons::OK, MessageBoxIcon::Information);
+					if (cbModelType->SelectedIndex == SPATIALTYPE) {
+						if (lSelectedFolder->Text->Length > ROOTDIR) {
+							MessageBox::Show(gSSuccess + lSelectedFolder->Text + "\\" + tModelName->Text->ToLower() + "_main.lua" + "\n" + lSelectedFolder->Text + "\\" + tModelName->Text->ToLower() + "_submodel.lua", gSSuccessTitle, MessageBoxButtons::OK, MessageBoxIcon::Information);
+						}
+						else {
+							MessageBox::Show(gSSuccess + lSelectedFolder->Text + tModelName->Text->ToLower() + "_main.lua" + "\n" + lSelectedFolder->Text + tModelName->Text->ToLower() + "_submodel.lua", gSSuccessTitle, MessageBoxButtons::OK, MessageBoxIcon::Information);
+						}
 					}
 					else {
-						MessageBox::Show(gSSuccess + lSelectedFolder->Text + tModelName->Text->ToLower() + "_main.lua" + "\n" + lSelectedFolder->Text + tModelName->Text->ToLower() + "_submodel.lua" + 
-										 "\n" + lSelectedFolder->Text + tModelName->Text->ToLower() + "_nsdata.lua", gSSuccessTitle, MessageBoxButtons::OK, MessageBoxIcon::Information);
+						if (lSelectedFolder->Text->Length > ROOTDIR) {
+							MessageBox::Show(gSSuccess + lSelectedFolder->Text + "\\" + tModelName->Text->ToLower() + "_main.lua" + "\n" + lSelectedFolder->Text + "\\" + tModelName->Text->ToLower() + "_submodel.lua" +
+								"\n" + lSelectedFolder->Text + "\\" + tModelName->Text->ToLower() + "_nsdata.lua", gSSuccessTitle, MessageBoxButtons::OK, MessageBoxIcon::Information);
+						}
+						else {
+							MessageBox::Show(gSSuccess + lSelectedFolder->Text + tModelName->Text->ToLower() + "_main.lua" + "\n" + lSelectedFolder->Text + tModelName->Text->ToLower() + "_submodel.lua" +
+								"\n" + lSelectedFolder->Text + tModelName->Text->ToLower() + "_nsdata.lua", gSSuccessTitle, MessageBoxButtons::OK, MessageBoxIcon::Information);
+						}
 					}
 
 					lRunModel->Visible = true;

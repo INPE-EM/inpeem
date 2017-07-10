@@ -711,7 +711,7 @@ namespace INPEEM {
 			this->bSalvar->Location = System::Drawing::Point(466, 642);
 			this->bSalvar->Name = L"bSalvar";
 			this->bSalvar->Size = System::Drawing::Size(75, 23);
-			this->bSalvar->TabIndex = 147;
+			this->bSalvar->TabIndex = 122;
 			this->bSalvar->Text = L"Salvar";
 			this->bSalvar->UseVisualStyleBackColor = true;
 			this->bSalvar->Click += gcnew System::EventHandler(this, &ComponentVegetationRemoval::bSalvar_Click);
@@ -747,7 +747,7 @@ namespace INPEEM {
 			this->cbSave->Location = System::Drawing::Point(736, 172);
 			this->cbSave->Name = L"cbSave";
 			this->cbSave->Size = System::Drawing::Size(170, 27);
-			this->cbSave->TabIndex = 122;
+			this->cbSave->TabIndex = 146;
 			this->cbSave->Text = L"Salvar em arquivo";
 			this->cbSave->UseVisualStyleBackColor = true;
 			// 

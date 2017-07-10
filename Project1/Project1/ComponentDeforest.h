@@ -144,7 +144,7 @@ namespace INPEEM {
 			this->tDescription->Location = System::Drawing::Point(147, 271);
 			this->tDescription->Name = L"tDescription";
 			this->tDescription->Size = System::Drawing::Size(278, 20);
-			this->tDescription->TabIndex = 89;
+			this->tDescription->TabIndex = 90;
 			this->tDescription->Text = L"Descriçao do Componente";
 			this->tDescription->Enter += gcnew System::EventHandler(this, &ComponentDeforest::textBox_Enter);
 			// 
@@ -166,7 +166,7 @@ namespace INPEEM {
 			this->tInitialArea->Location = System::Drawing::Point(147, 310);
 			this->tInitialArea->Name = L"tInitialArea";
 			this->tInitialArea->Size = System::Drawing::Size(89, 20);
-			this->tInitialArea->TabIndex = 89;
+			this->tInitialArea->TabIndex = 91;
 			this->tInitialArea->Text = L"0";
 			this->tInitialArea->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tInitialArea->Enter += gcnew System::EventHandler(this, &ComponentDeforest::textBox_Enter);
@@ -189,7 +189,7 @@ namespace INPEEM {
 			this->tTotalNoData->Location = System::Drawing::Point(147, 349);
 			this->tTotalNoData->Name = L"tTotalNoData";
 			this->tTotalNoData->Size = System::Drawing::Size(89, 20);
-			this->tTotalNoData->TabIndex = 89;
+			this->tTotalNoData->TabIndex = 92;
 			this->tTotalNoData->Text = L"130311562";
 			this->tTotalNoData->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tTotalNoData->Enter += gcnew System::EventHandler(this, &ComponentDeforest::textBox_Enter);

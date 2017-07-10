@@ -120,7 +120,7 @@ namespace INPEEM {
 			this->tAverBGBpercBGB->Location = System::Drawing::Point(266, 555);
 			this->tAverBGBpercBGB->Name = L"tAverBGBpercBGB";
 			this->tAverBGBpercBGB->Size = System::Drawing::Size(89, 20);
-			this->tAverBGBpercBGB->TabIndex = 166;
+			this->tAverBGBpercBGB->TabIndex = 154;
 			this->tAverBGBpercBGB->Text = L"0";
 			this->tAverBGBpercBGB->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tAverBGBpercBGB->Enter += gcnew System::EventHandler(this, &ComponentSecondaryVegetation::textBox_Enter);
@@ -143,7 +143,7 @@ namespace INPEEM {
 			this->tAverInitialAbandonmentCycle->Location = System::Drawing::Point(266, 519);
 			this->tAverInitialAbandonmentCycle->Name = L"tAverInitialAbandonmentCycle";
 			this->tAverInitialAbandonmentCycle->Size = System::Drawing::Size(89, 20);
-			this->tAverInitialAbandonmentCycle->TabIndex = 164;
+			this->tAverInitialAbandonmentCycle->TabIndex = 153;
 			this->tAverInitialAbandonmentCycle->Text = L"3";
 			this->tAverInitialAbandonmentCycle->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tAverInitialAbandonmentCycle->Enter += gcnew System::EventHandler(this, &ComponentSecondaryVegetation::textBox_Enter);
@@ -166,7 +166,7 @@ namespace INPEEM {
 			this->tAverAgriculturalUseCycle->Location = System::Drawing::Point(266, 483);
 			this->tAverAgriculturalUseCycle->Name = L"tAverAgriculturalUseCycle";
 			this->tAverAgriculturalUseCycle->Size = System::Drawing::Size(89, 20);
-			this->tAverAgriculturalUseCycle->TabIndex = 162;
+			this->tAverAgriculturalUseCycle->TabIndex = 152;
 			this->tAverAgriculturalUseCycle->Text = L"2";
 			this->tAverAgriculturalUseCycle->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tAverAgriculturalUseCycle->Enter += gcnew System::EventHandler(this, &ComponentSecondaryVegetation::textBox_Enter);
@@ -189,7 +189,7 @@ namespace INPEEM {
 			this->tAverRecoveryPeriod2->Location = System::Drawing::Point(266, 447);
 			this->tAverRecoveryPeriod2->Name = L"tAverRecoveryPeriod2";
 			this->tAverRecoveryPeriod2->Size = System::Drawing::Size(89, 20);
-			this->tAverRecoveryPeriod2->TabIndex = 160;
+			this->tAverRecoveryPeriod2->TabIndex = 151;
 			this->tAverRecoveryPeriod2->Text = L"50";
 			this->tAverRecoveryPeriod2->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tAverRecoveryPeriod2->Enter += gcnew System::EventHandler(this, &ComponentSecondaryVegetation::textBox_Enter);
@@ -212,7 +212,7 @@ namespace INPEEM {
 			this->tAverRecoveryPeriod1->Location = System::Drawing::Point(266, 375);
 			this->tAverRecoveryPeriod1->Name = L"tAverRecoveryPeriod1";
 			this->tAverRecoveryPeriod1->Size = System::Drawing::Size(89, 20);
-			this->tAverRecoveryPeriod1->TabIndex = 158;
+			this->tAverRecoveryPeriod1->TabIndex = 149;
 			this->tAverRecoveryPeriod1->Text = L"25";
 			this->tAverRecoveryPeriod1->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tAverRecoveryPeriod1->Enter += gcnew System::EventHandler(this, &ComponentSecondaryVegetation::textBox_Enter);
@@ -235,7 +235,7 @@ namespace INPEEM {
 			this->tAverRecoveryPeriod2Perc->Location = System::Drawing::Point(266, 411);
 			this->tAverRecoveryPeriod2Perc->Name = L"tAverRecoveryPeriod2Perc";
 			this->tAverRecoveryPeriod2Perc->Size = System::Drawing::Size(89, 20);
-			this->tAverRecoveryPeriod2Perc->TabIndex = 156;
+			this->tAverRecoveryPeriod2Perc->TabIndex = 150;
 			this->tAverRecoveryPeriod2Perc->Text = L"0.3";
 			this->tAverRecoveryPeriod2Perc->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tAverRecoveryPeriod2Perc->Enter += gcnew System::EventHandler(this, &ComponentSecondaryVegetation::textBox_Enter);
@@ -258,7 +258,7 @@ namespace INPEEM {
 			this->tDescription->Location = System::Drawing::Point(152, 183);
 			this->tDescription->Name = L"tDescription";
 			this->tDescription->Size = System::Drawing::Size(278, 20);
-			this->tDescription->TabIndex = 149;
+			this->tDescription->TabIndex = 144;
 			this->tDescription->Text = L"Descriçao do Componente";
 			this->tDescription->Enter += gcnew System::EventHandler(this, &ComponentSecondaryVegetation::textBox_Enter);
 			// 
@@ -268,7 +268,7 @@ namespace INPEEM {
 			this->tAverRecoveryPeriod1Perc->Location = System::Drawing::Point(266, 339);
 			this->tAverRecoveryPeriod1Perc->Name = L"tAverRecoveryPeriod1Perc";
 			this->tAverRecoveryPeriod1Perc->Size = System::Drawing::Size(89, 20);
-			this->tAverRecoveryPeriod1Perc->TabIndex = 152;
+			this->tAverRecoveryPeriod1Perc->TabIndex = 148;
 			this->tAverRecoveryPeriod1Perc->Text = L"0.7";
 			this->tAverRecoveryPeriod1Perc->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tAverRecoveryPeriod1Perc->Enter += gcnew System::EventHandler(this, &ComponentSecondaryVegetation::textBox_Enter);
@@ -279,7 +279,7 @@ namespace INPEEM {
 			this->tAverAreaAccPercVegSec->Location = System::Drawing::Point(266, 303);
 			this->tAverAreaAccPercVegSec->Name = L"tAverAreaAccPercVegSec";
 			this->tAverAreaAccPercVegSec->Size = System::Drawing::Size(89, 20);
-			this->tAverAreaAccPercVegSec->TabIndex = 151;
+			this->tAverAreaAccPercVegSec->TabIndex = 147;
 			this->tAverAreaAccPercVegSec->Text = L"0";
 			this->tAverAreaAccPercVegSec->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tAverAreaAccPercVegSec->Enter += gcnew System::EventHandler(this, &ComponentSecondaryVegetation::textBox_Enter);
@@ -290,7 +290,7 @@ namespace INPEEM {
 			this->tAverAreaPercVegSec->Location = System::Drawing::Point(266, 267);
 			this->tAverAreaPercVegSec->Name = L"tAverAreaPercVegSec";
 			this->tAverAreaPercVegSec->Size = System::Drawing::Size(89, 20);
-			this->tAverAreaPercVegSec->TabIndex = 150;
+			this->tAverAreaPercVegSec->TabIndex = 146;
 			this->tAverAreaPercVegSec->Text = L"0.21";
 			this->tAverAreaPercVegSec->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tAverAreaPercVegSec->Enter += gcnew System::EventHandler(this, &ComponentSecondaryVegetation::textBox_Enter);
@@ -313,7 +313,7 @@ namespace INPEEM {
 			this->taverHalfLife->Location = System::Drawing::Point(266, 231);
 			this->taverHalfLife->Name = L"taverHalfLife";
 			this->taverHalfLife->Size = System::Drawing::Size(89, 20);
-			this->taverHalfLife->TabIndex = 153;
+			this->taverHalfLife->TabIndex = 145;
 			this->taverHalfLife->Text = L"5";
 			this->taverHalfLife->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->taverHalfLife->Enter += gcnew System::EventHandler(this, &ComponentSecondaryVegetation::textBox_Enter);
@@ -338,7 +338,7 @@ namespace INPEEM {
 			this->tName->MaxLength = 2;
 			this->tName->Name = L"tName";
 			this->tName->Size = System::Drawing::Size(53, 20);
-			this->tName->TabIndex = 154;
+			this->tName->TabIndex = 143;
 			this->tName->Text = L"sv";
 			this->tName->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tName->Enter += gcnew System::EventHandler(this, &ComponentSecondaryVegetation::textBox_Enter);
@@ -418,7 +418,7 @@ namespace INPEEM {
 			this->cbSave->Location = System::Drawing::Point(160, 600);
 			this->cbSave->Name = L"cbSave";
 			this->cbSave->Size = System::Drawing::Size(170, 27);
-			this->cbSave->TabIndex = 167;
+			this->cbSave->TabIndex = 155;
 			this->cbSave->Text = L"Salvar em arquivo";
 			this->cbSave->UseVisualStyleBackColor = true;
 			// 

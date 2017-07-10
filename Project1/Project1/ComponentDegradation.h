@@ -112,7 +112,7 @@ namespace INPEEM {
 			this->tAverLimiarDegradLoss->Location = System::Drawing::Point(263, 535);
 			this->tAverLimiarDegradLoss->Name = L"tAverLimiarDegradLoss";
 			this->tAverLimiarDegradLoss->Size = System::Drawing::Size(89, 20);
-			this->tAverLimiarDegradLoss->TabIndex = 162;
+			this->tAverLimiarDegradLoss->TabIndex = 152;
 			this->tAverLimiarDegradLoss->Text = L"0.01";
 			this->tAverLimiarDegradLoss->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tAverLimiarDegradLoss->Enter += gcnew System::EventHandler(this, &ComponentDegradation::textBox_Enter);
@@ -135,7 +135,7 @@ namespace INPEEM {
 			this->tAverLimiarDegradYears->Location = System::Drawing::Point(263, 494);
 			this->tAverLimiarDegradYears->Name = L"tAverLimiarDegradYears";
 			this->tAverLimiarDegradYears->Size = System::Drawing::Size(89, 20);
-			this->tAverLimiarDegradYears->TabIndex = 160;
+			this->tAverLimiarDegradYears->TabIndex = 151;
 			this->tAverLimiarDegradYears->Text = L"1";
 			this->tAverLimiarDegradYears->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tAverLimiarDegradYears->Enter += gcnew System::EventHandler(this, &ComponentDegradation::textBox_Enter);
@@ -158,7 +158,7 @@ namespace INPEEM {
 			this->tAverAGB_percReduction->Location = System::Drawing::Point(263, 412);
 			this->tAverAGB_percReduction->Name = L"tAverAGB_percReduction";
 			this->tAverAGB_percReduction->Size = System::Drawing::Size(89, 20);
-			this->tAverAGB_percReduction->TabIndex = 158;
+			this->tAverAGB_percReduction->TabIndex = 149;
 			this->tAverAGB_percReduction->Text = L"0.034";
 			this->tAverAGB_percReduction->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tAverAGB_percReduction->Enter += gcnew System::EventHandler(this, &ComponentDegradation::textBox_Enter);
@@ -181,7 +181,7 @@ namespace INPEEM {
 			this->tAverPeriodRegrow->Location = System::Drawing::Point(263, 453);
 			this->tAverPeriodRegrow->Name = L"tAverPeriodRegrow";
 			this->tAverPeriodRegrow->Size = System::Drawing::Size(89, 20);
-			this->tAverPeriodRegrow->TabIndex = 156;
+			this->tAverPeriodRegrow->TabIndex = 150;
 			this->tAverPeriodRegrow->Text = L"50";
 			this->tAverPeriodRegrow->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tAverPeriodRegrow->Enter += gcnew System::EventHandler(this, &ComponentDegradation::textBox_Enter);
@@ -204,7 +204,7 @@ namespace INPEEM {
 			this->tDescription->Location = System::Drawing::Point(154, 186);
 			this->tDescription->Name = L"tDescription";
 			this->tDescription->Size = System::Drawing::Size(278, 20);
-			this->tDescription->TabIndex = 149;
+			this->tDescription->TabIndex = 144;
 			this->tDescription->Text = L"Descriçao do Componente";
 			this->tDescription->Enter += gcnew System::EventHandler(this, &ComponentDegradation::textBox_Enter);
 			// 
@@ -214,7 +214,7 @@ namespace INPEEM {
 			this->tAverLitter_loss->Location = System::Drawing::Point(263, 371);
 			this->tAverLitter_loss->Name = L"tAverLitter_loss";
 			this->tAverLitter_loss->Size = System::Drawing::Size(89, 20);
-			this->tAverLitter_loss->TabIndex = 152;
+			this->tAverLitter_loss->TabIndex = 148;
 			this->tAverLitter_loss->Text = L"0";
 			this->tAverLitter_loss->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tAverLitter_loss->Enter += gcnew System::EventHandler(this, &ComponentDegradation::textBox_Enter);
@@ -225,7 +225,7 @@ namespace INPEEM {
 			this->tAverDeadWood_loss->Location = System::Drawing::Point(263, 330);
 			this->tAverDeadWood_loss->Name = L"tAverDeadWood_loss";
 			this->tAverDeadWood_loss->Size = System::Drawing::Size(89, 20);
-			this->tAverDeadWood_loss->TabIndex = 151;
+			this->tAverDeadWood_loss->TabIndex = 147;
 			this->tAverDeadWood_loss->Text = L"0";
 			this->tAverDeadWood_loss->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tAverDeadWood_loss->Enter += gcnew System::EventHandler(this, &ComponentDegradation::textBox_Enter);
@@ -236,7 +236,7 @@ namespace INPEEM {
 			this->tAverBGB_loss->Location = System::Drawing::Point(263, 289);
 			this->tAverBGB_loss->Name = L"tAverBGB_loss";
 			this->tAverBGB_loss->Size = System::Drawing::Size(89, 20);
-			this->tAverBGB_loss->TabIndex = 150;
+			this->tAverBGB_loss->TabIndex = 146;
 			this->tAverBGB_loss->Text = L"0";
 			this->tAverBGB_loss->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tAverBGB_loss->Enter += gcnew System::EventHandler(this, &ComponentDegradation::textBox_Enter);
@@ -259,7 +259,7 @@ namespace INPEEM {
 			this->tAverAGB_loss->Location = System::Drawing::Point(263, 248);
 			this->tAverAGB_loss->Name = L"tAverAGB_loss";
 			this->tAverAGB_loss->Size = System::Drawing::Size(89, 20);
-			this->tAverAGB_loss->TabIndex = 153;
+			this->tAverAGB_loss->TabIndex = 145;
 			this->tAverAGB_loss->Text = L"0.4";
 			this->tAverAGB_loss->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tAverAGB_loss->Enter += gcnew System::EventHandler(this, &ComponentDegradation::textBox_Enter);
@@ -284,7 +284,7 @@ namespace INPEEM {
 			this->tName->MaxLength = 2;
 			this->tName->Name = L"tName";
 			this->tName->Size = System::Drawing::Size(53, 20);
-			this->tName->TabIndex = 154;
+			this->tName->TabIndex = 143;
 			this->tName->Text = L"dg";
 			this->tName->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tName->Enter += gcnew System::EventHandler(this, &ComponentDegradation::textBox_Enter);
@@ -364,7 +364,7 @@ namespace INPEEM {
 			this->cbSave->Location = System::Drawing::Point(165, 597);
 			this->cbSave->Name = L"cbSave";
 			this->cbSave->Size = System::Drawing::Size(170, 27);
-			this->cbSave->TabIndex = 163;
+			this->cbSave->TabIndex = 153;
 			this->cbSave->Text = L"Salvar em arquivo";
 			this->cbSave->UseVisualStyleBackColor = true;
 			// 
