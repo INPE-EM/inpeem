@@ -224,7 +224,7 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		//tabSpatialModel
 		tabSpatial->Text = "Modelo Espacial";
 		lSpatialName->Text = "Nome do Modelo Espacial";
-		cbNonSpatialVerbose->Text = "Verboso";
+		cbSpatialVerbose->Text = "Verboso";
 		lSpatialInitialYear->Text = "Ano de Início";
 		lSpatialFinalYear->Text = "Ano de Término";
 		lTerraview->Text = "Projeto Terraview";

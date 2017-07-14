@@ -21,6 +21,8 @@ System::Void INPEEM::ComponentVegetationRemoval::ComponentVegetationRemoval_Show
 		gSDataMissingTitle = "Error - Data missing";
 		gSDataMissing = "All the parameters must be fulfilled.";
 		cbSave->Text = "Save into file";
+		cbSave->Location = System::Drawing::Point(766, 172);
+		
 	}
 	else {
 		lName->Text = "Nome";
@@ -30,6 +32,7 @@ System::Void INPEEM::ComponentVegetationRemoval::ComponentVegetationRemoval_Show
 		gSDataMissingTitle = "Erro - Dados não preenchidos";
 		gSDataMissing = "Todos os parâmetros devem ser preenchidos.";
 		cbSave->Text = "Salvar em aquivo";
+		cbSave->Location = System::Drawing::Point(736, 172);
 	}
 
 	if (lReturn->Return != "") {
