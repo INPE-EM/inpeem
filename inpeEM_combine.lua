@@ -6,12 +6,14 @@
 -- inpeEM_combineResultsVR(model_ns, model_s)
 function inpeEM_executeCombine(model_out, model_ns, model_s)
 	if (model_out == nil) then 
-		error("No output model defined!", 2)
+		print("Error - No output model defined!")
+		os.exit()
 	end
 
 	-- Execute non-spatial and spatial submodels
 	if (model_ns == nil or model_s == nil) then 
-		error("Please, define and execute your models before combining them!", 2)
+		print("Error - Please, define and execute your models before combining them!")
+		os.exit()
 	end
 	
 	print("\nExecuting non-spatial mode...")
@@ -27,7 +29,8 @@ function inpeEM_executeCombine(model_out, model_ns, model_s)
 	end
 
 	if ((model_ns.SV_flag == false or model_s.SV_flag == false) and (model_ns.VR_flag == false or model_s.VR_flag == false ) and (model_ns.DEGRAD_flag == false or model_s.DEGRAD_flag == false)) then
-		error ("No model PF or SF or DEGRAD model results to combine!")
+		print("Error - No model PF or SF or DEGRAD model results to combine!")
+		os.exit()
     end
 
 	if (model_out.verbose == nil) then
@@ -35,7 +38,8 @@ function inpeEM_executeCombine(model_out, model_ns, model_s)
 	end
 	
 	if (model_out.verbose ~= true and model_out.verbose ~= false) then
-		error("Combine model verbose must be true or false!", 2)
+		print("Error - Combine model verbose must be true or false!")
+		os.exit()
 	end
 
 	model_out.componentD = model_s.componentD

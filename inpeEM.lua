@@ -73,7 +73,8 @@ function inpeEM_init(model)
 	end
 
 	if (model.verbose ~= true and model.verbose ~= false) then
-		error("Combine model verbose must be true or false!", 2)
+		print("Error - Combine model verbose must be true or false!")
+		os.exit()
 	end
 
 	if (model.componentD == nil) then
@@ -140,7 +141,8 @@ function inpeEM_init(model)
 	end	 
 
 	if (error_flag) then
-		error("\nPlease, complete your model definition before executing!", 2)
+		print("\nError - Please, complete your model definition before executing!")
+		os.exit()
 	end
 
 	error_flag = false
@@ -175,7 +177,8 @@ function inpeEM_init(model)
 	end
 
 	if (error_flag) then
-		error("\nPlease, correct your database or file definition before executing!") 
+		print("\nError - Please, correct your database or file definition before executing!")
+		os.exit()
 	end
 
 	inpeEM_initResults(model)
@@ -321,11 +324,13 @@ function inpeEM_loadFromTable(year, model)
 	end
 
 	if (model.dataTable.Area == nil) then
-		error("Input table error: Area data missing", 1) 
+		print("Error - Input table error: Area data missing") 
+		os.exit()
 	end
 
 	if (#model.dataTable.Area < step) then
-		error("Time required exceeds the input table size: Area", 1) 
+		print("Error - Time required exceeds the input table size: Area") 
+		os.exit()
 	end
 
 	cell.D_Area = model.dataTable.Area[step]
@@ -366,7 +371,8 @@ function inpeEM_loadFromDB(year, model)
 														cell.D_AreaAcc = cell_temp[model.componentD.attrInitialArea]
 														model.D_result_acc = model.D_result_acc + cell.D_AreaAcc 
 													else
-														error("Historical disturbance information missing: "..model.componentD.attrInitialArea, 1)	
+														print("Error -Historical disturbance information missing: "..model.componentD.attrInitialArea)	
+														os.exit()
 													end
 
 													if (cell_temp[model.componentB.attrAGB] ~= nil) then
@@ -441,7 +447,8 @@ function inpeEM_loadFromDB(year, model)
 													model.D_result_acc = model.D_result_acc + cell.D_Area
 													model.D_result[year].D_AreaAcc =  model.D_result_acc
 												else
-													error("Disturbance information missing: "..model.componentD.attrArea, 1)
+													print("Error - Disturbance information missing: "..model.componentD.attrArea)
+													os.exit()
 												end
 
 												if (model.DEGRAD_flag) then
@@ -693,15 +700,18 @@ end
 -- component.componentD_verify(model)
 function componentD_verify(model)
 	if (model.componentD.name == nil) then
-		error("Missing D parameter: name", 1)
+		print("Error - Missing Deforestaion parameter: name")
+		os.exit()
 	end
 
 	if (model.componentB.description == nil) then 
-		error("Missing D parameter: description", 1) 
+		print("Error - Missing Deforestation parameter: description") 
+		os.exit()
 	end
 
 	if (model.componentD.initialArea == nil) then 
-		error("Missing D parameter: initialArea", 1) 
+		print("Error - Missing Deforestaion parameter: initialArea")
+		os.exit()		
 	end
 
 	return true
@@ -713,51 +723,63 @@ end
 -- component.componentB_verify(model)
 function componentB_verify(model)
 	if (model.componentB.name == nil) then
-		error("Missing B parameter: name", 1) 
+		error("Missing B parameter: name", 1)
+		os.exit()
 	end
 
 	if (model.componentB.description == nil) then
-		error("Missing B parameter: description", 1) 
+		print("Error - Missing Biomass parameter: description") 
+		os.exit()
 	end
 
 	if (model.componentB.averBGBPercAGB == nil) then
-		error("Missing B parameter: averBGBPercAGB", 1) 
+		print("Error - Missing Biomass parameter: averBGBPercAGB") 
+		os.exit()
 	end
 
 	if (model.componentB.averLitterPercAGB == nil) then
-		error("Missing B parameter: averLitterPercAGB", 1) 
+		print("Error - Missing Biomass parameter: averLitterPercAGB") 
+		os.exit()
 	end
 
 	if (model.componentB.averDeadWoodPercAGB == nil) then
-		error("Missing B parameter: averDeadWoodPercAGB", 1) 
+		print("Error - Missing Biomass parameter: averDeadWoodPercAGB")
+		os.exit()		
 	end
 
 	if (model.componentB.averFactorB_C == nil) then
-		error("Missing B parameter: averFactorB_C", 1) 
+		print("Error - Missing B parameter: averFactorB_C")
+		os.exit()
 	end
 
 	if (model.componentB.averFactorB_CO2 == nil) then
-		error("Missing B parameter: averFactorB_CO2", 1) 
+		print("Error - Missing B parameter: averFactorB_CO2")
+		os.exit()
 	end
 
 	if (model.componentB.averFactorB_CO2_fire == nil) then
-		error("Missing B parameter: averFactorB_CO2_fire", 1) 
+		print("Error - Missing B parameter: averFactorB_CO2_fire")
+		os.exit()
 	end
 
 	if (model.componentB.averFactorB_CH4_fire == nil) then
-		error("Missing B parameter: averFactorB_CH4_fire", 1) 
+		print("Error - Missing B parameter: averFactorB_CH4_fire")
+		os.exit()
 	end
 
 	if (model.componentB.averFactorB_N2O_fire == nil) then
-		error("Missing B parameter: averFactorB_N2O_fire", 1) 
+		print("Error - Missing B parameter: averFactorB_N2O_fire")
+		os.exit()
 	end
 
 	if (model.componentB.averFactorB_NOx_fire == nil) then
-		error("Missing B parameter: averFactorB_NOx_fire", 1) 
+		print("Error - Missing B parameter: averFactorB_NOx_fire")
+		os.exit()
 	end
 
 	if (model.componentB.averFactorB_CO_fire == nil) then
-		error("Missing B parameter: averFactorB_CO_fire", 1) 
+		print("Error - Missing B parameter: averFactorB_CO_fire")
+		os.exit()
 	end
 
 	return true

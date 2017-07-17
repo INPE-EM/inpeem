@@ -489,95 +489,118 @@ end
 -- componentVR_verify(model)
 function componentVR_verify(model)
 	if (model.componentVR.name == nil) then
-		error("Missing VR parameter: name", 2) 
+		print("Error - Missing VR parameter: name") 
+		os.exit()
 	end
 
 	if (model.componentVR.description == nil) then
-		error("Missing VR parameter: description", 2) 
+		print("Error - Missing VR parameter: description") 
+		os.exit()
 	end
 
 	if (model.componentVR.averAGBPercAGB == nil) then
-		error("Missing VR parameter: averAGBPercAGB", 2) 
+		print("Error - Missing VR parameter: averAGBPercAGB")
+		os.exit()		
 	end
 
 	if (model.componentVR.averAGBPercWoodProducts == nil) then
-		error("Missing VR parameter: averAGBPercWoodProducts", 2) 
+		print("Error - Missing VR parameter: averAGBPercWoodProducts")
+		os.exit()
 	end 
 
 	if (model.componentVR.averAGBPercInstantaneous == nil) then
-		error("Missing VR parameter: averAGBPercInstantaneous", 2) 
+		print("Error - Missing VR parameter: averAGBPercInstantaneous")
+		os.exit()
 	end	 
 
 	if (model.componentVR.averAGBPercDecomposition == nil)	then
-		error("Missing VR parameter: averAGBPercDecomposition", 2) 
+		print("Error - Missing VR parameter: averAGBPercDecomposition")
+		os.exit()
 	end 
 
 	if (model.componentVR.averDeadWoodPercInstantaneous == nil) then
-		error("Missing VR parameter: averDeadWoodPercInstantaneous", 2) 
+		print("Error - Missing VR parameter: averDeadWoodPercInstantaneous")
+		os.exit()
 	end	 
 
 	if (model.componentVR.averDeadWoodPercDecomposition == nil)	then
-		error("Missing VR parameter: averDeadWoodPercDecomposition", 2) 
+		print("Error - Missing VR parameter: averDeadWoodPercDecomposition")
+		os.exit()
 	end 
 
 	if (model.componentVR.averLitterPercInstantaneous == nil) then
-		error("Missing VR parameter: averLitterPercInstantaneous", 2) 
+		print("Error - Missing VR parameter: averLitterPercInstantaneous")
+		os.exit()
 	end	 
 
 	if (model.componentVR.averLitterPercDecomposition == nil) then
-		error("Missing VR parameter: averLitterPercDecomposition", 2) 
+		print("Error - Missing VR parameter: averLitterPercDecomposition")
+		os.exit()
 	end 
 
 	if (model.componentVR.averBGBPercBGB == nil) then
-		error("Missing VR parameter: averBGBPercBGB", 2) 
+		print("Error - Missing VR parameter: averBGBPercBGB")
+		os.exit()
 	end 
 
 	if (model.componentVR.averBGBPercInstantaneous == nil) then
-		error("Missing VR parameter: averBGBPercInstantaneous", 2) 
+		print("Error - Missing VR parameter: averBGBPercInstantaneous")
+		os.exit()
 	end
 
 	if (model.componentVR.averBGBPercDecompositionAbove == nil) then
-		error("Missing VR parameter: averBGBPercDecompositionAbove", 2) 
+		print("Error - Missing VR parameter: averBGBPercDecompositionAbove")
+		os.exit()
 	end
 
 	if (model.componentVR.averBGBPercDecompositionUnder == nil) then
-		error("Missing VR parameter: averBGBPercDecompositionUnder", 2) 
+		print("Error - Missing VR parameter: averBGBPercDecompositionUnder")
+		os.exit()
 	end
 
 	if (model.componentVR.averDecompositonPercElementalCarbon == nil) then
-		error("Missing VR parameter: averDecompositonPercElementalCarbon", 2) 
+		print("Error - Missing VR parameter: averDecompositonPercElementalCarbon")
+		os.exit()
 	end
 
 	if (model.componentVR.averDecompositionFireCyclePeriod == nil) then
-		error("Missing VR parameter: averDecompositionFireCyclePeriod", 2) 
+		print("Error - Missing VR parameter: averDecompositionFireCyclePeriod")
+		os.exit()
 	end
 
 	if (model.componentVR.averDecayRateAGBDecomposition == nil) then
-		error("Missing VR parameter: averDecayRateAGBDecomposition", 2) 
+		print("Error - Missing VR parameter: averDecayRateAGBDecomposition")
+		os.exit()
 	end
 
 	if (model.componentVR.averDecayRateWoodProducts == nil) then
-		error("Missing VR parameter: averDecayRateWoodProducts", 2) 
+		print("Error - Missing VR parameter: averDecayRateWoodProducts")
+		os.exit()
 	end
 
 	if (model.componentVR.averDecayRateElementalCarbon == nil) then
-		error("Missing VR parameter: averDecayRateElementalCarbon", 2) 
+		print("Error - Missing VR parameter: averDecayRateElementalCarbon")
+		os.exit()
 	end
 
 	if (model.componentVR.averDecayRateBGBDecompositionUnder == nil) then
-		error("Missing VR parameter: averDecayRateBGBDecompositionUnder", 2) 
+		print("Error - Missing VR parameter: averDecayRateBGBDecompositionUnder")
+		os.exit()
 	end
 
 	if (model.componentVR.averDecayRateBGBDecompositionAbove == nil) then
-		error("Missing VR parameter: averDecayRateBGBDecompositionAbove", 2) 
+		print("Error - Missing VR parameter: averDecayRateBGBDecompositionAbove")
+		os.exit()
 	end
 
 	if (model.componentVR.averDecayRateDeadWoodDecomposition == nil) then
-		error("Missing VR parameter: averDecayRateDeadWoodDecomposition", 2) 
+		print("Error - Missing VR parameter: averDecayRateDeadWoodDecomposition")
+		os.exit()
 	end
 
 	if (model.componentVR.averDecayRateLitterDecomposition == nil) then
-		error("Missing VR parameter: averDecayRateLitterDecomposition", 2) 
+		print("Error - Missing VR parameter: averDecayRateLitterDecomposition")
+		os.exit()
 	end
 
 	return true
@@ -687,7 +710,8 @@ function componentVR_loadFromTable(model)
 	-- AGB
 	if (model.dataTable.AGBPercAGB ~= nil) then
 		if (#model.dataTable.AGBPercAGB < step) then
-			error("Time required exceeds the input table size: DsreaPercVegSec", 2) 
+			print("Error - Time required exceeds the input table size: DsreaPercVegSec") 
+			os.exit()
 		end
 		
 		cell.VR_AGBPercAGB = model.dataTable.AGBPercAGB[step]
@@ -695,7 +719,8 @@ function componentVR_loadFromTable(model)
 
 	if (model.dataTable.AGBPercWoodProducts ~= nil) then
 		if (#model.dataTable.AGBPercWoodProducts < step) then
-			error("Time required exceeds the input table size: AGBPercWoodProducts", 2) 
+			print("Error - Time required exceeds the input table size: AGBPercWoodProducts") 
+			os.exit()
 		end
 		
 		cell.VR_AGBPercWoodProducts = model.dataTable.AGBPercWoodProducts[step]
@@ -703,7 +728,8 @@ function componentVR_loadFromTable(model)
 
 	if (model.dataTable.AGBPercInstantaneous ~= nil) then
 		if (#model.dataTable.AGBPercInstantaneous < step) then
-			error("Time required exceeds the input table size: AGBPercInstantaneous", 2) 
+			print("Error - Time required exceeds the input table size: AGBPercInstantaneous") 
+			os.exit()
 		end
 		
 		cell.VR_AGBPercInstantaneous = model.dataTable.AGBPercInstantaneous[step]
@@ -711,7 +737,8 @@ function componentVR_loadFromTable(model)
 
 	if (model.dataTable.AGBPercDecomposition ~= nil) then
 		if (#model.dataTable.AGBPercDecomposition < step) then
-			error("Time required exceeds the input table size: AGBPercDecomposition", 2) 
+			print("Error - Time required exceeds the input table size: AGBPercDecomposition") 
+			os.exit()
 		end
 		
 		cell.VR_AGBPercDecomposition = model.dataTable.AGBPercDecomposition[step]
@@ -720,7 +747,8 @@ function componentVR_loadFromTable(model)
 	-- BGB
 	if (model.dataTable.BGBPercBGB ~= nil) then
 		if (#model.dataTable.BGBPercBGB < step) then
-			error("Time required exceeds the input table size: BGBPercBGB", 2) 
+			print("Error - Time required exceeds the input table size: BGBPercBGB") 
+			os.exit()
 		end
 		
 		cell.VR_BGBPercBGB = model.dataTable.BGBPercBGB[step]
@@ -728,7 +756,8 @@ function componentVR_loadFromTable(model)
 
 	if (model.dataTable.BGBPercInstantaneous ~= nil) then
 		if (#model.dataTable.BGBPercInstantaneous < step) then
-			error("Time required exceeds the input table size: BGBPercInstantaneous", 2) 
+			print("Error - Time required exceeds the input table size: BGBPercInstantaneous") 
+			os.exit()
 		end
 		
 		cell.VR_BGBPercInstantaneous = model.dataTable.BGBPercInstantaneous[step]
@@ -736,7 +765,8 @@ function componentVR_loadFromTable(model)
 
 	if (model.dataTable.BGBPercDecompositionUnder ~= nil) then
 		if (#model.dataTable.BGBPercDecompositionUnder < step) then
-			error("Time required exceeds the input table size: BGBPercDecompositionUnder", 2) 
+			print("Error - Time required exceeds the input table size: BGBPercDecompositionUnder") 
+			os.exit()
 		end
 		
 		cell.VR_BGBPercDecompositionUnder = model.dataTable.BGBPercDecompositionUnder[step]
@@ -744,7 +774,8 @@ function componentVR_loadFromTable(model)
 
 	if (model.dataTable.BGBPercDecompositionAbove ~= nil) then
 		if (#model.dataTable.BGBPercDecompositionAbove < step) then
-			error("Time required exceeds the input table size: BGBPercDecompositionAbove", 2) 
+			print("Error - Time required exceeds the input table size: BGBPercDecompositionAbove") 
+			os.exit()
 		end
 		
 		cell.VR_BGBPercDecompositionAbove = model.dataTable.BGBPercDecompositionAbove[step]
@@ -753,7 +784,8 @@ function componentVR_loadFromTable(model)
 	-- LITTER
 	if (model.dataTable.LitterPercInstantaneous ~= nil) then
 		if (#model.dataTable.LitterPercInstantaneous < step) then
-			error("Time required exceeds the input table size: LitterPercInstantaneous", 2) 
+			print("Error - Time required exceeds the input table size: LitterPercInstantaneous") 
+			os.exit()
 		end
 		
 		cell.VR_LitterPercInstantaneous = model.dataTable.LitterPercInstantaneous[step]
@@ -761,7 +793,8 @@ function componentVR_loadFromTable(model)
 
 	if (model.dataTable.LitterPercDecomposition ~= nil) then
 		if (#model.dataTable.LitterPercDecomposition < step) then
-			error("Time required exceeds the input table size: LitterPercDecomposition", 2) 
+			print("Error - Time required exceeds the input table size: LitterPercDecomposition") 
+			os.exit()
 		end
 		
 		cell.VR_LitterPercDecomposition = model.dataTable.LitterPercDecomposition[step]
@@ -770,7 +803,8 @@ function componentVR_loadFromTable(model)
 	-- DEAD WOOD
 	if (model.dataTable.DeadWoodPercInstantaneous ~= nil) then
 		if (#model.dataTable.DeadWoodPercInstantaneous < step) then
-			error("Time required exceeds the input table size: DeadWoodPercInstantaneous", 2) 
+			print("Error - Time required exceeds the input table size: DeadWoodPercInstantaneous") 
+			os.exit()
 		end
 		
 		cell.VR_DeadWoodPercInstantaneous = model.dataTable.DeadWoodPercInstantaneous[step]
@@ -778,7 +812,8 @@ function componentVR_loadFromTable(model)
 
 	if (model.dataTable.DeadWoodPercDecomposition ~= nil) then
 		if (#model.dataTable.DeadWoodPercDecomposition < step) then
-			error("Time required exceeds the input table size: DeadWoodPercDecomposition", 2) 
+			print("Error - Time required exceeds the input table size: DeadWoodPercDecomposition") 
+			os.exit()
 		end
 		
 		cell.VR_DeadWoodPercDecomposition = model.dataTable.DeadWoodPercDecomposition[step]
@@ -787,7 +822,8 @@ function componentVR_loadFromTable(model)
 	-- DECOMPOSITION FATE
 	if (model.dataTable.DecompositionPercElementalCarbon ~= nil) then
 		if (#model.dataTable.DecompositionPercElementalCarbon < step) then
-			error("Time required exceeds the input table size: DecompositionPercElementalCarbon", 2) 
+			print("Error - Time required exceeds the input table size: DecompositionPercElementalCarbon") 
+			os.exit()
 		end
 		
 		cell.VR_DecompositonPercElementalCarbon = model.dataTable.DecompositionPercElementalCarbon[step]
@@ -795,7 +831,8 @@ function componentVR_loadFromTable(model)
 
 	if (model.dataTable.DecompositonFireCyclePeriod ~= nil) then
 		if (#model.dataTable.DecompositonFireCyclePeriod < step) then
-			error("Time required exceeds the input table size: DecompositonFireCyclePeriod", 2) 
+			print("Error - Time required exceeds the input table size: DecompositonFireCyclePeriod") 
+			os.exit()
 		end
 		
 		cell.VR_DecompositonFireCyclePeriod = model.dataTable.DecompositonFireCyclePeriod[step]
@@ -804,7 +841,8 @@ function componentVR_loadFromTable(model)
 	-- DECOMPOSITION FATE - DECAY RATES
 	if (model.dataTable.DecayRateAGBDecomposition ~= nil) then
 		if (#model.dataTable.DecayRateAGBDecomposition < step) then
-			error("Time required exceeds the input table size: DecayRateAGBDecomposition", 2) 
+			print("Error - Time required exceeds the input table size: DecayRateAGBDecomposition") 
+			os.exit()
 		end
 		
 		cell.VR_DecayRateAGBDecomposition = model.dataTable.DecayRateAGBDecomposition[step]
@@ -812,7 +850,8 @@ function componentVR_loadFromTable(model)
 
 	if (model.dataTable.DecayRateWoodProducts ~= nil) then
 		if (#model.dataTable.DecayRateWoodProducts < step) then
-			error("Time required exceeds the input table size: DecayRateWoodProducts", 2) 
+			print("Error - Time required exceeds the input table size: DecayRateWoodProducts") 
+			os.exit()
 		end
 		
 		cell.VR_DecayRateWoodProducts = model.dataTable.DecayRateWoodProducts[step]
@@ -820,7 +859,8 @@ function componentVR_loadFromTable(model)
 
 	if (model.dataTable.DecayRateElementalCarbon ~= nil) then
 		if (#model.dataTable.DecayRateElementalCarbon < step) then
-			error("Time required exceeds the input table size: DecayRateElementalCarbon", 2) 
+			print("Error - Time required exceeds the input table size: DecayRateElementalCarbon") 
+			os.exit()
 		end
 		
 		cell.VR_DecayRateElementalCarbon = model.dataTable.DecayRateElementalCarbon[step]
@@ -828,7 +868,8 @@ function componentVR_loadFromTable(model)
 
 	if (model.dataTable.DecayRateBGBDecompositionUnder ~= nil) then
 		if (#model.dataTable.DecayRateBGBDecompositionUnder < step) then
-			error("Time required exceeds the input table size: DecayRateBGBDecompositionUnder", 2) 
+			print("Error - Time required exceeds the input table size: DecayRateBGBDecompositionUnder") 
+			os.exit()
 		end
 		
 		cell.VR_DecayRateBGBDecompositionUnder = model.dataTable.DecayRateBGBDecompositionUnder[step]
@@ -836,7 +877,8 @@ function componentVR_loadFromTable(model)
 
 	if (model.dataTable.DecayRateBGBDecompositionAbove ~= nil) then
 		if (#model.dataTable.DecayRateBGBDecompositionAbove < step) then
-			error("Time required exceeds the input table size: DecayRateBGBDecompositionAbove", 2) 
+			print("Error - Time required exceeds the input table size: DecayRateBGBDecompositionAbove") 
+			os.exit()
 		end
 		
 		cell.VR_DecayRateBGBDecompositionAbove = model.dataTable.DecayRateBGBDecompositionAbove[step]
@@ -844,7 +886,8 @@ function componentVR_loadFromTable(model)
 
 	if (model.dataTable.DecayRateLitterDecomposition ~= nil) then
 		if (#model.dataTable.DecayRateLitterDecomposition < step) then
-			error("Time required exceeds the input table size: DecayRateLitterDecomposition", 2) 
+			print("Error - Time required exceeds the input table size: DecayRateLitterDecomposition") 
+			os.exit()
 		end
 		
 		cell.VR_DecayRateLitterDecomposition = model.dataTable.DecayRateLitterDecomposition[step]
@@ -852,7 +895,8 @@ function componentVR_loadFromTable(model)
 
 	if (model.dataTable.DecayRateDeadWoodDecomposition ~= nil) then
 		if (#model.dataTable.DecayRateDeadWoodDecomposition < step) then
-			error("Time required exceeds the input table size: DecayRateDeadWoodDecomposition", 2) 
+			print("Error - Time required exceeds the input table size: DecayRateDeadWoodDecomposition") 
+			os.exit()
 		end
 		
 		cell.VR_DecayRateDeadWoodDecomposition = model.dataTable.DecayRateDeadWoodDecomposition[step]

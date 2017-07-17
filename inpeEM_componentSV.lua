@@ -5,7 +5,7 @@
 -- componentSV_execute(year, model)
 function componentSV_execute(year, model)
 	if (model.verbose) then
-		print(year, "Executing SV - mode:"..model.mode) 
+		print(year.."\tExecuting SV - mode:"..model.mode) 
 	end
 
 	local flagPrintAreaPercVegSec = true 	
@@ -275,51 +275,63 @@ end
 -- componentSV_verify(model)
 function componentSV_verify(model)
 	if (model.componentSV.name == nil) then
-		error("Missing SV parameter: name", 2) 
+		print("Error - Missing SV parameter: name")
+		os.exit()		
 	end
 
 	if (model.componentSV.description == nil) then
-		error("Missing SV parameter: description", 2) 
+		print("Error - Missing SV parameter: description")
+		os.exit()
 	end
 
 	if (model.componentSV.averAreaPercVegSec == nil) then
-		error("Missing SV parameter: averAreaPercVegSec", 2) 
+		print("Error - Missing SV parameter: averAreaPercVegSec")
+		os.exit()
 	end
 
 	if (model.componentSV.averAreaAccPercVegSec == nil) then
-		error("Missing SV parameter: averAreaAccPercVegSec", 2) 
+		print("Error - Missing SV parameter: averAreaAccPercVegSec")
+		os.exit()
 	end
 
 	if (model.componentSV.averAgriculturalUseCycle == nil) then
-		error("Missing SV parameter: averAgriculturalUseCycle", 2) 
+		print("Error - Missing SV parameter: averAgriculturalUseCycle") 
+		os.exit()
 	end
 
 	if (model.componentSV.averRecoveryPeriod1Perc == nil) then
-		error("Missing SV parameter: averRecoveryPeriod1Perc", 2) 
+		print("Error - Missing SV parameter: averRecoveryPeriod1Perc") 
+		os.exit()
 	end
 
 	if (model.componentSV.averRecoveryPeriod1 == nil) then
-		error("Missing SV parameter: averRecoveryPeriod1", 2) 
+		print("Error - Missing SV parameter: averRecoveryPeriod1") 
+		os.exit()
 	end
 
 	if (model.componentSV.averRecoveryPeriod2Perc == nil) then
-		error("Missing SV parameter: averRecoveryPeriod2Perc", 2) 
+		print("Error - Missing SV parameter: averRecoveryPeriod2Perc") 
+		os.exit()
 	end
 
 	if (model.componentSV.averRecoveryPeriod2 == nil) then
-		error("Missing SV parameter: averRecoveryPeriod2", 2) 
+		print("Error - Missing SV parameter: averRecoveryPeriod2") 
+		os.exit()
 	end
 
 	if (model.componentSV.averInitialAbandonmentCycle == nil) then
-		error("Missing SV parameter: averInitialAbandonmentCycle", 2) 
+		print("Error - Missing SV parameter: averInitialAbandonmentCycle") 
+		os.exit()
 	end
 
 	if (model.componentSV.averHalfLife == nil) then
-		error("Missing SV parameter: averHalfLife", 2) 
+		print("Error - Missing SV parameter: averHalfLife") 
+		os.exit()
 	end
 
 	if (model.componentSV.averBGBpercBGB == nil) then
-		error("Missing SV parameter: averBGBpercBGB", 2) 
+		print("Error - Missing SV parameter: averBGBpercBGB") 
+		os.exit()
 	end
 
 	return true
@@ -339,7 +351,7 @@ function componentSV_loadFromDB(model, cell_temp, cell, y)
 		cell.SV_AreaPercVegSec 	= cell_temp[model.componentSV.attrAreaPercVegSec..y]
 		
 		if (flagPrintAreaPercVegSec) then 
-			print(y, "Loading "..model.componentSV.attrAreaPercVegSec..y) 
+			print(y.." \tLoading "..model.componentSV.attrAreaPercVegSec..y) 
 			flagPrintAreaPercVegSec = false 
 		end
 	end
@@ -348,7 +360,7 @@ function componentSV_loadFromDB(model, cell_temp, cell, y)
 		cell.SV_AreaAccPercVegSec = cell_temp[model.componentSV.attrAreaAccPercVegSec..y]
 		
 		if (flagPrintAreaAccPercVegSec) then 
-			print(y, "Loading "..model.componentSV.attrAreaAccPercVegSec..y) 
+			print(y.." \tLoading "..model.componentSV.attrAreaAccPercVegSec..y) 
 			flagPrintAreaAccPercVegSec = false 
 		end
 	end
@@ -381,7 +393,7 @@ function componentSV_loadFromDB(model, cell_temp, cell, y)
 		cell.SV_HalfLife = cell_temp[model.componentSV.attrHalfLife..y]
 		
 		if (flagPrintHalfLife) then 
-			print(y,"Loading "..model.componentSV.attrHalfLife) 
+			print(y.." \tLoading "..model.componentSV.attrHalfLife) 
 			flagPrintHalfLife = false 
 		end
 	end
@@ -400,7 +412,8 @@ end
 function componentSV_loadFromTable(model, cell, step)
 	if (model.dataTable.AreaPercVegSec ~= nil) then
 		if (#model.dataTable.AreaPercVegSec < step) then
-			error("Time required exceeds the input table size: AreaPercVegSec", 2) 
+			print("Error - Time required exceeds the input table size: AreaPercVegSec") 
+			os.exit()
 		end
 		
 		cell.SV_AreaPercVegSec = model.dataTable.AreaPercVegSec[step]
@@ -408,7 +421,8 @@ function componentSV_loadFromTable(model, cell, step)
 
 	if (model.dataTable.AreaAccPercVegSec ~= nil) then
 		if (#model.dataTable.AreaAccPercVegSec < step) then
-			error("Time required exceeds the input table size: AreaAccPercVegSec", 2) 
+			print("Error - Time required exceeds the input table size: AreaAccPercVegSec", 2) 
+			os.exit()
 		end
 		
 		cell.SV_AreaAccPercVegSec = model.dataTable.AreaAccPercVegSec[step]
@@ -416,7 +430,8 @@ function componentSV_loadFromTable(model, cell, step)
 
 	if (model.dataTable.AgriculturalUseCycle ~= nil) then
 		if (#model.dataTable.AgriculturalUseCycle < step) then
-			error("Time required exceeds the input table size: AgriculturalUseCycle", 2) 
+			print("Error - Time required exceeds the input table size: AgriculturalUseCycle", 2) 
+			os.exit()
 		end
 		
 		cell.SV_AgriculturalUseCycle = model.dataTable.AgriculturalUseCycle[step]
@@ -424,7 +439,8 @@ function componentSV_loadFromTable(model, cell, step)
 
 	if (model.dataTable.RecoveryPeriod1Perc ~= nil) then
 		if (#model.dataTable.RecoveryPeriod1Perc < step) then
-			error("Time required exceeds the input table size: RecoveryPeriod1Perc", 2) 
+			print("Error - Time required exceeds the input table size: RecoveryPeriod1Perc", 2) 
+			os.exit()
 		end
 		
 		cell.SV_RecoveryPeriod1Perc = model.dataTable.RecoveryPeriod1Perc[step]
@@ -432,7 +448,8 @@ function componentSV_loadFromTable(model, cell, step)
 
 	if (model.dataTable.RecoveryPeriod1 ~= nil) then
 		if (#model.dataTable.RecoveryPeriod1 < step) then
-			error("Time required exceeds the input table size: RecoveryPeriod1", 2) 
+			print("Error - Time required exceeds the input table size: RecoveryPeriod1", 2) 
+			os.exit()
 		end
 		
 		cell.SV_RecoveryPeriod1 = model.dataTable.RecoveryPeriod1[step]
@@ -440,7 +457,8 @@ function componentSV_loadFromTable(model, cell, step)
 
 	if (model.dataTable.RecoveryPeriod2Perc ~= nil) then
 		if (#model.dataTable.RecoveryPeriod2Perc < step) then
-			error("Time required exceeds the input table size: RecoveryPeriod2Perc", 2) 
+			print("Error - Time required exceeds the input table size: RecoveryPeriod2Perc", 2) 
+			os.exit()
 		end
 		
 		cell.SV_RecoveryPeriod2Perc = model.dataTable.RecoveryPeriod2Perc[step]
@@ -448,7 +466,8 @@ function componentSV_loadFromTable(model, cell, step)
 
 	if (model.dataTable.RecoveryPeriod2 ~= nil) then
 		if (#model.dataTable.RecoveryPeriod2 < step) then
-			error("Time required exceeds the input table size: RecoveryPeriod2", 2) 
+			print("Error - Time required exceeds the input table size: RecoveryPeriod2", 2) 
+			os.exit()
 		end
 		
 		cell.SV_RecoveryPeriod2 = model.dataTable.RecoveryPeriod2[step]
@@ -456,7 +475,8 @@ function componentSV_loadFromTable(model, cell, step)
 
 	if (model.dataTable.InitialAbandonmentCycle ~= nil) then
 		if (#model.dataTable.InitialAbandonmentCycle < step) then
-			error("Time required exceeds the input table size: InitialAbandonmentCycle", 2) 
+			print("Error - Time required exceeds the input table size: InitialAbandonmentCycle", 2) 
+			os.exit()
 		end
 		
 		cell.SV_InitialAbandonmentCycle = model.dataTable.InitialAbandonmentCycle[step]
@@ -464,7 +484,8 @@ function componentSV_loadFromTable(model, cell, step)
 
 	if (model.dataTable.HalfLife ~= nil) then
 		if (#model.dataTable.HalfLife < step) then
-			error("Time required exceeds the input table size: HalfLife", 2) 
+			print("Error - Time required exceeds the input table size: HalfLife", 2) 
+			os.exit()
 		end
 		
 		cell.SV_HalfLife = model.dataTable.HalfLife[step]
@@ -472,7 +493,8 @@ function componentSV_loadFromTable(model, cell, step)
 
 	if (model.dataTable.BGBpercBGB ~= nil) then
 		if (#model.dataTable.BGBpercBGB < step) then
-			error("Time required exceeds the input table size: BGBpercBGB", 2) 
+			print("Error - Time required exceeds the input table size: BGBpercBGB", 2) 
+			os.exit()
 		end
 		
 		cell.SV_BGBpercBGB = model.dataTable.BGBpercBGB[step]

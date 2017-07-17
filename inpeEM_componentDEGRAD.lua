@@ -29,6 +29,7 @@ function componentDEGRAD_execute(year, model)
 	local cell_CO2eq_CO_all_fire = 0
 	local cell_NOx_all_fire = 0
 	local cell_CO2eq_NOx_all_fire = 0
+	local remaining_forest_area = model.cs.cellarea - (cell.D_AreaAcc - cell.D_Area)
 	
 	for k, cell in pairs (model.cs.cells) do
 		cell_all_decay = 0
@@ -54,14 +55,13 @@ function componentDEGRAD_execute(year, model)
 			if (cell.DEGRAD_Degrad > 0 and cell.DEGRAD_AGB_loss > 0) then
 				flagDEGRAD = true
 			end
-
 		end
 
 		cell_CO2_absorption_Degrad = 0
 		cell_CO2_emission_Degrad = 0
 
 		-- Current average biomass in the cell
-		if year == model.yearInit then 
+		if (year == model.yearInit) then 
 			cell.AGBRegrowRate = 0 	
 			cell.DegradLoss = 0
 			if (model.mode == "spatial") then
@@ -78,7 +78,7 @@ function componentDEGRAD_execute(year, model)
 		end
 
 		-- Regrowth and Carbon uptake
-		if (model.cs.cellarea - cell.D_AreaAcc + cell.D_Area > 0) then 
+		if (remaining_forest_area > 0) then 
 			-- Vegetation growth
 			if ((cell.B_ActualAGB + cell.AGBRegrowRate) >= cell.B_AGB) then
 				cell.AGBRegrowRate = cell.B_AGB - cell.B_ActualAGB
@@ -88,12 +88,12 @@ function componentDEGRAD_execute(year, model)
 			end
 
 			-- Carbon uptake according to the rate
-			cell_agb_degrad_regrow = cell.AGBRegrowRate * (model.cs.cellarea - cell.D_AreaAcc + cell.D_Area)
-			cell_bgb_degrad_regrow = cell.AGBRegrowRate * cell.B_BGBPercAGB *(model.cs.cellarea - cell.D_AreaAcc + cell.D_Area)
+			cell_agb_degrad_regrow = cell.AGBRegrowRate * (remaining_forest_area)
+			cell_bgb_degrad_regrow = cell.AGBRegrowRate * cell.B_BGBPercAGB * (remaining_forest_area)
 
 
 			-- recompute growth if area was deforested for next step assume part of it was lost
-			percForLost = cell.D_Area / (model.cs.cellarea - cell.D_AreaAcc + cell.D_Area)
+			percForLost = cell.D_Area / (remaining_forest_area)
 			cell.AGBRegrowRate = cell.AGBRegrowRate * (1 - percForLost)
 
 			-- Absorption in the cell
@@ -105,12 +105,13 @@ function componentDEGRAD_execute(year, model)
 		-- Degradation and emission
 		if (cell.DEGRAD_Degrad > 0) then
 			-- verify if degradation is compatible with remaining forest area
-			if (model.cs.cellarea - cell.D_AreaAcc + cell.D_Area) <  cell.DEGRAD_Degrad then  
-				error("Error in the data: degradation is not compatible with remaining forest area", 2)
+			if (remaining_forest_area < cell.DEGRAD_Degrad) then  
+				print("Error in the data: degradation is not compatible with remaining forest area.\n Remaning area: "..remaining_forest_area.." \tDegradation: "..cell.DEGRAD_Degrad)
+				os.exit()
 			end
 
 			-- Contador do número de eventos na célula
-			if (cell.DEGRAD_Degrad > 0 and cell.DEGRAD_AGB_loss > 0) then
+			if ((cell.DEGRAD_Degrad > 0) (and cell.DEGRAD_AGB_loss > 0)) then
 				cell.countDegradYears = cell.countDegradYears + 1
 				num_cell_loss = num_cell_loss + 1
 			end
@@ -145,8 +146,8 @@ function componentDEGRAD_execute(year, model)
             
 			
 			-- Atualização da biomassa média 
-			if ((model.cs.cellarea - cell.D_AreaAcc + cell.D_Area) ~= 0) then
-				cell.B_ActualAGB = cell.B_ActualAGB - (cell_agb_degrad / (model.cs.cellarea - cell.D_AreaAcc + cell.D_Area))
+			if ((remaining_forest_area) ~= 0) then
+				cell.B_ActualAGB = cell.B_ActualAGB - (cell_agb_degrad / remaining_forest_area)
 			end
 
 			cell.DegradLoss = 0
@@ -163,15 +164,14 @@ function componentDEGRAD_execute(year, model)
 		end   -- only if there was degration, otherwise emission is zero
 
 		-- Correct Rate in case there is also deforestation in this step: for the next step regrow...  
-		if (model.cs.cellarea - cell.D_AreaAcc + cell.D_Area > 0) then
-			cell.AGBRegrowRate = cell.AGBRegrowRate * (1 - cell.D_Area / (model.cs.cellarea - cell.D_AreaAcc + cell.D_Area))
+		if (remaining_forest_area > 0) then
+			cell.AGBRegrowRate = cell.AGBRegrowRate * (1 - (cell.D_Area / remaining_forest_area))
 		end
 
 		if (model.save == true) then 
 			cell[model.componentDEGRAD.attrActualAGB..year] = cell.B_ActualAGB  
 			cell[model.componentDEGRAD.attrCountDegradYears..year] = cell.countDegradYears  
-            
-            
+			
             cell[model.componentDEGRAD.attrCO2..year] = cell_CO2_emission_Degrad / 1000000
             cell[model.componentDEGRAD.attrCH4..year] = cell_CH4_all_fire / 1000000
 			cell[model.componentDEGRAD.attrN2O..year] = cell_N2O_all_fire / 1000000
@@ -186,7 +186,7 @@ function componentDEGRAD_execute(year, model)
 		model.DEGRAD_result[year].DEGRAD_CO2_absorption = model.DEGRAD_result[year].DEGRAD_CO2_absorption + cell_CO2_absorption_Degrad 
 
 		-- Aggregating results at the regional level (summing cells): considering only cell above Degrad Limiar
-		if (cell.countDegradYears >=  cell.DEGRAD_LimiarDegradYears and cell.DegradLoss >= cell.DEGRAD_LimiarDegradLoss) then
+		if ((cell.countDegradYears >=  cell.DEGRAD_LimiarDegradYears) and (cell.DegradLoss >= cell.DEGRAD_LimiarDegradLoss)) then
 			model.DEGRAD_result[year].DEGRAD_CO2_emission_aboveDegradLimiar = model.DEGRAD_result[year].DEGRAD_CO2_emission_aboveDegradLimiar + cell_CO2_emission_Degrad
 			model.DEGRAD_result[year].DEGRAD_CO2_absorption_aboveDegradLimiar = model.DEGRAD_result[year].DEGRAD_CO2_absorption_aboveDegradLimiar + cell_CO2_absorption_Degrad 
             model.DEGRAD_result[year].DEGRAD_CH4_CO2Eq_2ndOrder_fire = model.DEGRAD_result[year].DEGRAD_CH4_CO2Eq_2ndOrder_fire + cell_CO2eq_CH4_all_fire      
@@ -329,39 +329,48 @@ end
 -- componentDEGRAD_verify(model)
 function componentDEGRAD_verify (model)
 	if (model.componentDEGRAD.name == nil) then 
-		error("Missing DEGRAD parameter: name", 2) 
+		print("Error - Missing DEGRAD parameter: name") 
+		os.exit()
 	end
 
 	if (model.componentDEGRAD.description == nil) then
-		error("Missing DEGRAD parameter: description", 2)
+		print("Error - Missing DEGRAD parameter: description")
+		os.exit()
 	end
 
 	if (model.componentDEGRAD.averAGB_loss == nil) then
-		error("Missing DEGRAD parameter: averAGB_loss", 2)
+		print("Error - Missing DEGRAD parameter: averAGB_loss")
+		os.exit()
 	end
 
 	if (model.componentDEGRAD.averBGB_loss == nil) then
-		error("Missing DEGRAD parameter: averBGB_loss", 2)
+		print("Error - Missing DEGRAD parameter: averBGB_loss")
+		os.exit()
 	end
 
 	if (model.componentDEGRAD.averDeadWood_loss == nil) then
-		error("Missing DEGRAD parameter: averDeadWood_loss", 2)
+		print("Error - Missing DEGRAD parameter: averDeadWood_loss")
+		os.exit()
 	end
 
 	if (model.componentDEGRAD.averLitter_loss == nil) then
-		error("Missing DEGRAD parameter: averLitter_loss", 2)
+		print("Error - Missing DEGRAD parameter: averLitter_loss")
+		os.exit()
 	end
 
 	if (model.componentDEGRAD.averPeriodRegrow == nil) then
-		error("Missing DEGRAD parameter: averPeriodRegrow", 2)
+		print("Error - Missing DEGRAD parameter: averPeriodRegrow")
+		os.exit()
 	end
 
 	if (model.componentDEGRAD.averLimiarDegradYears == nil) then
-		error("Missing DEGRAD parameter: averLimiarDegradYears", 2)
+		print("Error - Missing DEGRAD parameter: averLimiarDegradYears")
+		os.exit()
 	end
 
 	if (model.componentDEGRAD.averLimiarDegradLoss == nil) then
-		error("Missing DEGRAD parameter: averLimiarDegradLoss", 2)
+		print("Error - Missing DEGRAD parameter: averLimiarDegradLoss")
+		os.exit()
 	end
 
 	return true
@@ -422,7 +431,8 @@ end
 function componentDEGRAD_loadFromTable(model, cell, step)
 	if (model.dataTable.AGB_loss ~= nil) then
 		if (#model.dataTable.AGB_loss < step) then
-			error ("Time required exceeds the input table size: AGB loss", 2) 
+			print("Error - Time required exceeds the input table size: AGB loss") 
+			os.exit()
 		end
 		
 		cell.DEGRAD_AGB_loss = model.dataTable.AGB_loss[step]
@@ -430,7 +440,8 @@ function componentDEGRAD_loadFromTable(model, cell, step)
 
 	if (model.dataTable.BGB_loss ~= nil) then
 		if (#model.dataTable.BGB_loss < step) then
-			error ("Time required exceeds the input table size: BGB loss", 2) 
+			print("Error - Time required exceeds the input table size: BGB loss") 
+			os.exit()
 		end
 		
 		cell.DEGRAD_BGB_loss = model.dataTable.BGB_loss[step]
@@ -438,7 +449,7 @@ function componentDEGRAD_loadFromTable(model, cell, step)
 
 	if (model.dataTable.Litter_loss ~= nil) then
 		if (#model.dataTable.Litter_loss < step) then
-			error ("Time required exceeds the input table size: Litter loss", 2) 
+			print("Error - Time required exceeds the input table size: Litter loss") 
 		end
 		
 		cell.DEGRAD_Litter_loss = model.dataTable.Litter_loss[step]
@@ -446,7 +457,8 @@ function componentDEGRAD_loadFromTable(model, cell, step)
 
 	if (model.dataTable.DeadWood_loss ~= nil) then
 		if (#model.dataTable.DeadWood_loss < step) then
-			error ("Time required exceeds the input table size: Dead Wood loss", 2) 
+			print("Error - Time required exceeds the input table size: Dead Wood loss") 
+			os.exit()
 		end
 		
 		cell.DEGRAD_DeadWood_loss = model.dataTable.DeadWood_loss[step]
@@ -454,7 +466,8 @@ function componentDEGRAD_loadFromTable(model, cell, step)
 
 	if (model.dataTable.Degrad ~= nil) then
 		if (#model.dataTable.Degrad < step) then
-			error ("Time required exceeds the input table size: Degrad", 2) 
+			print("Error - Time required exceeds the input table size: Degrad")
+			os.exit()
 		end
 
 		cell.DEGRAD_Degrad = model.dataTable.Degrad[step]
@@ -462,7 +475,8 @@ function componentDEGRAD_loadFromTable(model, cell, step)
 
 	if (model.dataTable.PeriodRegrow ~= nil) then
 		if (#model.dataTable.PeriodRegrow < step) then
-			error ("Time required exceeds the input table size: PeriodRegrow", 2) 
+			print("Error - Time required exceeds the input table size: PeriodRegrow")
+			os.exit()
 		end
 		
 		cell.DEGRAD_PeriodRegrow = model.dataTable.PeriodRegrow[step]
@@ -470,7 +484,8 @@ function componentDEGRAD_loadFromTable(model, cell, step)
 
 	if (model.dataTable.LimiarDegradYears ~= nil) then
 		if (#model.dataTable.LimiarDegradYears < step) then
-			error ("Time required exceeds the input table size: LimiarDegradYears", 2) 
+			print("Error - Time required exceeds the input table size: LimiarDegradYears")
+			os.exit()
 		end
 		
 		cell.DEGRAD_LimiarDegradYears = model.dataTable.LimiarDegradYears[step]
@@ -478,7 +493,8 @@ function componentDEGRAD_loadFromTable(model, cell, step)
 
 	if (model.dataTable.LimiarDegradLoss ~= nil) then
 		if (#model.dataTable.LimiarDegradLoss < step) then
-			error ("Time required exceeds the input table size: LimiarDegradLoss", 2) 
+			print("Error - Time required exceeds the input table size: LimiarDegradLoss")
+			os.exit()
 		end
 		
 		cell.DEGRAD_LimiarDegradLoss = model.dataTable.LimiarDegradLoss[step]
