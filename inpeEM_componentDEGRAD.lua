@@ -111,7 +111,7 @@ function componentDEGRAD_execute(year, model)
 			end
 
 			-- Contador do número de eventos na célula
-			if ((cell.DEGRAD_Degrad > 0) (and cell.DEGRAD_AGB_loss > 0)) then
+			if ((cell.DEGRAD_Degrad > 0) and (cell.DEGRAD_AGB_loss > 0)) then
 				cell.countDegradYears = cell.countDegradYears + 1
 				num_cell_loss = num_cell_loss + 1
 			end
