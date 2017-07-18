@@ -411,7 +411,7 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 				line = sw->ReadLine();
 
 				while (sw->EndOfStream == false) {
-					if (line->Contains("import(\"terralib\")") != TRUE) {
+					if (line->Contains("import(\"gis\")") != TRUE) {
 						line = sw->ReadLine();
 					}
 					else {
@@ -677,12 +677,6 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 							if (!shape) {
 								lSelectedFile->Text = auxSpatialModel[i]->Replace("\\\\","\\");
 							}
-
-							if (!File::Exists(lSelectedFile->Text))
-							{
-								imported = false;
-								lSelectedFile->Text = "";
-							}
 						}
 
 						else if (auxSpatialModel[i]->Contains("layer =")) {
@@ -725,7 +719,12 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 						}
 						sw->Close();
 					}
-
+					
+					if (!File::Exists(lSelectedFile->Text))
+					{
+						imported = false;
+						lSelectedFile->Text = "";
+					}
 					cbSelection = SPATIALTYPE;
 				}
 				
@@ -1800,7 +1799,7 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 					sw->WriteLine("-- Creating Terraview Project                               --");
 					sw->WriteLine("--------------------------------------------------------------");
 					sw->WriteLine("");
-					sw->WriteLine("import(\"terralib\")\n");
+					sw->WriteLine("import(\"gis\")\n");
 					sw->WriteLine("proj = Project {");
 					sw->WriteLine("\tfile = \"t3mp.tview\",");
 					sw->WriteLine("\tclean = true");
