@@ -11,7 +11,7 @@ function inpeEM_executeCombine(model_out, model_ns, model_s)
 	end
 
 	-- Execute non-spatial and spatial submodels
-	if (model_ns == nil or model_s == nil) then 
+	if ((model_ns == nil) or (model_s == nil)) then 
 		print("Error - Please, define and execute your models before combining them!")
 		os.exit()
 	end
@@ -28,7 +28,7 @@ function inpeEM_executeCombine(model_out, model_ns, model_s)
 		inpeEM_execute(model_s) 
 	end
 
-	if ((model_ns.SV_flag == false or model_s.SV_flag == false) and (model_ns.VR_flag == false or model_s.VR_flag == false ) and (model_ns.DEGRAD_flag == false or model_s.DEGRAD_flag == false)) then
+	if (((model_ns.SV_flag == false) or (model_s.SV_flag == false)) and ((model_ns.VR_flag == false) or (model_s.VR_flag == false)) and ((model_ns.DEGRAD_flag == false) or (model_s.DEGRAD_flag == false))) then
 		print("Error - No model PF or SF or DEGRAD model results to combine!")
 		os.exit()
     end
@@ -37,7 +37,7 @@ function inpeEM_executeCombine(model_out, model_ns, model_s)
 		model_out.verbose = false 
 	end
 	
-	if (model_out.verbose ~= true and model_out.verbose ~= false) then
+	if ((model_out.verbose ~= true) and (model_out.verbose ~= false)) then
 		print("Error - Combine model verbose must be true or false!")
 		os.exit()
 	end

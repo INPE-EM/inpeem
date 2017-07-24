@@ -706,7 +706,7 @@ end
 -- @arg model A INPE-EM Model.
 -- @usage --DONTRUN
 -- componentVR_loadFromTable(model)
-function componentVR_loadFromTable(model)
+function componentVR_loadFromTable(model, cell, step)
 	-- AGB
 	if (model.dataTable.AGBPercAGB ~= nil) then
 		if (#model.dataTable.AGBPercAGB < step) then

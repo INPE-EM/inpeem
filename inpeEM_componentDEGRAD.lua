@@ -29,7 +29,7 @@ function componentDEGRAD_execute(year, model)
 	local cell_CO2eq_CO_all_fire = 0
 	local cell_NOx_all_fire = 0
 	local cell_CO2eq_NOx_all_fire = 0
-	local remaining_forest_area = model.cs.cellarea - (cell.D_AreaAcc - cell.D_Area)
+	local remaining_forest_area = 0
 	
 	for k, cell in pairs (model.cs.cells) do
 		cell_all_decay = 0
@@ -45,10 +45,11 @@ function componentDEGRAD_execute(year, model)
 		cell_CO2eq_CO_all_fire = 0
 		cell_NOx_all_fire = 0
 		cell_CO2eq_NOx_all_fire = 0
+		remaining_forest_area = model.cs.cellarea - (cell.D_AreaAcc - cell.D_Area)
 		
 		if (year == model.yearInit) then 
 			cell.B_ActualAGB = cell.B_AGB
-			cell.B_ActualAGB = cell.B_AGB * cell.B_BGBPercAGB
+			--cell.B_ActualAGB = cell.B_AGB * cell.B_BGBPercAGB
 		end
 		
 		if (model.mode == "non_spatial") then
@@ -106,8 +107,9 @@ function componentDEGRAD_execute(year, model)
 		if (cell.DEGRAD_Degrad > 0) then
 			-- verify if degradation is compatible with remaining forest area
 			if (remaining_forest_area < cell.DEGRAD_Degrad) then  
-				print("Error in the data: degradation is not compatible with remaining forest area.\n Remaning area: "..remaining_forest_area.." \tDegradation: "..cell.DEGRAD_Degrad)
-				os.exit()
+				--print("Error in the data: degradation is not compatible with remaining forest area.\n Remaning area: "..remaining_forest_area.." \tDegradation: "..cell.DEGRAD_Degrad)
+				--os.exit()
+				cell.DEGRAD_Degrad = remaining_forest_area
 			end
 
 			-- Contador do número de eventos na célula
