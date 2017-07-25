@@ -219,6 +219,8 @@ namespace INPEEM {
 	private: System::Windows::Forms::ComboBox^  cbModelType;
 	private: System::Windows::Forms::CheckBox^  cbNonSpatialVerbose;
 	private: System::Windows::Forms::CheckBox^  cbSpatialVerbose;
+private: System::Windows::Forms::Label^  lHa;
+private: System::Windows::Forms::Label^  lhans;
 
 	public:
 		int lReturn;
@@ -339,6 +341,8 @@ namespace INPEEM {
 			this->ajudaToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->luccMEToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->sobreToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->lHa = (gcnew System::Windows::Forms::Label());
+			this->lhans = (gcnew System::Windows::Forms::Label());
 			this->tNovoModelo->SuspendLayout();
 			this->tabDefModel->SuspendLayout();
 			this->tabComponents->SuspendLayout();
@@ -607,6 +611,7 @@ namespace INPEEM {
 			// 
 			// tabNonSpatial
 			// 
+			this->tabNonSpatial->Controls->Add(this->lhans);
 			this->tabNonSpatial->Controls->Add(this->cbNonSpatialVerbose);
 			this->tabNonSpatial->Controls->Add(this->lNonSpatialComponentSelection);
 			this->tabNonSpatial->Controls->Add(this->cbNonSpatialDegradation);
@@ -830,6 +835,7 @@ namespace INPEEM {
 			// 
 			// tabSpatial
 			// 
+			this->tabSpatial->Controls->Add(this->lHa);
 			this->tabSpatial->Controls->Add(this->cbSpatialVerbose);
 			this->tabSpatial->Controls->Add(this->lSelectedFile);
 			this->tabSpatial->Controls->Add(this->lTerraview);
@@ -1283,6 +1289,32 @@ namespace INPEEM {
 			this->sobreToolStripMenuItem->Size = System::Drawing::Size(135, 22);
 			this->sobreToolStripMenuItem->Text = L"Sobre";
 			this->sobreToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::sobreToolStripMenuItem_Click);
+			// 
+			// lHa
+			// 
+			this->lHa->AutoSize = true;
+			this->lHa->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lHa->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->lHa->Location = System::Drawing::Point(265, 376);
+			this->lHa->Name = L"lHa";
+			this->lHa->Size = System::Drawing::Size(29, 23);
+			this->lHa->TabIndex = 114;
+			this->lHa->Text = L"ha";
+			this->lHa->TextAlign = System::Drawing::ContentAlignment::TopRight;
+			// 
+			// lhans
+			// 
+			this->lhans->AutoSize = true;
+			this->lhans->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lhans->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->lhans->Location = System::Drawing::Point(225, 207);
+			this->lhans->Name = L"lhans";
+			this->lhans->Size = System::Drawing::Size(29, 23);
+			this->lhans->TabIndex = 115;
+			this->lhans->Text = L"ha";
+			this->lhans->TextAlign = System::Drawing::ContentAlignment::TopRight;
 			// 
 			// NovoModelo
 			// 

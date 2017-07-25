@@ -7,7 +7,7 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{3D787912-FD76-425C-BAD6-34F78CF226A4}
 AppName=INPE-EM
-AppVersion=3.0.2.0
+AppVersion=3.1.2.0
 AppPublisher=CCST - INPE
 AppPublisherURL=http://inpe-em.ccst.inpe.br/
 AppSupportURL=http://inpe-em.ccst.inpe.br/
@@ -18,7 +18,7 @@ DefaultGroupName=INPE-EM
 DisableProgramGroupPage=yes
 LicenseFile=D:\_SVN\INPE-EM\branches\Diego\Project1\Project1\Resources\comment.txt
 OutputDir=D:\Diego\Desktop
-OutputBaseFilename=INPE-EM_3.0.2.0
+OutputBaseFilename=INPE-EM_3.1.2.0
 SetupIconFile=D:\_SVN\INPE-EM\branches\Diego\Project1\Project1\Resources\icon.ico
 Compression=lzma
 SolidCompression=yes
