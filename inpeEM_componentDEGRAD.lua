@@ -410,7 +410,7 @@ function componentDEGRAD_loadFromDB(model, cell_temp, cell, y)
 	end
 
 	if (cell_temp[model.componentDEGRAD.attrDegrad..y] ~= nil) then
-		cell.DEGRAD_Degrad 	= cell_temp[model.componentDEGRAD.attrDegrad..y] * model.cs.cellarea
+		cell.DEGRAD_Degrad 	= cell_temp[model.componentDEGRAD.attrDegrad..y]
 	end
 
 	if (cell_temp[model.componentDEGRAD.PeriodRegrow] ~= nil) then
