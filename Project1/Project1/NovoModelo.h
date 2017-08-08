@@ -283,6 +283,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->bDeforest = (gcnew System::Windows::Forms::Button());
 			this->lComponentes = (gcnew System::Windows::Forms::Label());
 			this->tabNonSpatial = (gcnew System::Windows::Forms::TabPage());
+			this->lhans = (gcnew System::Windows::Forms::Label());
 			this->cbNonSpatialVerbose = (gcnew System::Windows::Forms::CheckBox());
 			this->lNonSpatialComponentSelection = (gcnew System::Windows::Forms::Label());
 			this->cbNonSpatialDegradation = (gcnew System::Windows::Forms::CheckBox());
@@ -301,6 +302,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->tbTableData = (gcnew System::Windows::Forms::TextBox());
 			this->bTableData = (gcnew System::Windows::Forms::Button());
 			this->tabSpatial = (gcnew System::Windows::Forms::TabPage());
+			this->lHa = (gcnew System::Windows::Forms::Label());
 			this->cbSpatialVerbose = (gcnew System::Windows::Forms::CheckBox());
 			this->lSelectedFile = (gcnew System::Windows::Forms::Label());
 			this->lTerraview = (gcnew System::Windows::Forms::Label());
@@ -341,8 +343,6 @@ private: System::Windows::Forms::Label^  lhans;
 			this->ajudaToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->luccMEToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->sobreToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->lHa = (gcnew System::Windows::Forms::Label());
-			this->lhans = (gcnew System::Windows::Forms::Label());
 			this->tNovoModelo->SuspendLayout();
 			this->tabDefModel->SuspendLayout();
 			this->tabComponents->SuspendLayout();
@@ -637,6 +637,19 @@ private: System::Windows::Forms::Label^  lhans;
 			this->tabNonSpatial->Text = L"Modelo Não Espacial";
 			this->tabNonSpatial->UseVisualStyleBackColor = true;
 			// 
+			// lhans
+			// 
+			this->lhans->AutoSize = true;
+			this->lhans->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lhans->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->lhans->Location = System::Drawing::Point(225, 207);
+			this->lhans->Name = L"lhans";
+			this->lhans->Size = System::Drawing::Size(29, 23);
+			this->lhans->TabIndex = 115;
+			this->lhans->Text = L"ha";
+			this->lhans->TextAlign = System::Drawing::ContentAlignment::TopRight;
+			// 
 			// cbNonSpatialVerbose
 			// 
 			this->cbNonSpatialVerbose->AutoSize = true;
@@ -865,6 +878,19 @@ private: System::Windows::Forms::Label^  lhans;
 			this->tabSpatial->TabIndex = 6;
 			this->tabSpatial->Text = L"Modelo Espacial";
 			this->tabSpatial->UseVisualStyleBackColor = true;
+			// 
+			// lHa
+			// 
+			this->lHa->AutoSize = true;
+			this->lHa->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lHa->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->lHa->Location = System::Drawing::Point(265, 376);
+			this->lHa->Name = L"lHa";
+			this->lHa->Size = System::Drawing::Size(29, 23);
+			this->lHa->TabIndex = 114;
+			this->lHa->Text = L"ha";
+			this->lHa->TextAlign = System::Drawing::ContentAlignment::TopRight;
 			// 
 			// cbSpatialVerbose
 			// 
@@ -1280,41 +1306,16 @@ private: System::Windows::Forms::Label^  lhans;
 			// 
 			this->luccMEToolStripMenuItem->Name = L"luccMEToolStripMenuItem";
 			this->luccMEToolStripMenuItem->ShortcutKeys = System::Windows::Forms::Keys::F1;
-			this->luccMEToolStripMenuItem->Size = System::Drawing::Size(135, 22);
-			this->luccMEToolStripMenuItem->Text = L"LuccME";
+			this->luccMEToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->luccMEToolStripMenuItem->Text = L"INPE-EM";
+			this->luccMEToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::luccMEToolStripMenuItem_Click);
 			// 
 			// sobreToolStripMenuItem
 			// 
 			this->sobreToolStripMenuItem->Name = L"sobreToolStripMenuItem";
-			this->sobreToolStripMenuItem->Size = System::Drawing::Size(135, 22);
+			this->sobreToolStripMenuItem->Size = System::Drawing::Size(152, 22);
 			this->sobreToolStripMenuItem->Text = L"Sobre";
 			this->sobreToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::sobreToolStripMenuItem_Click);
-			// 
-			// lHa
-			// 
-			this->lHa->AutoSize = true;
-			this->lHa->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->lHa->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->lHa->Location = System::Drawing::Point(265, 376);
-			this->lHa->Name = L"lHa";
-			this->lHa->Size = System::Drawing::Size(29, 23);
-			this->lHa->TabIndex = 114;
-			this->lHa->Text = L"ha";
-			this->lHa->TextAlign = System::Drawing::ContentAlignment::TopRight;
-			// 
-			// lhans
-			// 
-			this->lhans->AutoSize = true;
-			this->lhans->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->lhans->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->lhans->Location = System::Drawing::Point(225, 207);
-			this->lhans->Name = L"lhans";
-			this->lhans->Size = System::Drawing::Size(29, 23);
-			this->lhans->TabIndex = 115;
-			this->lhans->Text = L"ha";
-			this->lhans->TextAlign = System::Drawing::ContentAlignment::TopRight;
 			// 
 			// NovoModelo
 			// 
@@ -1374,5 +1375,6 @@ private: System::Windows::Forms::Label^  lhans;
 	private: System::Void abrirToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bGerarArquivos_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bRun_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void luccMEToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 };
 }

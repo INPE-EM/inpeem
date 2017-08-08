@@ -689,6 +689,7 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 
 							if (shape) {
 								lSpatialLayerName->Enabled = false;
+								tSpatialLayerName->Enabled = false;
 							}
 						}
 					}
@@ -2352,4 +2353,14 @@ System::Void INPEEM::NovoModelo::bRun_Click(System::Object^  sender, System::Eve
 
 	cmd = gcnew System::Diagnostics::Process;
 	arguments = "";
+}
+
+System::Void INPEEM::NovoModelo::luccMEToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+{
+	if (lLanguage == "en") {
+		Help::ShowHelp(this, "help.chm");
+	}
+	else {
+		Help::ShowHelp(this, "ajuda.chm");
+	}
 }
