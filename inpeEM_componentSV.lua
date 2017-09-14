@@ -74,6 +74,8 @@ function componentSV_execute(year, model)
 		if (model.save == true) then
 			cell[model.componentSV.attrOutAreaVS..year] = area_sf
 			cell[model.componentSV.attrOutAreaAGR..year] = cell.D_AreaAcc - area_sf
+			cell[model.componentSV.attrCO2..year] = cell.biomass_lost * cell.B_FactorB_CO2_fire
+			cell[model.componentSV.attrCO2In..year] = cell.biomass_acc * cell.B_FactorB_CO2
 		end
 
 		model.SV_result[year].SV_area_total = model.SV_result[year].SV_area_total + area_sf
@@ -200,8 +202,11 @@ end
 function componentSV_init(model)
 	model.componentSV.saveAttrs = {}
 	model.componentSV.saveCount = 0
-	model.componentSV.attrOutAreaVS = model.componentSV.name.."OutAVS"
-	model.componentSV.attrOutAreaAGR = model.componentSV.name.."OutAGR"
+	model.componentSV.attrOutAreaVS = "OutAVS"
+	model.componentSV.attrOutAreaAGR = "OutAGR"
+	
+	model.componentSV.attrCO2 = "sCO2_" 
+	model.componentSV.attrCO2In = "sICO2_" 
 
 	if (model.save == true) then 
 		for year = model.yearInit, model.yearFinal, 1 do 
@@ -209,6 +214,10 @@ function componentSV_init(model)
 			model.componentSV.saveAttrs[model.componentSV.saveCount] = model.componentSV.attrOutAreaVS..year
 			model.componentSV.saveCount = model.componentSV.saveCount + 1
 			model.componentSV.saveAttrs[model.componentSV.saveCount] = model.componentSV.attrOutAreaAGR..year
+			model.componentSV.saveCount = model.componentSV.saveCount + 1
+			model.componentSV.saveAttrs[model.componentSV.saveCount] = model.componentSV.attrCO2..year 
+			model.componentSV.saveCount = model.componentSV.saveCount + 1
+			model.componentSV.saveAttrs[model.componentSV.saveCount] = model.componentSV.attrCO2In..year 
 		end
 	end	 
 

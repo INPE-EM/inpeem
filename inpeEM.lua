@@ -577,40 +577,33 @@ function inpeEM_printReport(model)
 	
 	-- Only Degrad
 	if (model.VR_flag == false and model.SV_flag == false and model.DEGRAD_flag == true) then 
-		print("\nYear \tD_Area \tD_AreaAcc \t- \t \tDEGRAD_CO2_emission \tDEGRAD_CO2_absorption \tDEGRAD_CO2_emission_aboveLimiar \tDEGRAD_CO2_absorption_aboveLimiar \tPercentage Loss")
-		file:write("\nYear;D_Area;D_AreaAcc;-;DEGRAD_CO2_emission;DEGRAD_CO2_absorption;DEGRAD_CO2_emission_aboveLimiar;DEGRAD_CO2_absorption_aboveLimiar;Percentage Loss")
+		print("\nYear \tD_Area \tD_AreaAcc \t- \t \tDEGRAD_CO2_emission \tDEGRAD_CO2_absorption \tPercentage Loss")
+		file:write("\nYear;D_Area;D_AreaAcc;-;DEGRAD_CO2_emission;DEGRAD_CO2_absorption;Percentage Loss")
 	end	
 
 	-- VR + SV
 	if (model.VR_flag == true and model.SV_flag == true and model.DEGRAD_flag == false) then  
-		print("\nYear \tD_Area \tD_AreaAcc \t- \t \tVR_CO2_1stOrder \tVR_CO2_2ndOrder \tVR_CO2_2ndOrder_fire \tVR_CO2_2ndOrder_decay \tVR_CH4_CO2Eq_2ndOrder_fire \tVR_N2O_CO2Eq_2ndOrder_fire".. 
-			  "\tSV_area_total \tSV_area_cleared \tSV_CO2_emission \tSV_CO2_absorption \tnet_CO2_2ndOrder")
-		file:write("\nYear;D_Area;D_AreaAcc;-;VR_CO2_1stOrder;VR_CO2_2ndOrder;VR_CO2_2ndOrder_fire;VR_CO2_2ndOrder_decay;VR_CH4_CO2Eq_2ndOrder_fire;VR_N2O_CO2Eq_2ndOrder_fire".. 
-					";SV_area_total;SV_area_cleared;SV_CO2_emission;SV_CO2_absorption;net_CO2_2ndOrder")
+		print("\nYear \tD_Area \tD_AreaAcc \t- \t \tVR_CO2_1stOrder \tVR_CO2_2ndOrder \tVR_CO2_2ndOrder_fire \tVR_CO2_2ndOrder_decay \tVR_CH4_CO2Eq_2ndOrder_fire \tVR_N2O_CO2Eq_2ndOrder_fire \tSV_area_total \tSV_area_cleared \tSV_CO2_emission \tSV_CO2_absorption \tnet_CO2_2ndOrder")
+		file:write("\nYear;D_Area;D_AreaAcc;-;VR_CO2_1stOrder;VR_CO2_2ndOrder;VR_CO2_2ndOrder_fire;VR_CO2_2ndOrder_decay;VR_CH4_CO2Eq_2ndOrder_fire;VR_N2O_CO2Eq_2ndOrder_fire;SV_area_total;SV_area_cleared;SV_CO2_emission;SV_CO2_absorption;net_CO2_2ndOrder")
 	end
 
 	-- VR + Degrad
 	if (model.VR_flag == true and model.SV_flag == false and model.DEGRAD_flag == true) then  
 		print("\nYear \tD_AreaAcc \tD_Area \tDEGRAD_Area \t-\t \t \tVR_CO2_1stOrder \tVR_CO2_2ndOrder \t-\t \t \tDEGRAD_CO2_emission \tDEGRAD_CO2_absorption"..
-			   "\tDEGRAD_CO2_emission_aboveLimiar \tDEGRAD_CO2_absorption_aboveLimiar \tPercentage Loss \t-\t \t \tNET_1st_Order \tNET_2nd_Order")
-		file:write("\nYear;D_AreaAcc;D_Area;DEGRAD_Area;-;VR_CO2_1stOrder;VR_CO2_2ndOrder;-;DEGRAD_CO2_emission;DEGRAD_CO2_absorption"..
-					";DEGRAD_CO2_emission_aboveLimiar;DEGRAD_CO2_absorption_aboveLimiar;Percentage Loss;-;NET_1st_Order;NET_2nd_Order")
+			   "\tPercentage Loss \t-\t \t \tNET_1st_Order \tNET_2nd_Order")
+		file:write("\nYear;D_AreaAcc;D_Area;DEGRAD_Area;-;VR_CO2_1stOrder;VR_CO2_2ndOrder;-;DEGRAD_CO2_emission;DEGRAD_CO2_absorption;Percentage Loss;-;NET_1st_Order;NET_2nd_Order")
 	end
 
 	-- SV + Degrad
 	if (model.VR_flag == false and model.SV_flag == true and model.DEGRAD_flag == true) then  
-		print("\nYear \tD_AreaAcc \tD_Area \tDEGRAD_Area \t-\t \t \tSV_CO2_emission \tSV_CO2_absorption \t-\t \t \tDEGRAD_CO2_emission \tDEGRAD_CO2_absorption"..
-			   "\tDEGRAD_CO2_emission_aboveLimiar \tDEGRAD_CO2_absorption_aboveLimiar \tPercentage Loss \t-\t \t \tNET_1st_Order \tNET_2nd_Order")
-		file:write("\nYear;D_AreaAcc;D_Area;DEGRAD_Area;-;SV_CO2_emission;SV_CO2_absorption;-;DEGRAD_CO2_emission;DEGRAD_CO2_absorption"..
-					";DEGRAD_CO2_emission_aboveLimiar;DEGRAD_CO2_absorption_aboveLimiar;Percentage Loss;-;NET_1st_Order;NET_2nd_Order")
+		print("\nYear \tD_AreaAcc \tD_Area \tDEGRAD_Area \t-\t \t \tSV_CO2_emission \tSV_CO2_absorption \t-\t \t \tDEGRAD_CO2_emission \tDEGRAD_CO2_absorption \tPercentage Loss \t-\t \t \tNET_1st_Order \tNET_2nd_Order")
+		file:write("\nYear;D_AreaAcc;D_Area;DEGRAD_Area;-;SV_CO2_emission;SV_CO2_absorption;-;DEGRAD_CO2_emission;DEGRAD_CO2_absorption;Percentage Loss;-;NET_1st_Order;NET_2nd_Order")
 	end
 	
 	-- VR + SV + Degrad
 	if (model.VR_flag and model.SV_flag and model.DEGRAD_flag) then  
-		print("\nYear \tD_AreaAcc \tD_Area \tDEGRAD_Area \t-\t \t \tVR_CO2_1stOrder \tVR_CO2_2ndOrder \tSV_CO2_emission \tSV_CO2_absorption \t-\t \t \tDEGRAD_CO2_emission \tDEGRAD_CO2_absorption"..
-			   "\tDEGRAD_CO2_emission_aboveLimiar \tDEGRAD_CO2_absorption_aboveLimiar \tPercentage Loss \t-\t \t \tNET_1st_Order \tNET_2nd_Order")
-		file:write("\nYear;D_AreaAcc;D_Area;DEGRAD_Area;-;VR_CO2_1stOrder;VR_CO2_2ndOrder;SV_CO2_emission;SV_CO2_absorption;-;DEGRAD_CO2_emission;DEGRAD_CO2_absorption"..
-					";DEGRAD_CO2_emission_aboveLimiar;DEGRAD_CO2_absorption_aboveLimiar;Percentage Loss;-;NET_1st_Order;NET_2nd_Order")
+		print("\nYear \tD_AreaAcc \tD_Area \tDEGRAD_Area \t-\t \t \tVR_CO2_1stOrder \tVR_CO2_2ndOrder \tSV_CO2_emission \tSV_CO2_absorption \t-\t \t \tDEGRAD_CO2_emission \tDEGRAD_CO2_absorption \tPercentage Loss \t-\t \t \tNET_1st_Order \tNET_2nd_Order")
+		file:write("\nYear;D_AreaAcc;D_Area;DEGRAD_Area;-;VR_CO2_1stOrder;VR_CO2_2ndOrder;SV_CO2_emission;SV_CO2_absorption;-;DEGRAD_CO2_emission;DEGRAD_CO2_absorption;Percentage Loss;-;NET_1st_Order;NET_2nd_Order")
 	end
 
 	io.flush()
@@ -669,19 +662,19 @@ function inpeEM_printReport(model)
 		-- VR + Degrad
 		if (model.VR_flag == true and model.SV_flag == false and model.DEGRAD_flag == true) then
 			print(y, b, a, b1, "-", c, d, "-", p, q, s, t, u2, "-", r, o)  
-			file:write("\n"..y..";"..b..";"..a..";"..b1..";-;"..c..";"..d..";-;"..p..";"..q..";"..s..";"..t..";"..u2..";-;"..r..";"..o)
+			file:write("\n"..y..";"..b..";"..a..";"..b1..";-;"..c..";"..d..";-;"..p..";"..q..";"..u2..";-;"..r..";"..o)
 		end			
 		
 		-- SV + Degrad
 		if (model.VR_flag == false and model.SV_flag == true and model.DEGRAD_flag == true) then
 			print(y, b, a, b1, "-", l, m, "-", p, q, s, t, u2, "-", r, o)  
-			file:write("\n"..y..";"..b..";"..a..";"..b1..";-;"..l..";"..m..";-;"..p..";"..q..";"..s..";"..t..";"..u2..";-;"..r..";"..o)
+			file:write("\n"..y..";"..b..";"..a..";"..b1..";-;"..l..";"..m..";-;"..p..";"..q..";"..u2..";-;"..r..";"..o)
 		end	
 		
 		-- VR + SV + Degrad
 		if (model.VR_flag == true and model.SV_flag == true and model.DEGRAD_flag == true) then
 			print(y, b, a, b1, "-", c, d, l, m, "-", p, q, s, t, u2, "-", r, o)  
-			file:write("\n"..y..";"..b..";"..a..";"..b1..";-;"..c..";"..d..";"..l..";"..m..";-;"..p..";"..q..";"..s..";"..t..";"..u2..";-;"..r..";"..o)
+			file:write("\n"..y..";"..b..";"..a..";"..b1..";-;"..c..";"..d..";"..l..";"..m..";-;"..p..";"..q..";"..u2..";-;"..r..";"..o)
 		end		
 		
 		io.flush()

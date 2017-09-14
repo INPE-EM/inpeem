@@ -89,8 +89,8 @@ function componentDEGRAD_execute(year, model)
 			end
 
 			-- Carbon uptake according to the rate
-			cell_agb_degrad_regrow = cell.AGBRegrowRate * (remaining_forest_area)
-			cell_bgb_degrad_regrow = cell.AGBRegrowRate * cell.B_BGBPercAGB * (remaining_forest_area)
+			cell_agb_degrad_regrow = cell.AGBRegrowRate * remaining_forest_area
+			cell_bgb_degrad_regrow = cell.AGBRegrowRate * cell.B_BGBPercAGB * remaining_forest_area
 
 
 			-- recompute growth if area was deforested for next step assume part of it was lost
@@ -179,6 +179,7 @@ function componentDEGRAD_execute(year, model)
 			cell[model.componentDEGRAD.attrN2O..year] = cell_N2O_all_fire / 1000000
 			cell[model.componentDEGRAD.attrCO..year] = cell_CO_all_fire / 1000000
 			cell[model.componentDEGRAD.attrNOx..year] = cell_NOx_all_fire / 1000000 
+			cell[model.componentDEGRAD.attrCO2In..year] = cell_CO2_absorption_Degrad / 1000000 
 		end 
 		
 		model.DEGRAD_result[year].DEGRAD_Area = model.DEGRAD_result[year].DEGRAD_Area + cell.DEGRAD_Degrad
@@ -242,6 +243,7 @@ function componentDEGRAD_init(model)
 	model.componentDEGRAD.attrN2O = "dN2O_"
 	model.componentDEGRAD.attrCO = "dCO_"
 	model.componentDEGRAD.attrNOx = "dNOx_"
+	model.componentDEGRAD.attrCO2In = "dICO2_"
 
 	if (model.save == true) then 
 		for year = model.yearInit, model.yearFinal, 1 do                            
@@ -259,6 +261,8 @@ function componentDEGRAD_init(model)
 			model.componentDEGRAD.saveAttrs[model.componentDEGRAD.saveCount] = model.componentDEGRAD.attrCO..year
 			model.componentDEGRAD.saveCount = model.componentDEGRAD.saveCount + 1
 			model.componentDEGRAD.saveAttrs[model.componentDEGRAD.saveCount] = model.componentDEGRAD.attrNOx..year
+			model.componentDEGRAD.saveCount = model.componentDEGRAD.saveCount + 1
+			model.componentDEGRAD.saveAttrs[model.componentDEGRAD.saveCount] = model.componentDEGRAD.attrCO2In..year
 		end	    
 	end
 
@@ -314,15 +318,15 @@ end
 -- @usage --DONTRUN
 -- componentDEGRAD_createNullComponent(model)
 function componentDEGRAD_initCellAverComponentValues(cell, model)
-  cell.DEGRAD_AGB_loss = model.componentDEGRAD.averAGB_loss
-  cell.DEGRAD_AGB_percReduction = model.componentDEGRAD.averAGB_percReduction
-  cell.DEGRAD_BGB_loss = model.componentDEGRAD.averBGB_loss
-  cell.DEGRAD_DeadWood_loss = model.componentDEGRAD.averDeadWood_loss
-  cell.DEGRAD_Litter_loss = model.componentDEGRAD.averLitter_loss
-  cell.DEGRAD_Degrad = model.componentDEGRAD.averDegrad
-  cell.DEGRAD_PeriodRegrow = model.componentDEGRAD.averPeriodRegrow
-  cell.DEGRAD_LimiarDegradYears = model.componentDEGRAD.averLimiarDegradYears
-  cell.DEGRAD_LimiarDegradLoss = model.componentDEGRAD.averLimiarDegradLoss
+	cell.DEGRAD_AGB_loss = model.componentDEGRAD.averAGB_loss
+	cell.DEGRAD_AGB_percReduction = model.componentDEGRAD.averAGB_percReduction
+	cell.DEGRAD_BGB_loss = model.componentDEGRAD.averBGB_loss
+	cell.DEGRAD_DeadWood_loss = model.componentDEGRAD.averDeadWood_loss
+	cell.DEGRAD_Litter_loss = model.componentDEGRAD.averLitter_loss
+	cell.DEGRAD_Degrad = model.componentDEGRAD.averDegrad
+	cell.DEGRAD_PeriodRegrow = model.componentDEGRAD.averPeriodRegrow
+	cell.DEGRAD_LimiarDegradYears = model.componentDEGRAD.averLimiarDegradYears
+	cell.DEGRAD_LimiarDegradLoss = model.componentDEGRAD.averLimiarDegradLoss
 end
 
 -- Handles with the verify method of a DEGRAD component.

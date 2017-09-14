@@ -199,6 +199,7 @@ function componentVR_execute(year, model)
 			cell[model.componentVR.attrCO..year] = cell_CO_all_fire / 1000000
 			cell[model.componentVR.attrNOx..year] = cell_NOx_all_fire / 1000000 
 			cell[model.componentVR.attrActualAGB..year] = cell.actualAGB 
+			cell[model.componentVR.attr1stCO2..year] = cell_CO2_lost_1stOrder / 1000000
 		end 
 			
 		-- Aggregating results at the regional level(summing cells)
@@ -355,6 +356,8 @@ function componentVR_init(model)
 	model.componentVR.attrCO = "vCO_"
 	model.componentVR.attrNOx = "vNOx_"
 	model.componentVR.attrActualAGB = "vAGB_"
+	
+	model.componentVR.attr1stCO2 = "v1CO2_"
 
 	if (model.save == true) then 
 		for year = model.yearInit, model.yearFinal, 1 do 
@@ -370,6 +373,8 @@ function componentVR_init(model)
 			model.componentVR.saveAttrs[model.componentVR.saveCount] = model.componentVR.attrCO..year
 			model.componentVR.saveCount = model.componentVR.saveCount + 1
 			model.componentVR.saveAttrs[model.componentVR.saveCount] = model.componentVR.attrNOx..year
+			model.componentVR.saveCount = model.componentVR.saveCount + 1
+			model.componentVR.saveAttrs[model.componentVR.saveCount] = model.componentVR.attr1stCO2..year
 		end	 
 	end
 
