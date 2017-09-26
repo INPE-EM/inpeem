@@ -718,6 +718,20 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 								lSelectedFile->Text = line;
 							}
 						}
+
+						if (lSelectedFile->Text->Length >= 90) {
+							lSelectedFile->Font = gcnew System::Drawing::Font(L"Calibri", 7);
+						}
+						else if (lSelectedFile->Text->Length >= 80) {
+							lSelectedFile->Font = gcnew System::Drawing::Font(L"Calibri", 8);
+						}
+						else if (lSelectedFile->Text->Length >= 50) {
+							lSelectedFile->Font = gcnew System::Drawing::Font(L"Calibri", 10);
+						}
+						else {
+							lSelectedFile->Font = gcnew System::Drawing::Font(L"Calibri", 12);
+						}
+
 						sw->Close();
 					}
 					
@@ -985,7 +999,6 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 					tempLine = tempLine->Replace("averRecoveryPeriod2 = ", "");
 					tempLine = tempLine->Replace("averAgriculturalUseCycle = ", "");
 					tempLine = tempLine->Replace("averInitialAbandonmentCycle = ", "");
-					tempLine = tempLine->Replace("averBGBpercBGB = ", "");
 					tempLine = tempLine->Replace(";;", ";");
 
 					tempLine = tempLine->Substring(1, tempLine->Length - 1);
@@ -1363,6 +1376,20 @@ System::Void INPEEM::NovoModelo::bShape_Click(System::Object^  sender, System::E
 	{
 		gSelectedFile = shapeFile->FileName;
 		lSelectedFile->Text = gSelectedFile;
+		
+		if (lSelectedFile->Text->Length >= 90) {
+			lSelectedFile->Font = gcnew System::Drawing::Font(L"Calibri", 7);
+		}
+		else if (lSelectedFile->Text->Length >= 80) {
+			lSelectedFile->Font = gcnew System::Drawing::Font(L"Calibri", 8);
+		}
+		else if (lSelectedFile->Text->Length >= 50) {
+			lSelectedFile->Font = gcnew System::Drawing::Font(L"Calibri", 10);
+		}
+		else {
+			lSelectedFile->Font = gcnew System::Drawing::Font(L"Calibri", 12);
+		}
+
 		shape = true;
 		tSpatialLayerName->Enabled = false;
 	}
@@ -1536,8 +1563,8 @@ System::Void INPEEM::NovoModelo::showReturnDegradation()
 	lines[10] = "";
 	lines[11] = "averAGB_percReduction = " + auxDegradation[7] + ",";
 	lines[12] = "averPeriodRegrow = " + auxDegradation[8] + ",";
-	lines[13] = "averLimiarDegradYears = " + auxDegradation[9] + ",";
-	lines[14] = "averLimiarDegradLoss = " + auxDegradation[10];
+	lines[13] = "averLimiarDegradYears = " + "0" + ",";		//auxDegradation[9]
+	lines[14] = "averLimiarDegradLoss = " + "0";			//auxDegradation[10]
 	lines[15] = "}";
 
 	tbDegrad->Lines = lines;
@@ -1569,9 +1596,8 @@ System::Void INPEEM::NovoModelo::showReturnSecondaryVegetation()
 	lines[11] = "averRecoveryPeriod2Perc = " + auxSecondaryVegetatin[8] + ",";
 	lines[12] = "averRecoveryPeriod2 = " + auxSecondaryVegetatin[9] + ",";
 	lines[13] = "averAgriculturalUseCycle = " + auxSecondaryVegetatin[10] + ",";
-	lines[14] = "averInitialAbandonmentCycle = " + auxSecondaryVegetatin[11] + ",";
-	lines[15] = "averBGBpercBGB = " + auxSecondaryVegetatin[12];
-	lines[16] = "}";
+	lines[14] = "averInitialAbandonmentCycle = " + auxSecondaryVegetatin[11];
+	lines[15] = "}";
 
 	tbSecondVegetation->Lines = lines;
 }

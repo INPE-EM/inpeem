@@ -27,7 +27,7 @@
 #define DEGRADATIONLINES 16
 
 //Secondary Vegetation Component
-#define SECONDARYVEGETATIONLINES 17
+#define SECONDARYVEGETATIONLINES 16
 
 //Vegetation Removal Component
 #define VEGETATIONREMOVALLINES	32

@@ -109,12 +109,13 @@ namespace INPEEM {
 			// tAverLimiarDegradLoss
 			// 
 			this->tAverLimiarDegradLoss->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tAverLimiarDegradLoss->Location = System::Drawing::Point(263, 535);
+			this->tAverLimiarDegradLoss->Location = System::Drawing::Point(197, 73);
 			this->tAverLimiarDegradLoss->Name = L"tAverLimiarDegradLoss";
 			this->tAverLimiarDegradLoss->Size = System::Drawing::Size(89, 20);
 			this->tAverLimiarDegradLoss->TabIndex = 152;
-			this->tAverLimiarDegradLoss->Text = L"0.01";
+			this->tAverLimiarDegradLoss->Text = L"0";
 			this->tAverLimiarDegradLoss->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverLimiarDegradLoss->Visible = false;
 			this->tAverLimiarDegradLoss->Enter += gcnew System::EventHandler(this, &ComponentDegradation::textBox_Enter);
 			// 
 			// lAverLimiarDegradLoss
@@ -122,22 +123,24 @@ namespace INPEEM {
 			this->lAverLimiarDegradLoss->AutoSize = true;
 			this->lAverLimiarDegradLoss->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lAverLimiarDegradLoss->Location = System::Drawing::Point(74, 533);
+			this->lAverLimiarDegradLoss->Location = System::Drawing::Point(8, 71);
 			this->lAverLimiarDegradLoss->Name = L"lAverLimiarDegradLoss";
 			this->lAverLimiarDegradLoss->Size = System::Drawing::Size(185, 23);
 			this->lAverLimiarDegradLoss->TabIndex = 161;
 			this->lAverLimiarDegradLoss->Text = L"averLimiarDegradLoss";
 			this->lAverLimiarDegradLoss->TextAlign = System::Drawing::ContentAlignment::TopRight;
+			this->lAverLimiarDegradLoss->Visible = false;
 			// 
 			// tAverLimiarDegradYears
 			// 
 			this->tAverLimiarDegradYears->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tAverLimiarDegradYears->Location = System::Drawing::Point(263, 494);
+			this->tAverLimiarDegradYears->Location = System::Drawing::Point(197, 32);
 			this->tAverLimiarDegradYears->Name = L"tAverLimiarDegradYears";
 			this->tAverLimiarDegradYears->Size = System::Drawing::Size(89, 20);
 			this->tAverLimiarDegradYears->TabIndex = 151;
-			this->tAverLimiarDegradYears->Text = L"1";
+			this->tAverLimiarDegradYears->Text = L"0";
 			this->tAverLimiarDegradYears->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverLimiarDegradYears->Visible = false;
 			this->tAverLimiarDegradYears->Enter += gcnew System::EventHandler(this, &ComponentDegradation::textBox_Enter);
 			// 
 			// lAverLimiarDegradYears
@@ -145,12 +148,13 @@ namespace INPEEM {
 			this->lAverLimiarDegradYears->AutoSize = true;
 			this->lAverLimiarDegradYears->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lAverLimiarDegradYears->Location = System::Drawing::Point(66, 492);
+			this->lAverLimiarDegradYears->Location = System::Drawing::Point(0, 30);
 			this->lAverLimiarDegradYears->Name = L"lAverLimiarDegradYears";
 			this->lAverLimiarDegradYears->Size = System::Drawing::Size(193, 23);
 			this->lAverLimiarDegradYears->TabIndex = 159;
 			this->lAverLimiarDegradYears->Text = L"averLimiarDegradYears";
 			this->lAverLimiarDegradYears->TextAlign = System::Drawing::ContentAlignment::TopRight;
+			this->lAverLimiarDegradYears->Visible = false;
 			// 
 			// tAverAGB_percReduction
 			// 
@@ -339,7 +343,7 @@ namespace INPEEM {
 			// 
 			// bSalvar
 			// 
-			this->bSalvar->Location = System::Drawing::Point(211, 642);
+			this->bSalvar->Location = System::Drawing::Point(200, 557);
 			this->bSalvar->Name = L"bSalvar";
 			this->bSalvar->Size = System::Drawing::Size(75, 23);
 			this->bSalvar->TabIndex = 142;
@@ -361,7 +365,7 @@ namespace INPEEM {
 			// 
 			this->cbSave->AutoSize = true;
 			this->cbSave->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold));
-			this->cbSave->Location = System::Drawing::Point(165, 597);
+			this->cbSave->Location = System::Drawing::Point(154, 512);
 			this->cbSave->Name = L"cbSave";
 			this->cbSave->Size = System::Drawing::Size(170, 27);
 			this->cbSave->TabIndex = 153;
@@ -372,7 +376,7 @@ namespace INPEEM {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(495, 677);
+			this->ClientSize = System::Drawing::Size(495, 602);
 			this->Controls->Add(this->cbSave);
 			this->Controls->Add(this->tAverLimiarDegradLoss);
 			this->Controls->Add(this->lAverLimiarDegradLoss);

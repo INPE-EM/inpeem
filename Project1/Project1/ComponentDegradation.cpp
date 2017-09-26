@@ -67,10 +67,10 @@ System::Void INPEEM::ComponentDegradation::ComponentDegradation_Shown(System::Ob
 		tAverPeriodRegrow->Text = auxDegrad[8];
 		tAverPeriodRegrow->ForeColor = System::Drawing::Color::Black;
 
-		tAverLimiarDegradYears->Text = auxDegrad[9];
+		tAverLimiarDegradYears->Text = "0";		//auxDegrad[9]
 		tAverLimiarDegradYears->ForeColor = System::Drawing::Color::Black;
 
-		tAverLimiarDegradLoss->Text = auxDegrad[10];
+		tAverLimiarDegradLoss->Text = "0";		//auxDegrad[10]
 		tAverLimiarDegradLoss->ForeColor = System::Drawing::Color::Black;
 
 	}
@@ -114,9 +114,9 @@ System::Void INPEEM::ComponentDegradation::bSalvar_Click(System::Object^  sender
 		lReturn->Return += ";";
 		lReturn->Return += tAverPeriodRegrow->Text;
 		lReturn->Return += ";";
-		lReturn->Return += tAverLimiarDegradYears->Text;
+		lReturn->Return += "0";		//tAverLimiarDegradYears->Text
 		lReturn->Return += ";";
-		lReturn->Return += tAverLimiarDegradLoss->Text;
+		lReturn->Return += "0";		//tAverLimiarDegradLoss->Text
 		
 		this->Close();
 	}

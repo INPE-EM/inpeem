@@ -76,9 +76,6 @@ System::Void INPEEM::ComponentSecondaryVegetation::ComponentSecondaryVegetation_
 
 		tAverInitialAbandonmentCycle->Text = auxSecondaryVegetation[11];
 		tAverInitialAbandonmentCycle->ForeColor = System::Drawing::Color::Black;
-
-		tAverBGBpercBGB->Text = auxSecondaryVegetation[12];
-		tAverBGBpercBGB->ForeColor = System::Drawing::Color::Black;
 	}
 }
 
@@ -86,7 +83,7 @@ System::Void INPEEM::ComponentSecondaryVegetation::bSalvar_Click(System::Object^
 {
 	bool check = true;
 
-	if (tName->Text == "" || tAverAgriculturalUseCycle->Text == "" || tAverAreaAccPercVegSec->Text == "" || tAverAreaPercVegSec->Text == "" || tAverBGBpercBGB->Text == "" ||
+	if (tName->Text == "" || tAverAgriculturalUseCycle->Text == "" || tAverAreaAccPercVegSec->Text == "" || tAverAreaPercVegSec->Text == "" || 
 		taverHalfLife->Text == "" || tAverInitialAbandonmentCycle->Text == "" || tAverRecoveryPeriod1->Text == "" || tAverRecoveryPeriod1Perc->Text == "" ||
 		tAverRecoveryPeriod2->Text == "" || tAverRecoveryPeriod2Perc->Text == "") {
 			MessageBox::Show(gSDataMissing, gSDataMissingTitle, MessageBoxButtons::OK, MessageBoxIcon::Information);
@@ -126,8 +123,6 @@ System::Void INPEEM::ComponentSecondaryVegetation::bSalvar_Click(System::Object^
 		lReturn->Return += tAverAgriculturalUseCycle->Text;
 		lReturn->Return += ";";
 		lReturn->Return += tAverInitialAbandonmentCycle->Text;
-		lReturn->Return += ";";
-		lReturn->Return += tAverBGBpercBGB->Text;
 		
 		this->Close();
 	}

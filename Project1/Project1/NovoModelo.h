@@ -653,6 +653,8 @@ private: System::Windows::Forms::Label^  lhans;
 			// cbNonSpatialVerbose
 			// 
 			this->cbNonSpatialVerbose->AutoSize = true;
+			this->cbNonSpatialVerbose->Checked = true;
+			this->cbNonSpatialVerbose->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->cbNonSpatialVerbose->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold));
 			this->cbNonSpatialVerbose->Location = System::Drawing::Point(566, 50);
 			this->cbNonSpatialVerbose->Name = L"cbNonSpatialVerbose";
@@ -660,6 +662,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->cbNonSpatialVerbose->TabIndex = 94;
 			this->cbNonSpatialVerbose->Text = L"Verbose";
 			this->cbNonSpatialVerbose->UseVisualStyleBackColor = true;
+			this->cbNonSpatialVerbose->Visible = false;
 			// 
 			// lNonSpatialComponentSelection
 			// 
@@ -848,9 +851,9 @@ private: System::Windows::Forms::Label^  lhans;
 			// 
 			// tabSpatial
 			// 
+			this->tabSpatial->Controls->Add(this->cbSpatialSecondaryVegetation);
 			this->tabSpatial->Controls->Add(this->lHa);
 			this->tabSpatial->Controls->Add(this->cbSpatialVerbose);
-			this->tabSpatial->Controls->Add(this->lSelectedFile);
 			this->tabSpatial->Controls->Add(this->lTerraview);
 			this->tabSpatial->Controls->Add(this->lShape);
 			this->tabSpatial->Controls->Add(this->bShape);
@@ -862,7 +865,6 @@ private: System::Windows::Forms::Label^  lhans;
 			this->tabSpatial->Controls->Add(this->lDatabase);
 			this->tabSpatial->Controls->Add(this->lSpatialComponentSelection);
 			this->tabSpatial->Controls->Add(this->cbSpatialDegradation);
-			this->tabSpatial->Controls->Add(this->cbSpatialSecondaryVegetation);
 			this->tabSpatial->Controls->Add(this->cbSpatialVegetationRemoval);
 			this->tabSpatial->Controls->Add(this->cbSpatialBiomass);
 			this->tabSpatial->Controls->Add(this->cbSpatialDeforest);
@@ -872,6 +874,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->tabSpatial->Controls->Add(this->lSpatialInitialYear);
 			this->tabSpatial->Controls->Add(this->tSpatialName);
 			this->tabSpatial->Controls->Add(this->lSpatialName);
+			this->tabSpatial->Controls->Add(this->lSelectedFile);
 			this->tabSpatial->Location = System::Drawing::Point(4, 22);
 			this->tabSpatial->Name = L"tabSpatial";
 			this->tabSpatial->Size = System::Drawing::Size(717, 455);
@@ -895,6 +898,8 @@ private: System::Windows::Forms::Label^  lhans;
 			// cbSpatialVerbose
 			// 
 			this->cbSpatialVerbose->AutoSize = true;
+			this->cbSpatialVerbose->Checked = true;
+			this->cbSpatialVerbose->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->cbSpatialVerbose->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold));
 			this->cbSpatialVerbose->Location = System::Drawing::Point(566, 50);
 			this->cbSpatialVerbose->Name = L"cbSpatialVerbose";
@@ -902,6 +907,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->cbSpatialVerbose->TabIndex = 113;
 			this->cbSpatialVerbose->Text = L"Verbose";
 			this->cbSpatialVerbose->UseVisualStyleBackColor = true;
+			this->cbSpatialVerbose->Visible = false;
 			// 
 			// lSelectedFile
 			// 
@@ -1306,14 +1312,14 @@ private: System::Windows::Forms::Label^  lhans;
 			// 
 			this->luccMEToolStripMenuItem->Name = L"luccMEToolStripMenuItem";
 			this->luccMEToolStripMenuItem->ShortcutKeys = System::Windows::Forms::Keys::F1;
-			this->luccMEToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->luccMEToolStripMenuItem->Size = System::Drawing::Size(140, 22);
 			this->luccMEToolStripMenuItem->Text = L"INPE-EM";
 			this->luccMEToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::luccMEToolStripMenuItem_Click);
 			// 
 			// sobreToolStripMenuItem
 			// 
 			this->sobreToolStripMenuItem->Name = L"sobreToolStripMenuItem";
-			this->sobreToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->sobreToolStripMenuItem->Size = System::Drawing::Size(140, 22);
 			this->sobreToolStripMenuItem->Text = L"Sobre";
 			this->sobreToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::sobreToolStripMenuItem_Click);
 			// 

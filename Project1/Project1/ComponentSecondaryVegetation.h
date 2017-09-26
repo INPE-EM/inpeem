@@ -42,8 +42,8 @@ namespace INPEEM {
 			}
 		}
 	
-	private: System::Windows::Forms::TextBox^  tAverBGBpercBGB;
-	private: System::Windows::Forms::Label^  lAverBGBpercBGB;
+
+
 	private: System::Windows::Forms::TextBox^  tAverInitialAbandonmentCycle;
 	private: System::Windows::Forms::Label^  lAverInitialAbandonmentCycle;
 	private: System::Windows::Forms::TextBox^  tAverAgriculturalUseCycle;
@@ -84,8 +84,6 @@ namespace INPEEM {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(ComponentSecondaryVegetation::typeid));
-			this->tAverBGBpercBGB = (gcnew System::Windows::Forms::TextBox());
-			this->lAverBGBpercBGB = (gcnew System::Windows::Forms::Label());
 			this->tAverInitialAbandonmentCycle = (gcnew System::Windows::Forms::TextBox());
 			this->lAverInitialAbandonmentCycle = (gcnew System::Windows::Forms::Label());
 			this->tAverAgriculturalUseCycle = (gcnew System::Windows::Forms::TextBox());
@@ -114,33 +112,10 @@ namespace INPEEM {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbLogo1))->BeginInit();
 			this->SuspendLayout();
 			// 
-			// tAverBGBpercBGB
-			// 
-			this->tAverBGBpercBGB->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tAverBGBpercBGB->Location = System::Drawing::Point(266, 555);
-			this->tAverBGBpercBGB->Name = L"tAverBGBpercBGB";
-			this->tAverBGBpercBGB->Size = System::Drawing::Size(89, 20);
-			this->tAverBGBpercBGB->TabIndex = 154;
-			this->tAverBGBpercBGB->Text = L"0";
-			this->tAverBGBpercBGB->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
-			this->tAverBGBpercBGB->Enter += gcnew System::EventHandler(this, &ComponentSecondaryVegetation::textBox_Enter);
-			// 
-			// lAverBGBpercBGB
-			// 
-			this->lAverBGBpercBGB->AutoSize = true;
-			this->lAverBGBpercBGB->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->lAverBGBpercBGB->Location = System::Drawing::Point(112, 555);
-			this->lAverBGBpercBGB->Name = L"lAverBGBpercBGB";
-			this->lAverBGBpercBGB->Size = System::Drawing::Size(148, 23);
-			this->lAverBGBpercBGB->TabIndex = 165;
-			this->lAverBGBpercBGB->Text = L"averBGBpercBGB";
-			this->lAverBGBpercBGB->TextAlign = System::Drawing::ContentAlignment::TopRight;
-			// 
 			// tAverInitialAbandonmentCycle
 			// 
 			this->tAverInitialAbandonmentCycle->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tAverInitialAbandonmentCycle->Location = System::Drawing::Point(266, 519);
+			this->tAverInitialAbandonmentCycle->Location = System::Drawing::Point(272, 539);
 			this->tAverInitialAbandonmentCycle->Name = L"tAverInitialAbandonmentCycle";
 			this->tAverInitialAbandonmentCycle->Size = System::Drawing::Size(89, 20);
 			this->tAverInitialAbandonmentCycle->TabIndex = 153;
@@ -153,7 +128,7 @@ namespace INPEEM {
 			this->lAverInitialAbandonmentCycle->AutoSize = true;
 			this->lAverInitialAbandonmentCycle->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lAverInitialAbandonmentCycle->Location = System::Drawing::Point(15, 519);
+			this->lAverInitialAbandonmentCycle->Location = System::Drawing::Point(21, 539);
 			this->lAverInitialAbandonmentCycle->Name = L"lAverInitialAbandonmentCycle";
 			this->lAverInitialAbandonmentCycle->Size = System::Drawing::Size(245, 23);
 			this->lAverInitialAbandonmentCycle->TabIndex = 163;
@@ -163,7 +138,7 @@ namespace INPEEM {
 			// tAverAgriculturalUseCycle
 			// 
 			this->tAverAgriculturalUseCycle->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tAverAgriculturalUseCycle->Location = System::Drawing::Point(266, 483);
+			this->tAverAgriculturalUseCycle->Location = System::Drawing::Point(272, 503);
 			this->tAverAgriculturalUseCycle->Name = L"tAverAgriculturalUseCycle";
 			this->tAverAgriculturalUseCycle->Size = System::Drawing::Size(89, 20);
 			this->tAverAgriculturalUseCycle->TabIndex = 152;
@@ -176,7 +151,7 @@ namespace INPEEM {
 			this->lAverAgriculturalUseCycle->AutoSize = true;
 			this->lAverAgriculturalUseCycle->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lAverAgriculturalUseCycle->Location = System::Drawing::Point(49, 483);
+			this->lAverAgriculturalUseCycle->Location = System::Drawing::Point(55, 503);
 			this->lAverAgriculturalUseCycle->Name = L"lAverAgriculturalUseCycle";
 			this->lAverAgriculturalUseCycle->Size = System::Drawing::Size(211, 23);
 			this->lAverAgriculturalUseCycle->TabIndex = 161;
@@ -186,7 +161,7 @@ namespace INPEEM {
 			// tAverRecoveryPeriod2
 			// 
 			this->tAverRecoveryPeriod2->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tAverRecoveryPeriod2->Location = System::Drawing::Point(266, 447);
+			this->tAverRecoveryPeriod2->Location = System::Drawing::Point(272, 467);
 			this->tAverRecoveryPeriod2->Name = L"tAverRecoveryPeriod2";
 			this->tAverRecoveryPeriod2->Size = System::Drawing::Size(89, 20);
 			this->tAverRecoveryPeriod2->TabIndex = 151;
@@ -199,7 +174,7 @@ namespace INPEEM {
 			this->lAverRecoveryPeriod2->AutoSize = true;
 			this->lAverRecoveryPeriod2->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lAverRecoveryPeriod2->Location = System::Drawing::Point(79, 447);
+			this->lAverRecoveryPeriod2->Location = System::Drawing::Point(85, 467);
 			this->lAverRecoveryPeriod2->Name = L"lAverRecoveryPeriod2";
 			this->lAverRecoveryPeriod2->Size = System::Drawing::Size(181, 23);
 			this->lAverRecoveryPeriod2->TabIndex = 159;
@@ -209,7 +184,7 @@ namespace INPEEM {
 			// tAverRecoveryPeriod1
 			// 
 			this->tAverRecoveryPeriod1->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tAverRecoveryPeriod1->Location = System::Drawing::Point(266, 375);
+			this->tAverRecoveryPeriod1->Location = System::Drawing::Point(272, 395);
 			this->tAverRecoveryPeriod1->Name = L"tAverRecoveryPeriod1";
 			this->tAverRecoveryPeriod1->Size = System::Drawing::Size(89, 20);
 			this->tAverRecoveryPeriod1->TabIndex = 149;
@@ -222,7 +197,7 @@ namespace INPEEM {
 			this->lAverRecoveryPeriod1->AutoSize = true;
 			this->lAverRecoveryPeriod1->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lAverRecoveryPeriod1->Location = System::Drawing::Point(79, 375);
+			this->lAverRecoveryPeriod1->Location = System::Drawing::Point(85, 395);
 			this->lAverRecoveryPeriod1->Name = L"lAverRecoveryPeriod1";
 			this->lAverRecoveryPeriod1->Size = System::Drawing::Size(181, 23);
 			this->lAverRecoveryPeriod1->TabIndex = 157;
@@ -232,7 +207,7 @@ namespace INPEEM {
 			// tAverRecoveryPeriod2Perc
 			// 
 			this->tAverRecoveryPeriod2Perc->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tAverRecoveryPeriod2Perc->Location = System::Drawing::Point(266, 411);
+			this->tAverRecoveryPeriod2Perc->Location = System::Drawing::Point(272, 431);
 			this->tAverRecoveryPeriod2Perc->Name = L"tAverRecoveryPeriod2Perc";
 			this->tAverRecoveryPeriod2Perc->Size = System::Drawing::Size(89, 20);
 			this->tAverRecoveryPeriod2Perc->TabIndex = 150;
@@ -245,7 +220,7 @@ namespace INPEEM {
 			this->lAverRecoveryPeriod2Perc->AutoSize = true;
 			this->lAverRecoveryPeriod2Perc->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lAverRecoveryPeriod2Perc->Location = System::Drawing::Point(44, 411);
+			this->lAverRecoveryPeriod2Perc->Location = System::Drawing::Point(50, 431);
 			this->lAverRecoveryPeriod2Perc->Name = L"lAverRecoveryPeriod2Perc";
 			this->lAverRecoveryPeriod2Perc->Size = System::Drawing::Size(216, 23);
 			this->lAverRecoveryPeriod2Perc->TabIndex = 155;
@@ -265,7 +240,7 @@ namespace INPEEM {
 			// tAverRecoveryPeriod1Perc
 			// 
 			this->tAverRecoveryPeriod1Perc->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tAverRecoveryPeriod1Perc->Location = System::Drawing::Point(266, 339);
+			this->tAverRecoveryPeriod1Perc->Location = System::Drawing::Point(272, 359);
 			this->tAverRecoveryPeriod1Perc->Name = L"tAverRecoveryPeriod1Perc";
 			this->tAverRecoveryPeriod1Perc->Size = System::Drawing::Size(89, 20);
 			this->tAverRecoveryPeriod1Perc->TabIndex = 148;
@@ -276,7 +251,7 @@ namespace INPEEM {
 			// tAverAreaAccPercVegSec
 			// 
 			this->tAverAreaAccPercVegSec->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tAverAreaAccPercVegSec->Location = System::Drawing::Point(266, 303);
+			this->tAverAreaAccPercVegSec->Location = System::Drawing::Point(272, 323);
 			this->tAverAreaAccPercVegSec->Name = L"tAverAreaAccPercVegSec";
 			this->tAverAreaAccPercVegSec->Size = System::Drawing::Size(89, 20);
 			this->tAverAreaAccPercVegSec->TabIndex = 147;
@@ -287,7 +262,7 @@ namespace INPEEM {
 			// tAverAreaPercVegSec
 			// 
 			this->tAverAreaPercVegSec->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tAverAreaPercVegSec->Location = System::Drawing::Point(266, 267);
+			this->tAverAreaPercVegSec->Location = System::Drawing::Point(272, 287);
 			this->tAverAreaPercVegSec->Name = L"tAverAreaPercVegSec";
 			this->tAverAreaPercVegSec->Size = System::Drawing::Size(89, 20);
 			this->tAverAreaPercVegSec->TabIndex = 146;
@@ -300,7 +275,7 @@ namespace INPEEM {
 			this->lAverRecoveryPeriod1Perc->AutoSize = true;
 			this->lAverRecoveryPeriod1Perc->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lAverRecoveryPeriod1Perc->Location = System::Drawing::Point(44, 339);
+			this->lAverRecoveryPeriod1Perc->Location = System::Drawing::Point(50, 359);
 			this->lAverRecoveryPeriod1Perc->Name = L"lAverRecoveryPeriod1Perc";
 			this->lAverRecoveryPeriod1Perc->Size = System::Drawing::Size(216, 23);
 			this->lAverRecoveryPeriod1Perc->TabIndex = 145;
@@ -310,7 +285,7 @@ namespace INPEEM {
 			// taverHalfLife
 			// 
 			this->taverHalfLife->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->taverHalfLife->Location = System::Drawing::Point(266, 231);
+			this->taverHalfLife->Location = System::Drawing::Point(272, 251);
 			this->taverHalfLife->Name = L"taverHalfLife";
 			this->taverHalfLife->Size = System::Drawing::Size(89, 20);
 			this->taverHalfLife->TabIndex = 145;
@@ -323,7 +298,7 @@ namespace INPEEM {
 			this->lAverAreaAccPercVegSec->AutoSize = true;
 			this->lAverAreaAccPercVegSec->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lAverAreaAccPercVegSec->Location = System::Drawing::Point(58, 303);
+			this->lAverAreaAccPercVegSec->Location = System::Drawing::Point(64, 323);
 			this->lAverAreaAccPercVegSec->Name = L"lAverAreaAccPercVegSec";
 			this->lAverAreaAccPercVegSec->Size = System::Drawing::Size(202, 23);
 			this->lAverAreaAccPercVegSec->TabIndex = 144;
@@ -348,7 +323,7 @@ namespace INPEEM {
 			this->laverAreaPercVegSec->AutoSize = true;
 			this->laverAreaPercVegSec->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->laverAreaPercVegSec->Location = System::Drawing::Point(86, 267);
+			this->laverAreaPercVegSec->Location = System::Drawing::Point(92, 287);
 			this->laverAreaPercVegSec->Name = L"laverAreaPercVegSec";
 			this->laverAreaPercVegSec->Size = System::Drawing::Size(174, 23);
 			this->laverAreaPercVegSec->TabIndex = 143;
@@ -372,7 +347,7 @@ namespace INPEEM {
 			this->lAverHalfLife->AutoSize = true;
 			this->lAverHalfLife->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lAverHalfLife->Location = System::Drawing::Point(154, 231);
+			this->lAverHalfLife->Location = System::Drawing::Point(160, 251);
 			this->lAverHalfLife->Name = L"lAverHalfLife";
 			this->lAverHalfLife->Size = System::Drawing::Size(106, 23);
 			this->lAverHalfLife->TabIndex = 147;
@@ -428,8 +403,6 @@ namespace INPEEM {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(495, 677);
 			this->Controls->Add(this->cbSave);
-			this->Controls->Add(this->tAverBGBpercBGB);
-			this->Controls->Add(this->lAverBGBpercBGB);
 			this->Controls->Add(this->tAverInitialAbandonmentCycle);
 			this->Controls->Add(this->lAverInitialAbandonmentCycle);
 			this->Controls->Add(this->tAverAgriculturalUseCycle);
