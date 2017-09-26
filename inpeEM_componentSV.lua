@@ -190,7 +190,6 @@ function componentSV_createNullComponent(model)
 
 			averInitialAbandonmentCycle = 0,
 			averHalfLife = 0,
-			averBGBpercBGB = 0
 		}
 	end
 end
@@ -251,7 +250,6 @@ function componentSV_initCellAttrNames(model)
 	model.componentSV.attrAreaAccPercVegSec = model.componentSV.name.."_aapvs"
 	model.componentSV.attrAgriculturalUseCycle = model.componentSV.name.."_auc"
 	model.componentSV.attrAreaPercVegSec = model.componentSV.name.."_apvs"
-	model.componentSV.attrBGBpercBGB = model.componentSV.name.."_bgbp"
 	model.componentSV.attrHalfLife = model.componentSV.name.."_hl"
 	model.componentSV.attrInitialAbandonmentCycle = model.componentSV.name.."_iac"
 	model.componentSV.attrRecoveryPeriod1 = model.componentSV.name.."_rp1"
@@ -275,7 +273,6 @@ function componentSV_initCellAverComponentValues(cell, model)
 	cell.SV_RecoveryPeriod2 = model.componentSV.averRecoveryPeriod2
 	cell.SV_InitialAbandonmentCycle = model.componentSV.averInitialAbandonmentCycle
 	cell.SV_HalfLife = model.componentSV.averHalfLife
-	cell.SV_BGBpercBGB = model.componentSV.averBGBpercBGB
 end
 
 -- Handles with the verify method of a DEGRAD component.
@@ -335,11 +332,6 @@ function componentSV_verify(model)
 
 	if (model.componentSV.averHalfLife == nil) then
 		print("Error - Missing SV parameter: averHalfLife") 
-		os.exit()
-	end
-
-	if (model.componentSV.averBGBpercBGB == nil) then
-		print("Error - Missing SV parameter: averBGBpercBGB") 
 		os.exit()
 	end
 
@@ -405,10 +397,6 @@ function componentSV_loadFromDB(model, cell_temp, cell, y)
 			print(y.." \tLoading "..model.componentSV.attrHalfLife) 
 			flagPrintHalfLife = false 
 		end
-	end
-
-	if (cell_temp[model.componentSV.attrBGBpercBGB..y] ~= nil)then --remove
-		cell.SV_BGBpercBGB = cell_temp[model.componentSV.attrBGBpercBGB..y]
 	end
 end
 
@@ -498,15 +486,6 @@ function componentSV_loadFromTable(model, cell, step)
 		end
 		
 		cell.SV_HalfLife = model.dataTable.HalfLife[step]
-	end
-
-	if (model.dataTable.BGBpercBGB ~= nil) then
-		if (#model.dataTable.BGBpercBGB < step) then
-			print("Error - Time required exceeds the input table size: BGBpercBGB", 2) 
-			os.exit()
-		end
-		
-		cell.SV_BGBpercBGB = model.dataTable.BGBpercBGB[step]
 	end
 end
 

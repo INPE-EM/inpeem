@@ -46,15 +46,15 @@ function inpeEM_execute(model)
 	end
 
 	if (model.mode == "spatial") then
-		if (model.DEGRAD_flag) then
+		if (model.DEGRAD_flag and model.componentDEGRAD.save) then
 			inpeEM_saveCells(model, model.componentDEGRAD)
 		end	
 		
-		if (model.VR_flag) then
+		if (model.VR_flag and model.componentVR.save) then
 			inpeEM_saveCells(model, model.componentVR)
 		end
 		
-		if (model.SV_flag) then
+		if (model.SV_flag and model.componentSV.save) then
 			inpeEM_saveCells(model, model.componentSV)
 		end	
 	end
@@ -222,8 +222,6 @@ function inpeEM_initComponents(model)
 	model.componentB.attrFactorB_CO_fire = model.componentB.name.."_fact4"
 	model.componentB.attrFactorB_N2O_fire = model.componentB.name.."_fact5"
 	model.componentB.attrFactorB_NOx_fire = model.componentB.name.."_fact6"
-	
-	model.componentB.attrPercCarbon = model.componentB.name.."_perccarbon"
 
 	if (model.DEGRAD_flag) then
 		componentDEGRAD_init(model)
