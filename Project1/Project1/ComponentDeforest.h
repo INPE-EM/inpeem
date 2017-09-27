@@ -94,7 +94,7 @@ namespace INPEEM {
 			this->lName->AutoSize = true;
 			this->lName->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lName->Location = System::Drawing::Point(86, 229);
+			this->lName->Location = System::Drawing::Point(86, 223);
 			this->lName->Name = L"lName";
 			this->lName->Size = System::Drawing::Size(58, 23);
 			this->lName->TabIndex = 87;
@@ -103,7 +103,7 @@ namespace INPEEM {
 			// 
 			// bSalvar
 			// 
-			this->bSalvar->Location = System::Drawing::Point(212, 500);
+			this->bSalvar->Location = System::Drawing::Point(209, 404);
 			this->bSalvar->Name = L"bSalvar";
 			this->bSalvar->Size = System::Drawing::Size(75, 23);
 			this->bSalvar->TabIndex = 88;
@@ -115,7 +115,7 @@ namespace INPEEM {
 			// 
 			this->tName->CharacterCasing = System::Windows::Forms::CharacterCasing::Lower;
 			this->tName->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tName->Location = System::Drawing::Point(147, 232);
+			this->tName->Location = System::Drawing::Point(147, 226);
 			this->tName->MaxLength = 2;
 			this->tName->Name = L"tName";
 			this->tName->Size = System::Drawing::Size(53, 20);
@@ -130,7 +130,7 @@ namespace INPEEM {
 			this->lDescription->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->lDescription->ImageAlign = System::Drawing::ContentAlignment::MiddleRight;
-			this->lDescription->Location = System::Drawing::Point(58, 268);
+			this->lDescription->Location = System::Drawing::Point(58, 262);
 			this->lDescription->Name = L"lDescription";
 			this->lDescription->RightToLeft = System::Windows::Forms::RightToLeft::No;
 			this->lDescription->Size = System::Drawing::Size(87, 23);
@@ -141,7 +141,7 @@ namespace INPEEM {
 			// tDescription
 			// 
 			this->tDescription->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tDescription->Location = System::Drawing::Point(147, 271);
+			this->tDescription->Location = System::Drawing::Point(147, 265);
 			this->tDescription->Name = L"tDescription";
 			this->tDescription->Size = System::Drawing::Size(278, 20);
 			this->tDescription->TabIndex = 90;
@@ -153,7 +153,7 @@ namespace INPEEM {
 			this->lInitialArea->AutoSize = true;
 			this->lInitialArea->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lInitialArea->Location = System::Drawing::Point(51, 307);
+			this->lInitialArea->Location = System::Drawing::Point(51, 301);
 			this->lInitialArea->Name = L"lInitialArea";
 			this->lInitialArea->Size = System::Drawing::Size(93, 23);
 			this->lInitialArea->TabIndex = 87;
@@ -163,7 +163,7 @@ namespace INPEEM {
 			// tInitialArea
 			// 
 			this->tInitialArea->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tInitialArea->Location = System::Drawing::Point(147, 310);
+			this->tInitialArea->Location = System::Drawing::Point(147, 304);
 			this->tInitialArea->Name = L"tInitialArea";
 			this->tInitialArea->Size = System::Drawing::Size(89, 20);
 			this->tInitialArea->TabIndex = 91;
@@ -176,29 +176,31 @@ namespace INPEEM {
 			this->lTotalNoData->AutoSize = true;
 			this->lTotalNoData->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lTotalNoData->Location = System::Drawing::Point(36, 346);
+			this->lTotalNoData->Location = System::Drawing::Point(12, 32);
 			this->lTotalNoData->Name = L"lTotalNoData";
 			this->lTotalNoData->Size = System::Drawing::Size(108, 23);
 			this->lTotalNoData->TabIndex = 87;
 			this->lTotalNoData->Text = L"totalNoData";
 			this->lTotalNoData->TextAlign = System::Drawing::ContentAlignment::TopRight;
+			this->lTotalNoData->Visible = false;
 			// 
 			// tTotalNoData
 			// 
 			this->tTotalNoData->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tTotalNoData->Location = System::Drawing::Point(147, 349);
+			this->tTotalNoData->Location = System::Drawing::Point(123, 35);
 			this->tTotalNoData->Name = L"tTotalNoData";
 			this->tTotalNoData->Size = System::Drawing::Size(89, 20);
 			this->tTotalNoData->TabIndex = 92;
 			this->tTotalNoData->Text = L"130311562";
 			this->tTotalNoData->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tTotalNoData->Visible = false;
 			this->tTotalNoData->Enter += gcnew System::EventHandler(this, &ComponentDeforest::textBox_Enter);
 			// 
 			// ComponentDeforest
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(495, 535);
+			this->ClientSize = System::Drawing::Size(495, 445);
 			this->Controls->Add(this->tDescription);
 			this->Controls->Add(this->tTotalNoData);
 			this->Controls->Add(this->tInitialArea);

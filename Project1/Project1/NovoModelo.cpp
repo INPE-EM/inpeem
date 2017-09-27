@@ -882,7 +882,6 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 					tempLine = tempLine->Replace("name = ", "");
 					tempLine = tempLine->Replace("description = ", "");
 					tempLine = tempLine->Replace("initialArea = ", "");
-					tempLine = tempLine->Replace("TotalNoData = ", "");
 					tempLine = tempLine->Replace(";;", ";");
 
 					tempLine = tempLine->Substring(1, tempLine->Length - 1);
@@ -1532,8 +1531,7 @@ System::Void INPEEM::NovoModelo::showReturnDeforest()
 	lines[2] = "name = \"" + auxDeforest[0] + "\",";
 	lines[3] = "description = \"" + auxDeforest[1] + "\",";
 	lines[4] = "initialArea = " + auxDeforest[2] + ",";
-	lines[5] = "TotalNoData = " + auxDeforest[3];
-	lines[6] = "}";
+	lines[5] = "}";
 
 	tbDeforest->Lines = lines;
 }
