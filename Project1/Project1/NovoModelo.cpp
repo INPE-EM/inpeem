@@ -1530,7 +1530,7 @@ System::Void INPEEM::NovoModelo::showReturnDeforest()
 	lines[1] = "{";
 	lines[2] = "name = \"" + auxDeforest[0] + "\",";
 	lines[3] = "description = \"" + auxDeforest[1] + "\",";
-	lines[4] = "initialArea = " + auxDeforest[2] + ",";
+	lines[4] = "initialArea = " + auxDeforest[2];
 	lines[5] = "}";
 
 	tbDeforest->Lines = lines;
