@@ -74,8 +74,8 @@ function componentSV_execute(year, model)
 		if (model.save == true) then
 			cell[model.componentSV.attrOutAreaVS..year] = area_sf
 			cell[model.componentSV.attrOutAreaAGR..year] = cell.D_AreaAcc - area_sf
-			cell[model.componentSV.attrCO2..year] = cell.biomass_lost * cell.B_FactorB_CO2_fire
-			cell[model.componentSV.attrCO2In..year] = cell.biomass_acc * cell.B_FactorB_CO2
+			cell[model.componentSV.attrCO2..year] = cell.biomass_lost * cell.B_FactorB_CO2_fire / 1000000
+			cell[model.componentSV.attrCO2In..year] = cell.biomass_acc * cell.B_FactorB_CO2 / 1000000
 		end
 
 		model.SV_result[year].SV_area_total = model.SV_result[year].SV_area_total + area_sf
