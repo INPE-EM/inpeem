@@ -121,6 +121,9 @@
     <EmbeddedResource Include="ComponentSecondaryVegetation.resx">
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
+    <EmbeddedResource Include="NonSpatialDataTableForm.resx">
+      <Filter>Resource Files</Filter>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\icon.ico">

@@ -159,12 +159,13 @@ namespace INPEEM {
 			// tAverAGB_percReduction
 			// 
 			this->tAverAGB_percReduction->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tAverAGB_percReduction->Location = System::Drawing::Point(263, 412);
+			this->tAverAGB_percReduction->Location = System::Drawing::Point(197, 114);
 			this->tAverAGB_percReduction->Name = L"tAverAGB_percReduction";
 			this->tAverAGB_percReduction->Size = System::Drawing::Size(89, 20);
 			this->tAverAGB_percReduction->TabIndex = 149;
-			this->tAverAGB_percReduction->Text = L"0.034";
+			this->tAverAGB_percReduction->Text = L"0";
 			this->tAverAGB_percReduction->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tAverAGB_percReduction->Visible = false;
 			this->tAverAGB_percReduction->Enter += gcnew System::EventHandler(this, &ComponentDegradation::textBox_Enter);
 			// 
 			// lAverAGB_percReduction
@@ -172,17 +173,18 @@ namespace INPEEM {
 			this->lAverAGB_percReduction->AutoSize = true;
 			this->lAverAGB_percReduction->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lAverAGB_percReduction->Location = System::Drawing::Point(55, 410);
+			this->lAverAGB_percReduction->Location = System::Drawing::Point(-11, 112);
 			this->lAverAGB_percReduction->Name = L"lAverAGB_percReduction";
 			this->lAverAGB_percReduction->Size = System::Drawing::Size(204, 23);
 			this->lAverAGB_percReduction->TabIndex = 157;
 			this->lAverAGB_percReduction->Text = L"averAGB_percReduction";
 			this->lAverAGB_percReduction->TextAlign = System::Drawing::ContentAlignment::TopRight;
+			this->lAverAGB_percReduction->Visible = false;
 			// 
 			// tAverPeriodRegrow
 			// 
 			this->tAverPeriodRegrow->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tAverPeriodRegrow->Location = System::Drawing::Point(263, 453);
+			this->tAverPeriodRegrow->Location = System::Drawing::Point(263, 409);
 			this->tAverPeriodRegrow->Name = L"tAverPeriodRegrow";
 			this->tAverPeriodRegrow->Size = System::Drawing::Size(89, 20);
 			this->tAverPeriodRegrow->TabIndex = 150;
@@ -195,7 +197,7 @@ namespace INPEEM {
 			this->lAverPeriodRegrow->AutoSize = true;
 			this->lAverPeriodRegrow->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lAverPeriodRegrow->Location = System::Drawing::Point(101, 451);
+			this->lAverPeriodRegrow->Location = System::Drawing::Point(101, 407);
 			this->lAverPeriodRegrow->Name = L"lAverPeriodRegrow";
 			this->lAverPeriodRegrow->Size = System::Drawing::Size(158, 23);
 			this->lAverPeriodRegrow->TabIndex = 155;
@@ -343,7 +345,7 @@ namespace INPEEM {
 			// 
 			// bSalvar
 			// 
-			this->bSalvar->Location = System::Drawing::Point(200, 557);
+			this->bSalvar->Location = System::Drawing::Point(200, 513);
 			this->bSalvar->Name = L"bSalvar";
 			this->bSalvar->Size = System::Drawing::Size(75, 23);
 			this->bSalvar->TabIndex = 142;
@@ -365,7 +367,7 @@ namespace INPEEM {
 			// 
 			this->cbSave->AutoSize = true;
 			this->cbSave->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold));
-			this->cbSave->Location = System::Drawing::Point(154, 512);
+			this->cbSave->Location = System::Drawing::Point(154, 468);
 			this->cbSave->Name = L"cbSave";
 			this->cbSave->Size = System::Drawing::Size(170, 27);
 			this->cbSave->TabIndex = 153;
@@ -376,7 +378,7 @@ namespace INPEEM {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(495, 602);
+			this->ClientSize = System::Drawing::Size(495, 555);
 			this->Controls->Add(this->cbSave);
 			this->Controls->Add(this->tAverLimiarDegradLoss);
 			this->Controls->Add(this->lAverLimiarDegradLoss);
@@ -414,5 +416,5 @@ namespace INPEEM {
 	private: System::Void textBox_Enter(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void ComponentDegradation_Shown(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bSalvar_Click(System::Object^  sender, System::EventArgs^  e);
-};
+	};
 }
