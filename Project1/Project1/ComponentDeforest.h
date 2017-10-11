@@ -49,8 +49,10 @@ namespace INPEEM {
 	private: System::Windows::Forms::TextBox^  tDescription;
 	private: System::Windows::Forms::Label^  lInitialArea;
 	private: System::Windows::Forms::TextBox^  tInitialArea;
-	private: System::Windows::Forms::Label^  lTotalNoData;
-	private: System::Windows::Forms::TextBox^  tTotalNoData;
+	private: System::Windows::Forms::Label^  lInitialForest;
+	private: System::Windows::Forms::TextBox^  tInitialForest;
+
+
 
 	private:
 		/// <summary>
@@ -74,8 +76,8 @@ namespace INPEEM {
 			this->tDescription = (gcnew System::Windows::Forms::TextBox());
 			this->lInitialArea = (gcnew System::Windows::Forms::Label());
 			this->tInitialArea = (gcnew System::Windows::Forms::TextBox());
-			this->lTotalNoData = (gcnew System::Windows::Forms::Label());
-			this->tTotalNoData = (gcnew System::Windows::Forms::TextBox());
+			this->lInitialForest = (gcnew System::Windows::Forms::Label());
+			this->tInitialForest = (gcnew System::Windows::Forms::TextBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbLogo1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -171,30 +173,28 @@ namespace INPEEM {
 			this->tInitialArea->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tInitialArea->Enter += gcnew System::EventHandler(this, &ComponentDeforest::textBox_Enter);
 			// 
-			// lTotalNoData
+			// lInitialForest
 			// 
-			this->lTotalNoData->AutoSize = true;
-			this->lTotalNoData->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->lInitialForest->AutoSize = true;
+			this->lInitialForest->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lTotalNoData->Location = System::Drawing::Point(12, 32);
-			this->lTotalNoData->Name = L"lTotalNoData";
-			this->lTotalNoData->Size = System::Drawing::Size(108, 23);
-			this->lTotalNoData->TabIndex = 87;
-			this->lTotalNoData->Text = L"totalNoData";
-			this->lTotalNoData->TextAlign = System::Drawing::ContentAlignment::TopRight;
-			this->lTotalNoData->Visible = false;
+			this->lInitialForest->Location = System::Drawing::Point(36, 341);
+			this->lInitialForest->Name = L"lInitialForest";
+			this->lInitialForest->Size = System::Drawing::Size(106, 23);
+			this->lInitialForest->TabIndex = 87;
+			this->lInitialForest->Text = L"initialForest";
+			this->lInitialForest->TextAlign = System::Drawing::ContentAlignment::TopRight;
 			// 
-			// tTotalNoData
+			// tInitialForest
 			// 
-			this->tTotalNoData->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tTotalNoData->Location = System::Drawing::Point(123, 35);
-			this->tTotalNoData->Name = L"tTotalNoData";
-			this->tTotalNoData->Size = System::Drawing::Size(89, 20);
-			this->tTotalNoData->TabIndex = 92;
-			this->tTotalNoData->Text = L"130311562";
-			this->tTotalNoData->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
-			this->tTotalNoData->Visible = false;
-			this->tTotalNoData->Enter += gcnew System::EventHandler(this, &ComponentDeforest::textBox_Enter);
+			this->tInitialForest->ForeColor = System::Drawing::SystemColors::ScrollBar;
+			this->tInitialForest->Location = System::Drawing::Point(147, 344);
+			this->tInitialForest->Name = L"tInitialForest";
+			this->tInitialForest->Size = System::Drawing::Size(89, 20);
+			this->tInitialForest->TabIndex = 92;
+			this->tInitialForest->Text = L"130311562";
+			this->tInitialForest->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tInitialForest->Enter += gcnew System::EventHandler(this, &ComponentDeforest::textBox_Enter);
 			// 
 			// ComponentDeforest
 			// 
@@ -202,10 +202,10 @@ namespace INPEEM {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(495, 445);
 			this->Controls->Add(this->tDescription);
-			this->Controls->Add(this->tTotalNoData);
+			this->Controls->Add(this->tInitialForest);
 			this->Controls->Add(this->tInitialArea);
 			this->Controls->Add(this->tName);
-			this->Controls->Add(this->lTotalNoData);
+			this->Controls->Add(this->lInitialForest);
 			this->Controls->Add(this->lDescription);
 			this->Controls->Add(this->lInitialArea);
 			this->Controls->Add(this->bSalvar);

@@ -21,7 +21,7 @@
 #define BIOMASSLINES 18
 
 //Deforest Component
-#define DEFORESTLINES 6
+#define DEFORESTLINES 7
 
 //Degradation Component
 #define DEGRADATIONLINES 16

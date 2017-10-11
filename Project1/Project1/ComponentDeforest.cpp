@@ -43,8 +43,8 @@ System::Void INPEEM::ComponentDeforest::ComponentDeforest_Shown(System::Object^ 
 		tInitialArea->Text = auxDeforest[2];
 		tInitialArea->ForeColor = System::Drawing::Color::Black;
 
-		tTotalNoData->Text = auxDeforest[3];
-		tTotalNoData->ForeColor = System::Drawing::Color::Black;
+		tInitialForest->Text = auxDeforest[3];
+		tInitialForest->ForeColor = System::Drawing::Color::Black;
 	}
 }
 
@@ -52,7 +52,7 @@ System::Void INPEEM::ComponentDeforest::bSalvar_Click(System::Object^  sender, S
 {
 	bool check = true;
 
-	if (tName->Text == "" || tInitialArea->Text == "" || tTotalNoData->Text == "") {
+	if (tName->Text == "" || tInitialArea->Text == "" || tInitialForest->Text == "") {
 		MessageBox::Show(gSDataMissing, gSDataMissingTitle, MessageBoxButtons::OK, MessageBoxIcon::Information);
 		check = false;
 	}
@@ -65,7 +65,7 @@ System::Void INPEEM::ComponentDeforest::bSalvar_Click(System::Object^  sender, S
 		lReturn->Return += ";";
 		lReturn->Return += tInitialArea->Text;
 		lReturn->Return += ";";
-		lReturn->Return += tTotalNoData->Text;
+		lReturn->Return += tInitialForest->Text;
 
 		this->Close();
 	}
