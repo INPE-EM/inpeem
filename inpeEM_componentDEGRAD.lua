@@ -45,8 +45,9 @@ function componentDEGRAD_execute(year, model)
 		cell_CO2eq_CO_all_fire = 0
 		cell_NOx_all_fire = 0
 		cell_CO2eq_NOx_all_fire = 0
-		remaining_forest_area = model.cs.cellarea - (cell.D_AreaAcc - cell.D_Area)
 		
+		remaining_forest_area = cell.D_Forest - (cell.D_AreaAcc - cell.D_Area)
+				
 		if (year == model.yearInit) then 
 			cell.B_ActualAGB = cell.B_AGB
 			--cell.B_ActualAGB = cell.B_AGB * cell.B_BGBPercAGB
@@ -275,11 +276,11 @@ function componentDEGRAD_init(model)
 
 
 	forEachCell(model.cs, function(cell)
+							cell.DEGRAD_Degrad = 0	
 							cell.DEGRAD_AGB_loss = 0
 							cell.DEGRAD_BGB_loss = 0
 							cell.DEGRAD_DeadWood_loss = 0
 							cell.DEGRAD_Litter_loss = 0
-							cell.DEGRAD_Degrad = 0	
 							cell.DEGRAD_PeriodRegrow = 1 
 							cell.DEGRAD_LimiarDegradYears = 1
 							cell.DEGRAD_LimiarDegradLoss = 1

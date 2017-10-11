@@ -193,6 +193,7 @@ function inpeEM_initComponents(model)
 	forEachCell(model.cs, function(cell)
 							cell.D_Area = 0
 							cell.D_AreaAcc = 0
+							cell.D_Forest = 0
 							cell.B_AGB = model.componentB.averAGB
 							cell.B_BGBPercAGB = model.componentB.averBGBPercAGB
 							cell.B_LitterPercAGB = model.componentB.averLitterPercAGB
@@ -209,6 +210,7 @@ function inpeEM_initComponents(model)
 
 	model.componentD.attrArea = model.componentD.name.."_area"
 	model.componentD.attrInitialArea = model.componentD.name.."_inita"
+	model.componentD.attForest = model.componentD.name.."_forest"
 	
 	model.componentB.attrAGB = model.componentB.name.."_agb"
 	
@@ -319,6 +321,10 @@ function inpeEM_loadFromTable(year, model)
 	if (year == model.yearInit) then
 		cell.D_AreaAcc = model.componentD.initialArea
 		model.D_result_acc = cell.D_AreaAcc 
+		
+		if (model.mode == "non_spatial") then
+			cell.D_Forest = model.componentD.initialForest
+		end
 	end
 
 	if (model.dataTable.Area == nil) then
@@ -371,6 +377,12 @@ function inpeEM_loadFromDB(year, model)
 													else
 														print("Error -Historical disturbance information missing: "..model.componentD.attrInitialArea)	
 														os.exit()
+													end
+													
+													if cell_temp[model.componentD.attForest] ~= nil then
+														cell.D_Forest = cell_temp[model.componentD.attForest]
+													else
+														error ("Initial forest information missing: "..model.componentD.attForest)
 													end
 
 													if (cell_temp[model.componentB.attrAGB] ~= nil) then
