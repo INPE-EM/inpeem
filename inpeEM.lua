@@ -210,7 +210,7 @@ function inpeEM_initComponents(model)
 
 	model.componentD.attrArea = model.componentD.name.."_area"
 	model.componentD.attrInitialArea = model.componentD.name.."_inita"
-	model.componentD.attForest = model.componentD.name.."_forest"
+	model.componentD.attrForest = model.componentD.name.."_forest"
 	
 	model.componentB.attrAGB = model.componentB.name.."_agb"
 	
@@ -368,6 +368,7 @@ function inpeEM_loadFromDB(year, model)
 	local flagPrintBGBPercAGB = true
 	local flagPrintLitterPercAGB = true
 	local flagPrintDeadWoodPercAGB = true
+	local flagPrintForest = true
 
 	if (year == model.yearInit) then
 		forEachCellPair(model.cs, model.cs_temp, function(cell, cell_temp)
@@ -375,14 +376,19 @@ function inpeEM_loadFromDB(year, model)
 														cell.D_AreaAcc = cell_temp[model.componentD.attrInitialArea]
 														model.D_result_acc = model.D_result_acc + cell.D_AreaAcc 
 													else
-														print("Error -Historical disturbance information missing: "..model.componentD.attrInitialArea)	
+														print("Error - Historical disturbance information missing: "..model.componentD.attrInitialArea)	
 														os.exit()
 													end
 													
-													if cell_temp[model.componentD.attForest] ~= nil then
-														cell.D_Forest = cell_temp[model.componentD.attForest]
+													if (cell_temp[model.componentD.attrForest] ~= nil) then
+														cell.D_Forest = cell_temp[model.componentD.attrForest]
+														if (flagPrintForest) then
+															print(year, "Loading "..model.componentD.attrForest)
+															flagPrintForest = false 
+														end
 													else
-														error ("Initial forest information missing: "..model.componentD.attForest)
+														print("Error - Initial forest information missing: "..model.componentD.attrForest)
+														os.exit()
 													end
 
 													if (cell_temp[model.componentB.attrAGB] ~= nil) then
@@ -714,6 +720,11 @@ function componentD_verify(model)
 
 	if (model.componentD.initialArea == nil) then 
 		print("Error - Missing Deforestaion parameter: initialArea")
+		os.exit()		
+	end
+	
+	if (model.componentD.initialForest == nil) then 
+		print("Error - Missing Deforestaion parameter: initialForest")
 		os.exit()		
 	end
 
