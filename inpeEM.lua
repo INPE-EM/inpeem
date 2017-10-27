@@ -665,8 +665,8 @@ function inpeEM_printReport(model)
 		
 		-- Only Degrad
 		if (model.VR_flag == false and model.SV_flag == false and model.DEGRAD_flag == true) then
-			print(y, a, b, "-", p, q, s, t, u, u2)
-			file:write("\n"..y..";"..a..";"..b..";-;"..p..";"..q..";"..s..";"..t..";"..u..";"..u2)
+			print(y, a, b, "-", p, q, s, t, u)
+			file:write("\n"..y..";"..a..";"..b..";-;"..p..";"..q..";"..s..";"..t..";"..u)
 		end		
 		
 		-- VR + SV
@@ -677,20 +677,20 @@ function inpeEM_printReport(model)
 
 		-- VR + Degrad
 		if (model.VR_flag == true and model.SV_flag == false and model.DEGRAD_flag == true) then
-			print(y, b, a, b1, "-", c, d, "-", p, q, s, t, u2, "-", r, o)  
-			file:write("\n"..y..";"..b..";"..a..";"..b1..";-;"..c..";"..d..";-;"..p..";"..q..";"..u2..";-;"..r..";"..o)
+			print(y, b, a, b1, "-", c, d, "-", p, q, s, t, "-", r, o)  
+			file:write("\n"..y..";"..b..";"..a..";"..b1..";-;"..c..";"..d..";-;"..p..";"..q..";-;"..r..";"..o)
 		end			
 		
 		-- SV + Degrad
 		if (model.VR_flag == false and model.SV_flag == true and model.DEGRAD_flag == true) then
-			print(y, b, a, b1, "-", l, m, "-", p, q, s, t, u2, "-", r, o)  
-			file:write("\n"..y..";"..b..";"..a..";"..b1..";-;"..l..";"..m..";-;"..p..";"..q..";"..u2..";-;"..r..";"..o)
+			print(y, b, a, b1, "-", l, m, "-", p, q, s, t, "-", r, o)  
+			file:write("\n"..y..";"..b..";"..a..";"..b1..";-;"..l..";"..m..";-;"..p..";"..q..";-;"..r..";"..o)
 		end	
 		
 		-- VR + SV + Degrad
 		if (model.VR_flag == true and model.SV_flag == true and model.DEGRAD_flag == true) then
-			print(y, b, a, b1, "-", c, d, l, m, "-", p, q, s, t, u2, "-", r, o)  
-			file:write("\n"..y..";"..b..";"..a..";"..b1..";-;"..c..";"..d..";"..l..";"..m..";-;"..p..";"..q..";"..u2..";-;"..r..";"..o)
+			print(y, b, a, b1, "-", c, d, l, m, "-", p, q, s, t, "-", r, o)  
+			file:write("\n"..y..";"..b..";"..a..";"..b1..";-;"..c..";"..d..";"..l..";"..m..";-;"..p..";"..q..";-;"..r..";"..o)
 		end		
 		
 		io.flush()

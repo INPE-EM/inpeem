@@ -45,14 +45,13 @@ function componentDEGRAD_execute(year, model)
 		cell_NOx_all_fire = 0
 		cell_CO2eq_NOx_all_fire = 0
 		
-		cell.remaining_forest_area = cell.D_Forest - (cell.D_AreaAcc - cell.D_Area)
+		if (year == model.yearInit) then 
+			cell.remaining_forest_area = cell.D_Forest
+			cell.B_ActualAGB = cell.B_AGB
+		end
+		
 		if (cell.remaining_forest_area < 0) then
 			cell.remaining_forest_area = 0
-		end
-				
-		if (year == model.yearInit) then 
-			cell.B_ActualAGB = cell.B_AGB
-			--cell.B_ActualAGB = cell.B_AGB * cell.B_BGBPercAGB
 		end
 		
 		if (model.mode == "non_spatial") then
@@ -96,7 +95,7 @@ function componentDEGRAD_execute(year, model)
 			cell_bgb_degrad_regrow = cell.AGBRegrowRate * cell.B_BGBPercAGB * cell.remaining_forest_area
 
 
-			-- recompute growth if area was deforested for next step assume part of it was lost
+			-- Recompute growth if area was deforested for next step assume part of it was lost
 			percForLost = cell.D_Area / (cell.remaining_forest_area)
 			cell.AGBRegrowRate = cell.AGBRegrowRate * (1 - percForLost)
 
@@ -110,8 +109,6 @@ function componentDEGRAD_execute(year, model)
 		if (cell.DEGRAD_Degrad > 0) then
 			-- verify if degradation is compatible with remaining forest area
 			if (cell.remaining_forest_area < cell.DEGRAD_Degrad) then  
-				--print("Error in the data: degradation is not compatible with remaining forest area.\n Remaning area: "..cell.remaining_forest_area.." \tDegradation: "..cell.DEGRAD_Degrad)
-				--os.exit()
 				cell.DEGRAD_Degrad = cell.remaining_forest_area
 			end
 
@@ -200,12 +197,14 @@ function componentDEGRAD_execute(year, model)
             model.DEGRAD_result[year].DEGRAD_CO_CO2Eq_2ndOrder_fire = model.DEGRAD_result[year].DEGRAD_CO_CO2Eq_2ndOrder_fire + cell_CO2eq_CO_all_fire
             model.DEGRAD_result[year].DEGRAD_NOx_CO2Eq_2ndOrder_fire = model.DEGRAD_result[year].DEGRAD_NOx_CO2Eq_2ndOrder_fire + cell_CO2eq_NOx_all_fire
 		end
+		
+		-- Calculate forest for the next year
+		cell.remaining_forest_area = cell.remaining_forest_area - cell.D_Area
 	end
 
 	if (num_cell_loss > 0) then 
 		model.DEGRAD_result[year].DEGRAD_AveLoss = sum_cell_loss / num_cell_loss 
 	end
-
 end
 
 -- Handles with the creation of a null DEGRAD component.
@@ -394,10 +393,10 @@ end
 -- componentDEGRAD_loadFromDB(model, cell_temp, cell, y)
 function componentDEGRAD_loadFromDB(model, cell_temp, cell, y)
 	y = string.sub(y, string.len(y) - 1)
-	
-	if cell_temp[model.componentDEGRAD.attrDegrad..y] ~= nil then
-		cell.degrad = cell_temp[model.componentDEGRAD.attrDegrad..y]
-	end
+
+	if (cell_temp[model.componentDEGRAD.attrDegrad..y] ~= nil) then
+		cell.DEGRAD_Degrad 	= cell_temp[model.componentDEGRAD.attrDegrad..y]
+	end	
 	
 	if (cell_temp[model.componentDEGRAD.attrAGB_loss..y] ~= nil) then
 		cell.DEGRAD_AGB_loss = cell_temp[model.componentDEGRAD.attrAGB_loss..y]
@@ -411,13 +410,8 @@ function componentDEGRAD_loadFromDB(model, cell_temp, cell, y)
 		cell.DEGRAD_Litter_loss = cell_temp[model.componentDEGRAD.attrLitter_loss..y]
 	end
 
-
 	if (cell_temp[model.componentDEGRAD.attrDeadWood_loss..y] ~= nil) then
 		cell.DEGRAD_DeadWood_loss = cell_temp[model.componentDEGRAD.attrDeadWood_loss..y]
-	end
-
-	if (cell_temp[model.componentDEGRAD.attrDegrad..y] ~= nil) then
-		cell.DEGRAD_Degrad 	= cell_temp[model.componentDEGRAD.attrDegrad..y]
 	end
 
 	if (cell_temp[model.componentDEGRAD.PeriodRegrow] ~= nil) then
