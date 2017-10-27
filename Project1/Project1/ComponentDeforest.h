@@ -192,7 +192,7 @@ namespace INPEEM {
 			this->tInitialForest->Name = L"tInitialForest";
 			this->tInitialForest->Size = System::Drawing::Size(89, 20);
 			this->tInitialForest->TabIndex = 92;
-			this->tInitialForest->Text = L"130311562";
+			this->tInitialForest->Text = L"511992500";
 			this->tInitialForest->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tInitialForest->Enter += gcnew System::EventHandler(this, &ComponentDeforest::textBox_Enter);
 			// 

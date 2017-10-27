@@ -342,6 +342,20 @@ System::Void INPEEM::NovoModelo::textBox_Enter(System::Object ^ sender, System::
 	}
 }
 
+/*
+Count a number of a caracter on a String
+*/
+System::Int16 INPEEM::NovoModelo::countCaracter(String^ source, char caracter)
+{
+	int count = 0;
+	for (int i = 0; i < source->Length; i++) {
+		if (source[i] == caracter) {
+			count++;
+		}
+	}
+	return count;
+}
+
 System::Void INPEEM::NovoModelo::novoToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 {
 	lReturn = NEWMODEL;
@@ -1310,6 +1324,13 @@ Void INPEEM::NovoModelo::bTableData_Click(System::Object^  sender, System::Event
 {
 	cReturnNSDTF^ lNonSpatialTables = gcnew cReturnNSDTF();
 	bool check = true;
+	int numberOfTables = 0;
+	int valuesOfTables = 0;
+	int dif = 0;
+	int countData = 0;
+	int index = 0;
+	int numberComma = 0;
+	int countComma = 0;
 	
 	if (tNonSpatialInitialYear->Text != "" && tNonSpatialFinalYear->Text != "") {
 		if (tNonSpatialInitialYear->ForeColor != System::Drawing::Color::Black || tNonSpatialFinalYear->ForeColor != System::Drawing::Color::Black) {
@@ -1330,6 +1351,36 @@ Void INPEEM::NovoModelo::bTableData_Click(System::Object^  sender, System::Event
 		lNonSpatialTables->Language = lLanguage;
 
 		if (gNonSpatialTables != "") {
+			numberOfTables = countCaracter(gNonSpatialTables, ';') + 1;
+			valuesOfTables = countCaracter(gNonSpatialTables, ',') + numberOfTables;
+			countData = valuesOfTables / numberOfTables;
+
+			if (countData > lNonSpatialTables->YearsForSimulation) {
+				array<String^>^ auxNonSpationTables = gNonSpatialTables->Split(';');
+				dif = countData - lNonSpatialTables->YearsForSimulation;
+				gNonSpatialTables = "";
+
+				for (int i = 0; i < auxNonSpationTables->Length; i++) {
+					numberComma = countCaracter(auxNonSpationTables[i], ',');
+					countComma = 0;
+
+					for (int j = 0; j < auxNonSpationTables[i]->Length; j++) {
+						if (auxNonSpationTables[i][j] == ',') {
+							countComma++;
+							if (countComma > (numberComma - dif)) {
+								index = j;
+								break;
+							}
+						}
+					}
+					
+					gNonSpatialTables += auxNonSpationTables[i]->Substring(0, index);
+					if (i + 1 < auxNonSpationTables->Length) {
+						gNonSpatialTables += ";";
+					}
+				}
+			}
+
 			lNonSpatialTables->Return = gNonSpatialTables;
 		}
 		

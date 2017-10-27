@@ -1358,6 +1358,7 @@ private: System::Windows::Forms::Label^  lhans;
 #pragma endregion
 	private: System::Void checkLanguage();
 	private: System::Void textBox_Enter(System::Object^  sender, System::EventArgs^  e);
+	private: System::Int16 countCaracter(String^ source, char caracter);
 	private: System::Void showReturnNonSpatialDataTable();
 	private: System::Void showReturnBiomass();
 	private: System::Void showReturnDeforest();
