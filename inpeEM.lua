@@ -594,7 +594,7 @@ function inpeEM_printReport(model)
 	-- Only Degrad
 	if (model.VR_flag == false and model.SV_flag == false and model.DEGRAD_flag == true) then 
 		print("\nYear \tD_Area \tD_AreaAcc \tDEGRAD_Area \t- \t \tDEGRAD_CO2_emission \tDEGRAD_CO2_absorption")
-		file:write("\nYear;D_Area;D_AreaAcc;tDEGRAD_Area;-;DEGRAD_CO2_emission;DEGRAD_CO2_absorption")
+		file:write("\nYear;D_Area;D_AreaAcc;DEGRAD_Area;-;DEGRAD_CO2_emission;DEGRAD_CO2_absorption")
 	end	
 
 	-- VR + SV
