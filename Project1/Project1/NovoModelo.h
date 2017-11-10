@@ -302,9 +302,9 @@ private: System::Windows::Forms::Label^  lhans;
 			this->tbTableData = (gcnew System::Windows::Forms::TextBox());
 			this->bTableData = (gcnew System::Windows::Forms::Button());
 			this->tabSpatial = (gcnew System::Windows::Forms::TabPage());
+			this->cbSpatialSecondaryVegetation = (gcnew System::Windows::Forms::CheckBox());
 			this->lHa = (gcnew System::Windows::Forms::Label());
 			this->cbSpatialVerbose = (gcnew System::Windows::Forms::CheckBox());
-			this->lSelectedFile = (gcnew System::Windows::Forms::Label());
 			this->lTerraview = (gcnew System::Windows::Forms::Label());
 			this->lShape = (gcnew System::Windows::Forms::Label());
 			this->bShape = (gcnew System::Windows::Forms::Button());
@@ -316,7 +316,6 @@ private: System::Windows::Forms::Label^  lhans;
 			this->lDatabase = (gcnew System::Windows::Forms::Label());
 			this->lSpatialComponentSelection = (gcnew System::Windows::Forms::Label());
 			this->cbSpatialDegradation = (gcnew System::Windows::Forms::CheckBox());
-			this->cbSpatialSecondaryVegetation = (gcnew System::Windows::Forms::CheckBox());
 			this->cbSpatialVegetationRemoval = (gcnew System::Windows::Forms::CheckBox());
 			this->cbSpatialBiomass = (gcnew System::Windows::Forms::CheckBox());
 			this->cbSpatialDeforest = (gcnew System::Windows::Forms::CheckBox());
@@ -326,6 +325,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->lSpatialInitialYear = (gcnew System::Windows::Forms::Label());
 			this->tSpatialName = (gcnew System::Windows::Forms::TextBox());
 			this->lSpatialName = (gcnew System::Windows::Forms::Label());
+			this->lSelectedFile = (gcnew System::Windows::Forms::Label());
 			this->tabFileMaker = (gcnew System::Windows::Forms::TabPage());
 			this->cbModelType = (gcnew System::Windows::Forms::ComboBox());
 			this->bRun = (gcnew System::Windows::Forms::Button());
@@ -726,6 +726,9 @@ private: System::Windows::Forms::Label^  lhans;
 			// cbNonSpatialDeforest
 			// 
 			this->cbNonSpatialDeforest->AutoSize = true;
+			this->cbNonSpatialDeforest->Checked = true;
+			this->cbNonSpatialDeforest->CheckState = System::Windows::Forms::CheckState::Checked;
+			this->cbNonSpatialDeforest->Enabled = false;
 			this->cbNonSpatialDeforest->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold));
 			this->cbNonSpatialDeforest->Location = System::Drawing::Point(388, 200);
 			this->cbNonSpatialDeforest->Name = L"cbNonSpatialDeforest";
@@ -882,6 +885,17 @@ private: System::Windows::Forms::Label^  lhans;
 			this->tabSpatial->Text = L"Modelo Espacial";
 			this->tabSpatial->UseVisualStyleBackColor = true;
 			// 
+			// cbSpatialSecondaryVegetation
+			// 
+			this->cbSpatialSecondaryVegetation->AutoSize = true;
+			this->cbSpatialSecondaryVegetation->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold));
+			this->cbSpatialSecondaryVegetation->Location = System::Drawing::Point(423, 268);
+			this->cbSpatialSecondaryVegetation->Name = L"cbSpatialSecondaryVegetation";
+			this->cbSpatialSecondaryVegetation->Size = System::Drawing::Size(202, 27);
+			this->cbSpatialSecondaryVegetation->TabIndex = 105;
+			this->cbSpatialSecondaryVegetation->Text = L"Vegetação Secundária";
+			this->cbSpatialSecondaryVegetation->UseVisualStyleBackColor = true;
+			// 
 			// lHa
 			// 
 			this->lHa->AutoSize = true;
@@ -908,16 +922,6 @@ private: System::Windows::Forms::Label^  lhans;
 			this->cbSpatialVerbose->Text = L"Verbose";
 			this->cbSpatialVerbose->UseVisualStyleBackColor = true;
 			this->cbSpatialVerbose->Visible = false;
-			// 
-			// lSelectedFile
-			// 
-			this->lSelectedFile->AutoSize = true;
-			this->lSelectedFile->Font = (gcnew System::Drawing::Font(L"Calibri", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->lSelectedFile->Location = System::Drawing::Point(15, 271);
-			this->lSelectedFile->Name = L"lSelectedFile";
-			this->lSelectedFile->Size = System::Drawing::Size(0, 19);
-			this->lSelectedFile->TabIndex = 112;
 			// 
 			// lTerraview
 			// 
@@ -1046,17 +1050,6 @@ private: System::Windows::Forms::Label^  lhans;
 			this->cbSpatialDegradation->Text = L"Degradação";
 			this->cbSpatialDegradation->UseVisualStyleBackColor = true;
 			// 
-			// cbSpatialSecondaryVegetation
-			// 
-			this->cbSpatialSecondaryVegetation->AutoSize = true;
-			this->cbSpatialSecondaryVegetation->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold));
-			this->cbSpatialSecondaryVegetation->Location = System::Drawing::Point(423, 268);
-			this->cbSpatialSecondaryVegetation->Name = L"cbSpatialSecondaryVegetation";
-			this->cbSpatialSecondaryVegetation->Size = System::Drawing::Size(202, 27);
-			this->cbSpatialSecondaryVegetation->TabIndex = 105;
-			this->cbSpatialSecondaryVegetation->Text = L"Vegetação Secundária";
-			this->cbSpatialSecondaryVegetation->UseVisualStyleBackColor = true;
-			// 
 			// cbSpatialVegetationRemoval
 			// 
 			this->cbSpatialVegetationRemoval->AutoSize = true;
@@ -1085,6 +1078,9 @@ private: System::Windows::Forms::Label^  lhans;
 			// cbSpatialDeforest
 			// 
 			this->cbSpatialDeforest->AutoSize = true;
+			this->cbSpatialDeforest->Checked = true;
+			this->cbSpatialDeforest->CheckState = System::Windows::Forms::CheckState::Checked;
+			this->cbSpatialDeforest->Enabled = false;
 			this->cbSpatialDeforest->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold));
 			this->cbSpatialDeforest->Location = System::Drawing::Point(423, 200);
 			this->cbSpatialDeforest->Name = L"cbSpatialDeforest";
@@ -1161,6 +1157,16 @@ private: System::Windows::Forms::Label^  lhans;
 			this->lSpatialName->TabIndex = 91;
 			this->lSpatialName->Text = L"Nome do Modelo Espacial";
 			this->lSpatialName->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			// 
+			// lSelectedFile
+			// 
+			this->lSelectedFile->AutoSize = true;
+			this->lSelectedFile->Font = (gcnew System::Drawing::Font(L"Calibri", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lSelectedFile->Location = System::Drawing::Point(15, 271);
+			this->lSelectedFile->Name = L"lSelectedFile";
+			this->lSelectedFile->Size = System::Drawing::Size(0, 19);
+			this->lSelectedFile->TabIndex = 112;
 			// 
 			// tabFileMaker
 			// 
