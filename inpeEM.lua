@@ -593,8 +593,8 @@ function inpeEM_printReport(model)
 	
 	-- Only Degrad
 	if (model.VR_flag == false and model.SV_flag == false and model.DEGRAD_flag == true) then 
-		print("\nYear \tD_Area \tD_AreaAcc \t- \t \tDEGRAD_CO2_emission \tDEGRAD_CO2_absorption \tPercentage Loss")
-		file:write("\nYear;D_Area;D_AreaAcc;-;DEGRAD_CO2_emission;DEGRAD_CO2_absorption;Percentage Loss")
+		print("\nYear \tD_Area \tD_AreaAcc \tDEGRAD_Area \t- \t \tDEGRAD_CO2_emission \tDEGRAD_CO2_absorption")
+		file:write("\nYear;D_Area;D_AreaAcc;tDEGRAD_Area;-;DEGRAD_CO2_emission;DEGRAD_CO2_absorption")
 	end	
 
 	-- VR + SV
@@ -605,21 +605,20 @@ function inpeEM_printReport(model)
 
 	-- VR + Degrad
 	if (model.VR_flag == true and model.SV_flag == false and model.DEGRAD_flag == true) then  
-		print("\nYear \tD_AreaAcc \tD_Area \tDEGRAD_Area \t-\t \t \tVR_CO2_1stOrder \tVR_CO2_2ndOrder \t-\t \t \tDEGRAD_CO2_emission \tDEGRAD_CO2_absorption"..
-			   "\tPercentage Loss \t-\t \t \tNET_1st_Order \tNET_2nd_Order")
-		file:write("\nYear;D_AreaAcc;D_Area;DEGRAD_Area;-;VR_CO2_1stOrder;VR_CO2_2ndOrder;-;DEGRAD_CO2_emission;DEGRAD_CO2_absorption;Percentage Loss;-;NET_1st_Order;NET_2nd_Order")
+		print("\nYear \tD_AreaAcc \tD_Area \tDEGRAD_Area \t-\t \t \tVR_CO2_1stOrder \tVR_CO2_2ndOrder \t-\t \t \tDEGRAD_CO2_emission \tDEGRAD_CO2_absorption".."\t-\t \t \tNET_1st_Order \tNET_2nd_Order")
+		file:write("\nYear;D_AreaAcc;D_Area;DEGRAD_Area;-;VR_CO2_1stOrder;VR_CO2_2ndOrder;-;DEGRAD_CO2_emission;DEGRAD_CO2_absorption;-;NET_1st_Order;NET_2nd_Order")
 	end
 
 	-- SV + Degrad
 	if (model.VR_flag == false and model.SV_flag == true and model.DEGRAD_flag == true) then  
-		print("\nYear \tD_AreaAcc \tD_Area \tDEGRAD_Area \t-\t \t \tSV_CO2_emission \tSV_CO2_absorption \t-\t \t \tDEGRAD_CO2_emission \tDEGRAD_CO2_absorption \tPercentage Loss \t-\t \t \tNET_1st_Order \tNET_2nd_Order")
-		file:write("\nYear;D_AreaAcc;D_Area;DEGRAD_Area;-;SV_CO2_emission;SV_CO2_absorption;-;DEGRAD_CO2_emission;DEGRAD_CO2_absorption;Percentage Loss;-;NET_1st_Order;NET_2nd_Order")
+		print("\nYear \tD_AreaAcc \tD_Area \tDEGRAD_Area \t-\t \t \tSV_CO2_emission \tSV_CO2_absorption \t-\t \t \tDEGRAD_CO2_emission \tDEGRAD_CO2_absorption \t-\t \t \tNET_1st_Order \tNET_2nd_Order")
+		file:write("\nYear;D_AreaAcc;D_Area;DEGRAD_Area;-;SV_CO2_emission;SV_CO2_absorption;-;DEGRAD_CO2_emission;DEGRAD_CO2_absorption;-;NET_1st_Order;NET_2nd_Order")
 	end
 	
 	-- VR + SV + Degrad
 	if (model.VR_flag and model.SV_flag and model.DEGRAD_flag) then  
-		print("\nYear \tD_AreaAcc \tD_Area \tDEGRAD_Area \t-\t \t \tVR_CO2_1stOrder \tVR_CO2_2ndOrder \tSV_CO2_emission \tSV_CO2_absorption \t-\t \t \tDEGRAD_CO2_emission \tDEGRAD_CO2_absorption \tPercentage Loss \t-\t \t \tNET_1st_Order \tNET_2nd_Order")
-		file:write("\nYear;D_AreaAcc;D_Area;DEGRAD_Area;-;VR_CO2_1stOrder;VR_CO2_2ndOrder;SV_CO2_emission;SV_CO2_absorption;-;DEGRAD_CO2_emission;DEGRAD_CO2_absorption;Percentage Loss;-;NET_1st_Order;NET_2nd_Order")
+		print("\nYear \tD_AreaAcc \tD_Area \tDEGRAD_Area \t-\t \t \tVR_CO2_1stOrder \tVR_CO2_2ndOrder \tSV_CO2_emission \tSV_CO2_absorption \t-\t \t \tDEGRAD_CO2_emission \tDEGRAD_CO2_absorption \t-\t \t \tNET_1st_Order \tNET_2nd_Order")
+		file:write("\nYear;D_AreaAcc;D_Area;DEGRAD_Area;-;VR_CO2_1stOrder;VR_CO2_2ndOrder;SV_CO2_emission;SV_CO2_absorption;-;DEGRAD_CO2_emission;DEGRAD_CO2_absorption;-;NET_1st_Order;NET_2nd_Order")
 	end
 
 	io.flush()
@@ -665,8 +664,8 @@ function inpeEM_printReport(model)
 		
 		-- Only Degrad
 		if (model.VR_flag == false and model.SV_flag == false and model.DEGRAD_flag == true) then
-			print(y, a, b, "-", p, q, s, t, u)
-			file:write("\n"..y..";"..a..";"..b..";-;"..p..";"..q..";"..s..";"..t..";"..u)
+			print(y, a, b, b1, "-", p, q)
+			file:write("\n"..y..";"..a..";"..b..";"..b1..";-;"..p..";"..q)
 		end		
 		
 		-- VR + SV
