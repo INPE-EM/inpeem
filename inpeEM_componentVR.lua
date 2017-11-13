@@ -109,7 +109,11 @@ function componentVR_execute(year, model)
 		cell_CO2eq_NOx_all_fire = 0
 
 		if (cell.D_Area > 0) then
-			cell_agb_disturbed = cell.D_Area * cell.B_AGB
+			if (not model.DEGRAD_flag) then
+				cell_agb_disturbed = cell.D_Area * cell.B_AGB
+			else
+				cell_agb_disturbed = cell.D_Area * cell.B_ActualAGB
+			end
 
 			-- FATE: remain alive
 			cell_agb_agb = cell_agb_disturbed * cell.VR_AGBPercAGB
