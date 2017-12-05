@@ -1612,10 +1612,10 @@ System::Void INPEEM::NovoModelo::showReturnDegradation()
 	lines[8] = "averDeadWood_loss = " + auxDegradation[5] + ",";
 	lines[9] = "averLitter_loss = " + auxDegradation[6] + ",";
 	lines[10] = "";
-	lines[11] = "averAGB_percReduction = 0,";		//auxDegradation[7] + ",";
+	lines[11] = "averAGB_percReduction = " + auxDegradation[7] + ",";
 	lines[12] = "averPeriodRegrow = " + auxDegradation[8] + ",";
-	lines[13] = "averLimiarDegradYears = 0,";		//auxDegradation[9]
-	lines[14] = "averLimiarDegradLoss = 0";			//auxDegradation[10]
+	lines[13] = "averLimiarDegradYears = " + auxDegradation[9];
+	lines[14] = "averLimiarDegradLoss = " + auxDegradation[10];
 	lines[15] = "}";
 
 	tbDegrad->Lines = lines;
