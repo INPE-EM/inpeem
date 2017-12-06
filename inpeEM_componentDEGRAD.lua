@@ -96,13 +96,11 @@ function componentDEGRAD_execute(year, model)
 
 
 			-- Recompute growth if area was deforested for next step assume part of it was lost
-			percForLost = cell.D_Area / (cell.remaining_forest_area)
+			percForLost = cell.D_Area / cell.remaining_forest_area
 			cell.AGBRegrowRate = cell.AGBRegrowRate * (1 - percForLost)
 
 			-- Absorption in the cell
 			cell_CO2_absorption_Degrad = (cell_agb_degrad_regrow + cell_bgb_degrad_regrow) * cell.B_FactorB_CO2  
-		else 
-			cell.B_ActualAGB = 0
 		end	
 
 		-- Degradation and emission
@@ -148,7 +146,7 @@ function componentDEGRAD_execute(year, model)
             
 			
 			-- Atualização da biomassa média 
-			if ((cell.remaining_forest_area) ~= 0) then
+			if (cell.remaining_forest_area ~= 0) then
 				cell.B_ActualAGB = cell.B_ActualAGB - (cell_agb_degrad / cell.remaining_forest_area)
 			end
 
@@ -291,6 +289,7 @@ function componentDEGRAD_init(model)
 							cell.regrowRateDegradAGB = {}
 
 							cell.countDegradYears = 0
+							cell.remaining_forest_area = 0
 
 							componentDEGRAD_initCellAverComponentValues(cell, model)
 						end
