@@ -1,0 +1,6 @@
+﻿  NovoModelo.cpp
+  AboutForm.obj : Não há suporte para /DEBUG:FASTLINK quando o código gerenciado está presente; reinicie o link com /DEBUG:FULL
+  Project1.vcxproj -> D:\_SVN\INPE-EM\branches\Diego\IPCC\Debug\INPE-EM IPCC.exe
+  Running Code Analysis...
+MSBUILD : warning CA1016: Microsoft.Design : Adicione um atributo AssemblyVersion a 'INPE-EM IPCC.exe'.
+  Code Analysis Complete -- 0 error(s), 1 warning(s)
