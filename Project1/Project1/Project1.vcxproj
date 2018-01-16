@@ -76,7 +76,8 @@
       <EntryPointSymbol>main</EntryPointSymbol>
     </Link>
     <PreBuildEvent>
-      <Command>copy $(ProjectDir)\*.chm $(OutDir)\</Command>
+      <Command>copy $(ProjectDir)\*.chm $(OutDir)\
+copy $(ProjectDir)\Resources\icon.ico $(OutDir)\</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

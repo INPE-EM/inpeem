@@ -82,9 +82,6 @@
     <EmbeddedResource Include="AboutForm.resx">
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
-    <EmbeddedResource Include="ComponentBiomass.resx">
-      <Filter>Resource Files</Filter>
-    </EmbeddedResource>
     <EmbeddedResource Include="LUTForm.resx">
       <Filter>Resource Files</Filter>
     </EmbeddedResource>

@@ -6,23 +6,23 @@
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{3D787912-FD76-425C-BAD6-34F78CF226A4}
-AppName=INPE-EM
-AppVersion=3.1.2.0
+AppName=INPE-EM IPCC
+AppVersion=1.0.0.0
 AppPublisher=CCST - INPE
 AppPublisherURL=http://inpe-em.ccst.inpe.br/
 AppSupportURL=http://inpe-em.ccst.inpe.br/
 AppUpdatesURL=http://inpe-em.ccst.inpe.br/
-DefaultDirName=C:\INPE-EM
+DefaultDirName=C:\INPE-EM IPCC
 DisableDirPage=yes
-DefaultGroupName=INPE-EM
+DefaultGroupName=INPE-EM IPCC
 DisableProgramGroupPage=yes
-LicenseFile=D:\_SVN\INPE-EM\branches\Diego\Project1\Project1\Resources\comment.txt
+LicenseFile=D:\_SVN\INPE-EM\branches\Diego\IPCC\Project1\Resources\comment.txt
 OutputDir=D:\Diego\Desktop
-OutputBaseFilename=INPE-EM_3.1.2.0
-SetupIconFile=D:\_SVN\INPE-EM\branches\Diego\Project1\Project1\Resources\icon.ico
+OutputBaseFilename=INPE-EM IPCC_1.0.0.0
+SetupIconFile=D:\_SVN\INPE-EM\branches\Diego\IPCC\Project1\Resources\icon.ico
 Compression=lzma
 SolidCompression=yes
-UninstallFilesDir=C:\INPE-EM
+UninstallFilesDir=C:\INPE-EM IPCC
 ;ChangesEnvironment=yes
 UninstallDisplayIcon={app}\icon.ico
 
@@ -34,11 +34,11 @@ Name: "brazilianportuguese"; MessagesFile: "compiler:Languages\BrazilianPortugue
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}";
 
 [Files]
-Source: "D:\_SVN\INPE-EM\branches\Diego\Project1\Release\INPE-EM.exe"; DestDir: "C:\INPE-EM"; Flags: ignoreversion;
-Source: "D:\_SVN\INPE-EM\branches\Diego\Project1\Release\*"; DestDir: "C:\INPE-EM"; Flags: ignoreversion recursesubdirs createallsubdirs;
+Source: "D:\_SVN\INPE-EM\branches\Diego\IPCC\Release\INPE-EM IPCC.exe"; DestDir: "C:\INPE-EM IPCC"; Flags: ignoreversion;
+Source: "D:\_SVN\INPE-EM\branches\Diego\IPCC\Release\*"; DestDir: "C:\INPE-EM IPCC"; Flags: ignoreversion recursesubdirs createallsubdirs;
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{group}\INPE-EM"; Filename: "C:\INPE-EM\INPE-EM.exe"
-Name: "{group}\{cm:UninstallProgram,INPE-EM}"; Filename: "{uninstallexe}"
-Name: "{commondesktop}\INPE-EM"; Filename: "C:\INPE-EM\INPE-EM.exe"; Tasks: desktopicon
+Name: "{group}\INPE-EM IPCC"; Filename: "C:\INPE-EM\INPE-EM IPCC.exe"
+Name: "{group}\{cm:UninstallProgram,INPE-EM IPCC}"; Filename: "{uninstallexe}"
+Name: "{commondesktop}\INPE-EM IPCC"; Filename: "C:\INPE-EM\INPE-EM IPCC.exe"; Tasks: desktopicon
