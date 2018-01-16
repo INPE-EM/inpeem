@@ -1,4 +1,0 @@
-(&t2 - &t1) * $a
-(&t2 - &t1) * $teste
-(&t2 - &t1) * $teste + $teste2
-(&t2 - &t1) * $teste + $teste2
