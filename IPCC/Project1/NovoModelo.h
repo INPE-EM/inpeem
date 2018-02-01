@@ -22,6 +22,10 @@ namespace INPEEM {
 		bool runnable = false;
 		bool lOpen = false;
 		bool shape = false;
+		bool drawn = false;
+
+		int gLUTNumber = 0;
+		int gLUTNumberDrawn = 0;
 
 		String^ lLanguage = "";
 		String^ gLandUseTypes = "";
@@ -70,9 +74,12 @@ namespace INPEEM {
 		String^	gSImportError = "";
 		String^ gSImportEquationErrorTitle = "";
 		String^ gSImportEquationError = "";
+		String^ gSLUTErrorTitle = "";
+		String^ gSLUTError = "";
 
 		array<String^>^ gEquations = gcnew array<String^>(50);
 		array<String^>^ gEquationsOut = gcnew array<String^>(50);
+		array<String^, 2>^ gEquationsRelation = gcnew array<String^, 2>(50, 50);
 		array<String^>^ gParametersValues = gcnew array<String^>(24);
 		//[0] = lSelectedFolder->Text;
 		//[1] = tModelName->Text;
@@ -150,7 +157,7 @@ namespace INPEEM {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  ValueColumn;
 	private: System::Windows::Forms::Button^  bEquationsManager;
 	private: System::Windows::Forms::Label^  lEquationsManager;
-private: System::Windows::Forms::Label^  lTransitions;
+	private: System::Windows::Forms::Label^  lTransitions;
 
 	public:
 		int lReturn;
@@ -223,6 +230,7 @@ private: System::Windows::Forms::Label^  lTransitions;
 			this->ValueColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->lLUTLarge = (gcnew System::Windows::Forms::Label());
 			this->tabEquations = (gcnew System::Windows::Forms::TabPage());
+			this->lTransitions = (gcnew System::Windows::Forms::Label());
 			this->bEquationsManager = (gcnew System::Windows::Forms::Button());
 			this->lEquationsManager = (gcnew System::Windows::Forms::Label());
 			this->lEquations = (gcnew System::Windows::Forms::Label());
@@ -242,7 +250,6 @@ private: System::Windows::Forms::Label^  lTransitions;
 			this->ajudaToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->luccMEToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->sobreToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->lTransitions = (gcnew System::Windows::Forms::Label());
 			this->tNovoModelo->SuspendLayout();
 			this->tabDefModel->SuspendLayout();
 			this->tabSpatial->SuspendLayout();
@@ -596,6 +603,7 @@ private: System::Windows::Forms::Label^  lTransitions;
 			this->dgLUT->RowHeadersWidthSizeMode = System::Windows::Forms::DataGridViewRowHeadersWidthSizeMode::DisableResizing;
 			this->dgLUT->Size = System::Drawing::Size(369, 246);
 			this->dgLUT->TabIndex = 88;
+			this->dgLUT->RowsRemoved += gcnew System::Windows::Forms::DataGridViewRowsRemovedEventHandler(this, &NovoModelo::dgLUT_RowsRemoved);
 			// 
 			// LUTColumn
 			// 
@@ -623,6 +631,7 @@ private: System::Windows::Forms::Label^  lTransitions;
 			// 
 			// tabEquations
 			// 
+			this->tabEquations->AutoScroll = true;
 			this->tabEquations->Controls->Add(this->lTransitions);
 			this->tabEquations->Controls->Add(this->bEquationsManager);
 			this->tabEquations->Controls->Add(this->lEquationsManager);
@@ -633,6 +642,18 @@ private: System::Windows::Forms::Label^  lTransitions;
 			this->tabEquations->TabIndex = 7;
 			this->tabEquations->Text = L"Equações";
 			this->tabEquations->UseVisualStyleBackColor = true;
+			// 
+			// lTransitions
+			// 
+			this->lTransitions->AutoSize = true;
+			this->lTransitions->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lTransitions->Location = System::Drawing::Point(301, 149);
+			this->lTransitions->Name = L"lTransitions";
+			this->lTransitions->Size = System::Drawing::Size(93, 23);
+			this->lTransitions->TabIndex = 105;
+			this->lTransitions->Text = L"Transições";
+			this->lTransitions->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			// 
 			// bEquationsManager
 			// 
@@ -820,18 +841,6 @@ private: System::Windows::Forms::Label^  lTransitions;
 			this->sobreToolStripMenuItem->Text = L"Sobre";
 			this->sobreToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::sobreToolStripMenuItem_Click);
 			// 
-			// lTransitions
-			// 
-			this->lTransitions->AutoSize = true;
-			this->lTransitions->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->lTransitions->Location = System::Drawing::Point(301, 149);
-			this->lTransitions->Name = L"lTransitions";
-			this->lTransitions->Size = System::Drawing::Size(93, 23);
-			this->lTransitions->TabIndex = 105;
-			this->lTransitions->Text = L"Transições";
-			this->lTransitions->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			// 
 			// NovoModelo
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(96, 96);
@@ -869,7 +878,9 @@ private: System::Windows::Forms::Label^  lTransitions;
 	private: 
 		System::Void checkLanguage();
 		System::Void checkEquations();
+		System::Void addEquations();
 		System::Void textBox_Enter(System::Object^  sender, System::EventArgs^  e);
+		System::Void  comboBox_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e);
 		System::Int16 countCaracter(String^ source, char caracter);
 		System::Void bSelectFolder_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void sobreToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
@@ -884,6 +895,8 @@ private: System::Windows::Forms::Label^  lTransitions;
 		System::Void bRun_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void luccMEToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void tNovoModelo_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e);
-		 System::Void bEquationsManager_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void bEquationsManager_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void dgLUT_RowsRemoved(System::Object^  sender, System::Windows::Forms::DataGridViewRowsRemovedEventArgs^  e);
+		System::Void checkLUTNames();
 	};
 }

@@ -11,34 +11,9 @@
 #define NEWMODEL  1
 #define OPENMODEL 2
 
-//Non Spatial
-#define NSHEADER	3
-#define NSAREA		0
-#define NSHALFLIFE	1
-#define NSDEGRAD	2
-
-//Biomass Component
-#define BIOMASSLINES 18
-
-//Deforest Component
-#define DEFORESTLINES 7
-
-//Degradation Component
-#define DEGRADATIONLINES 16
-
-//Secondary Vegetation Component
-#define SECONDARYVEGETATIONLINES 16
-
-//Vegetation Removal Component
-#define VEGETATIONREMOVALLINES	32
-
 //TabPages
-#define MAKEFILE 5
-
-//Models Type
-#define NSPATIALTYPE	0
-#define SPATIALTYPE		1
-#define COMBINETYPE		2
+#define EQUATIONS	3
+#define MAKEFILE	5
 
 //Data values
 #define TRUE	1
@@ -46,6 +21,10 @@
 #define NONE	0
 
 //Miscellaneous
-#define ROOTDIR	4
-#define OPENROOTDIR 3
-#define SECOND	1000
+#define ROOTDIR			4
+#define OPENROOTDIR		3
+#define SECOND			1000
+#define TWODIGITS		10
+#define YOFFSET			30
+#define XOFFSET			125
+#define MAXEQUATIONS	50

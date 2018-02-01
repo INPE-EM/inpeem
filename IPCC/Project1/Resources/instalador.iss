@@ -5,7 +5,7 @@
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{3D787912-FD76-425C-BAD6-34F78CF226A4}
+AppId={{8C0C9014-54F3-4AA1-B9B0-D00B87C08137}
 AppName=INPE-EM IPCC
 AppVersion=1.0.0.0
 AppPublisher=CCST - INPE

@@ -95,7 +95,7 @@ System::Void INPEEM::EquationsForm::lvEquations_SelectedIndexChanged(System::Obj
 				int  k = 1;
 				String^ varName = "";
 					
-				while (k < aux->Length && aux[k] != ' ' && aux[k] != '*' && aux[k] != '/' && aux[k] != '-' && aux[k] != '+') {
+				while (k < aux->Length && aux[k] != ' ' && aux[k] != '*' && aux[k] != '/' && aux[k] != '-' && aux[k] != '+' && aux[k] != '(' && aux[k] != ')') {
 					varName += aux[k];
 					k++;
 				}
@@ -119,7 +119,7 @@ System::Void INPEEM::EquationsForm::lvEquations_SelectedIndexChanged(System::Obj
 					array<String^>^dataToFill = gEquationsOut[i]->Split('_');
 					int k = 0;
 					
-					while (k < dataToFill[j+1]->Length && dataToFill[j+1][k] != ' ' && dataToFill[j + 1][k] != '*' && dataToFill[j + 1][k] != '/' && dataToFill[j + 1][k] != '-' && dataToFill[j + 1][k] != '+') {
+					while (k < dataToFill[j+1]->Length && dataToFill[j+1][k] != ' ' && dataToFill[j + 1][k] != '*' && dataToFill[j + 1][k] != '/' && dataToFill[j + 1][k] != '-' && dataToFill[j + 1][k] != '+' && dataToFill[j + 1][k] != '(' && dataToFill[j + 1][k] != ')') {
 						tSpatialVar->Text += dataToFill[j + 1][k];
 						k++;
 					}
