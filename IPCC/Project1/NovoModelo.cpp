@@ -60,7 +60,6 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		gSImportEquationError = "The equations file (equations.dat) was not found.";
 		gSProjTitle = "Select a Project File";
 		gSProjFilter = "Terraview Project (*.tview)|*.tview";
-		gSShape = "Shape File";
 		gSShapeTitle = "Select a Shape File";
 		gSShapeFilter = "Shape File (*.shp)|*.shp";
 		gSDefaultTime = "Using defalut time for the simulation.\nDo you want to proceed?";
@@ -102,6 +101,10 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		gSImportError = "Incloplete file, can't import it.";
 		gSLUTErrorTitle = "Error - Use Types";
 		gSLUTError = "All values realted to the use types must be fulfilled.";
+		gSEquationRelationTitle = "Error - Equations Relationship";
+		gSEquationRelation = "The equations must be selcted for each use in Use Types.";
+		gSFETitle = "Error - Files Generation";
+		gSFE = "Error recording the file.";
 	}
 	else {
 		//Form
@@ -145,7 +148,6 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		gSImportEquationError = "O arquivo com as equações não foi localizado (equations.dat).";
 		gSProjTitle = "Selecione um Arquivo de Projeto";
 		gSProjFilter = "Projeto Terraview (*.tview)|*.tview";
-		gSShape = "Arquivo Shape";
 		gSShapeTitle = "Escolha o arquivo Shape";
 		gSShapeFilter = "Arquivo Shape (*.shp)|*.shp";
 		gSDefaultTime = "Utilizando tempo de simulação padrão.\nDeseja continuar?";
@@ -184,7 +186,11 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		gSImportErrorTitle = "Erro - Importando Arquivos";
 		gSImportError = "Arquivo incompleto, não pode ser carregado.";
 		gSLUTErrorTitle = "Erro - Tipos de Uso";
-		gSLUTError = "Todos os valores relativo aos usos devem ser preenchidos.";
+		gSLUTError = "Todos os valores relativo aos usos devem ser preenchidos em Tipos de Uso";
+		gSEquationRelationTitle = "Erro - Relação das Equações";
+		gSEquationRelation = "As equações devem ser selecionadas por uso em Equações.";
+		gSFETitle = "Erro - Geração de Arquivo";
+		gSFE = "Erro na geração do arquivo .lua.";
 	}
 }
 
@@ -523,23 +529,29 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 	}
 	else if (dgLUT->RowCount - 1 > 0) {
 		for (int i = 0; i < dgLUT->RowCount - 1; i++) {
-			if (dgLUT->Rows[i]->Cells[0]->Value == nullptr || dgLUT->Rows[i]->Cells[1]->Value == nullptr) {
-				MessageBox::Show(gSLUTError, gSLUTErrorTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-				checked = false;
+			for (int j = 0; j < dgLUT->RowCount - 1; j++) {
+				if (dgLUT->Rows[i]->Cells[0]->Value == nullptr || dgLUT->Rows[i]->Cells[1]->Value == nullptr) {
+					MessageBox::Show(gSLUTError, gSLUTErrorTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+					checked = false;
+					break;
+				}
+
+				if (gEquationsRelation[i, j] == nullptr) {
+					MessageBox::Show(gSEquationRelation, gSEquationRelationTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+					checked = false;
+				}
 			}
 		}
 	}
 
 	if (checked) {
 		bool mainFile = false;
-		bool subFile = false;
-		bool nsFile = false;
-
+	
 		DateTime now = DateTime::Now;
 		String^ dateTime = now.ToString("d") + " at " + now.ToString("T");
 
 		//Creating main File
-		String^ path = lSelectedFolder->Text->Replace("\\", "\\\\") + "\\\\" + tModelName->Text->ToLower() + "_main.lua";
+		String^ path = lSelectedFolder->Text->Replace("\\", "\\\\") + "\\\\" + tModelName->Text->ToLower() + ".lua";
 		path = path->Replace("\\\\\\\\", "\\\\");
 		path = path->Replace("\t", "");
 		path = path->Replace("\n", "");
@@ -554,6 +566,7 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 				{
 					File::Delete(path);
 				}
+
 				sw = File::CreateText(path);
 			}
 			catch (UnauthorizedAccessException^)
@@ -563,12 +576,12 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 			}
 
 			if (checked) {
-				sw->WriteLine("---------------------------------------------------------------");
-				sw->WriteLine("-- This file contains a INPE-EM APPLICATION MODEL definition --");
-				sw->WriteLine("--              Compatible with INPE-EM 3.0                  --");
-				sw->WriteLine("--       Generated with INPE-EM Model Configurator           --");
-				sw->WriteLine("--                 " + dateTime + "                    --");
-				sw->WriteLine("---------------------------------------------------------------\n");
+				sw->WriteLine("--------------------------------------------------------------------");
+				sw->WriteLine("-- This file contains a INPE-EM IPCC APPLICATION MODEL definition --");
+				sw->WriteLine("--                 Compatible with INPE-EM 3.0                    --");
+				sw->WriteLine("--       Generated with INPE-EM IPCC Model Configurator           --");
+				sw->WriteLine("--                    " + dateTime + "                       --");
+				sw->WriteLine("--------------------------------------------------------------------\n");
 
 				if (shape) {
 					sw->WriteLine("--------------------------------------------------------------");
@@ -589,65 +602,146 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 				}
 
 				sw->WriteLine("--------------------------------------------------------------");
-				sw->WriteLine("-- INPE-EM IPCC Model                                       --");
+				sw->WriteLine("-- INPE-EM IPCC APPLICATION MODEL DEFINITION                --");
 				sw->WriteLine("--------------------------------------------------------------");
+				sw->WriteLine("import(\"inpeemipcc\")");
 				sw->WriteLine("");
 
-				String^ folderAux = lSelectedFolder->Text->Replace("\\", "\\\\");
+				sw->WriteLine(tModelName->Text + " = LuccMEModel");
+				sw->WriteLine("{");
+				sw->WriteLine("\tname = \"" + tModelName->Text + "\",\n");
 
-				if (folderAux->Length > ROOTDIR) {
-					sw->WriteLine("MODELDIR = \"" + folderAux + "\\\\\"");
-					sw->WriteLine("dofile(\"C:\\\\INPE-EM\\\\TerraME\\\\bin\\\\packages\\\\inpeem\\\\inpeEM.lua\")");
-					sw->WriteLine("dofile(MODELDIR..\"" + tModelName->Text->ToLower() + "_submodel.lua\")");
+				sw->WriteLine("\t-----------------------------------------------------");
+				sw->WriteLine("\t-- Temporal dimension definition                   --");
+				sw->WriteLine("\t-----------------------------------------------------");
+				sw->WriteLine("\tstartTime = " + tInitialYear->Text + ",");
+				sw->WriteLine("\tendTime = " + tFinalYear->Text + ",\n");
+				sw->WriteLine("");
+
+				sw->WriteLine("\t-----------------------------------------------------");
+				sw->WriteLine("\t-- Spatial dimension definition                    --");
+				sw->WriteLine("\t-----------------------------------------------------");
+
+				if (shape) {
+					sw->WriteLine("\tcs = CellularSpace");
+					sw->WriteLine("\t{");
+					sw->WriteLine("\t\tproject = \"t3mp.tview\",");
+					sw->WriteLine("\t\tlayer = \"" + tSpatialLayerName->Text + "\",");
+					sw->WriteLine("\t\tcellArea = " + tSpatialCellArea->Text + ",");
+					sw->WriteLine("\t},");
 				}
 				else {
-					sw->WriteLine("MODELDIR = \"" + folderAux + "\"");
-					sw->WriteLine("dofile(\"C:\\\\INPE-EM\\\\TerraME\\\\bin\\\\packages\\\\inpeem\\\\inpeEM.lua\")");
-					sw->WriteLine("dofile(MODELDIR..\"" + tModelName->Text->ToLower() + "_submodel.lua\")");
+					sw->WriteLine("\tcs = CellularSpace");
+					sw->WriteLine("\t{");
+					sw->WriteLine("\t\tproject = \"" + lSelectedFile->Text->Replace("\\", "\\\\") + "\",");
+					sw->WriteLine("\t\tlayer = \"" + tSpatialLayerName->Text + "\",");
+					sw->WriteLine("\t\tcellArea = " + tSpatialCellArea->Text + ",");
+					sw->WriteLine("\t},");
+				}
+				
+				sw->WriteLine("");
+
+				sw->WriteLine("\t-----------------------------------------------------");
+				sw->WriteLine("\t-- Land use values definition                      --");
+				sw->WriteLine("\t-----------------------------------------------------");
+
+				String^ lutNames = "";
+				String^ lutValues = "";
+
+				for (int i = 0; i < dgLUT->RowCount; i++) {
+					if (i + 1 < dgLUT->RowCount - 1) {
+						lutNames += dgLUT->Rows[i]->Cells[0]->Value + ",";
+						lutValues += dgLUT->Rows[i]->Cells[1]->Value + ",";
+					}
+					else {
+						lutNames += dgLUT->Rows[i]->Cells[0]->Value;
+						lutValues += dgLUT->Rows[i]->Cells[1]->Value;
+					}
 				}
 
-				sw->WriteLine();
+				sw->WriteLine("\tlandUseValues = {" + lutValues + "}, \t--" + lutNames);
+				sw->WriteLine("");
+				sw->WriteLine("\ttransitionMatrix = ");
+				sw->WriteLine("\t{");
+
+				for (int i = 0; i < gLUTNumber; i++) {
+					String^ auxLine = "{";
+					
+					for (int j = 0; j < gLUTNumber; j++) {
+						if (j + 1 < gLUTNumber) {
+							auxLine += "\"" + gEquationsRelation[i, j] + "\",";
+						}
+						else {
+							auxLine += "\"" + gEquationsRelation[i, j] + "\"";
+						}
+					}
+					if (i + 1 < gLUTNumber) {
+						auxLine += "},";
+					}
+					else {
+						auxLine += "}";
+					}
+
+					sw->WriteLine("\t\t" + auxLine);
+				}
+				sw->WriteLine("\t}");
+				sw->WriteLine("}  -- END INPE-EM IPCC application model definition\n");
+
+				sw->WriteLine("-----------------------------------------------------");
+				sw->WriteLine("-- ENVIROMMENT DEFINITION                          --");
+				sw->WriteLine("-----------------------------------------------------");
+				sw->WriteLine("timer = Timer");
+				sw->WriteLine("{");
+				sw->WriteLine("\tEvent");
+				sw->WriteLine("\t{");
+				sw->WriteLine("\t\tstart = " + tModelName->Text + ".startTime,");
+				sw->WriteLine("\t\taction = function(event)");
+				sw->WriteLine("\t\t\t\t\t" + tModelName->Text + ":run(event)");
+				sw->WriteLine("\t\t\t\t  end");
+				sw->WriteLine("\t}");
+				sw->WriteLine("}\n");
+
+				sw->WriteLine("env_" + tModelName->Text + " = Environment{}");
+				sw->WriteLine("env_" + tModelName->Text + ":add(timer)\n");
+
+				sw->WriteLine("-----------------------------------------------------");
+				sw->WriteLine("-- ENVIROMMENT EXECUTION                           --");
+				sw->WriteLine("-----------------------------------------------------");
+				sw->WriteLine("if " + tModelName->Text + ".isCoupled == false then");
+				sw->WriteLine("\ttsave = databaseSave(" + tModelName->Text + ")");
+				sw->WriteLine("\tenv_" + tModelName->Text + ":add(tsave)");
+				sw->WriteLine("\tenv_" + tModelName->Text + ":run(" + tModelName->Text + ".endTime)");
+				sw->WriteLine("\tsaveSingleTheme(" + tModelName->Text + ", true)");
+
+				if (shape) {
+					sw->WriteLine("\tprojFile = File(\"t3mp.tview\")");
+					sw->WriteLine("\tif(projFile:exists()) then");
+					sw->WriteLine("\t\tprojFile:delete()");
+					sw->WriteLine("\tend");
+				}
+
+				sw->WriteLine("end");
 				sw->Close();
+
+				if (File::Exists(path))
+				{
+					if (lSelectedFolder->Text->Length > ROOTDIR) {
+						MessageBox::Show(gSSuccess + lSelectedFolder->Text + "\\" + tModelName->Text->ToLower() + ".lua", gSSuccessTitle, MessageBoxButtons::OK, MessageBoxIcon::Information);
+					}
+					else {
+						MessageBox::Show(gSSuccess + lSelectedFolder->Text + tModelName->Text->ToLower() + "_.lua", gSSuccessTitle, MessageBoxButtons::OK, MessageBoxIcon::Information);
+					}
+
+					lRunModel->Visible = true;
+					bRun->Visible = true;
+					runnable = true;
+				}
 			}
 		}
 		catch (Exception^) {
 			if (!mainFile) {
 				if (forceWriting) {
-					//MessageBox::Show(gSMFE + lSelectedFolder->Text, gSMFETitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-					closing = true;
-					this->Close();
-				}
-				else {
-					System::Threading::Thread::Sleep(SECOND);
-					if (File::Exists(path))
-					{
-						File::Delete(path);
-					}
-
-					forceWriting = true;
-					bGerarArquivos_Click(sender, e);
-				}
-			}
-			else if (!subFile) {
-				if (forceWriting) {
-					//MessageBox::Show(gSSMFE + lSelectedFolder->Text, gSMFETitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-					closing = true;
-					this->Close();
-				}
-				else {
-					System::Threading::Thread::Sleep(SECOND);
-					if (File::Exists(path))
-					{
-						File::Delete(path);
-					}
-
-					forceWriting = true;
-					bGerarArquivos_Click(sender, e);
-				}
-			}
-			else {
-				if (forceWriting) {
-					//MessageBox::Show(gSFE + lSelectedFolder->Text, gSMFETitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+					MessageBox::Show(gSFE + lSelectedFolder->Text, gSFETitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
 					closing = true;
 					this->Close();
 				}

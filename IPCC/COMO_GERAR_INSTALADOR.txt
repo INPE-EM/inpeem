@@ -10,19 +10,16 @@
 	Source:, Source:
 	
 4. Verificar a versão em: AppVersion, OutputBaseFilename	
-	
-Para 64-bits
-	5. Copiar as dlls da pasta: \INPE-EM\branches\IPCC\Project1\Resources\dll\x64 para \LuccME\branches\Project1\Release	
-	
 
-6. 	Clicar em Build->Compiler (ou no icone com um papel, uma engrenagem e uma janela)
+5. Copiar as dlls da pasta: \INPE-EM\branches\IPCC\Project1\Resources\dll\x64 para \LuccME\branches\Project1\Release	
+
+6. Clicar em Build->Compiler (ou no icone com um papel, uma engrenagem e uma janela)
 
 7. Verfique o arquivo na pasta de saída
-	
-	
-OBSERVACOES
-1. Os arquivos utilizados no instalador serao os que estao em 	\INPE-EM\branches\IPCC\Release
 
-2. Caso deseje alterar o LuccME, altere em \INPE-EM\branches\Project1\Release\TerraME\bin\Lua\luccme
+OBSERVACOES
+1. Os arquivos utilizados no instalador serao os que estao em \INPE-EM\branches\IPCC\Release
+
+2. Caso deseje alterar o INPE-EM, altere em \INPE-EM\trunk
 
 3. Os arquivos de ajuda sao copiados na compilacao do Visual Studio

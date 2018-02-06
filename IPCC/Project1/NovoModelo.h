@@ -28,11 +28,9 @@ namespace INPEEM {
 		int gLUTNumberDrawn = 0;
 
 		String^ lLanguage = "";
-		String^ gLandUseTypes = "";
 		String^ gSelectedFile = "";
 		String^ gSProjTitle = "";
 		String^ gSProjFilter = "";
-		String^ gSShape = "";
 		String^ gSShapeTitle = "";
 		String^ gSShapeFilter = "";
 		String^ gSDefaultTime = "";
@@ -76,6 +74,10 @@ namespace INPEEM {
 		String^ gSImportEquationError = "";
 		String^ gSLUTErrorTitle = "";
 		String^ gSLUTError = "";
+		String^ gSEquationRelationTitle = "";
+		String^ gSEquationRelation = "";
+		String^ gSFE = "";
+		String^ gSFETitle = "";
 
 		array<String^>^ gEquations = gcnew array<String^>(50);
 		array<String^>^ gEquationsOut = gcnew array<String^>(50);
@@ -879,9 +881,10 @@ namespace INPEEM {
 		System::Void checkLanguage();
 		System::Void checkEquations();
 		System::Void addEquations();
-		System::Void textBox_Enter(System::Object^  sender, System::EventArgs^  e);
-		System::Void  comboBox_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e);
+		System::Void checkLUTNames();
 		System::Int16 countCaracter(String^ source, char caracter);
+		System::Void textBox_Enter(System::Object^  sender, System::EventArgs^  e);
+		System::Void comboBox_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e);
 		System::Void bSelectFolder_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void sobreToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void bSelectProject_Click(System::Object^  sender, System::EventArgs^  e);
@@ -897,6 +900,5 @@ namespace INPEEM {
 		System::Void tNovoModelo_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e);
 		System::Void bEquationsManager_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void dgLUT_RowsRemoved(System::Object^  sender, System::Windows::Forms::DataGridViewRowsRemovedEventArgs^  e);
-		System::Void checkLUTNames();
 	};
 }
