@@ -5,17 +5,17 @@ System::Void INPEEM::AboutForm::AboutForm_Load(System::Object ^ sender, System::
 {
 	if (lLanguage == "en") {
 		this->Text = "About";
-		lProgram->Text = "INPE-EM Model Manager";
-		lCompatible->Text = "Compatible with INPE-EM 3.1";
-		lVersion->Text = "Version 2.0";
-		lCopyright->Text = "Copyright © 2017. All rigths reserved.";
+		lProgram->Text = "INPE-EM IPCC Model Manager";
+		lCompatible->Text = "Compatible with INPE-EM IPCC 1.0";
+		lVersion->Text = "Version 1.0";
+		lCopyright->Text = "Copyright © 2018. All rigths reserved.";
 	}
 	else {
 		this->Text = "Sobre";
-		lProgram->Text = "Gerenciador de Modelos INPE-EM";
-		lCompatible->Text = "Compatível com INPE-EM 3.1";
-		lVersion->Text = "Versão 2.0";
-		lCopyright->Text = "Copyright © 2017. Todos os direitos reservados.";
+		lProgram->Text = "Gerenciador de Modelos INPE-EM IPCC";
+		lCompatible->Text = "Compatível com INPE-EM IPCC 1.0";
+		lVersion->Text = "Versão 1.0";
+		lCopyright->Text = "Copyright © 2018. Todos os direitos reservados.";
 	}
 }
 

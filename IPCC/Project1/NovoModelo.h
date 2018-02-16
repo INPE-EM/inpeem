@@ -28,6 +28,8 @@ namespace INPEEM {
 		int gLUTNumberDrawn = 0;
 
 		String^ lLanguage = "";
+		String^ gLUTNames = "";
+		String^ gLUTValues = "";
 		String^ gSelectedFile = "";
 		String^ gSProjTitle = "";
 		String^ gSProjFilter = "";
@@ -80,33 +82,18 @@ namespace INPEEM {
 		String^ gSFETitle = "";
 
 		array<String^>^ gEquations = gcnew array<String^>(50);
-		array<String^>^ gEquationsOut = gcnew array<String^>(50);
+		//array<String^>^ gEquationsOut = gcnew array<String^>(50);
 		array<String^, 2>^ gEquationsRelation = gcnew array<String^, 2>(50, 50);
-		array<String^>^ gParametersValues = gcnew array<String^>(24);
+		array<String^>^ gParametersValues = gcnew array<String^>(9);
 		//[0] = lSelectedFolder->Text;
 		//[1] = tModelName->Text;
-		//[2] = tNonSpatialName->Text;
-		//[3] = tNonSpatialInitialYear->Text;
-		//[4] = tNonSpatialFinalYear->Text;
-		//[5] = tNonSpatialArea->Text;
-		//[6] = cbNonSpatialDeforest->Checked->ToString();
-		//[7] = cbNonSpatialBiomass->Checked->ToString();
-		//[8] = cbNonSpatialVegetationRemoval->Checked->ToString();
-		//[9] = cbNonSpatialSecondaryVegetation->Checked->ToString();
-		//[10] = cbNonSpatialDegradation->Checked->ToString();
-		//[11] = cbNonSpatialVerbose->Checked->ToString();
-		//[12] = tSpatialName->Text;
-		//[13] = tSpatialInitialYear->Text;
-		//[14] = tSpatialFinalYear->Text;
-		//[15] = lSelectedFile->Text;
-		//[16] = tSpatialLayerName->Text;
-		//[17] = tSpatialCellArea->Text;
-		//[18] = cbSpatialDeforest->Checked->ToString();
-		//[19] = cbSpatialBiomass->Checked->ToString();
-		//[20] = cbSpatialVegetationRemoval->Checked->ToString();
-		//[21] = cbSpatialSecondaryVegetation->Checked->ToString();
-		//[22] = cbSpatialDegradation->Checked->ToString();
-		//[23] = cbSpatialVerbose->Checked->ToString();
+		//[2] = tInitialYear->Text;
+		//[3] = tFinalYear->Text;
+		//[4] = lSelectedFile->Text;
+		//[5] = tSpatialLayerName->Text;
+		//[6] = tSpatialCellArea->Text;
+		//[7] = gLUTNames;
+		//[8] = gLUTValues;
 
 	private: System::Windows::Forms::TabControl^  tNovoModelo;
 	private: System::Windows::Forms::TabPage^  tabDefModel;
@@ -157,9 +144,10 @@ namespace INPEEM {
 	private: System::Windows::Forms::DataGridView^  dgLUT;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  LUTColumn;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  ValueColumn;
-	private: System::Windows::Forms::Button^  bEquationsManager;
+
 	private: System::Windows::Forms::Label^  lEquationsManager;
 	private: System::Windows::Forms::Label^  lTransitions;
+private: System::Windows::Forms::Label^  lEquationsList;
 
 	public:
 		int lReturn;
@@ -232,8 +220,8 @@ namespace INPEEM {
 			this->ValueColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->lLUTLarge = (gcnew System::Windows::Forms::Label());
 			this->tabEquations = (gcnew System::Windows::Forms::TabPage());
+			this->lEquationsList = (gcnew System::Windows::Forms::Label());
 			this->lTransitions = (gcnew System::Windows::Forms::Label());
-			this->bEquationsManager = (gcnew System::Windows::Forms::Button());
 			this->lEquationsManager = (gcnew System::Windows::Forms::Label());
 			this->lEquations = (gcnew System::Windows::Forms::Label());
 			this->tabFileMaker = (gcnew System::Windows::Forms::TabPage());
@@ -634,8 +622,8 @@ namespace INPEEM {
 			// tabEquations
 			// 
 			this->tabEquations->AutoScroll = true;
+			this->tabEquations->Controls->Add(this->lEquationsList);
 			this->tabEquations->Controls->Add(this->lTransitions);
-			this->tabEquations->Controls->Add(this->bEquationsManager);
 			this->tabEquations->Controls->Add(this->lEquationsManager);
 			this->tabEquations->Controls->Add(this->lEquations);
 			this->tabEquations->Location = System::Drawing::Point(4, 22);
@@ -644,6 +632,14 @@ namespace INPEEM {
 			this->tabEquations->TabIndex = 7;
 			this->tabEquations->Text = L"Equações";
 			this->tabEquations->UseVisualStyleBackColor = true;
+			// 
+			// lEquationsList
+			// 
+			this->lEquationsList->AutoSize = true;
+			this->lEquationsList->Location = System::Drawing::Point(159, 99);
+			this->lEquationsList->Name = L"lEquationsList";
+			this->lEquationsList->Size = System::Drawing::Size(0, 13);
+			this->lEquationsList->TabIndex = 106;
 			// 
 			// lTransitions
 			// 
@@ -657,16 +653,6 @@ namespace INPEEM {
 			this->lTransitions->Text = L"Transições";
 			this->lTransitions->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			// 
-			// bEquationsManager
-			// 
-			this->bEquationsManager->Location = System::Drawing::Point(311, 95);
-			this->bEquationsManager->Name = L"bEquationsManager";
-			this->bEquationsManager->Size = System::Drawing::Size(75, 23);
-			this->bEquationsManager->TabIndex = 104;
-			this->bEquationsManager->Text = L"Gerenciar";
-			this->bEquationsManager->UseVisualStyleBackColor = true;
-			this->bEquationsManager->Click += gcnew System::EventHandler(this, &NovoModelo::bEquationsManager_Click);
-			// 
 			// lEquationsManager
 			// 
 			this->lEquationsManager->AutoSize = true;
@@ -674,9 +660,9 @@ namespace INPEEM {
 				static_cast<System::Byte>(0)));
 			this->lEquationsManager->Location = System::Drawing::Point(64, 93);
 			this->lEquationsManager->Name = L"lEquationsManager";
-			this->lEquationsManager->Size = System::Drawing::Size(166, 23);
+			this->lEquationsManager->Size = System::Drawing::Size(89, 23);
 			this->lEquationsManager->TabIndex = 103;
-			this->lEquationsManager->Text = L"Gerenciar Equações";
+			this->lEquationsManager->Text = L"Equações:";
 			this->lEquationsManager->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			// 
 			// lEquations
@@ -856,6 +842,7 @@ namespace INPEEM {
 			this->Name = L"NovoModelo";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Criando um Novo Modelo";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &NovoModelo::NovoModelo_FormClosing);
 			this->Load += gcnew System::EventHandler(this, &NovoModelo::NovoModelo_Load);
 			this->tNovoModelo->ResumeLayout(false);
 			this->tabDefModel->ResumeLayout(false);
@@ -898,7 +885,7 @@ namespace INPEEM {
 		System::Void bRun_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void luccMEToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void tNovoModelo_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e);
-		System::Void bEquationsManager_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void dgLUT_RowsRemoved(System::Object^  sender, System::Windows::Forms::DataGridViewRowsRemovedEventArgs^  e);
+		System::Void NovoModelo_FormClosing(System::Object^  sender, System::Windows::Forms::FormClosingEventArgs^  e);
 	};
 }
