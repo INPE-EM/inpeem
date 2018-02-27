@@ -590,8 +590,13 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 					sw->WriteLine("--------------------------------------------------------------");
 					sw->WriteLine("-- Creating Terraview Project                               --");
 					sw->WriteLine("--------------------------------------------------------------");
+					sw->WriteLine("import(\"gis\")");
 					sw->WriteLine("");
-					sw->WriteLine("import(\"gis\")\n");
+					sw->WriteLine("\tprojFile = File(\"t3mp.tview\")");
+					sw->WriteLine("\tif(projFile:exists()) then");
+					sw->WriteLine("\t\tprojFile:delete()");
+					sw->WriteLine("\tend");
+					sw->WriteLine("");
 					sw->WriteLine("proj = Project {");
 					sw->WriteLine("\tfile = \"t3mp.tview\",");
 					sw->WriteLine("\tclean = true");
@@ -610,7 +615,7 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 				sw->WriteLine("import(\"inpeemipcc\")");
 				sw->WriteLine("");
 
-				sw->WriteLine(tModelName->Text + " = LuccMEModel");
+				sw->WriteLine(tModelName->Text + " = INPEEMIPCCModel");
 				sw->WriteLine("{");
 				sw->WriteLine("\tname = \"" + tModelName->Text + "\",\n");
 
@@ -704,26 +709,21 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 				sw->WriteLine("\t}");
 				sw->WriteLine("}\n");
 
-				sw->WriteLine("env_" + tModelName->Text + " = Environment{}");
-				sw->WriteLine("env_" + tModelName->Text + ":add(timer)\n");
-
 				sw->WriteLine("-----------------------------------------------------");
 				sw->WriteLine("-- ENVIROMMENT EXECUTION                           --");
 				sw->WriteLine("-----------------------------------------------------");
-				sw->WriteLine("if " + tModelName->Text + ".isCoupled == false then");
-				sw->WriteLine("\ttsave = databaseSave(" + tModelName->Text + ")");
-				sw->WriteLine("\tenv_" + tModelName->Text + ":add(tsave)");
-				sw->WriteLine("\tenv_" + tModelName->Text + ":run(" + tModelName->Text + ".endTime)");
-				sw->WriteLine("\tsaveSingleTheme(" + tModelName->Text + ", true)");
+				sw->WriteLine("env_" + tModelName->Text + " = Environment{}");
+				sw->WriteLine("env_" + tModelName->Text + ":add(timer)");
+				sw->WriteLine("env_" + tModelName->Text + ":run(" + tModelName->Text + ".endTime)");
 
 				if (shape) {
-					sw->WriteLine("\tprojFile = File(\"t3mp.tview\")");
-					sw->WriteLine("\tif(projFile:exists()) then");
-					sw->WriteLine("\t\tprojFile:delete()");
-					sw->WriteLine("\tend");
+					sw->WriteLine("");
+					sw->WriteLine("projFile = File(\"t3mp.tview\")");
+					sw->WriteLine("if(projFile:exists()) then");
+					sw->WriteLine("\tprojFile:delete()");
+					sw->WriteLine("end");
 				}
 
-				sw->WriteLine("end");
 				sw->Close();
 
 				if (File::Exists(path))
