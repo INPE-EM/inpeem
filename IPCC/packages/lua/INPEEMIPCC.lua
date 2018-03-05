@@ -3,17 +3,10 @@
 -- @arg model.startTime The initial year of simulation.
 -- @arg model.endTime The final year of simulation.
 -- @arg model.cs The spatial dimension definition (CellularSpace).
--- @arg model.landUseTypes The name of the use land types for simulation.
--- @arg model.landUseNoData The name of land use that is not consider on the simulation.
--- @arg model.potential The name of component that calculates the potential of change  for each cell.
--- @arg model.allocation The name of component that handles with the allocation on the cell
--- based on it potential and demand.
--- @arg model.demand The name of component that handles with the allocation demand.
--- @arg model.save The name of component that handles with the simulation data save in a database.
--- @arg model.isCoupled A flag to inform with the model for simulation is coupled to another.
--- @arg model.execute Handles with the execution method of a LuccMe model.
+-- @arg model.landUseValues The name of the use land types for simulation.
+-- @arg model.transitionMatrix The name of land use that is not consider on the simulation.
+-- @arg model.run Handles with the execution method of a LuccMe model.
 -- @arg model.verify Handles with the verify method of a LuccMe model.
--- @arg model.dinamicVars Handles with the dinamicVars method of a LuccMe model.
 -- @usage --DONTRUN
 --import("inpeemipcc")
 --
@@ -31,7 +24,6 @@
 --	-----------------------------------------------------
 --	startTime = 2000,
 --	endTime = 2010,
---
 --
 --	-----------------------------------------------------
 --	-- Spatial dimension definition                    --
@@ -69,21 +61,17 @@
 --	}
 --}
 --
---env_ipccNew = Environment{}
---env_ipccNew:add(timer)
---
 -------------------------------------------------------
 ---- ENVIROMMENT EXECUTION                           --
 -------------------------------------------------------
---if ipccNew.isCoupled == false then
---	tsave = databaseSave(ipccNew)
---	env_ipccNew:add(tsave)
---	env_ipccNew:run(ipccNew.endTime)
---	saveSingleTheme(ipccNew, true)
---	projFile = File("t3mp.tview")
---	if(projFile:exists()) then
---		projFile:delete()
---	end
+--env_ipccNew = Environment{}
+--env_ipccNew:add(timer)
+--env_ipccNew:add(tsave)
+--env_ipccNew:run(ipccNew.endTime)
+--
+--projFile = File("t3mp.tview")
+--if(projFile:exists()) then
+--	projFile:delete()
 --end
 function INPEEMIPCCModel(model)
 	-- Implements the execution method of a INPE-EM IPCC model.
@@ -93,13 +81,47 @@ function INPEEMIPCCModel(model)
 	model.run = function(self, event)
 		if (event:getTime() == self.startTime) then
 			model:verify(event)
+			
+			print("\nExecuting Model")
+			--Check years with data
+			simulationTime = self.endTime - self.startTime
+			yearWithData = {}
+			
+			for i = 0, simulationTime, 1 do
+				local auxTime = self.startTime + i
+				if (self.cs.cells[1]["use"..auxTime] ~= nil) then
+					yearWithData[i + 1] = 1
+				else
+					yearWithData[i + 1] = 0
+				end
+			end
 		end
 		
-		print("\nExecuting Model")
-		-- XXXXXXXXXXXXXX
-		-- XXXXXXXXXXXXXX
-		-- XXXXXXXXXXXXXX
-		-- XXXXXXXXXXXXXX
+		if (event:getTime() ~= self.endTime) then
+			local step = event:getTime() - self.startTime + 1
+			local nextUse = 0
+
+			-- Check if the current use has data
+			if (yearWithData[step] == 1) then
+				-- Find the next year to calculate the emissions
+				for i = step + 1, #yearWithData, 1 do
+					if(yearWithData[i] == 1) then
+						nextUse = self.startTime + i - 1
+						break
+					end
+				end
+				
+				-- Inform the years that will be calculated the emissions
+				print("Calculating emissions between "..event:getTime().." and "..nextUse)
+				
+				
+			else
+				-- No data for the current year, skipping to the next one
+				--print("No data for "..event:getTime().." skipping to next year")
+			end
+		else
+			print("End of Simulation");
+		end
 	end
 
 	-- Implements the verify method of a LuccMe model.
