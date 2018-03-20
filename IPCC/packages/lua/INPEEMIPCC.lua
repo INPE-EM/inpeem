@@ -79,7 +79,9 @@ function INPEEMIPCCModel(model)
 	-- @usage --DONTRUN
 	-- model.run(event)
 	model.run = function(self, event)
-		if (event:getTime() == self.startTime) then
+		local currentTime = event:getTime()
+		
+		if (currentTime == self.startTime) then
 			model:verify(event)
 			
 			print("\nExecuting Model")
@@ -97,8 +99,8 @@ function INPEEMIPCCModel(model)
 			end
 		end
 		
-		if (event:getTime() ~= self.endTime) then
-			local step = event:getTime() - self.startTime + 1
+		if (currentTime ~= self.endTime) then
+			local step = currentTime - self.startTime + 1
 			local nextUse = 0
 
 			-- Check if the current use has data
@@ -112,7 +114,11 @@ function INPEEMIPCCModel(model)
 				end
 				
 				-- Inform the years that will be calculated the emissions
-				print("Calculating emissions between "..event:getTime().." and "..nextUse)
+				print("Calculating emissions between "..currentTime.." and "..nextUse)
+				
+				for i = 1, #self.cs, 1 do
+					model:calculateEmission(event, self.transitionMatrix[self.cs.cells[i]["use"..currentTime]][self.cs.cells[i]["use"..nextUse]])
+				end
 				
 				
 			else
@@ -200,6 +206,14 @@ function INPEEMIPCCModel(model)
 		-- Verify the dates to be saved
 		-- This verification is done on Save.lua, because it necessary to execute before here.
 		collectgarbage("collect")
+	end
+	
+	-- Implements the emission calculate.
+	-- @arg event An Event represents a time instant when the simulation engine must execute some computation.
+	-- @usage --DONTRUN 
+	-- model.calculateEmission(event, "$teste * f0_var1")
+	model.calculateEmission = function(self, event, formula)
+		print(formula)
 	end
 	
 	collectgarbage("collect")

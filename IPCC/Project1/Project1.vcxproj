@@ -110,7 +110,7 @@
       <EnablePREfast>true</EnablePREfast>
     </ClCompile>
     <Link>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <AdditionalDependencies>
       </AdditionalDependencies>
       <EntryPointSymbol>main</EntryPointSymbol>

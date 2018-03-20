@@ -87,14 +87,9 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		gSNewModelTitle = "Create a New Model";
 		gSNewModel = "All the data will be lost.\nDo you want to proceed?";
 		gSOpenModelTitle = "Open a New Model";
-		gSMainImportTitle = "Main File Loaded, Select Submodel";
-		gSMainImport = "Main file imported with sucess.\nSelect the Submodel File.";
-		gSSubModelImportTitle = "Submodel File Loaded, Select Non Spatial Data";
-		gSSubmodelImport = "Submodel file imported with sucess.\nSelect the Non Spatial Data File.";
-		gSMainLoadTitle = "Main File to Import";
-		gSMainLoad = "Select the Main File.";
-		gSMainFile = "Select Main File";
-		gSSubmodelFile = "Select Submodel File";
+		gSScriptLoadTitle = "Script File to Import";
+		gSScriptLoad = "Select the Script File.";
+		gSScriptFile = "Select Script File";
 		gSLuaFile = "Lua File(*.lua)|*.lua";
 		gSImportErrorTitle = "Error - Importing Files";
 		gSImportError = "Incloplete file, can't import it.";
@@ -173,14 +168,9 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		gSNewModelTitle = "Criar um Novo Modelo";
 		gSNewModel = "Todos os dados serão perdidos.\nDeseja Continuar?";
 		gSOpenModelTitle = "Abrir um Novo Modelo";
-		gSMainImportTitle = "Arquivo Main Carregado, Selecione o Submodelo";
-		gSMainImport = "Arquivo Main importado com sucesso.\nSelecione o Arquivo do Submodelo.";
-		gSSubModelImportTitle = "Arquivo Submodel Carregado, Selecione o Dado Não Espacial";
-		gSSubmodelImport = "Arquivo Submodel importado com sucesso.\nSelecione o Arquivo do Dado Não Espacial.";
-		gSMainLoadTitle = "Arquivo Main a ser Importado";
-		gSMainLoad = "Selecione o Arquivo Main.";
-		gSMainFile = "Selecione o arquivo Main";
-		gSSubmodelFile = "Selecione o arquivo Submodel";
+		gSScriptLoadTitle = "Script a ser Importado";
+		gSScriptLoad = "Selecione o Script.";
+		gSScriptFile = "Selecione o Script";
 		gSLuaFile = "Arquivo Lua (*.lua)|*.lua";
 		gSImportErrorTitle = "Erro - Importando Arquivos";
 		gSImportError = "Arquivo incompleto, não pode ser carregado.";
@@ -352,7 +342,559 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 
 	if (lOpen) {
 		try {
-			
+			bool imported = true;
+
+			INPEEM::OpenFileDialog^ scriptFile = gcnew OpenFileDialog;
+			scriptFile->Title = gSScriptFile;
+			scriptFile->Multiselect = false;
+			scriptFile->Filter = gSLuaFile;
+			scriptFile->FilterIndex = 1;
+			scriptFile->ShowHelp = true;
+
+			//If a script is selected
+			if (scriptFile->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+			{
+				String^ fileName = scriptFile->FileName;
+				System::IO::StreamReader^ sw = gcnew System::IO::StreamReader(fileName);
+				String^ line = sw->ReadLine();
+				String^ tempLine = "";
+				int lastSlash = 0;
+
+				//Capture the folder where the script is 
+				line = scriptFile->FileName;
+
+				for (int i = 0; i < line->Length; i++) {
+					if (line[i] != '\\') {
+						tempLine += line[i];
+					}
+					else {
+						if (line[i] == '\\') {
+							tempLine += line[i];
+							lastSlash = i;
+						}
+					}
+				}
+
+				lSelectedFolder->Text = tempLine->Substring(0, lastSlash);
+				if (lSelectedFolder->Text->Length == 2) {
+					lSelectedFolder->Text += "\\";
+				}
+
+				gParametersValues[0] = lSelectedFolder->Text;
+
+				int modelBegin = 0;
+				int j = 0;
+				bool found = false;
+				tempLine = "";
+
+				//Find where the model begins
+				while (sw->EndOfStream == false) {
+					if (line->Contains("INPEEMIPCCModel") != TRUE) {
+						modelBegin++;
+						line = sw->ReadLine();
+					}
+					else {
+						break;
+					}
+				}
+
+				sw->Close();
+				sw = gcnew System::IO::StreamReader(fileName);
+
+				//Consume script until the model starts
+				for (int i = 0; i < modelBegin; i++) {
+					line = sw->ReadLine();
+				}
+
+				//Capture the model name
+				while (sw->EndOfStream == false) {
+					if (line->Contains("name =") != TRUE) {
+						line = sw->ReadLine();
+					}
+					else {
+						found = true;
+						break;
+					}
+				}
+
+				//Select only the name
+				if (found) {
+					j = 0;
+
+					while (line[j] != '\"') {
+						j++;
+					}
+
+					j++;
+					tempLine = "";
+
+					for (int i = j; i < line->Length; i++) {
+						if (line[i] != '\"') {
+							tempLine += line[i];
+						}
+						else {
+							break;
+						}
+					}
+
+					tModelName->Text = tempLine;
+					tModelName->ForeColor = System::Drawing::Color::Black;
+					gParametersValues[1] = tModelName->Text;
+				}
+
+				found = false;
+				sw->Close();
+				sw = gcnew System::IO::StreamReader(fileName);
+
+				//Capture the Simulation Start Time
+				line = sw->ReadLine();
+				while (sw->EndOfStream == false) {
+					if (line->Contains("startTime") != TRUE) {
+						line = sw->ReadLine();
+					}
+					else {
+						found = true;
+						break;
+					}
+				}
+
+				//Select only the year
+				if (found) {
+					j = 0;
+
+					while (line[j] != '=') {
+						j++;
+					}
+
+					j++;
+					tempLine = "";
+
+					for (int i = j; i < line->Length; i++) {
+						if (line[i] != ',') {
+							if (line[i] != ' ') {
+								tempLine += line[i];
+							}
+						}
+						else {
+							break;
+						}
+					}
+
+					tInitialYear->Text = tempLine;
+					tInitialYear->ForeColor = System::Drawing::Color::Black;
+					gParametersValues[2] = tInitialYear->Text;
+				}
+				
+				found = false;
+				sw->Close();
+				sw = gcnew System::IO::StreamReader(fileName);
+
+				//Capture the Simulation End Time
+				line = sw->ReadLine();
+				while (sw->EndOfStream == false) {
+					if (line->Contains("endTime") != TRUE) {
+						line = sw->ReadLine();
+					}
+					else {
+						found = true;
+						break;
+					}
+				}
+
+				//Select only the year
+				if (found) {
+					j = 0;
+
+					while (line[j] != '=') {
+						j++;
+					}
+
+					j++;
+					tempLine = "";
+
+					for (int i = j; i < line->Length; i++) {
+						if (line[i] != ',') {
+							if (line[i] != ' ') {
+								tempLine += line[i];
+							}
+						}
+						else {
+							break;
+						}
+					}
+
+					tFinalYear->Text = tempLine;
+					tFinalYear->ForeColor = System::Drawing::Color::Black;
+					gParametersValues[3] = tFinalYear->Text;
+				}
+				
+				found = false;
+				sw->Close();
+				sw = gcnew System::IO::StreamReader(fileName);
+
+				//Find the Cellular Space, to search for the data
+				line = sw->ReadLine();
+				while (sw->EndOfStream == false) {
+					if (line->Contains("CellularSpace") != TRUE) {
+						line = sw->ReadLine();
+					}
+					else {
+						break;
+					}
+				}
+
+				//Capture project
+				line = sw->ReadLine();
+				while (sw->EndOfStream == false) {
+					if (line->Contains("project") != TRUE) {
+						line = sw->ReadLine();
+					}
+					else {
+						found = true;
+						break;
+					}
+				}
+
+				//Select the project name
+				if (found) {
+					j = 0;
+
+					while (line[j] != '=') {
+						j++;
+					}
+
+					j++;
+					tempLine = "";
+
+					for (int i = j; i < line->Length; i++) {
+						if (line[i] != ',') {
+							if (line[i] != ' ') {
+								tempLine += line[i];
+							}
+						}
+						else {
+							break;
+						}
+					}
+										
+				}
+				
+				//If project is equal to t3mp.tview, its using shape
+				tempLine = tempLine->Replace("\"", "");
+				if (tempLine == "t3mp.tview") {
+					found = false;
+					sw->Close();
+					sw = gcnew System::IO::StreamReader(fileName);
+
+					//Find the Cellular Space layer
+					line = sw->ReadLine();
+					while (sw->EndOfStream == false) {
+						if (line->Contains("l1 = Layer") != TRUE) {
+							line = sw->ReadLine();
+						}
+						else {
+							found = true;
+							break;
+						}
+					}
+
+					//Capture the file address
+					while (sw->EndOfStream == false) {
+						if (line->Contains("file =") != TRUE) {
+							line = sw->ReadLine();
+						}
+						else {
+							found = true;
+							break;
+						}
+					}
+
+					//Select the address
+					if (found) {
+						j = 0;
+
+						while (line[j] != '=') {
+							j++;
+						}
+
+						j++;
+						tempLine = "";
+
+						for (int i = j; i < line->Length; i++) {
+							if (line[i] != ',') {
+								if (line[i] != ' ') {
+									tempLine += line[i];
+								}
+							}
+							else {
+								break;
+							}
+						}
+
+						tempLine = tempLine->Replace("\"", "");
+						tempLine = tempLine->Replace("\\\\", "\\");
+						lSelectedFile->Text = tempLine;
+						lSelectedFile->ForeColor = System::Drawing::Color::Black;
+						gParametersValues[4] = lSelectedFile->Text;
+						shape = true;
+					}
+					else {
+						//Address selected already
+						tempLine = tempLine->Replace("\"", "");
+						tempLine = tempLine->Replace("\\\\", "\\");
+						lSelectedFile->Text = tempLine;
+						lSelectedFile->ForeColor = System::Drawing::Color::Black;
+						gParametersValues[4] = lSelectedFile->Text;
+					}
+				}
+
+				found = false;
+
+				//Capture the layer name
+				while (sw->EndOfStream == false) {
+					if (line->Contains("layer =") != TRUE) {
+						line = sw->ReadLine();
+					}
+					else {
+						found = true;
+						break;
+					}
+				}
+
+				//Select layer name
+				if (found) {
+					j = 0;
+
+					while (line[j] != '=') {
+						j++;
+					}
+
+					j++;
+					tempLine = "";
+
+					for (int i = j; i < line->Length; i++) {
+						if (line[i] != ',') {
+							if (line[i] != ' ') {
+								tempLine += line[i];
+							}
+						}
+						else {
+							break;
+						}
+					}
+				}
+
+				tSpatialLayerName->Text = tempLine->Replace("\"", "");
+				tSpatialLayerName->ForeColor = System::Drawing::Color::Black;
+				gParametersValues[5] = tSpatialLayerName->Text;
+
+				if (shape) {
+					tSpatialLayerName->Enabled = false;
+				}
+
+				found = false;
+
+				//Capture cellArea
+				line = sw->ReadLine();
+				while (sw->EndOfStream == false) {
+					if (line->Contains("cellArea") != TRUE) {
+						line = sw->ReadLine();
+					}
+					else {
+						found = true;
+						break;
+					}
+				}
+
+				//Select the cellArea value
+				if (found) {
+					j = 0;
+					while (line[j] != '=') {
+						j++;
+					}
+
+					j++;
+					tempLine = "";
+
+					for (int i = j; i < line->Length; i++) {
+						if (line[i] != ',') {
+							if (line[i] != ' ') {
+								tempLine += line[i];
+							}
+						}
+						else {
+							break;
+						}
+					}
+
+					tSpatialCellArea->Text = tempLine;
+					tSpatialCellArea->ForeColor = System::Drawing::Color::Black;
+					gParametersValues[6] = tSpatialCellArea->Text;
+				}
+				
+				found = false;
+				sw->Close();
+				sw = gcnew System::IO::StreamReader(fileName);
+
+				//Capture land use values
+				line = sw->ReadLine();
+				while (sw->EndOfStream == false) {
+					if (line->Contains("landUseValues") != TRUE) {
+						line = sw->ReadLine();
+					}
+					else {
+						found = true;
+						break;
+					}
+				}
+
+				//Select the values and lut names
+				if (found) {
+					line = line->Replace(" ", "");
+					line = line->Replace("\t", "");
+					line = line->Replace("landUseValues={", "");
+					
+					String^ values = "";
+					String^ lutNames = "";
+
+					for (int i = 0; i < line->Length - 1; i++) {
+						if (line[i] != '}') {
+							values += line[i];
+						}
+						else {
+							lutNames = line->Substring(i);
+							break;
+						}
+					}
+
+					int index = 0;
+					lutNames = lutNames->Replace("},", "");
+					lutNames = lutNames->Replace("--", "");
+					String^ aux = "";
+
+					for (int i = 0; i < lutNames->Length; i++) {
+						if (lutNames[i] != ',') {
+							aux += lutNames[i];
+						}
+						else {
+							dgLUT->Rows->Add(aux);
+							aux = "";
+						}
+					}
+
+					if (aux != "") {
+						dgLUT->Rows->Add(aux);
+						aux = "";
+					}
+
+					for (int i = 0; i < values->Length; i++) {
+						if (values[i] != ',') {
+							aux += values[i];
+						}
+						else {
+							dgLUT->Rows[index]->Cells[1]->Value = aux;
+							index++;
+							aux = "";
+						}
+					}
+
+					if (aux != "") {
+						dgLUT->Rows[index]->Cells[1]->Value = aux;
+						aux = "";
+					}
+				}
+
+				found = false;
+				sw->Close();
+				sw = gcnew System::IO::StreamReader(fileName);
+
+				//Capture transition matrix
+				line = sw->ReadLine();
+				while (sw->EndOfStream == false) {
+					if (line->Contains("transitionMatrix") != TRUE) {
+						line = sw->ReadLine();
+					}
+					else {
+						found = true;
+						break;
+					}
+				}
+
+				tempLine = "";
+
+				while (sw->EndOfStream == false) {
+					if (line->Equals("}") != TRUE) {
+						tempLine += line;
+						line = sw->ReadLine();
+						line = line->Replace("\"", "");
+						line = line->Replace("\t", "");
+						line = line->Replace(" ", "");
+					}
+					else {
+						found = true;
+						break;
+					}
+				}
+
+				//Select in Combo Box with formula
+				if (found) {
+					tempLine = tempLine->Replace("\t", "");
+					tempLine = tempLine->Replace(" ", "");
+					tempLine = tempLine->Replace("transitionMatrix=", "");
+					tempLine = tempLine->Replace("transitionMatrix=", "");
+					tempLine = tempLine->Replace("{", "");
+					tempLine = tempLine->Replace("}", "");
+
+					String^ aux = "";
+					int lutNumber = dgLUT->RowCount - 1;
+					int x = 0;
+					int y = 0;
+
+					for (int i = 0; i < tempLine->Length; i++) {
+						if (tempLine[i] != ',') {
+							aux += tempLine[i];
+						}
+						else {
+							gEquationsRelation[x, y] = aux;
+							aux = "";
+
+							if (y + 1 < lutNumber) {
+								y++;
+							}
+							else {
+								x++;
+								y = 0;
+							}
+						}
+					}
+
+					if (aux != "") {
+						gEquationsRelation[x, y] = aux;
+					}
+
+					tNovoModelo->SelectedIndex = EQUATIONS;
+					tNovoModelo->SelectedIndex = DEFINITION;
+
+					for (int i = 0; i < MAXEQUATIONS; i++) {
+						for (int j = 0; j < MAXEQUATIONS; j++) {
+							if (gEquationsRelation[i, j] != nullptr) {
+								ComboBox^ auxComboBox = safe_cast<System::Windows::Forms::ComboBox^>(Controls->Find("cbSelectFormula" + i + "" + j, true)[0]);
+
+								for (int k = 0; k < auxComboBox->Items->Count; k++) {
+									String^ auxFormula = auxComboBox->Items[k]->ToString();
+									auxFormula = auxFormula->Substring(auxFormula->IndexOf(":"));
+									auxFormula = auxFormula->Replace(":", "");
+									auxFormula = auxFormula->Replace(" ", "");
+									if (auxFormula->Equals(gEquationsRelation[i, j])) {
+										auxComboBox->SelectedIndex = k;
+										break;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 		catch (Exception^ e) {
 			if (e->GetType()->ToString() == "System.IndexOutOfRangeException") {
@@ -423,6 +965,7 @@ System::Void INPEEM::NovoModelo::bShape_Click(System::Object^  sender, System::E
 		}
 
 		shape = true;
+		tSpatialLayerName->Text = "layer";
 		tSpatialLayerName->Enabled = false;
 	}
 }

@@ -61,14 +61,9 @@ namespace INPEEM {
 		String^ gSNewModelTitle = "";
 		String^ gSNewModel = "";
 		String^ gSOpenModelTitle = "";
-		String^ gSMainImportTitle = "";
-		String^	gSMainImport = "";
-		String^	gSSubModelImportTitle = "";
-		String^	gSSubmodelImport = "";
-		String^	gSMainLoadTitle = "";
-		String^	gSMainLoad = "";
-		String^	gSMainFile = "";
-		String^	gSSubmodelFile = "";
+		String^	gSScriptLoadTitle = "";
+		String^	gSScriptLoad = "";
+		String^	gSScriptFile = "";
 		String^	gSLuaFile = "";
 		String^	gSImportErrorTitle = "";
 		String^	gSImportError = "";
@@ -82,7 +77,6 @@ namespace INPEEM {
 		String^ gSFETitle = "";
 
 		array<String^>^ gEquations = gcnew array<String^>(50);
-		//array<String^>^ gEquationsOut = gcnew array<String^>(50);
 		array<String^, 2>^ gEquationsRelation = gcnew array<String^, 2>(50, 50);
 		array<String^>^ gParametersValues = gcnew array<String^>(9);
 		//[0] = lSelectedFolder->Text;
@@ -520,7 +514,7 @@ private: System::Windows::Forms::Label^  lEquationsList;
 			this->tSpatialLayerName->Name = L"tSpatialLayerName";
 			this->tSpatialLayerName->Size = System::Drawing::Size(192, 20);
 			this->tSpatialLayerName->TabIndex = 100;
-			this->tSpatialLayerName->Text = L"layer_name";
+			this->tSpatialLayerName->Text = L"layer";
 			this->tSpatialLayerName->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tSpatialLayerName->Enter += gcnew System::EventHandler(this, &NovoModelo::textBox_Enter);
 			// 

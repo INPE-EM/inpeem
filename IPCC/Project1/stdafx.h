@@ -12,6 +12,7 @@
 #define OPENMODEL 2
 
 //TabPages
+#define DEFINITION	0
 #define EQUATIONS	3
 #define MAKEFILE	5
 

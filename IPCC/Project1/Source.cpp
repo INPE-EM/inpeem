@@ -1,6 +1,11 @@
 #include "stdafx.h"
 #include "MyForm.h"
 
+using namespace System;
+using namespace System::Reflection;
+
+[assembly:AssemblyVersionAttribute("1.0.0.0")];
+
 using namespace INPEEM;
 
 [STAThreadAttribute]
