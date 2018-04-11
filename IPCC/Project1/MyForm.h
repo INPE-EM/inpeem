@@ -54,6 +54,7 @@ namespace INPEEM {
 	private: System::Windows::Forms::ToolStripMenuItem^  preferênciasToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  idiomaToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  sairToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  equationsManagerToolStripMenuItem;
 
 	private:
 		/// <summary>
@@ -84,6 +85,7 @@ namespace INPEEM {
 			this->ajudaToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->luccMEToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->sobreToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->equationsManagerToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbLogo1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbLogo2))->BeginInit();
 			this->menuStrip1->SuspendLayout();
@@ -140,9 +142,9 @@ namespace INPEEM {
 			// 
 			// menuStrip1
 			// 
-			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
+			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(4) {
 				this->arquivoToolStripMenuItem,
-					this->preferênciasToolStripMenuItem, this->ajudaToolStripMenuItem
+					this->preferênciasToolStripMenuItem, this->ajudaToolStripMenuItem, this->equationsManagerToolStripMenuItem
 			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
@@ -220,6 +222,13 @@ namespace INPEEM {
 			this->sobreToolStripMenuItem->Text = L"Sobre";
 			this->sobreToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::sobreToolStripMenuItem_Click);
 			// 
+			// equationsManagerToolStripMenuItem
+			// 
+			this->equationsManagerToolStripMenuItem->Name = L"equationsManagerToolStripMenuItem";
+			this->equationsManagerToolStripMenuItem->Size = System::Drawing::Size(121, 20);
+			this->equationsManagerToolStripMenuItem->Text = L"Gerenciar Fórmulas";
+			this->equationsManagerToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::equationsManagerToolStripMenuItem_Click);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(96, 96);
@@ -254,5 +263,6 @@ namespace INPEEM {
 	private: System::Void sobreToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void bAbrirModelo_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void luccMEToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
-	};
+	private: System::Void equationsManagerToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
+};
 }

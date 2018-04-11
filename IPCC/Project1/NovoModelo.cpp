@@ -376,6 +376,8 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 				}
 
 				lSelectedFolder->Text = tempLine->Substring(0, lastSlash);
+
+				//If the folder is a root address like C: or D:, a slash must be inserted
 				if (lSelectedFolder->Text->Length == 2) {
 					lSelectedFolder->Text += "\\";
 				}
@@ -872,9 +874,73 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 						gEquationsRelation[x, y] = aux;
 					}
 
+					//Check if the Script equations are in equations.dat
+					bool hasChange = false;
+					for (int i = 0; i < MAXEQUATIONS; i++) {
+						for (int j = 0; j < MAXEQUATIONS; j++) {
+							if (gEquationsRelation[i, j] != nullptr) {
+								bool hasEquation = true;
+								int indexEquation = 0;
+
+								for (int k = 0; k < MAXEQUATIONS; k++) {
+									if (gEquations[k] != nullptr) {
+										if (gEquationsRelation[i, j] == gEquations[k]) {
+											indexEquation = k;
+											break;
+										}
+									}
+									else {
+										hasEquation = false;
+										indexEquation = k;
+										break;
+									}
+								}
+
+								if (!hasEquation) {
+									gEquations[indexEquation] = gEquationsRelation[i, j];
+									hasChange = true;
+								}
+							}
+						}
+					}
+
+					if (hasChange) {
+						StreamWriter^ sw = nullptr;
+						String^ path = "D:\\_SVN\\INPE-EM\\branches\\Diego\\IPCC\\Project1\\Resources\\equations.dat";
+						try
+						{
+							if (File::Exists(path))
+							{
+								File::Delete(path);
+							}
+
+							sw = File::CreateText(path);
+
+							for (int i = 0; i < MAXEQUATIONS; i++) {
+								if (gEquations[i] != nullptr) {
+									if (gEquations[i] != "") {
+										sw->WriteLine(gEquations[i]);
+									}
+								}
+								else {
+									break;
+								}
+							}
+
+							sw->Close();
+						}
+						catch (UnauthorizedAccessException^)
+						{
+							MessageBox::Show(gSUnauthorized, gSUnauthorizedTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+						}
+					}
+
+
+					//Enter on Equations Tab to create the ComboBox dinamically and return to Definition (like a function call)
 					tNovoModelo->SelectedIndex = EQUATIONS;
 					tNovoModelo->SelectedIndex = DEFINITION;
 
+					//Select the Equation in each ComboBox
 					for (int i = 0; i < MAXEQUATIONS; i++) {
 						for (int j = 0; j < MAXEQUATIONS; j++) {
 							if (gEquationsRelation[i, j] != nullptr) {
@@ -1438,4 +1504,9 @@ System::Void INPEEM::NovoModelo::NovoModelo_FormClosing(System::Object^  sender,
 			}
 		}
 	}
+}
+
+System::Void INPEEM::NovoModelo::equationManagerToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+{
+
 }

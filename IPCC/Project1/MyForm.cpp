@@ -132,3 +132,7 @@ System::Void INPEEM::MyForm::luccMEToolStripMenuItem_Click(System::Object ^ send
 	}
 }
 
+System::Void INPEEM::MyForm::equationsManagerToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+{
+
+}

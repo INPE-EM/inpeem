@@ -138,10 +138,10 @@ namespace INPEEM {
 	private: System::Windows::Forms::DataGridView^  dgLUT;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  LUTColumn;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  ValueColumn;
-
 	private: System::Windows::Forms::Label^  lEquationsManager;
 	private: System::Windows::Forms::Label^  lTransitions;
-private: System::Windows::Forms::Label^  lEquationsList;
+	private: System::Windows::Forms::Label^  lEquationsList;
+private: System::Windows::Forms::ToolStripMenuItem^  equationManagerToolStripMenuItem;
 
 	public:
 		int lReturn;
@@ -234,6 +234,7 @@ private: System::Windows::Forms::Label^  lEquationsList;
 			this->ajudaToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->luccMEToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->sobreToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->equationManagerToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->tNovoModelo->SuspendLayout();
 			this->tabDefModel->SuspendLayout();
 			this->tabSpatial->SuspendLayout();
@@ -743,9 +744,9 @@ private: System::Windows::Forms::Label^  lEquationsList;
 			// 
 			// menuStrip1
 			// 
-			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
+			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(4) {
 				this->arquivoToolStripMenuItem,
-					this->preferênciasToolStripMenuItem, this->ajudaToolStripMenuItem
+					this->preferênciasToolStripMenuItem, this->equationManagerToolStripMenuItem, this->ajudaToolStripMenuItem
 			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
@@ -766,21 +767,21 @@ private: System::Windows::Forms::Label^  lEquationsList;
 			// novoToolStripMenuItem
 			// 
 			this->novoToolStripMenuItem->Name = L"novoToolStripMenuItem";
-			this->novoToolStripMenuItem->Size = System::Drawing::Size(103, 22);
+			this->novoToolStripMenuItem->Size = System::Drawing::Size(152, 22);
 			this->novoToolStripMenuItem->Text = L"Novo";
 			this->novoToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::novoToolStripMenuItem_Click);
 			// 
 			// abrirToolStripMenuItem
 			// 
 			this->abrirToolStripMenuItem->Name = L"abrirToolStripMenuItem";
-			this->abrirToolStripMenuItem->Size = System::Drawing::Size(103, 22);
+			this->abrirToolStripMenuItem->Size = System::Drawing::Size(152, 22);
 			this->abrirToolStripMenuItem->Text = L"Abrir";
 			this->abrirToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::abrirToolStripMenuItem_Click);
 			// 
 			// sairToolStripMenuItem
 			// 
 			this->sairToolStripMenuItem->Name = L"sairToolStripMenuItem";
-			this->sairToolStripMenuItem->Size = System::Drawing::Size(103, 22);
+			this->sairToolStripMenuItem->Size = System::Drawing::Size(152, 22);
 			this->sairToolStripMenuItem->Text = L"Sair";
 			this->sairToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::sairToolStripMenuItem_Click);
 			// 
@@ -794,7 +795,7 @@ private: System::Windows::Forms::Label^  lEquationsList;
 			// idiomaToolStripMenuItem
 			// 
 			this->idiomaToolStripMenuItem->Name = L"idiomaToolStripMenuItem";
-			this->idiomaToolStripMenuItem->Size = System::Drawing::Size(111, 22);
+			this->idiomaToolStripMenuItem->Size = System::Drawing::Size(152, 22);
 			this->idiomaToolStripMenuItem->Text = L"Idioma";
 			this->idiomaToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::idiomaToolStripMenuItem_Click);
 			// 
@@ -822,6 +823,13 @@ private: System::Windows::Forms::Label^  lEquationsList;
 			this->sobreToolStripMenuItem->Size = System::Drawing::Size(140, 22);
 			this->sobreToolStripMenuItem->Text = L"Sobre";
 			this->sobreToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::sobreToolStripMenuItem_Click);
+			// 
+			// equationManagerToolStripMenuItem
+			// 
+			this->equationManagerToolStripMenuItem->Name = L"equationManagerToolStripMenuItem";
+			this->equationManagerToolStripMenuItem->Size = System::Drawing::Size(121, 20);
+			this->equationManagerToolStripMenuItem->Text = L"Gerenciar Fórmulas";
+			this->equationManagerToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::equationManagerToolStripMenuItem_Click);
 			// 
 			// NovoModelo
 			// 
@@ -881,5 +889,6 @@ private: System::Windows::Forms::Label^  lEquationsList;
 		System::Void tNovoModelo_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e);
 		System::Void dgLUT_RowsRemoved(System::Object^  sender, System::Windows::Forms::DataGridViewRowsRemovedEventArgs^  e);
 		System::Void NovoModelo_FormClosing(System::Object^  sender, System::Windows::Forms::FormClosingEventArgs^  e);
-	};
+		System::Void equationManagerToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
+};
 }

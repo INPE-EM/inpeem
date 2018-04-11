@@ -36,9 +36,6 @@
     <ClCompile Include="LUTForm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EquationsForm.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyForm.h">
@@ -63,9 +60,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LUTForm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EquationsForm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -213,7 +213,7 @@ function INPEEMIPCCModel(model)
 	-- @usage --DONTRUN 
 	-- model.calculateEmission(event, "$teste * f0_var1")
 	model.calculateEmission = function(self, event, formula)
-		print(formula)
+		--print(formula)
 	end
 	
 	collectgarbage("collect")
