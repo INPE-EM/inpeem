@@ -163,7 +163,6 @@ copy $(ProjectDir)\Resources\icon.ico $(OutDir)\</Command>
   <ItemGroup>
     <ClCompile Include="AboutForm.cpp" />
     <ClCompile Include="LanguageForm.cpp" />
-    <ClCompile Include="LUTForm.cpp" />
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="NovoModelo.cpp" />
     <ClCompile Include="Source.cpp" />
@@ -175,9 +174,6 @@ copy $(ProjectDir)\Resources\icon.ico $(OutDir)\</Command>
     </ClInclude>
     <ClInclude Include="Function.h" />
     <ClInclude Include="LanguageForm.h">
-      <FileType>CppForm</FileType>
-    </ClInclude>
-    <ClInclude Include="LUTForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="MyForm.h">
@@ -195,9 +191,6 @@ copy $(ProjectDir)\Resources\icon.ico $(OutDir)\</Command>
     </EmbeddedResource>
     <EmbeddedResource Include="LanguageForm.resx">
       <DependentUpon>LanguageForm.h</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LUTForm.resx">
-      <DependentUpon>LUTForm.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MyForm.resx">
       <DependentUpon>MyForm.h</DependentUpon>
