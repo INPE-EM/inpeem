@@ -3,6 +3,7 @@
 #include "NovoModelo.h"
 #include "LanguageForm.h"
 #include "AboutForm.h"
+#include "EquationForm.h"
 
 using namespace INPEEM;
 using namespace System;
@@ -62,6 +63,7 @@ System::Void INPEEM::MyForm::checkLanguage()
 		sairToolStripMenuItem->Text = "Exit";
 		preferênciasToolStripMenuItem->Text = "Preferences";
 		idiomaToolStripMenuItem->Text = "Language";
+		equationsManagerToolStripMenuItem->Text = "Equations Manager";
 		ajudaToolStripMenuItem->Text = "Help";
 		sobreToolStripMenuItem->Text = "About";
 	}
@@ -75,6 +77,7 @@ System::Void INPEEM::MyForm::checkLanguage()
 		sairToolStripMenuItem->Text = "Sair";
 		preferênciasToolStripMenuItem->Text = "Preferências";
 		idiomaToolStripMenuItem->Text = "Idioma";
+		equationsManagerToolStripMenuItem->Text = "Gerenciar Fórmulas";
 		ajudaToolStripMenuItem->Text = "Ajuda";
 		sobreToolStripMenuItem->Text = "Sobre";
 	}
@@ -134,5 +137,7 @@ System::Void INPEEM::MyForm::luccMEToolStripMenuItem_Click(System::Object ^ send
 
 System::Void INPEEM::MyForm::equationsManagerToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 {
-
+	EquationForm^ equationForm = gcnew EquationForm(lLanguage);
+	equationForm->ShowDialog();
+	MyForm::Update();
 }

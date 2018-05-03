@@ -144,7 +144,7 @@ namespace INPEEM {
 			// 
 			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(4) {
 				this->arquivoToolStripMenuItem,
-					this->preferênciasToolStripMenuItem, this->ajudaToolStripMenuItem, this->equationsManagerToolStripMenuItem
+					this->preferênciasToolStripMenuItem, this->equationsManagerToolStripMenuItem, this->ajudaToolStripMenuItem
 			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
@@ -211,14 +211,14 @@ namespace INPEEM {
 			// 
 			this->luccMEToolStripMenuItem->Name = L"luccMEToolStripMenuItem";
 			this->luccMEToolStripMenuItem->ShortcutKeys = System::Windows::Forms::Keys::F1;
-			this->luccMEToolStripMenuItem->Size = System::Drawing::Size(140, 22);
+			this->luccMEToolStripMenuItem->Size = System::Drawing::Size(152, 22);
 			this->luccMEToolStripMenuItem->Text = L"INPE-EM";
 			this->luccMEToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::luccMEToolStripMenuItem_Click);
 			// 
 			// sobreToolStripMenuItem
 			// 
 			this->sobreToolStripMenuItem->Name = L"sobreToolStripMenuItem";
-			this->sobreToolStripMenuItem->Size = System::Drawing::Size(140, 22);
+			this->sobreToolStripMenuItem->Size = System::Drawing::Size(152, 22);
 			this->sobreToolStripMenuItem->Text = L"Sobre";
 			this->sobreToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::sobreToolStripMenuItem_Click);
 			// 
@@ -264,5 +264,5 @@ namespace INPEEM {
 	private: System::Void bAbrirModelo_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void luccMEToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void equationsManagerToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
-};
+	};
 }

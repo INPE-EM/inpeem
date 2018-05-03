@@ -29,3 +29,6 @@
 #define YOFFSET			30
 #define XOFFSET			125
 #define MAXEQUATIONS	50
+
+//Equation File Address
+#define EQUATIONADDRESS		"D:\\_SVN\\INPE-EM\\branches\\Diego\\IPCC\\Project1\\Resources\\equations.dat"

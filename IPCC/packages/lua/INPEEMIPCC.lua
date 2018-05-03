@@ -115,12 +115,14 @@ function INPEEMIPCCModel(model)
 				
 				-- Inform the years that will be calculated the emissions
 				print("Calculating emissions between "..currentTime.." and "..nextUse)
+				local y = string.sub(currentTime, string.len(currentTime) - 1).."_"..string.sub(nextUse, string.len(nextUse) - 1)
+				local columnName = "eC_"..y
 				
 				for i = 1, #self.cs, 1 do
-					model:calculateEmission(event, self.transitionMatrix[self.cs.cells[i]["use"..currentTime]][self.cs.cells[i]["use"..nextUse]])
+					model:calculateEmission(event, self.transitionMatrix[self.cs.cells[i]["use"..currentTime]][self.cs.cells[i]["use"..nextUse]], i, columnName)
 				end
-				
-				
+
+				self.cs:save("teste50_"..y, columnName)
 			else
 				-- No data for the current year, skipping to the next one
 				--print("No data for "..event:getTime().." skipping to next year")
@@ -212,8 +214,26 @@ function INPEEMIPCCModel(model)
 	-- @arg event An Event represents a time instant when the simulation engine must execute some computation.
 	-- @usage --DONTRUN 
 	-- model.calculateEmission(event, "$teste * f0_var1")
-	model.calculateEmission = function(self, event, formula)
-		--print(formula)
+	model.calculateEmission = function(self, event, formula, i, columnName)
+		-- transform in global to run the load command
+		gSelf = self
+		gI = i
+
+		-- change special characters to terrame language
+		local aux = string.gsub(formula, "($)", "gSelf.cs.cells[gI][\"")
+		aux = string.gsub(aux, "(#)", "\"]")
+		
+		-- change special characters to terrame language
+		-- biomass to carbon: factor 0.47
+		aux = string.gsub(aux, "(@)", "(gSelf.cs.cells[gI][\"")
+		aux = string.gsub(aux, "(&)", "\"]*0.48)")
+		
+		-- load generates a function() with the content of the string
+		executeEquation = load("return "..aux)
+		
+		-- call the function and store in a new column
+		self.cs.cells[i][columnName] = executeEquation()
+		
 	end
 	
 	collectgarbage("collect")

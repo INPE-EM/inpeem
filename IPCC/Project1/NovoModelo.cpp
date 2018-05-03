@@ -138,7 +138,7 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		bRun->Text = "Rodar Modelo";
 
 		//String
-		gSImportEquationErrorTitle = "Erro - Importndo as equações";
+		gSImportEquationErrorTitle = "Erro - Importando as equações";
 		gSImportEquationError = "O arquivo com as equações não foi localizado (equations.dat).";
 		gSProjTitle = "Selecione um Arquivo de Projeto";
 		gSProjFilter = "Projeto Terraview (*.tview)|*.tview";
@@ -185,7 +185,7 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 
 System::Void INPEEM::NovoModelo::checkEquations()
 {
-	String^ fileName = "D:\\_SVN\\INPE-EM\\branches\\Diego\\IPCC\\Project1\\Resources\\equations.dat";
+	String^ fileName = EQUATIONADDRESS;
 	try {
 		StreamReader^ din = File::OpenText(fileName);
 		int eqIndex = 0;
@@ -1504,9 +1504,4 @@ System::Void INPEEM::NovoModelo::NovoModelo_FormClosing(System::Object^  sender,
 			}
 		}
 	}
-}
-
-System::Void INPEEM::NovoModelo::equationManagerToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
-{
-
 }
