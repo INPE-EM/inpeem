@@ -1,4 +1,4 @@
---- Handles with a INPE-EM IPCC model behavior.
+ --- Handles with a INPE-EM IPCC model behavior.
 -- @arg model.name The model name.
 -- @arg model.startTime The initial year of simulation.
 -- @arg model.endTime The final year of simulation.
@@ -7,6 +7,7 @@
 -- @arg model.transitionMatrix The name of land use that is not consider on the simulation.
 -- @arg model.run Handles with the execution method of a LuccMe model.
 -- @arg model.verify Handles with the verify method of a LuccMe model.
+-- @arg model.calculateEmission Handles with the emission calculation.
 -- @usage --DONTRUN
 --import("inpeemipcc")
 --
@@ -83,18 +84,50 @@ function INPEEMIPCCModel(model)
 		
 		if (currentTime == self.startTime) then
 			model:verify(event)
-			
 			print("\nExecuting Model")
-			--Check years with data
+			
+			-- Check years with data
 			simulationTime = self.endTime - self.startTime
 			yearWithData = {}
-			
+			biomassMaps = {}
+			countMaps = 1
+
 			for i = 0, simulationTime, 1 do
 				local auxTime = self.startTime + i
 				if (self.cs.cells[1]["use"..auxTime] ~= nil) then
 					yearWithData[i + 1] = 1
 				else
 					yearWithData[i + 1] = 0
+				end
+			end
+			
+			-- Find the biomass maps
+			for i = 1, #self.transitionMatrix, 1 do
+				for j = 1, #self.transitionMatrix[i], 1 do
+					local startName = 0
+					local endName = 0
+					local auxBiomassMap = ""
+					local existBiomassMap = false
+					
+					startName = string.find(self.transitionMatrix[i][j], "@")
+					startName = startName + 1
+					endName = string.find(self.transitionMatrix[i][j], "&")
+					endName = endName - 1
+					
+					auxBiomassMap = string.sub(self.transitionMatrix[i][j], startName, endName)
+					
+					for k = 1, #biomassMaps, 1 do
+						if auxBiomassMap == biomassMaps[k] then
+							existBiomassMap = true
+							break
+						end	
+					end
+					
+					if (not existBiomassMap) then
+						biomassMaps[countMaps] = auxBiomassMap
+						countMaps = countMaps + 1
+						existBiomassMap = false
+					end
 				end
 			end
 		end
@@ -117,15 +150,36 @@ function INPEEMIPCCModel(model)
 				print("Calculating emissions between "..currentTime.." and "..nextUse)
 				local y = string.sub(currentTime, string.len(currentTime) - 1).."_"..string.sub(nextUse, string.len(nextUse) - 1)
 				local columnName = "eC_"..y
+				local auxIndex = 0
 				
 				for i = 1, #self.cs, 1 do
-					model:calculateEmission(event, self.transitionMatrix[self.cs.cells[i]["use"..currentTime]][self.cs.cells[i]["use"..nextUse]], i, columnName)
+					local auxEquation = self.transitionMatrix[self.cs.cells[i]["use"..currentTime]][self.cs.cells[i]["use"..nextUse]]
+					
+					-- Find the biomass data of the current formula for the cell
+					for j = 1, #biomassMaps, 1 do
+						if (string.find(auxEquation, biomassMaps[j]) ~= nil) then
+							auxIndex = j
+							break
+						end
+					end
+					
+					
+					-- Create a backup to save
+					self.cs.cells[i][biomassMaps[auxIndex].."Backup"] = self.cs.cells[i][biomassMaps[auxIndex]]
+					
+					if (self.cs.cells[i][biomassMaps[auxIndex].."BackupYear"] ~= nil) then
+						self.cs.cells[i][biomassMaps[auxIndex]] = self.cs.cells[i][biomassMaps[auxIndex].."BackupYear"]
+					end
+					
+					-- Execute the emission calculation
+					model:calculateEmission(event, auxEquation, i, columnName, biomassMaps[auxIndex])
+					
+					-- Change the biomass data
+					self.cs.cells[i][biomassMaps[auxIndex].."BackupYear"] = self.cs.cells[i][biomassMaps[auxIndex]]
+					self.cs.cells[i][biomassMaps[auxIndex]] = self.cs.cells[i][biomassMaps[auxIndex].."Backup"] 
 				end
 
-				self.cs:save("teste50_"..y, columnName)
-			else
-				-- No data for the current year, skipping to the next one
-				--print("No data for "..event:getTime().." skipping to next year")
+				self.cs:save(self.name..y, columnName)
 			end
 		else
 			print("End of Simulation");
@@ -137,8 +191,8 @@ function INPEEMIPCCModel(model)
 	-- @usage --DONTRUN 
 	-- model.verify(event)
 	model.verify = function(self, event)
-		local equal = 0
 		print("\nVerifying Model parameters")
+		
 		-- Verify the model name
 		if (model.name == nil) then
 			error("Model name not defined", 2)
@@ -204,27 +258,27 @@ function INPEEMIPCCModel(model)
 		end
 		
 		io.flush()
-    
-		-- Verify the dates to be saved
-		-- This verification is done on Save.lua, because it necessary to execute before here.
 		collectgarbage("collect")
 	end
 	
 	-- Implements the emission calculate.
 	-- @arg event An Event represents a time instant when the simulation engine must execute some computation.
+	-- @arg equation The equation used to calculate the emission.
+	-- @arg i The index of the cellArea
+	-- @arg columnName The name of output column in the shape file.
 	-- @usage --DONTRUN 
-	-- model.calculateEmission(event, "$teste * f0_var1")
-	model.calculateEmission = function(self, event, formula, i, columnName)
+	-- model:calculateEmission(event, equation, cellIndex, columnName)
+	model.calculateEmission = function(self, event, equation, i, columnName, biomassMap)
 		-- transform in global to run the load command
 		gSelf = self
 		gI = i
 
 		-- change special characters to terrame language
-		local aux = string.gsub(formula, "($)", "gSelf.cs.cells[gI][\"")
+		local aux = string.gsub(equation, "($)", "gSelf.cs.cells[gI][\"")
 		aux = string.gsub(aux, "(#)", "\"]")
 		
 		-- change special characters to terrame language
-		-- biomass to carbon: factor 0.47
+		-- biomass to carbon: factor 0.48
 		aux = string.gsub(aux, "(@)", "(gSelf.cs.cells[gI][\"")
 		aux = string.gsub(aux, "(&)", "\"]*0.48)")
 		
@@ -234,6 +288,8 @@ function INPEEMIPCCModel(model)
 		-- call the function and store in a new column
 		self.cs.cells[i][columnName] = executeEquation()
 		
+		-- update the biomass
+		--self.cs.cells[i][biomassMap] = 0
 	end
 	
 	collectgarbage("collect")

@@ -630,7 +630,7 @@ namespace INPEEM {
 			// lEquationsList
 			// 
 			this->lEquationsList->AutoSize = true;
-			this->lEquationsList->Location = System::Drawing::Point(159, 99);
+			this->lEquationsList->Location = System::Drawing::Point(159, 72);
 			this->lEquationsList->Name = L"lEquationsList";
 			this->lEquationsList->Size = System::Drawing::Size(0, 13);
 			this->lEquationsList->TabIndex = 106;
@@ -812,14 +812,14 @@ namespace INPEEM {
 			// 
 			this->luccMEToolStripMenuItem->Name = L"luccMEToolStripMenuItem";
 			this->luccMEToolStripMenuItem->ShortcutKeys = System::Windows::Forms::Keys::F1;
-			this->luccMEToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->luccMEToolStripMenuItem->Size = System::Drawing::Size(140, 22);
 			this->luccMEToolStripMenuItem->Text = L"INPE-EM";
 			this->luccMEToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::luccMEToolStripMenuItem_Click);
 			// 
 			// sobreToolStripMenuItem
 			// 
 			this->sobreToolStripMenuItem->Name = L"sobreToolStripMenuItem";
-			this->sobreToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->sobreToolStripMenuItem->Size = System::Drawing::Size(140, 22);
 			this->sobreToolStripMenuItem->Text = L"Sobre";
 			this->sobreToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::sobreToolStripMenuItem_Click);
 			// 

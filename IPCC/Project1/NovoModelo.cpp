@@ -780,12 +780,14 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 						}
 						else {
 							dgLUT->Rows->Add(aux);
+							gLUTNames += aux + ",";
 							aux = "";
 						}
 					}
 
 					if (aux != "") {
 						dgLUT->Rows->Add(aux);
+						gLUTNames += aux;
 						aux = "";
 					}
 
@@ -795,6 +797,7 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 						}
 						else {
 							dgLUT->Rows[index]->Cells[1]->Value = aux;
+							gLUTValues += aux + ",";
 							index++;
 							aux = "";
 						}
@@ -802,9 +805,13 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 
 					if (aux != "") {
 						dgLUT->Rows[index]->Cells[1]->Value = aux;
+						gLUTValues += aux;
 						aux = "";
 					}
 				}
+
+				gParametersValues[7] = gLUTNames;
+				gParametersValues[8] = gLUTValues;
 
 				found = false;
 				sw->Close();
@@ -961,6 +968,10 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 					}
 				}
 			}
+
+			lRunModel->Visible = true;
+			bRun->Visible = true;
+			runnable = true;
 		}
 		catch (Exception^ e) {
 			if (e->GetType()->ToString() == "System.IndexOutOfRangeException") {
@@ -1095,12 +1106,19 @@ System::Void INPEEM::NovoModelo::tNovoModelo_SelectedIndexChanged(System::Object
 	if (tNovoModelo->SelectedIndex == EQUATIONS) {
 		if (lEquationsList->Text == "") {
 			int index = 0;
+			int breakLine = 1;
 			
 			while (gEquations[index] != nullptr) {
 				lEquationsList->Text += gEquations[index];
 				index++;
 				if (gEquations[index] != nullptr) {
-					lEquationsList->Text += "  |  ";
+					if (lEquationsList->Text->Length >= (90 * breakLine)) {
+						lEquationsList->Text += "\n";
+						breakLine++;
+					}
+					else {
+						lEquationsList->Text += "  |  ";
+					}
 				}
 			}
 		}
@@ -1384,20 +1402,20 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 
 System::Void INPEEM::NovoModelo::bRun_Click(System::Object^  sender, System::EventArgs^  e)
 {
-	Environment::SetEnvironmentVariable("TME_PATH", "C:\\INPE-EM\\Terrame\\bin");
-	Environment::SetEnvironmentVariable("PATH", "C:\\INPE-EM\\Terrame\\bin");
+	Environment::SetEnvironmentVariable("TME_PATH", "C:\\INPE-EM_IPCC\\Terrame\\bin");
+	Environment::SetEnvironmentVariable("PATH", "C:\\INPE-EM_IPCC\\Terrame\\bin");
 
 	String^ arguments = "";
 
 	if (lSelectedFolder->Text[lSelectedFolder->Text->Length - 1] != '\\') {
-		arguments = "\"" + lSelectedFolder->Text->Replace("\\", "\\\\") + "\\\\" + tModelName->Text->ToLower() + "_main.lua\"";
+		arguments = "\"" + lSelectedFolder->Text->Replace("\\", "\\\\") + "\\\\" + tModelName->Text->ToLower() + ".lua\"";
 	}
 	else {
-		arguments = "\"" + lSelectedFolder->Text->Replace("\\", "\\\\") + tModelName->Text->ToLower() + "_main.lua\"";
+		arguments = "\"" + lSelectedFolder->Text->Replace("\\", "\\\\") + tModelName->Text->ToLower() + ".lua\"";
 	}
 
 	System::Diagnostics::Process^ cmd = gcnew System::Diagnostics::Process;
-	cmd->StartInfo->FileName = "C:\\INPE-EM\\TerraME\\bin\\inpeem.bat";
+	cmd->StartInfo->FileName = "C:\\INPE-EM_IPCC\\TerraME\\bin\\inpeem.bat";
 	cmd->StartInfo->Arguments = arguments;
 	cmd->Start();
 	cmd->WaitForExit();
@@ -1487,6 +1505,20 @@ System::Void INPEEM::NovoModelo::checkLUTNames()
 
 System::Void INPEEM::NovoModelo::NovoModelo_FormClosing(System::Object^  sender, System::Windows::Forms::FormClosingEventArgs^  e)
 {
+	gLUTNames = "";
+	gLUTValues = "";
+
+	for (int i = 0; i < dgLUT->RowCount; i++) {
+		if (i + 1 < dgLUT->RowCount - 1) {
+			gLUTNames += dgLUT->Rows[i]->Cells[0]->Value + ",";
+			gLUTValues += dgLUT->Rows[i]->Cells[1]->Value + ",";
+		}
+		else {
+			gLUTNames += dgLUT->Rows[i]->Cells[0]->Value;
+			gLUTValues += dgLUT->Rows[i]->Cells[1]->Value;
+		}
+	}
+
 	if (!closing && !runnable) {
 		if (lSelectedFolder->Text != "" ||tModelName->ForeColor == System::Drawing::Color::Black || tInitialYear->ForeColor == System::Drawing::Color::Black || tFinalYear->ForeColor == System::Drawing::Color::Black ||
 			lSelectedFile->Text != "" || tSpatialLayerName->ForeColor == System::Drawing::Color::Black || tSpatialCellArea->ForeColor == System::Drawing::Color::Black ||  dgLUT->RowCount > 1) {

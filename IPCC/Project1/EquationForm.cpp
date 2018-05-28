@@ -106,6 +106,8 @@ System::Void INPEEM::EquationForm::bRemLUT_Click(System::Object^  sender, System
 			lvEquation->Items->RemoveAt(i);
 		}
 	}
+
+	EquationForm_Click(lvEquation, e);
 }
 
 System::Void INPEEM::EquationForm::EquationForm_Click(System::Object^  sender, System::EventArgs^  e)
@@ -113,9 +115,19 @@ System::Void INPEEM::EquationForm::EquationForm_Click(System::Object^  sender, S
 	for (int i = 0; i < lvEquation->Items->Count; i++) {
 		lvEquation->Items[i]->Selected = false;
 	}
+
+	tEquation->Text = "";
 	bUpEquation->Visible = false;
 	bDownEquation->Visible = false;
 	bRemEquation->Visible = false;
+
+	if (lLanguage = "br") {
+		bAddEquation->Text = "Adiconar";
+	}
+	else {
+		bAddEquation->Text = "Add";
+	}
+
 	this->Update();
 }
 
@@ -132,8 +144,21 @@ System::Void INPEEM::EquationForm::lvEquation_SelectedIndexChanged(System::Objec
 	for (int i = 0; i < lvEquation->Items->Count; i++) {
 		if (lvEquation->Items[i]->Selected) {
 			checked = true;
+			
+			tEquation->Text = lvEquation->Items[i]->Text;
+			tEquation->ForeColor = System::Drawing::Color::Black;
+			
+			if (lLanguage = "br") {
+				bAddEquation->Text = "Atualizar";
+			}
+			else {
+				bAddEquation->Text = "Update";
+			}
+
+			gIndexChange = i;
 		}
 	}
+
 	if (checked) {
 		if (!lvEquation->Items[0]->Selected) {
 			bUpEquation->Visible = true;
@@ -150,7 +175,20 @@ System::Void INPEEM::EquationForm::lvEquation_SelectedIndexChanged(System::Objec
 System::Void INPEEM::EquationForm::bAddEquation_Click(System::Object^  sender, System::EventArgs^  e)
 {
 	if (tEquation->Text != "") {
-		this->lvEquation->Items->Add(tEquation->Text);
+		if (bAddEquation->Text == "Atualizar" || bAddEquation->Text == "Update") {
+			lvEquation->Items[gIndexChange]->Text = tEquation->Text;
+
+			if (lLanguage == "br") {
+				bAddEquation->Text = "Adiconar";
+			}
+			else {
+				bAddEquation->Text = "Add";
+			}
+		}
+		else {
+			this->lvEquation->Items->Add(tEquation->Text);
+		}
+		
 		tEquation->Text = "";
 		bUpEquation->Visible = false;
 		bDownEquation->Visible = false;

@@ -15,6 +15,7 @@ namespace INPEEM {
 	public ref class EquationForm : public System::Windows::Forms::Form
 	{
 	public:
+		int gIndexChange = 0;
 		String^ lLanguage;
 		String^ gSImportEquationErrorTitle = "";
 		String^ gSImportEquationError = "";
