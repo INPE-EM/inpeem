@@ -1,4 +1,4 @@
- --- Handles with a INPE-EM IPCC model behavior.
+--- Handles with a INPE-EM IPCC model behavior.
 -- @arg model.name The model name.
 -- @arg model.startTime The initial year of simulation.
 -- @arg model.endTime The final year of simulation.
@@ -150,6 +150,7 @@ function INPEEMIPCCModel(model)
 				print("Calculating emissions between "..currentTime.." and "..nextUse)
 				local y = string.sub(currentTime, string.len(currentTime) - 1).."_"..string.sub(nextUse, string.len(nextUse) - 1)
 				local columnName = "eC_"..y
+				local cBckName = "bio_"..y
 				local auxIndex = 0
 				
 				for i = 1, #self.cs, 1 do
@@ -165,10 +166,13 @@ function INPEEMIPCCModel(model)
 					
 					
 					-- Create a backup to save
-					self.cs.cells[i][biomassMaps[auxIndex].."Backup"] = self.cs.cells[i][biomassMaps[auxIndex]]
+					if (currentTime == self.startTime) then
+						self.cs.cells[i][biomassMaps[auxIndex].."Backup"] = self.cs.cells[i][biomassMaps[auxIndex]]
+					end
 					
 					if (self.cs.cells[i][biomassMaps[auxIndex].."BackupYear"] ~= nil) then
 						self.cs.cells[i][biomassMaps[auxIndex]] = self.cs.cells[i][biomassMaps[auxIndex].."BackupYear"]
+						self.cs.cells[i][cBckName] = self.cs.cells[i][biomassMaps[auxIndex].."BackupYear"]
 					end
 					
 					-- Execute the emission calculation
@@ -179,7 +183,11 @@ function INPEEMIPCCModel(model)
 					self.cs.cells[i][biomassMaps[auxIndex]] = self.cs.cells[i][biomassMaps[auxIndex].."Backup"] 
 				end
 
-				self.cs:save(self.name..y, columnName)
+				if (currentTime ~= self.startTime) then
+					self.cs:save(self.name..y, {cBckName, columnName})
+				else
+					self.cs:save(self.name..y, columnName)
+				end
 			end
 		else
 			print("End of Simulation");
@@ -288,8 +296,12 @@ function INPEEMIPCCModel(model)
 		-- call the function and store in a new column
 		self.cs.cells[i][columnName] = executeEquation()
 		
-		-- update the biomass
-		--self.cs.cells[i][biomassMap] = 0
+		-- remove the carbon emission of the biomass
+		print(self.cs.cells[i]["col"],self.cs.cells[i]["row"],self.cs.cells[i][biomassMap], self.cs.cells[i][columnName])
+		self.cs.cells[i][biomassMap] = self.cs.cells[i][biomassMap] - (self.cs.cells[i][columnName] / 0.48)
+		if (self.cs.cells[i][biomassMap] < 0) then
+			self.cs.cells[i][biomassMap] = 0
+		end
 	end
 	
 	collectgarbage("collect")
