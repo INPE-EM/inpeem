@@ -1,0 +1,9 @@
+version = "1.0"
+license = "LGPL-3"
+date = "01 June 2018"
+package = "inpeemlucc"
+title = ""
+url = "http://inpe-em.ccst.inpe.br/"
+authors = "CCST - INPE"
+contact = "inpe-em@inpe.br"
+content = [[INPE-EM LUCC version 1.0 implementation.]]
