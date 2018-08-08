@@ -18,7 +18,7 @@ DefaultGroupName=INPE-EM LUCC
 DisableProgramGroupPage=yes
 LicenseFile=D:\_SVN\INPE-EM\branches\Diego\LUCC\Project1\Resources\comment.txt
 OutputDir=D:\Diego\Desktop
-OutputBaseFilename=INPE-EM IPCC_1.0.0.0
+OutputBaseFilename=INPE-EM LUCC_1.0.0.0
 SetupIconFile=D:\_SVN\INPE-EM\branches\Diego\LUCC\Project1\Resources\icon.ico
 Compression=lzma
 SolidCompression=yes
@@ -34,11 +34,11 @@ Name: "brazilianportuguese"; MessagesFile: "compiler:Languages\BrazilianPortugue
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}";
 
 [Files]
-Source: "D:\_SVN\INPE-EM\branches\Diego\LUCC\Release\INPE-EM IPCC.exe"; DestDir: "C:\INPE-EM LUCC"; Flags: ignoreversion;
-Source: "D:\_SVN\INPE-EM\branches\Diego\LUCC\Release\*"; DestDir: "C:\INPE-EM LUCC"; Flags: ignoreversion recursesubdirs createallsubdirs;
+Source: "D:\_SVN\INPE-EM\branches\Diego\LUCC\x64\Release\INPE-EM LUCC.exe"; DestDir: "C:\INPE-EM_LUCC"; Flags: ignoreversion;
+Source: "D:\_SVN\INPE-EM\branches\Diego\LUCC\x64\Release\*"; DestDir: "C:\INPE-EM_LUCC"; Flags: ignoreversion recursesubdirs createallsubdirs;
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{group}\INPE-EM LUCC"; Filename: "C:\INPE-EM\INPE-EM LUCC.exe"
-Name: "{group}\{cm:UninstallProgram,INPE-EM IPCC}"; Filename: "{uninstallexe}"
-Name: "{commondesktop}\INPE-EM LUCC"; Filename: "C:\INPE-EM\INPE-EM LUCC.exe"; Tasks: desktopicon
+Name: "{group}\INPE-EM LUCC"; Filename: "C:\INPE-EM_LUCC\INPE-EM LUCC.exe"
+Name: "{group}\{cm:UninstallProgram,INPE-EM LUCC}"; Filename: "{uninstallexe}"
+Name: "{commondesktop}\INPE-EM LUCC"; Filename: "C:\INPE-EM_LUCC\INPE-EM LUCC.exe"; Tasks: desktopicon

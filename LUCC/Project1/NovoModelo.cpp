@@ -913,7 +913,7 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 
 					if (hasChange) {
 						StreamWriter^ sw = nullptr;
-						String^ path = "D:\\_SVN\\INPE-EM\\branches\\Diego\\LUCC\\Project1\\Resources\\equations.dat";
+						String^ path = EQUATIONADDRESS;
 						try
 						{
 							if (File::Exists(path))
@@ -1402,8 +1402,8 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 
 System::Void INPEEM::NovoModelo::bRun_Click(System::Object^  sender, System::EventArgs^  e)
 {
-	Environment::SetEnvironmentVariable("TME_PATH", "C:\\INPE-EM_LUCC\\Terrame\\bin");
-	Environment::SetEnvironmentVariable("PATH", "C:\\INPE-EM_LUCC\\Terrame\\bin");
+	Environment::SetEnvironmentVariable("TME_PATH", TERRAMEADDRESS);
+	Environment::SetEnvironmentVariable("PATH", TERRAMEADDRESS);
 
 	String^ arguments = "";
 
@@ -1415,7 +1415,7 @@ System::Void INPEEM::NovoModelo::bRun_Click(System::Object^  sender, System::Eve
 	}
 
 	System::Diagnostics::Process^ cmd = gcnew System::Diagnostics::Process;
-	cmd->StartInfo->FileName = "C:\\INPE-EM_LUCC\\TerraME\\bin\\inpeem.bat";
+	cmd->StartInfo->FileName = BATADDRESS;
 	cmd->StartInfo->Arguments = arguments;
 	cmd->Start();
 	cmd->WaitForExit();

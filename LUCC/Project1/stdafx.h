@@ -31,4 +31,10 @@
 #define MAXEQUATIONS	50
 
 //Equation File Address
-#define EQUATIONADDRESS		"D:\\_SVN\\INPE-EM\\branches\\Diego\\IPCC\\Project1\\Resources\\equations.dat"
+#define EQUATIONADDRESS		"C:\\INPE-EM_LUCC\\equations.dat"
+
+//Embedded TerraME Address
+#define TERRAMEADDRESS		"C:\\INPE-EM_LUCC\\Terrame\\bin"
+
+//.bat Address to call Terrame
+#define BATADDRESS			"C:\\INPE-EM_LUCC\\Terrame\\bin\\inpeem.bat"

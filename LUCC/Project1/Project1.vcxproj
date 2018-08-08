@@ -88,6 +88,10 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <CodeAnalysisRuleSet>MixedRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <EnableCppCoreCheck>true</EnableCppCoreCheck>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -140,6 +144,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <CompileAsManaged>true</CompileAsManaged>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -150,7 +155,8 @@
     </Link>
     <PreBuildEvent>
       <Command>copy $(ProjectDir)\*.chm $(OutDir)\
-copy $(ProjectDir)\Resources\icon.ico $(OutDir)\</Command>
+copy $(ProjectDir)\Resources\icon.ico $(OutDir)\
+copy $(ProjectDir)\Resources\equations.dat $(OutDir)\</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

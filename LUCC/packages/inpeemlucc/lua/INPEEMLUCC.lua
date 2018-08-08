@@ -297,7 +297,7 @@ function INPEEMLUCCModel(model)
 		self.cs.cells[i][columnName] = executeEquation()
 		
 		-- remove the carbon emission of the biomass
-		print(self.cs.cells[i]["col"],self.cs.cells[i]["row"],self.cs.cells[i][biomassMap], self.cs.cells[i][columnName])
+		--print(self.cs.cells[i]["col"],self.cs.cells[i]["row"],self.cs.cells[i][biomassMap], self.cs.cells[i][columnName])
 		self.cs.cells[i][biomassMap] = self.cs.cells[i][biomassMap] - (self.cs.cells[i][columnName] / 0.48)
 		if (self.cs.cells[i][biomassMap] < 0) then
 			self.cs.cells[i][biomassMap] = 0
