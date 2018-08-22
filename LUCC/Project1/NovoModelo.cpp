@@ -16,7 +16,7 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 	//Select Strings according to the selected language
 	if (lLanguage == "en") {
 		//Form
-		this->Text = "INPE-EM - Creating a new model";
+		this->Text = "INPE-EM LUCC - Creating a new model";
 
 		//Menu
 		arquivoToolStripMenuItem->Text = "File";
@@ -35,13 +35,7 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		bSelectFolder->Text = "Select";
 		lDefinicoesModelo->Text = "   Model Definitions";
 		lModelName->Text = "Model Name";
-		
-		//tabSpatial
-		tabSpatial->Text = "Spatial Model";
-		lDatabase->Text = "File:";
-		lTerraview->Text = "Terraview Project";
-		lSpatialLayerName->Text = "Layer Name";
-		lSpatialCellArea->Text = "Cell Size";
+		lShape->Text = "Spatial Database (.shp)";
 
 		//tabLUT
 		tabLUT->Text = "Land Use Type";
@@ -57,8 +51,6 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		//Strings
 		gSImportEquationErrorTitle = "Error - Importing Equations";
 		gSImportEquationError = "The equations file (equations.dat) was not found.";
-		gSProjTitle = "Select a Project File";
-		gSProjFilter = "Terraview Project (*.tview)|*.tview";
 		gSShapeTitle = "Select a Shape File";
 		gSShapeFilter = "Shape File (*.shp)|*.shp";
 		gSDefaultTime = "Using defalut time for the simulation.\nDo you want to proceed?";
@@ -73,10 +65,6 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		gSStopTime = "Final Year not defined in Spatial Model.";
 		gSSFileTitle = "Error - Spatial Data is missing";
 		gSSFile = "A Shape file or Terraview Project must be selected in Spatial Model.";
-		gSCellAreaTitle = "Error - Cell Area is missing";
-		gSCellArea = "Cell Are not define in Spatial Data.";
-		gSLayerNameTitle = "Error - Layer Name is missing";
-		gSLayerName = "Layer Name not defined in Spatial Data";
 		gSUnauthorized = "You do not have writting permission on the selected folder.\nTry a different one or run LuccME as admin.";
 		gSUnauthorizedTitle = "Error - Writting Permimission";
 		gSExitTitle = "Exiting - Data not saved";
@@ -91,6 +79,8 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		gSScriptLoad = "Select the Script File.";
 		gSScriptFile = "Select Script File";
 		gSLuaFile = "Lua File(*.lua)|*.lua";
+		gSImportTitle = "Model File Loaded";
+		gSImport = "Mdodel file imported with sucess.";
 		gSImportErrorTitle = "Error - Importing Files";
 		gSImportError = "Incloplete file, can't import it.";
 		gSLUTErrorTitle = "Error - Use Types";
@@ -102,7 +92,7 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 	}
 	else {
 		//Form
-		this->Text = "INPE-EM - Criando um novo modelo";
+		this->Text = "INPE-EM LUCC - Criando um novo modelo";
 		
 		//Menu
 		arquivoToolStripMenuItem->Text = "Arquivo";
@@ -121,15 +111,8 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		bSelectFolder->Text = "Selecionar";
 		lDefinicoesModelo->Text = "Definições do Modelo";
 		lModelName->Text = "Nome do Modelo";
-		
-		//tabSpatialModel
-		tabSpatial->Text = "Modelo Espacial";
+		lShape->Text = "Banco de Dados Espacial (.shp)";
 
-		lTerraview->Text = "Projeto Terraview";
-		lDatabase->Text = "Arquivo:";
-		lSpatialLayerName->Text = "Nome do Layer";
-		lSpatialCellArea->Text = "Tamanho da Célula";
-	
 		//tabFileMaker
 		tabFileMaker->Text = "Gerar Arquivos";
 		lFileMaker->Text = "Gerar os Arquivos";
@@ -140,8 +123,6 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		//String
 		gSImportEquationErrorTitle = "Erro - Importando as equações";
 		gSImportEquationError = "O arquivo com as equações não foi localizado (equations.dat).";
-		gSProjTitle = "Selecione um Arquivo de Projeto";
-		gSProjFilter = "Projeto Terraview (*.tview)|*.tview";
 		gSShapeTitle = "Escolha o arquivo Shape";
 		gSShapeFilter = "Arquivo Shape (*.shp)|*.shp";
 		gSDefaultTime = "Utilizando tempo de simulação padrão.\nDeseja continuar?";
@@ -154,10 +135,6 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		gSModelName = "Nome do Modelo não definido em Definições do Modelo.";
 		gSSFileTitle = "Erro - Dado espacial não selecionado";
 		gSSFile = "Um arquivo Shape ou um Projeto Terraview deve ser selecionado em Modelo Espacial";
-		gSCellAreaTitle = "Erro - Cell Area não definido";
-		gSCellArea = "Cell Area não definido em Dados Espaciais.";
-		gSLayerNameTitle = "Erro - Nome do Layer não preenchido";
-		gSLayerName = "Nome do Layer não definido em Dados Espaciais";
 		gSUnauthorized = "Você não possui permissão de escrita no diretório selecionado.\nEscolha outro diretório ou execute o LuccME como administrador.";
 		gSUnauthorizedTitle = "Erro - Permissão de escrita";
 		gSExitTitle = "Saindo - Dados não salvos";
@@ -172,6 +149,8 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		gSScriptLoad = "Selecione o Script.";
 		gSScriptFile = "Selecione o Script";
 		gSLuaFile = "Arquivo Lua (*.lua)|*.lua";
+		gSImportTitle = "Modelo Carregado";
+		gSImport = "Modelo importado com sucesso.";
 		gSImportErrorTitle = "Erro - Importando Arquivos";
 		gSImportError = "Arquivo incompleto, não pode ser carregado.";
 		gSLUTErrorTitle = "Erro - Tipos de Uso";
@@ -651,90 +630,6 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 				}
 
 				found = false;
-
-				//Capture the layer name
-				while (sw->EndOfStream == false) {
-					if (line->Contains("layer =") != TRUE) {
-						line = sw->ReadLine();
-					}
-					else {
-						found = true;
-						break;
-					}
-				}
-
-				//Select layer name
-				if (found) {
-					j = 0;
-
-					while (line[j] != '=') {
-						j++;
-					}
-
-					j++;
-					tempLine = "";
-
-					for (int i = j; i < line->Length; i++) {
-						if (line[i] != ',') {
-							if (line[i] != ' ') {
-								tempLine += line[i];
-							}
-						}
-						else {
-							break;
-						}
-					}
-				}
-
-				tSpatialLayerName->Text = tempLine->Replace("\"", "");
-				tSpatialLayerName->ForeColor = System::Drawing::Color::Black;
-				gParametersValues[5] = tSpatialLayerName->Text;
-
-				if (shape) {
-					tSpatialLayerName->Enabled = false;
-				}
-
-				found = false;
-
-				//Capture cellArea
-				line = sw->ReadLine();
-				while (sw->EndOfStream == false) {
-					if (line->Contains("cellArea") != TRUE) {
-						line = sw->ReadLine();
-					}
-					else {
-						found = true;
-						break;
-					}
-				}
-
-				//Select the cellArea value
-				if (found) {
-					j = 0;
-					while (line[j] != '=') {
-						j++;
-					}
-
-					j++;
-					tempLine = "";
-
-					for (int i = j; i < line->Length; i++) {
-						if (line[i] != ',') {
-							if (line[i] != ' ') {
-								tempLine += line[i];
-							}
-						}
-						else {
-							break;
-						}
-					}
-
-					tSpatialCellArea->Text = tempLine;
-					tSpatialCellArea->ForeColor = System::Drawing::Color::Black;
-					gParametersValues[6] = tSpatialCellArea->Text;
-				}
-				
-				found = false;
 				sw->Close();
 				sw = gcnew System::IO::StreamReader(fileName);
 
@@ -810,8 +705,8 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 					}
 				}
 
-				gParametersValues[7] = gLUTNames;
-				gParametersValues[8] = gLUTValues;
+				gParametersValues[5] = gLUTNames;
+				gParametersValues[6] = gLUTValues;
 
 				found = false;
 				sw->Close();
@@ -969,6 +864,8 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 				}
 			}
 
+			MessageBox::Show(gSImport, gSImportTitle, MessageBoxButtons::OK, MessageBoxIcon::Information);
+
 			lRunModel->Visible = true;
 			bRun->Visible = true;
 			runnable = true;
@@ -991,25 +888,6 @@ Void INPEEM::NovoModelo::bSelectFolder_Click(System::Object^  sender, System::Ev
 	if (modelFolder->ShowDialog() == System::Windows::Forms::DialogResult::OK)
 	{
 		lSelectedFolder->Text = modelFolder->SelectedPath;
-	}
-}
-
-Void INPEEM::NovoModelo::bSelectProject_Click(System::Object^  sender, System::EventArgs^  e)
-{
-	//Open the dialog to select the access database and return the path
-	INPEEM::OpenFileDialog^ projFile = gcnew OpenFileDialog;
-	projFile->Title = gSProjTitle;
-	projFile->Multiselect = false;
-	projFile->Filter = gSProjFilter;
-	projFile->FilterIndex = 1;
-	projFile->ShowHelp = true;
-
-	if (projFile->ShowDialog() == System::Windows::Forms::DialogResult::OK)
-	{
-		gSelectedFile = projFile->FileName;
-		lSelectedFile->Text = gSelectedFile;
-		shape = false;
-		tSpatialLayerName->Enabled = true;
 	}
 }
 
@@ -1042,8 +920,6 @@ System::Void INPEEM::NovoModelo::bShape_Click(System::Object^  sender, System::E
 		}
 
 		shape = true;
-		tSpatialLayerName->Text = "layer";
-		tSpatialLayerName->Enabled = false;
 	}
 }
 
@@ -1141,20 +1017,8 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 		MessageBox::Show(gSTimeNotDef, gSTimeNotDefTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
 		checked = false;
 	}
-	else if (tSpatialLayerName->Text == "") {
-		MessageBox::Show(gSLayerName, gSLayerNameTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-		checked = false;
-	}
 	else if (lSelectedFile->Text == "") {
 		MessageBox::Show(gSSFile, gSSFileTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-		checked = false;
-	}
-	else if (tSpatialLayerName->Text == "") {
-		MessageBox::Show(gSLayerName, gSLayerNameTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
-		checked = false;
-	}
-	else if (tSpatialCellArea->Text == "") {
-		MessageBox::Show(gSCellArea, gSCellAreaTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
 		checked = false;
 	}
 	else if (dgLUT->RowCount - 1 > 0) {
@@ -1231,7 +1095,7 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 
 					sw->WriteLine("l1 = Layer {");
 					sw->WriteLine("\tproject = proj,");
-					sw->WriteLine("\tname = \"" + tSpatialLayerName->Text + "\",");
+					sw->WriteLine("\tname = \"layer\",");
 					sw->WriteLine("\tfile = \"" + lSelectedFile->Text->Replace("\\", "\\\\") + "\"");
 					sw->WriteLine("}\n");
 				}
@@ -1261,16 +1125,14 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 					sw->WriteLine("\tcs = CellularSpace");
 					sw->WriteLine("\t{");
 					sw->WriteLine("\t\tproject = \"t3mp.tview\",");
-					sw->WriteLine("\t\tlayer = \"" + tSpatialLayerName->Text + "\",");
-					sw->WriteLine("\t\tcellArea = " + tSpatialCellArea->Text + ",");
+					sw->WriteLine("\t\tlayer = \"layer\",");
 					sw->WriteLine("\t},");
 				}
 				else {
 					sw->WriteLine("\tcs = CellularSpace");
 					sw->WriteLine("\t{");
 					sw->WriteLine("\t\tproject = \"" + lSelectedFile->Text->Replace("\\", "\\\\") + "\",");
-					sw->WriteLine("\t\tlayer = \"" + tSpatialLayerName->Text + "\",");
-					sw->WriteLine("\t\tcellArea = " + tSpatialCellArea->Text + ",");
+					sw->WriteLine("\t\tlayer = \"layer\",");
 					sw->WriteLine("\t},");
 				}
 				
@@ -1371,10 +1233,8 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 					gParametersValues[2] = tInitialYear->Text;
 					gParametersValues[3] = tFinalYear->Text;
 					gParametersValues[4] = lSelectedFile->Text;
-					gParametersValues[5] = tSpatialLayerName->Text;
-					gParametersValues[6] = tSpatialCellArea->Text;
-					gParametersValues[7] = gLUTNames;
-					gParametersValues[8] = gLUTValues;
+					gParametersValues[5] = gLUTNames;
+					gParametersValues[6] = gLUTValues;
 				}
 			}
 		}
@@ -1521,7 +1381,7 @@ System::Void INPEEM::NovoModelo::NovoModelo_FormClosing(System::Object^  sender,
 
 	if (!closing && !runnable) {
 		if (lSelectedFolder->Text != "" ||tModelName->ForeColor == System::Drawing::Color::Black || tInitialYear->ForeColor == System::Drawing::Color::Black || tFinalYear->ForeColor == System::Drawing::Color::Black ||
-			lSelectedFile->Text != "" || tSpatialLayerName->ForeColor == System::Drawing::Color::Black || tSpatialCellArea->ForeColor == System::Drawing::Color::Black ||  dgLUT->RowCount > 1) {
+			lSelectedFile->Text != "" ||  dgLUT->RowCount > 1) {
 			if (MessageBox::Show(gSExit, gSExitTitle, MessageBoxButtons::YesNo, MessageBoxIcon::Warning) == INPEEM::DialogResult::No) {
 				e->Cancel = true;
 			}
@@ -1529,8 +1389,7 @@ System::Void INPEEM::NovoModelo::NovoModelo_FormClosing(System::Object^  sender,
 	}
 	else if (!closing && runnable) {
 		if (gParametersValues[0] != lSelectedFolder->Text || gParametersValues[1] != tModelName->Text || gParametersValues[2] != tInitialYear->Text ||
-			gParametersValues[3] != tFinalYear->Text || gParametersValues[4] != lSelectedFile->Text || gParametersValues[5] != tSpatialLayerName->Text ||
-			gParametersValues[6] != tSpatialCellArea->Text || gParametersValues[7] != gLUTNames || gParametersValues[8] != gLUTValues) {
+			gParametersValues[3] != tFinalYear->Text || gParametersValues[4] != lSelectedFile->Text || gParametersValues[5] != gLUTNames || gParametersValues[6] != gLUTValues) {
 			if (MessageBox::Show(gSExit, gSExitTitle, MessageBoxButtons::YesNo, MessageBoxIcon::Warning) == INPEEM::DialogResult::No) {
 				e->Cancel = true;
 			}

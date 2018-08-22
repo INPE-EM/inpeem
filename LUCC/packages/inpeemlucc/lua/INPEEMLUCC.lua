@@ -33,7 +33,6 @@
 --	{
 --		project = "t3mp.tview",
 --		layer = "layer_name",
---		cellArea = 1,
 --	},
 --
 --	-----------------------------------------------------
@@ -236,7 +235,6 @@ function INPEEMLUCCModel(model)
 					project = "t3mp.tview",
 					layer = "layer",
 					xy = {"col", "lin"},
-					cellArea = aux.cellArea
 				}
 			elseif (self.cs.cells[1].Lin ~= nil) then
 				local aux = self.cs
@@ -244,7 +242,6 @@ function INPEEMLUCCModel(model)
 					project = "t3mp.tview",
 					layer = "layer",
 					xy = {"Col", "Lin"},
-					cellArea = aux.cellArea
 			}
 			end
 		end
@@ -272,7 +269,7 @@ function INPEEMLUCCModel(model)
 	-- Implements the emission calculate.
 	-- @arg event An Event represents a time instant when the simulation engine must execute some computation.
 	-- @arg equation The equation used to calculate the emission.
-	-- @arg i The index of the cellArea
+	-- @arg i The index of the cell
 	-- @arg columnName The name of output column in the shape file.
 	-- @usage --DONTRUN 
 	-- model:calculateEmission(event, equation, cellIndex, columnName)
@@ -280,15 +277,18 @@ function INPEEMLUCCModel(model)
 		-- transform in global to run the load command
 		gSelf = self
 		gI = i
+		
+		-- biomass to carbon: factor 0.48
+		local sBioToC = "0.48"				-- to use the value in the cell use 1
+		local fBioToC = 0.48				-- use 1 while using the value in the cell
 
 		-- change special characters to terrame language
 		local aux = string.gsub(equation, "($)", "gSelf.cs.cells[gI][\"")
 		aux = string.gsub(aux, "(#)", "\"]")
 		
 		-- change special characters to terrame language
-		-- biomass to carbon: factor 0.48
 		aux = string.gsub(aux, "(@)", "(gSelf.cs.cells[gI][\"")
-		aux = string.gsub(aux, "(&)", "\"]*0.48)")
+		aux = string.gsub(aux, "(&)", "\"]*"..sBioToC..")")
 		
 		-- load generates a function() with the content of the string
 		executeEquation = load("return "..aux)
@@ -298,7 +298,7 @@ function INPEEMLUCCModel(model)
 		
 		-- remove the carbon emission of the biomass
 		--print(self.cs.cells[i]["col"],self.cs.cells[i]["row"],self.cs.cells[i][biomassMap], self.cs.cells[i][columnName])
-		self.cs.cells[i][biomassMap] = self.cs.cells[i][biomassMap] - (self.cs.cells[i][columnName] / 0.48)
+		self.cs.cells[i][biomassMap] = self.cs.cells[i][biomassMap] - (self.cs.cells[i][columnName] / fBioToC)
 		if (self.cs.cells[i][biomassMap] < 0) then
 			self.cs.cells[i][biomassMap] = 0
 		end

@@ -54,7 +54,7 @@ System::Void INPEEM::MyForm::checkLanguage()
 	}
 	
 	if (lLanguage == "en") {
-		this->Text = "INPE-EM - Model Manager";
+		this->Text = "INPE-EM LUCC - Model Manager";
 		bNovoModelo->Text = "New Model";
 		bAbrirModelo->Text = "Open Model";
 		arquivoToolStripMenuItem->Text = "File";
@@ -68,7 +68,7 @@ System::Void INPEEM::MyForm::checkLanguage()
 		sobreToolStripMenuItem->Text = "About";
 	}
 	else {
-		this->Text = "INPE-EM - Gerenciador de Modelos";
+		this->Text = "INPE-EM LUCC - Gerenciador de Modelos";
 		bNovoModelo->Text = "Novo Modelo";
 		bAbrirModelo->Text = "Abrir Modelo";
 		arquivoToolStripMenuItem->Text = "Arquivo";

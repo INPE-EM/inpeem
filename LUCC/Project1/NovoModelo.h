@@ -45,10 +45,6 @@ namespace INPEEM {
 		String^ gSModelName = "";
 		String^ gSStartTime = "";
 		String^ gSStopTime = "";
-		String^ gSCellAreaTitle = "";
-		String^ gSCellArea = "";
-		String^ gSLayerNameTitle = "";
-		String^ gSLayerName = "";
 		String^ gSSFileTitle = "";
 		String^ gSSFile = "";
 		String^ gSUnauthorized = "";
@@ -75,6 +71,8 @@ namespace INPEEM {
 		String^ gSEquationRelation = "";
 		String^ gSFE = "";
 		String^ gSFETitle = "";
+		String^ gSImportTitle = "";
+		String^ gSImport = "";
 
 		array<String^>^ gEquations = gcnew array<String^>(50);
 		array<String^, 2>^ gEquationsRelation = gcnew array<String^, 2>(50, 50);
@@ -84,10 +82,8 @@ namespace INPEEM {
 		//[2] = tInitialYear->Text;
 		//[3] = tFinalYear->Text;
 		//[4] = lSelectedFile->Text;
-		//[5] = tSpatialLayerName->Text;
-		//[6] = tSpatialCellArea->Text;
-		//[7] = gLUTNames;
-		//[8] = gLUTValues;
+		//[5] = gLUTNames;
+		//[6] = gLUTValues;
 
 	private: System::Windows::Forms::TabControl^  tNovoModelo;
 	private: System::Windows::Forms::TabPage^  tabDefModel;
@@ -104,18 +100,8 @@ namespace INPEEM {
 	private: System::Windows::Forms::Button^  bGerarArquivos;
 	private: System::Windows::Forms::Label^  lFileMaker;
 	private: System::Windows::Forms::PictureBox^  pbLogo1;
-	private: System::Windows::Forms::TabPage^  tabSpatial;
 	private: System::Windows::Forms::TabPage^  tabEquations;
 	private: System::Windows::Forms::Label^  lEquations;
-	private: System::Windows::Forms::Label^  lTerraview;
-	private: System::Windows::Forms::Label^  lShape;
-	private: System::Windows::Forms::Button^  bShape;
-	private: System::Windows::Forms::Button^  bSelectProject;
-	private: System::Windows::Forms::TextBox^  tSpatialCellArea;
-	private: System::Windows::Forms::Label^  lSpatialCellArea;
-	private: System::Windows::Forms::TextBox^  tSpatialLayerName;
-	private: System::Windows::Forms::Label^  lSpatialLayerName;
-	private: System::Windows::Forms::Label^  lDatabase;
 	private: System::Windows::Forms::MenuStrip^  menuStrip1;
 	private: System::Windows::Forms::ToolStripMenuItem^  arquivoToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  novoToolStripMenuItem;
@@ -126,13 +112,10 @@ namespace INPEEM {
 	private: System::Windows::Forms::ToolStripMenuItem^  ajudaToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  luccMEToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  sobreToolStripMenuItem;
-	private: System::Windows::Forms::Label^  lSelectedFile;
-	private: System::Windows::Forms::Label^  lHa;
 	private: System::Windows::Forms::TextBox^  tFinalYear;
 	private: System::Windows::Forms::Label^  lFinalYear;
 	private: System::Windows::Forms::TextBox^  tInitialYear;
 	private: System::Windows::Forms::Label^  lInitialYear;
-	private: System::Windows::Forms::Label^  lSpatialDefinition;
 	private: System::Windows::Forms::TabPage^  tabLUT;
 	private: System::Windows::Forms::Label^  lLUTLarge;
 	private: System::Windows::Forms::DataGridView^  dgLUT;
@@ -141,6 +124,9 @@ namespace INPEEM {
 	private: System::Windows::Forms::Label^  lEquationsManager;
 	private: System::Windows::Forms::Label^  lTransitions;
 	private: System::Windows::Forms::Label^  lEquationsList;
+	private: System::Windows::Forms::Label^  lSelectedFile;
+	private: System::Windows::Forms::Label^  lShape;
+	private: System::Windows::Forms::Button^  bShape;
 
 
 	public:
@@ -184,6 +170,9 @@ namespace INPEEM {
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(NovoModelo::typeid));
 			this->tNovoModelo = (gcnew System::Windows::Forms::TabControl());
 			this->tabDefModel = (gcnew System::Windows::Forms::TabPage());
+			this->lSelectedFile = (gcnew System::Windows::Forms::Label());
+			this->lShape = (gcnew System::Windows::Forms::Label());
+			this->bShape = (gcnew System::Windows::Forms::Button());
 			this->tFinalYear = (gcnew System::Windows::Forms::TextBox());
 			this->lFinalYear = (gcnew System::Windows::Forms::Label());
 			this->tInitialYear = (gcnew System::Windows::Forms::TextBox());
@@ -195,19 +184,6 @@ namespace INPEEM {
 			this->lSelectedFolder = (gcnew System::Windows::Forms::Label());
 			this->bSelectFolder = (gcnew System::Windows::Forms::Button());
 			this->lDirProj = (gcnew System::Windows::Forms::Label());
-			this->tabSpatial = (gcnew System::Windows::Forms::TabPage());
-			this->lHa = (gcnew System::Windows::Forms::Label());
-			this->lTerraview = (gcnew System::Windows::Forms::Label());
-			this->lShape = (gcnew System::Windows::Forms::Label());
-			this->bShape = (gcnew System::Windows::Forms::Button());
-			this->bSelectProject = (gcnew System::Windows::Forms::Button());
-			this->tSpatialCellArea = (gcnew System::Windows::Forms::TextBox());
-			this->lSpatialCellArea = (gcnew System::Windows::Forms::Label());
-			this->tSpatialLayerName = (gcnew System::Windows::Forms::TextBox());
-			this->lSpatialLayerName = (gcnew System::Windows::Forms::Label());
-			this->lDatabase = (gcnew System::Windows::Forms::Label());
-			this->lSelectedFile = (gcnew System::Windows::Forms::Label());
-			this->lSpatialDefinition = (gcnew System::Windows::Forms::Label());
 			this->tabLUT = (gcnew System::Windows::Forms::TabPage());
 			this->dgLUT = (gcnew System::Windows::Forms::DataGridView());
 			this->LUTColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
@@ -236,7 +212,6 @@ namespace INPEEM {
 			this->sobreToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->tNovoModelo->SuspendLayout();
 			this->tabDefModel->SuspendLayout();
-			this->tabSpatial->SuspendLayout();
 			this->tabLUT->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgLUT))->BeginInit();
 			this->tabEquations->SuspendLayout();
@@ -248,7 +223,6 @@ namespace INPEEM {
 			// tNovoModelo
 			// 
 			this->tNovoModelo->Controls->Add(this->tabDefModel);
-			this->tNovoModelo->Controls->Add(this->tabSpatial);
 			this->tNovoModelo->Controls->Add(this->tabLUT);
 			this->tNovoModelo->Controls->Add(this->tabEquations);
 			this->tNovoModelo->Controls->Add(this->tabFileMaker);
@@ -261,6 +235,9 @@ namespace INPEEM {
 			// 
 			// tabDefModel
 			// 
+			this->tabDefModel->Controls->Add(this->lSelectedFile);
+			this->tabDefModel->Controls->Add(this->lShape);
+			this->tabDefModel->Controls->Add(this->bShape);
 			this->tabDefModel->Controls->Add(this->tFinalYear);
 			this->tabDefModel->Controls->Add(this->lFinalYear);
 			this->tabDefModel->Controls->Add(this->tInitialYear);
@@ -280,10 +257,41 @@ namespace INPEEM {
 			this->tabDefModel->Text = L"Definições do Modelo";
 			this->tabDefModel->UseVisualStyleBackColor = true;
 			// 
+			// lSelectedFile
+			// 
+			this->lSelectedFile->AutoSize = true;
+			this->lSelectedFile->Font = (gcnew System::Drawing::Font(L"Calibri", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lSelectedFile->Location = System::Drawing::Point(31, 189);
+			this->lSelectedFile->Name = L"lSelectedFile";
+			this->lSelectedFile->Size = System::Drawing::Size(0, 19);
+			this->lSelectedFile->TabIndex = 113;
+			// 
+			// lShape
+			// 
+			this->lShape->AutoSize = true;
+			this->lShape->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lShape->Location = System::Drawing::Point(20, 149);
+			this->lShape->Name = L"lShape";
+			this->lShape->Size = System::Drawing::Size(251, 23);
+			this->lShape->TabIndex = 112;
+			this->lShape->Text = L"Banco de Dados Espacial (.shp)";
+			this->lShape->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			// 
+			// bShape
+			// 
+			this->bShape->Location = System::Drawing::Point(308, 149);
+			this->bShape->Name = L"bShape";
+			this->bShape->Size = System::Drawing::Size(75, 23);
+			this->bShape->TabIndex = 111;
+			this->bShape->Text = L"Selecionar";
+			this->bShape->UseVisualStyleBackColor = true;
+			// 
 			// tFinalYear
 			// 
 			this->tFinalYear->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tFinalYear->Location = System::Drawing::Point(248, 296);
+			this->tFinalYear->Location = System::Drawing::Point(248, 353);
 			this->tFinalYear->Name = L"tFinalYear";
 			this->tFinalYear->Size = System::Drawing::Size(59, 20);
 			this->tFinalYear->TabIndex = 91;
@@ -296,7 +304,7 @@ namespace INPEEM {
 			this->lFinalYear->AutoSize = true;
 			this->lFinalYear->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lFinalYear->Location = System::Drawing::Point(58, 295);
+			this->lFinalYear->Location = System::Drawing::Point(58, 352);
 			this->lFinalYear->Name = L"lFinalYear";
 			this->lFinalYear->Size = System::Drawing::Size(134, 23);
 			this->lFinalYear->TabIndex = 88;
@@ -306,7 +314,7 @@ namespace INPEEM {
 			// tInitialYear
 			// 
 			this->tInitialYear->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tInitialYear->Location = System::Drawing::Point(248, 255);
+			this->tInitialYear->Location = System::Drawing::Point(248, 312);
 			this->tInitialYear->Name = L"tInitialYear";
 			this->tInitialYear->Size = System::Drawing::Size(59, 20);
 			this->tInitialYear->TabIndex = 90;
@@ -319,7 +327,7 @@ namespace INPEEM {
 			this->lInitialYear->AutoSize = true;
 			this->lInitialYear->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lInitialYear->Location = System::Drawing::Point(58, 254);
+			this->lInitialYear->Location = System::Drawing::Point(58, 311);
 			this->lInitialYear->Name = L"lInitialYear";
 			this->lInitialYear->Size = System::Drawing::Size(113, 23);
 			this->lInitialYear->TabIndex = 89;
@@ -331,7 +339,7 @@ namespace INPEEM {
 			this->lDefinicoesModelo->AutoSize = true;
 			this->lDefinicoesModelo->Font = (gcnew System::Drawing::Font(L"Calibri", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lDefinicoesModelo->Location = System::Drawing::Point(244, 171);
+			this->lDefinicoesModelo->Location = System::Drawing::Point(244, 228);
 			this->lDefinicoesModelo->Name = L"lDefinicoesModelo";
 			this->lDefinicoesModelo->Size = System::Drawing::Size(202, 26);
 			this->lDefinicoesModelo->TabIndex = 70;
@@ -353,7 +361,7 @@ namespace INPEEM {
 			// tModelName
 			// 
 			this->tModelName->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tModelName->Location = System::Drawing::Point(248, 214);
+			this->tModelName->Location = System::Drawing::Point(248, 271);
 			this->tModelName->Name = L"tModelName";
 			this->tModelName->Size = System::Drawing::Size(194, 20);
 			this->tModelName->TabIndex = 66;
@@ -366,7 +374,7 @@ namespace INPEEM {
 			this->lModelName->AutoSize = true;
 			this->lModelName->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lModelName->Location = System::Drawing::Point(58, 213);
+			this->lModelName->Location = System::Drawing::Point(58, 270);
 			this->lModelName->Name = L"lModelName";
 			this->lModelName->Size = System::Drawing::Size(148, 23);
 			this->lModelName->TabIndex = 65;
@@ -378,7 +386,7 @@ namespace INPEEM {
 			this->lSelectedFolder->AutoSize = true;
 			this->lSelectedFolder->Font = (gcnew System::Drawing::Font(L"Calibri", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lSelectedFolder->Location = System::Drawing::Point(20, 117);
+			this->lSelectedFolder->Location = System::Drawing::Point(31, 115);
 			this->lSelectedFolder->Name = L"lSelectedFolder";
 			this->lSelectedFolder->Size = System::Drawing::Size(0, 19);
 			this->lSelectedFolder->TabIndex = 64;
@@ -398,172 +406,12 @@ namespace INPEEM {
 			this->lDirProj->AutoSize = true;
 			this->lDirProj->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lDirProj->Location = System::Drawing::Point(18, 78);
+			this->lDirProj->Location = System::Drawing::Point(20, 78);
 			this->lDirProj->Name = L"lDirProj";
 			this->lDirProj->Size = System::Drawing::Size(224, 23);
 			this->lDirProj->TabIndex = 62;
 			this->lDirProj->Text = L"Pasta para Salvar o Modelo";
 			this->lDirProj->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			// 
-			// tabSpatial
-			// 
-			this->tabSpatial->Controls->Add(this->lHa);
-			this->tabSpatial->Controls->Add(this->lTerraview);
-			this->tabSpatial->Controls->Add(this->lShape);
-			this->tabSpatial->Controls->Add(this->bShape);
-			this->tabSpatial->Controls->Add(this->bSelectProject);
-			this->tabSpatial->Controls->Add(this->tSpatialCellArea);
-			this->tabSpatial->Controls->Add(this->lSpatialCellArea);
-			this->tabSpatial->Controls->Add(this->tSpatialLayerName);
-			this->tabSpatial->Controls->Add(this->lSpatialLayerName);
-			this->tabSpatial->Controls->Add(this->lDatabase);
-			this->tabSpatial->Controls->Add(this->lSelectedFile);
-			this->tabSpatial->Controls->Add(this->lSpatialDefinition);
-			this->tabSpatial->Location = System::Drawing::Point(4, 22);
-			this->tabSpatial->Name = L"tabSpatial";
-			this->tabSpatial->Size = System::Drawing::Size(717, 455);
-			this->tabSpatial->TabIndex = 6;
-			this->tabSpatial->Text = L"Dados Espaciais";
-			this->tabSpatial->UseVisualStyleBackColor = true;
-			// 
-			// lHa
-			// 
-			this->lHa->AutoSize = true;
-			this->lHa->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->lHa->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->lHa->Location = System::Drawing::Point(396, 285);
-			this->lHa->Name = L"lHa";
-			this->lHa->Size = System::Drawing::Size(29, 23);
-			this->lHa->TabIndex = 114;
-			this->lHa->Text = L"ha";
-			this->lHa->TextAlign = System::Drawing::ContentAlignment::TopRight;
-			// 
-			// lTerraview
-			// 
-			this->lTerraview->AutoSize = true;
-			this->lTerraview->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->lTerraview->Location = System::Drawing::Point(230, 105);
-			this->lTerraview->Name = L"lTerraview";
-			this->lTerraview->Size = System::Drawing::Size(151, 23);
-			this->lTerraview->TabIndex = 111;
-			this->lTerraview->Text = L"Projeto Terraview";
-			this->lTerraview->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			// 
-			// lShape
-			// 
-			this->lShape->AutoSize = true;
-			this->lShape->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->lShape->Location = System::Drawing::Point(410, 105);
-			this->lShape->Name = L"lShape";
-			this->lShape->Size = System::Drawing::Size(58, 23);
-			this->lShape->TabIndex = 110;
-			this->lShape->Text = L"Shape";
-			this->lShape->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			// 
-			// bShape
-			// 
-			this->bShape->Location = System::Drawing::Point(400, 131);
-			this->bShape->Name = L"bShape";
-			this->bShape->Size = System::Drawing::Size(75, 23);
-			this->bShape->TabIndex = 99;
-			this->bShape->Text = L"Selecionar";
-			this->bShape->UseVisualStyleBackColor = true;
-			this->bShape->Click += gcnew System::EventHandler(this, &NovoModelo::bShape_Click);
-			// 
-			// bSelectProject
-			// 
-			this->bSelectProject->Location = System::Drawing::Point(264, 131);
-			this->bSelectProject->Name = L"bSelectProject";
-			this->bSelectProject->Size = System::Drawing::Size(75, 23);
-			this->bSelectProject->TabIndex = 98;
-			this->bSelectProject->Text = L"Selecionar";
-			this->bSelectProject->UseVisualStyleBackColor = true;
-			this->bSelectProject->Click += gcnew System::EventHandler(this, &NovoModelo::bSelectProject_Click);
-			// 
-			// tSpatialCellArea
-			// 
-			this->tSpatialCellArea->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tSpatialCellArea->Location = System::Drawing::Point(308, 286);
-			this->tSpatialCellArea->Name = L"tSpatialCellArea";
-			this->tSpatialCellArea->Size = System::Drawing::Size(80, 20);
-			this->tSpatialCellArea->TabIndex = 101;
-			this->tSpatialCellArea->Text = L"6.25";
-			this->tSpatialCellArea->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
-			this->tSpatialCellArea->Enter += gcnew System::EventHandler(this, &NovoModelo::textBox_Enter);
-			// 
-			// lSpatialCellArea
-			// 
-			this->lSpatialCellArea->AutoSize = true;
-			this->lSpatialCellArea->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->lSpatialCellArea->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->lSpatialCellArea->Location = System::Drawing::Point(143, 285);
-			this->lSpatialCellArea->Name = L"lSpatialCellArea";
-			this->lSpatialCellArea->Size = System::Drawing::Size(157, 23);
-			this->lSpatialCellArea->TabIndex = 106;
-			this->lSpatialCellArea->Text = L"Tamanho da Célula";
-			this->lSpatialCellArea->TextAlign = System::Drawing::ContentAlignment::TopRight;
-			// 
-			// tSpatialLayerName
-			// 
-			this->tSpatialLayerName->ForeColor = System::Drawing::SystemColors::ScrollBar;
-			this->tSpatialLayerName->Location = System::Drawing::Point(308, 243);
-			this->tSpatialLayerName->Name = L"tSpatialLayerName";
-			this->tSpatialLayerName->Size = System::Drawing::Size(192, 20);
-			this->tSpatialLayerName->TabIndex = 100;
-			this->tSpatialLayerName->Text = L"layer";
-			this->tSpatialLayerName->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
-			this->tSpatialLayerName->Enter += gcnew System::EventHandler(this, &NovoModelo::textBox_Enter);
-			// 
-			// lSpatialLayerName
-			// 
-			this->lSpatialLayerName->AutoSize = true;
-			this->lSpatialLayerName->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->lSpatialLayerName->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->lSpatialLayerName->Location = System::Drawing::Point(143, 242);
-			this->lSpatialLayerName->Name = L"lSpatialLayerName";
-			this->lSpatialLayerName->Size = System::Drawing::Size(129, 23);
-			this->lSpatialLayerName->TabIndex = 104;
-			this->lSpatialLayerName->Text = L"Nome do Layer";
-			this->lSpatialLayerName->TextAlign = System::Drawing::ContentAlignment::TopRight;
-			// 
-			// lDatabase
-			// 
-			this->lDatabase->AutoSize = true;
-			this->lDatabase->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->lDatabase->Location = System::Drawing::Point(143, 131);
-			this->lDatabase->Name = L"lDatabase";
-			this->lDatabase->Size = System::Drawing::Size(78, 23);
-			this->lDatabase->TabIndex = 102;
-			this->lDatabase->Text = L"Arquivo:";
-			this->lDatabase->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			// 
-			// lSelectedFile
-			// 
-			this->lSelectedFile->AutoSize = true;
-			this->lSelectedFile->Font = (gcnew System::Drawing::Font(L"Calibri", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->lSelectedFile->Location = System::Drawing::Point(146, 180);
-			this->lSelectedFile->Name = L"lSelectedFile";
-			this->lSelectedFile->Size = System::Drawing::Size(0, 19);
-			this->lSelectedFile->TabIndex = 112;
-			// 
-			// lSpatialDefinition
-			// 
-			this->lSpatialDefinition->AutoSize = true;
-			this->lSpatialDefinition->Font = (gcnew System::Drawing::Font(L"Calibri", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->lSpatialDefinition->Location = System::Drawing::Point(264, 19);
-			this->lSpatialDefinition->Name = L"lSpatialDefinition";
-			this->lSpatialDefinition->Size = System::Drawing::Size(184, 26);
-			this->lSpatialDefinition->TabIndex = 115;
-			this->lSpatialDefinition->Text = L"Definições Espaciais";
-			this->lSpatialDefinition->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
 			// tabLUT
 			// 
@@ -812,14 +660,14 @@ namespace INPEEM {
 			// 
 			this->luccMEToolStripMenuItem->Name = L"luccMEToolStripMenuItem";
 			this->luccMEToolStripMenuItem->ShortcutKeys = System::Windows::Forms::Keys::F1;
-			this->luccMEToolStripMenuItem->Size = System::Drawing::Size(140, 22);
-			this->luccMEToolStripMenuItem->Text = L"INPE-EM";
+			this->luccMEToolStripMenuItem->Size = System::Drawing::Size(173, 22);
+			this->luccMEToolStripMenuItem->Text = L"INPE-EM LUCC";
 			this->luccMEToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::luccMEToolStripMenuItem_Click);
 			// 
 			// sobreToolStripMenuItem
 			// 
 			this->sobreToolStripMenuItem->Name = L"sobreToolStripMenuItem";
-			this->sobreToolStripMenuItem->Size = System::Drawing::Size(140, 22);
+			this->sobreToolStripMenuItem->Size = System::Drawing::Size(173, 22);
 			this->sobreToolStripMenuItem->Text = L"Sobre";
 			this->sobreToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::sobreToolStripMenuItem_Click);
 			// 
@@ -841,8 +689,6 @@ namespace INPEEM {
 			this->tNovoModelo->ResumeLayout(false);
 			this->tabDefModel->ResumeLayout(false);
 			this->tabDefModel->PerformLayout();
-			this->tabSpatial->ResumeLayout(false);
-			this->tabSpatial->PerformLayout();
 			this->tabLUT->ResumeLayout(false);
 			this->tabLUT->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgLUT))->EndInit();
@@ -868,7 +714,6 @@ namespace INPEEM {
 		System::Void comboBox_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e);
 		System::Void bSelectFolder_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void sobreToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
-		System::Void bSelectProject_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void NovoModelo_Load(System::Object^  sender, System::EventArgs^  e);
 		System::Void bShape_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void sairToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
