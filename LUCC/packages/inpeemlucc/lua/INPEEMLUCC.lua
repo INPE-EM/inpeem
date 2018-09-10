@@ -110,7 +110,8 @@ function INPEEMLUCCModel(model)
 					
 					startName = string.find(self.transitionMatrix[i][j], "@")
 					startName = startName + 1
-					endName = string.find(self.transitionMatrix[i][j], "&")
+
+					endName = string.find(self.transitionMatrix[i][j], "@", startName)
 					endName = endName - 1
 					
 					auxBiomassMap = string.sub(self.transitionMatrix[i][j], startName, endName)
@@ -269,38 +270,67 @@ function INPEEMLUCCModel(model)
 	-- Implements the emission calculate.
 	-- @arg event An Event represents a time instant when the simulation engine must execute some computation.
 	-- @arg equation The equation used to calculate the emission.
-	-- @arg i The index of the cell
+	-- @arg index The index of the cell
 	-- @arg columnName The name of output column in the shape file.
 	-- @usage --DONTRUN 
 	-- model:calculateEmission(event, equation, cellIndex, columnName)
-	model.calculateEmission = function(self, event, equation, i, columnName, biomassMap)
+	model.calculateEmission = function(self, event, equation, index, columnName, biomassMap)
 		-- transform in global to run the load command
 		gSelf = self
-		gI = i
+		gI = index
 		
 		-- biomass to carbon: factor 0.48
 		local sBioToC = "0.48"				-- to use the value in the cell use 1
 		local fBioToC = 0.48				-- use 1 while using the value in the cell
 
-		-- change special characters to terrame language
-		local aux = string.gsub(equation, "($)", "gSelf.cs.cells[gI][\"")
-		aux = string.gsub(aux, "(#)", "\"]")
+		-- change special characters for parameters to terrame language
+		local countParameters = 0
+		local equationArray = {}
+		for i = 1, #equation, 1 do
+			equationArray[i] = string.sub(equation,i,i)
+			if(equationArray[i] == "$") then
+				countParameters = countParameters + 1
+			end
+		end
 		
-		-- change special characters to terrame language
-		aux = string.gsub(aux, "(@)", "(gSelf.cs.cells[gI][\"")
-		aux = string.gsub(aux, "(&)", "\"]*"..sBioToC..")")
+		local aux = equation
+		for i = 1, countParameters, 1 do
+			if (i%2 == 0) then
+				aux = string.gsub(aux, "($)", "\"]", 1)
+			else
+				aux = string.gsub(aux, "($)", "gSelf.cs.cells[gI][\"", 1)
+			end
+		end
+
+		-- change special characters for biomass to terrame language
+		countParameters = 0
+		equationArray = {}
+		for i = 1, #equation, 1 do
+			equationArray[i] = string.sub(equation,i,i)
+			if(equationArray[i] == "@") then
+				countParameters = countParameters + 1
+			end
+		end
+		
+		for i = 1, countParameters, 1 do
+			if (i%2 == 0) then
+				aux = string.gsub(aux, "(@)", "\"]*"..sBioToC..")", 1)
+			else
+				aux = string.gsub(aux, "(@)", "(gSelf.cs.cells[gI][\"", 1)
+			end
+		end
 		
 		-- load generates a function() with the content of the string
 		executeEquation = load("return "..aux)
-		
+
 		-- call the function and store in a new column
-		self.cs.cells[i][columnName] = executeEquation()
+		self.cs.cells[index][columnName] = executeEquation()
 		
 		-- remove the carbon emission of the biomass
-		--print(self.cs.cells[i]["col"],self.cs.cells[i]["row"],self.cs.cells[i][biomassMap], self.cs.cells[i][columnName])
-		self.cs.cells[i][biomassMap] = self.cs.cells[i][biomassMap] - (self.cs.cells[i][columnName] / fBioToC)
-		if (self.cs.cells[i][biomassMap] < 0) then
-			self.cs.cells[i][biomassMap] = 0
+		--print(self.cs.cells[index]["col"],self.cs.cellsindexi]["row"],self.cs.cells[index][biomassMap], self.cs.cells[index][columnName])
+		self.cs.cells[index][biomassMap] = self.cs.cells[index][biomassMap] - (self.cs.cells[index][columnName] / fBioToC)
+		if (self.cs.cells[index][biomassMap] < 0) then
+			self.cs.cells[index][biomassMap] = 0
 		end
 	end
 	

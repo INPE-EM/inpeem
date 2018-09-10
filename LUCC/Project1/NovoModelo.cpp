@@ -1083,10 +1083,10 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 					sw->WriteLine("--------------------------------------------------------------");
 					sw->WriteLine("import(\"gis\")");
 					sw->WriteLine("");
-					sw->WriteLine("\tprojFile = File(\"t3mp.tview\")");
-					sw->WriteLine("\tif(projFile:exists()) then");
-					sw->WriteLine("\t\tprojFile:delete()");
-					sw->WriteLine("\tend");
+					sw->WriteLine("projFile = File(\"t3mp.tview\")");
+					sw->WriteLine("if(projFile:exists()) then");
+					sw->WriteLine("\tprojFile:delete()");
+					sw->WriteLine("end");
 					sw->WriteLine("");
 					sw->WriteLine("proj = Project {");
 					sw->WriteLine("\tfile = \"t3mp.tview\",");
@@ -1115,7 +1115,6 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 				sw->WriteLine("\t-----------------------------------------------------");
 				sw->WriteLine("\tstartTime = " + tInitialYear->Text + ",");
 				sw->WriteLine("\tendTime = " + tFinalYear->Text + ",\n");
-				sw->WriteLine("");
 
 				sw->WriteLine("\t-----------------------------------------------------");
 				sw->WriteLine("\t-- Spatial dimension definition                    --");
@@ -1135,9 +1134,8 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 					sw->WriteLine("\t\tlayer = \"layer\",");
 					sw->WriteLine("\t},");
 				}
-				
-				sw->WriteLine("");
 
+				sw->WriteLine("");
 				sw->WriteLine("\t-----------------------------------------------------");
 				sw->WriteLine("\t-- Land use values definition                      --");
 				sw->WriteLine("\t-----------------------------------------------------");
