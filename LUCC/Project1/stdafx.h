@@ -13,8 +13,8 @@
 
 //TabPages
 #define DEFINITION	0
-#define EQUATIONS	3
-#define MAKEFILE	5
+#define EQUATIONS	2
+#define MAKEFILE	3
 
 //Data values
 #define TRUE	1

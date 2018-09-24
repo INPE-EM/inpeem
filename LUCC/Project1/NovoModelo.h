@@ -287,6 +287,7 @@ namespace INPEEM {
 			this->bShape->TabIndex = 111;
 			this->bShape->Text = L"Selecionar";
 			this->bShape->UseVisualStyleBackColor = true;
+			this->bShape->Click += gcnew System::EventHandler(this, &NovoModelo::bShape_Click);
 			// 
 			// tFinalYear
 			// 

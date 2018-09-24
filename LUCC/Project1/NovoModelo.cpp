@@ -36,10 +36,21 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		lDefinicoesModelo->Text = "   Model Definitions";
 		lModelName->Text = "Model Name";
 		lShape->Text = "Spatial Database (.shp)";
+		bShape->Text = "Select";
+		lInitialYear->Text = "Initial Year";
+		lFinalYear->Text = "Final Year";
 
 		//tabLUT
 		tabLUT->Text = "Land Use Type";
-		lLUTLarge->Text = "Land Use Types";
+		lLUTLarge->Text = "    Land Use Types";
+		dgLUT->Columns[0]->HeaderText = "Use Name";
+		dgLUT->Columns[1]->HeaderText = "Spatial Value";
+
+		//tabEquations
+		tabEquations->Text = "Equations";
+		lEquations->Text = "Equations Configuration";
+		lEquationsManager->Text = "Equations:";
+		lTransitions->Text = "Transitions";
 
 		//tabFileMaker
 		tabFileMaker->Text = "Files Maker";
@@ -112,6 +123,21 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		lDefinicoesModelo->Text = "Definições do Modelo";
 		lModelName->Text = "Nome do Modelo";
 		lShape->Text = "Banco de Dados Espacial (.shp)";
+		bShape->Text = "Selecionar";
+		lInitialYear->Text = "Ano de Início";
+		lFinalYear->Text = "Ano de Término";
+
+		//tabLUT
+		tabLUT->Text = "Tipos de Uso";
+		lLUTLarge->Text = "Tipos de Uso da Terra";
+		dgLUT->Columns[0]->HeaderText = "Nome do Uso";
+		dgLUT->Columns[1]->HeaderText = "Valor Espacial";
+
+		//tabEquations
+		tabEquations->Text = "Equações";
+		lEquations->Text = "Configuração de Formulas";
+		lEquationsManager->Text = "Equações:";
+		lTransitions->Text = "Transições";
 
 		//tabFileMaker
 		tabFileMaker->Text = "Gerar Arquivos";
