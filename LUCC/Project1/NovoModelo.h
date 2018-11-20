@@ -23,6 +23,7 @@ namespace INPEEM {
 		bool lOpen = false;
 		bool shape = false;
 		bool drawn = false;
+		bool equationChange = false;
 
 		int gLUTNumber = 0;
 		int gLUTNumberDrawn = 0;
@@ -127,6 +128,8 @@ namespace INPEEM {
 	private: System::Windows::Forms::Label^  lSelectedFile;
 	private: System::Windows::Forms::Label^  lShape;
 	private: System::Windows::Forms::Button^  bShape;
+private: System::Windows::Forms::ToolStripMenuItem^  equationManagerToolStripMenuItem;
+
 
 
 	public:
@@ -210,6 +213,7 @@ namespace INPEEM {
 			this->ajudaToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->luccMEToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->sobreToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->equationManagerToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->tNovoModelo->SuspendLayout();
 			this->tabDefModel->SuspendLayout();
 			this->tabLUT->SuspendLayout();
@@ -592,9 +596,9 @@ namespace INPEEM {
 			// 
 			// menuStrip1
 			// 
-			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
+			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(4) {
 				this->arquivoToolStripMenuItem,
-					this->preferênciasToolStripMenuItem, this->ajudaToolStripMenuItem
+					this->preferênciasToolStripMenuItem, this->equationManagerToolStripMenuItem, this->ajudaToolStripMenuItem
 			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
@@ -643,7 +647,7 @@ namespace INPEEM {
 			// idiomaToolStripMenuItem
 			// 
 			this->idiomaToolStripMenuItem->Name = L"idiomaToolStripMenuItem";
-			this->idiomaToolStripMenuItem->Size = System::Drawing::Size(111, 22);
+			this->idiomaToolStripMenuItem->Size = System::Drawing::Size(152, 22);
 			this->idiomaToolStripMenuItem->Text = L"Idioma";
 			this->idiomaToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::idiomaToolStripMenuItem_Click);
 			// 
@@ -671,6 +675,13 @@ namespace INPEEM {
 			this->sobreToolStripMenuItem->Size = System::Drawing::Size(173, 22);
 			this->sobreToolStripMenuItem->Text = L"Sobre";
 			this->sobreToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::sobreToolStripMenuItem_Click);
+			// 
+			// equationManagerToolStripMenuItem
+			// 
+			this->equationManagerToolStripMenuItem->Name = L"equationManagerToolStripMenuItem";
+			this->equationManagerToolStripMenuItem->Size = System::Drawing::Size(121, 20);
+			this->equationManagerToolStripMenuItem->Text = L"Gerenciar Fórmulas";
+			this->equationManagerToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::equationManagerToolStripMenuItem_Click);
 			// 
 			// NovoModelo
 			// 
@@ -709,6 +720,8 @@ namespace INPEEM {
 		System::Void checkLanguage();
 		System::Void checkEquations();
 		System::Void addEquations();
+		System::Void showEquations();
+		System::Void drawCombos();
 		System::Void checkLUTNames();
 		System::Int16 countCaracter(String^ source, char caracter);
 		System::Void textBox_Enter(System::Object^  sender, System::EventArgs^  e);
@@ -727,5 +740,6 @@ namespace INPEEM {
 		System::Void tNovoModelo_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e);
 		System::Void dgLUT_RowsRemoved(System::Object^  sender, System::Windows::Forms::DataGridViewRowsRemovedEventArgs^  e);
 		System::Void NovoModelo_FormClosing(System::Object^  sender, System::Windows::Forms::FormClosingEventArgs^  e);
-	};
+		System::Void equationManagerToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
+};
 }

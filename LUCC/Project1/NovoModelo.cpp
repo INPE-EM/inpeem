@@ -3,6 +3,7 @@
 #include "Function.h"
 #include "LanguageForm.h"
 #include "AboutForm.h"
+#include "EquationForm.h"
 
 using namespace System;
 using namespace System::ComponentModel;
@@ -26,6 +27,7 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		preferênciasToolStripMenuItem->Text = "Preferences";
 		idiomaToolStripMenuItem->Text = "Language";
 		ajudaToolStripMenuItem->Text = "Help";
+		equationManagerToolStripMenuItem->Text = "Equation Manager";
 		sobreToolStripMenuItem->Text = "About";
 		
 		//tabModel
@@ -80,8 +82,8 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		gSUnauthorizedTitle = "Error - Writting Permimission";
 		gSExitTitle = "Exiting - Data not saved";
 		gSExit = "The data changed will be lost.\nDo you want to proceed?";
-		gSSuccessTitle = "Files successfully generate";
-		gSSuccess = "Files successfully recorded:\n";
+		gSSuccessTitle = "File successfully generate";
+		gSSuccess = "File successfully recorded:\n";
 		gSEditing = "INPE-EM - Editing a model";
 		gSNewModelTitle = "Create a New Model";
 		gSNewModel = "All the data will be lost.\nDo you want to proceed?";
@@ -104,7 +106,7 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 	else {
 		//Form
 		this->Text = "INPE-EM LUCC - Criando um novo modelo";
-		
+
 		//Menu
 		arquivoToolStripMenuItem->Text = "Arquivo";
 		novoToolStripMenuItem->Text = "Novo";
@@ -113,8 +115,9 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		preferênciasToolStripMenuItem->Text = "Preferências";
 		idiomaToolStripMenuItem->Text = "Idioma";
 		ajudaToolStripMenuItem->Text = "Ajuda";
+		equationManagerToolStripMenuItem->Text = "Gerenciar Fórmulas";
 		sobreToolStripMenuItem->Text = "Sobre";
-		
+
 		//tabModel
 		tabDefModel->Text = "Definições do Modelo";
 		lArquivos->Text = "Arquivos";
@@ -165,8 +168,8 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		gSUnauthorizedTitle = "Erro - Permissão de escrita";
 		gSExitTitle = "Saindo - Dados não salvos";
 		gSExit = "Os dados alterados serão perdidos.\nDeseja Continuar?";
-		gSSuccessTitle = "Arquivos gerados com Sucesso";
-		gSSuccess = "Arquivos gravados com sucesso:\n";
+		gSSuccessTitle = "Arquivo gerado com Sucesso";
+		gSSuccess = "Arquivo gravado com sucesso:\n";
 		gSEditing = "INPE-EM - Editando um modelo";
 		gSNewModelTitle = "Criar um Novo Modelo";
 		gSNewModel = "Todos os dados serão perdidos.\nDeseja Continuar?";
@@ -188,10 +191,18 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 	}
 }
 
+/*
+Search the equations in the equations.dat file
+*/
 System::Void INPEEM::NovoModelo::checkEquations()
 {
 	String^ fileName = EQUATIONADDRESS;
 	try {
+		for (int i = 0; i < gEquations->Length; i++)
+		{
+			gEquations[i] = nullptr;
+		}
+
 		StreamReader^ din = File::OpenText(fileName);
 		int eqIndex = 0;
 
@@ -207,6 +218,91 @@ System::Void INPEEM::NovoModelo::checkEquations()
 		MessageBox::Show(gSImportEquationError, gSImportEquationErrorTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
 		closing = true;
 		this->Close();
+	}
+}
+
+/*
+Handle in lEquiton label
+*/
+System::Void INPEEM::NovoModelo::showEquations()
+{
+	if (lEquationsList->Text == "" || equationChange) {
+		int index = 0;
+		int breakLine = 1;
+
+		if (equationChange) {
+			lEquationsList->Text = "";
+		}
+
+		while (gEquations[index] != nullptr) {
+			lEquationsList->Text += gEquations[index];
+			index++;
+			if (gEquations[index] != nullptr) {
+				if (lEquationsList->Text->Length >= (90 * breakLine)) {
+					lEquationsList->Text += "\n";
+					breakLine++;
+				}
+				else {
+					lEquationsList->Text += "  |  ";
+				}
+			}
+		}
+		
+		equationChange = false;
+	}
+}
+
+/*
+Generate in Equatons the ComboBOx Matrix
+*/
+System::Void INPEEM::NovoModelo::drawCombos()
+{
+	int lutCount = 0;
+
+	while (lutCount != dgLUT->RowCount - 1) {
+		Label^ lutLabel = gcnew Label();
+		lutLabel->Name = "lutLabel" + lutCount;
+		lutLabel->Text = dgLUT->Rows[lutCount]->Cells[0]->Value->ToString();
+		lutLabel->Location = Point(75 + (lutCount * XOFFSET), 200);
+		tabEquations->Controls->Add(lutLabel);
+
+		Label^ lutLabel2 = gcnew Label();
+		lutLabel2->Name = "lutLabel2" + lutCount;
+		lutLabel2->Text = dgLUT->Rows[lutCount]->Cells[0]->Value->ToString();
+		lutLabel2->Location = Point(0, 230 + (lutCount * YOFFSET));
+		tabEquations->Controls->Add(lutLabel2);
+
+		for (int i = 0; i < dgLUT->RowCount - 1; i++) {
+			ComboBox^ selectFormula = gcnew ComboBox();
+			selectFormula->Name = "cbSelectFormula" + lutCount + i;
+			selectFormula->Location = Point(75 + (lutCount * XOFFSET), 225 + (i * YOFFSET));
+			selectFormula->SelectedIndexChanged += gcnew System::EventHandler(this, &NovoModelo::comboBox_SelectedIndexChanged);
+			selectFormula->DropDownStyle = ComboBoxStyle::DropDownList;
+			tabEquations->Controls->Add(selectFormula);
+			selectFormula->BringToFront();
+		}
+
+		lutCount++;
+	}
+
+	addEquations();
+	NovoModelo::Update();
+	gLUTNumberDrawn = lutCount;
+	drawn = true;
+
+	for (int i = 0; i < MAXEQUATIONS; i++) {
+		for (int j = 0; j < MAXEQUATIONS; j++) {
+			if (gEquationsRelation[i, j] != nullptr) {
+				ComboBox^ auxComboBox = safe_cast<System::Windows::Forms::ComboBox^>(Controls->Find("cbSelectFormula" + i + "" + j, true)[0]);
+
+				for (int k = 0; k < auxComboBox->Items->Count; k++) {
+					if (auxComboBox->Items[k]->Equals(gEquationsRelation[i, j])) {
+						auxComboBox->SelectedIndex = k;
+						break;
+					}
+				}
+			}
+		}
 	}
 }
 
@@ -955,75 +1051,12 @@ System::Void INPEEM::NovoModelo::tNovoModelo_SelectedIndexChanged(System::Object
 	checkLUTNames();
 
 	if (tNovoModelo->SelectedIndex == EQUATIONS && gLUTNumber != gLUTNumberDrawn) {
-		int lutCount = 0;
-
-		while (lutCount != dgLUT->RowCount - 1) {
-			Label^ lutLabel = gcnew Label();
-			lutLabel->Name = "lutLabel" + lutCount;
-			lutLabel->Text = dgLUT->Rows[lutCount]->Cells[0]->Value->ToString();
-			lutLabel->Location = Point(75 + (lutCount * XOFFSET), 200);
-			tabEquations->Controls->Add(lutLabel);
-
-			Label^ lutLabel2 = gcnew Label();
-			lutLabel2->Name = "lutLabel2" + lutCount;
-			lutLabel2->Text = dgLUT->Rows[lutCount]->Cells[0]->Value->ToString();
-			lutLabel2->Location = Point(0, 230 + (lutCount * YOFFSET));
-			tabEquations->Controls->Add(lutLabel2);
-
-			for (int i = 0; i < dgLUT->RowCount - 1; i++) {
-				ComboBox^ selectFormula = gcnew ComboBox();
-				selectFormula->Name = "cbSelectFormula" + lutCount + i;
-				selectFormula->Location = Point(75 + (lutCount * XOFFSET), 225 + (i * YOFFSET));
-				selectFormula->SelectedIndexChanged += gcnew System::EventHandler(this, &NovoModelo::comboBox_SelectedIndexChanged);
-				selectFormula->DropDownStyle = ComboBoxStyle::DropDownList;
-				tabEquations->Controls->Add(selectFormula);
-				selectFormula->BringToFront();
-			}
-
-			lutCount++;
-		}
-
-		addEquations();
-		NovoModelo::Update();
-		gLUTNumberDrawn = lutCount;
-		drawn = true;
-		
-		for (int i = 0; i < MAXEQUATIONS; i++) {
-			for (int j = 0; j < MAXEQUATIONS; j++) {
-				if (gEquationsRelation[i, j] != nullptr) {
-					ComboBox^ auxComboBox = safe_cast<System::Windows::Forms::ComboBox^>(Controls->Find("cbSelectFormula" + i + "" + j, true)[0]);
-					
-					for (int k = 0; k < auxComboBox->Items->Count; k++) {
-						if (auxComboBox->Items[k]->Equals(gEquationsRelation[i, j])) {
-							auxComboBox->SelectedIndex = k;
-							break;
-						}
-					}
-				}
-			}
-		}
+		drawCombos();
 	}
 
 	//Show the eaqutions on the form via label
 	if (tNovoModelo->SelectedIndex == EQUATIONS) {
-		if (lEquationsList->Text == "") {
-			int index = 0;
-			int breakLine = 1;
-			
-			while (gEquations[index] != nullptr) {
-				lEquationsList->Text += gEquations[index];
-				index++;
-				if (gEquations[index] != nullptr) {
-					if (lEquationsList->Text->Length >= (90 * breakLine)) {
-						lEquationsList->Text += "\n";
-						breakLine++;
-					}
-					else {
-						lEquationsList->Text += "  |  ";
-					}
-				}
-			}
-		}
+		showEquations();
 	}
 }
 
@@ -1419,4 +1452,18 @@ System::Void INPEEM::NovoModelo::NovoModelo_FormClosing(System::Object^  sender,
 			}
 		}
 	}
+}
+
+System::Void INPEEM::NovoModelo::equationManagerToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+{
+	EquationForm^ equationForm = gcnew EquationForm(lLanguage);
+	equationForm->ShowDialog();
+	
+	equationChange = true;
+	checkEquations();
+	showEquations();
+	addEquations();
+	drawCombos();
+	
+	NovoModelo::Update();
 }
