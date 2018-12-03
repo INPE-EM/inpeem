@@ -43,8 +43,8 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		lFinalYear->Text = "Final Year";
 
 		//tabLUT
-		tabLUT->Text = "Land Use Type";
-		lLUTLarge->Text = "    Land Use Types";
+		tabLUT->Text = "Use Types";
+		lLUTLarge->Text = "        Use Types";
 		dgLUT->Columns[0]->HeaderText = "Use Name";
 		dgLUT->Columns[1]->HeaderText = "Spatial Value";
 
