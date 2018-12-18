@@ -108,25 +108,27 @@ function INPEEMLUCCModel(model)
 					local auxBiomassMap = ""
 					local existBiomassMap = false
 					
-					startName = string.find(self.transitionMatrix[i][j], "@")
-					startName = startName + 1
+					if (string.find(self.transitionMatrix[i][j], "@") ~= nil) then
+						startName = string.find(self.transitionMatrix[i][j], "@")
+						startName = startName + 1
 
-					endName = string.find(self.transitionMatrix[i][j], "@", startName)
-					endName = endName - 1
-					
-					auxBiomassMap = string.sub(self.transitionMatrix[i][j], startName, endName)
-					
-					for k = 1, #biomassMaps, 1 do
-						if auxBiomassMap == biomassMaps[k] then
-							existBiomassMap = true
-							break
-						end	
-					end
-					
-					if (not existBiomassMap) then
-						biomassMaps[countMaps] = auxBiomassMap
-						countMaps = countMaps + 1
-						existBiomassMap = false
+						endName = string.find(self.transitionMatrix[i][j], "@", startName)
+						endName = endName - 1
+						
+						auxBiomassMap = string.sub(self.transitionMatrix[i][j], startName, endName)
+						
+						for k = 1, #biomassMaps, 1 do
+							if auxBiomassMap == biomassMaps[k] then
+								existBiomassMap = true
+								break
+							end	
+						end
+						
+						if (not existBiomassMap) then
+							biomassMaps[countMaps] = auxBiomassMap
+							countMaps = countMaps + 1
+							existBiomassMap = false
+						end
 					end
 				end
 			end
@@ -151,42 +153,50 @@ function INPEEMLUCCModel(model)
 				local y = string.sub(currentTime, string.len(currentTime) - 1).."_"..string.sub(nextUse, string.len(nextUse) - 1)
 				local columnName = "eC_"..y
 				local cBckName = "bio_"..y
-				local auxIndex = 0
+				local auxIndex = 1
 				
 				for i = 1, #self.cs, 1 do
 					local auxEquation = self.transitionMatrix[self.cs.cells[i]["use"..currentTime]][self.cs.cells[i]["use"..nextUse]]
 					
 					-- Find the biomass data of the current formula for the cell
-					for j = 1, #biomassMaps, 1 do
-						if (string.find(auxEquation, biomassMaps[j]) ~= nil) then
-							auxIndex = j
-							break
+					if (#biomassMaps > 0) then
+						for j = 1, #biomassMaps, 1 do
+							if (string.find(auxEquation, biomassMaps[j]) ~= nil) then
+								auxIndex = j
+								break
+							end
 						end
 					end
 					
-					
 					-- Create a backup to save
 					if (currentTime == self.startTime) then
-						self.cs.cells[i][biomassMaps[auxIndex].."Backup"] = self.cs.cells[i][biomassMaps[auxIndex]]
+						if (#biomassMaps > 0) then
+							self.cs.cells[i][biomassMaps[auxIndex].."Backup"] = self.cs.cells[i][biomassMaps[auxIndex]]
+						end
 					end
 					
-					if (self.cs.cells[i][biomassMaps[auxIndex].."BackupYear"] ~= nil) then
-						self.cs.cells[i][biomassMaps[auxIndex]] = self.cs.cells[i][biomassMaps[auxIndex].."BackupYear"]
-						self.cs.cells[i][cBckName] = self.cs.cells[i][biomassMaps[auxIndex].."BackupYear"]
+					if (#biomassMaps > 0) then
+						if (self.cs.cells[i][biomassMaps[auxIndex].."BackupYear"] ~= nil) then
+							self.cs.cells[i][biomassMaps[auxIndex]] = self.cs.cells[i][biomassMaps[auxIndex].."BackupYear"]
+							self.cs.cells[i][cBckName] = self.cs.cells[i][biomassMaps[auxIndex].."BackupYear"]
+						end
 					end
 					
 					-- Execute the emission calculation
-					model:calculateEmission(event, auxEquation, i, columnName, biomassMaps[auxIndex])
+					local dTime = tonumber(nextUse) - tonumber(currentTime)
+					model:calculateEmission(event, auxEquation, i, columnName, biomassMaps[auxIndex], dTime)
 					
 					-- Change the biomass data
-					self.cs.cells[i][biomassMaps[auxIndex].."BackupYear"] = self.cs.cells[i][biomassMaps[auxIndex]]
-					self.cs.cells[i][biomassMaps[auxIndex]] = self.cs.cells[i][biomassMaps[auxIndex].."Backup"] 
+					if (#biomassMaps > 0) then
+						self.cs.cells[i][biomassMaps[auxIndex].."BackupYear"] = self.cs.cells[i][biomassMaps[auxIndex]]
+						self.cs.cells[i][biomassMaps[auxIndex]] = self.cs.cells[i][biomassMaps[auxIndex].."Backup"] 
+					end
 				end
 
-				if (currentTime ~= self.startTime) then
-					self.cs:save(self.name..y, {cBckName, columnName})
+				if (currentTime ~= self.startTime and #biomassMaps > 0) then
+					self.cs:save(self.name.."_"..y, {cBckName, columnName})
 				else
-					self.cs:save(self.name..y, columnName)
+					self.cs:save(self.name.."_"..y, columnName)
 				end
 			end
 		else
@@ -274,14 +284,14 @@ function INPEEMLUCCModel(model)
 	-- @arg columnName The name of output column in the shape file.
 	-- @usage --DONTRUN 
 	-- model:calculateEmission(event, equation, cellIndex, columnName)
-	model.calculateEmission = function(self, event, equation, index, columnName, biomassMap)
+	model.calculateEmission = function(self, event, equation, index, columnName, biomassMap, ldTime)
 		-- transform in global to run the load command
 		gSelf = self
 		gI = index
 		
 		-- biomass to carbon: factor 0.48
-		local sBioToC = "0.48"				-- to use the value in the cell use 1
-		local fBioToC = 0.48				-- use 1 while using the value in the cell
+		local sBioToC = "0.47"				-- to use the value in the cell use 1
+		local fBioToC = 0.47				-- use 1 while using the value in the cell
 
 		-- change special characters for parameters to terrame language
 		local countParameters = 0
@@ -321,16 +331,24 @@ function INPEEMLUCCModel(model)
 		end
 		
 		-- load generates a function() with the content of the string
-		executeEquation = load("return "..aux)
+		local fDTime = string.find(aux, "dTime")
+		if(fDTime == nil) then
+			executeEquation = load("return "..aux)
+		else
+			aux = string.gsub(aux, "dTime", ldTime)
+			executeEquation = load("return "..aux)
+		end
 
 		-- call the function and store in a new column
 		self.cs.cells[index][columnName] = executeEquation()
 		
 		-- remove the carbon emission of the biomass
 		--print(self.cs.cells[index]["col"],self.cs.cellsindexi]["row"],self.cs.cells[index][biomassMap], self.cs.cells[index][columnName])
-		self.cs.cells[index][biomassMap] = self.cs.cells[index][biomassMap] - (self.cs.cells[index][columnName] / fBioToC)
-		if (self.cs.cells[index][biomassMap] < 0) then
-			self.cs.cells[index][biomassMap] = 0
+		if (#biomassMaps > 0) then
+			self.cs.cells[index][biomassMap] = (self.cs.cellArea * self.cs.cells[index][biomassMap]) - (self.cs.cells[index][columnName] / fBioToC)
+			if (self.cs.cells[index][biomassMap] < 0) then
+				self.cs.cells[index][biomassMap] = 0
+			end
 		end
 	end
 	

@@ -28,7 +28,7 @@
 #define TWODIGITS		10
 #define YOFFSET			30
 #define XOFFSET			125
-#define MAXEQUATIONS	50
+#define MAXEQUATIONS	100
 
 //Equation File Address
 #define EQUATIONADDRESS		"C:\\INPE-EM_LUCC\\equations.dat"

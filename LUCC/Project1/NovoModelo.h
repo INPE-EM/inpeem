@@ -74,10 +74,12 @@ namespace INPEEM {
 		String^ gSFETitle = "";
 		String^ gSImportTitle = "";
 		String^ gSImport = "";
+		String^ gSCellArea = "";
+		String^ gSCellAreaTitle = "";
 
-		array<String^>^ gEquations = gcnew array<String^>(50);
-		array<String^, 2>^ gEquationsRelation = gcnew array<String^, 2>(50, 50);
-		array<String^>^ gParametersValues = gcnew array<String^>(9);
+		array<String^>^ gEquations = gcnew array<String^>(100);
+		array<String^, 2>^ gEquationsRelation = gcnew array<String^, 2>(100, 100);
+		array<String^>^ gParametersValues = gcnew array<String^>(8);
 		//[0] = lSelectedFolder->Text;
 		//[1] = tModelName->Text;
 		//[2] = tInitialYear->Text;
@@ -85,6 +87,7 @@ namespace INPEEM {
 		//[4] = lSelectedFile->Text;
 		//[5] = gLUTNames;
 		//[6] = gLUTValues;
+		//[7] = tCellArea->Text;
 
 	private: System::Windows::Forms::TabControl^  tNovoModelo;
 	private: System::Windows::Forms::TabPage^  tabDefModel;
@@ -128,9 +131,10 @@ namespace INPEEM {
 	private: System::Windows::Forms::Label^  lSelectedFile;
 	private: System::Windows::Forms::Label^  lShape;
 	private: System::Windows::Forms::Button^  bShape;
-private: System::Windows::Forms::ToolStripMenuItem^  equationManagerToolStripMenuItem;
-
-
+	private: System::Windows::Forms::ToolStripMenuItem^  equationManagerToolStripMenuItem;
+	private: System::Windows::Forms::Label^  lHa;
+	private: System::Windows::Forms::TextBox^  tCellArea;
+	private: System::Windows::Forms::Label^  lCellArea;
 
 	public:
 		int lReturn;
@@ -173,6 +177,9 @@ private: System::Windows::Forms::ToolStripMenuItem^  equationManagerToolStripMen
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(NovoModelo::typeid));
 			this->tNovoModelo = (gcnew System::Windows::Forms::TabControl());
 			this->tabDefModel = (gcnew System::Windows::Forms::TabPage());
+			this->lHa = (gcnew System::Windows::Forms::Label());
+			this->tCellArea = (gcnew System::Windows::Forms::TextBox());
+			this->lCellArea = (gcnew System::Windows::Forms::Label());
 			this->lSelectedFile = (gcnew System::Windows::Forms::Label());
 			this->lShape = (gcnew System::Windows::Forms::Label());
 			this->bShape = (gcnew System::Windows::Forms::Button());
@@ -193,8 +200,8 @@ private: System::Windows::Forms::ToolStripMenuItem^  equationManagerToolStripMen
 			this->ValueColumn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->lLUTLarge = (gcnew System::Windows::Forms::Label());
 			this->tabEquations = (gcnew System::Windows::Forms::TabPage());
-			this->lEquationsList = (gcnew System::Windows::Forms::Label());
 			this->lTransitions = (gcnew System::Windows::Forms::Label());
+			this->lEquationsList = (gcnew System::Windows::Forms::Label());
 			this->lEquationsManager = (gcnew System::Windows::Forms::Label());
 			this->lEquations = (gcnew System::Windows::Forms::Label());
 			this->tabFileMaker = (gcnew System::Windows::Forms::TabPage());
@@ -210,10 +217,10 @@ private: System::Windows::Forms::ToolStripMenuItem^  equationManagerToolStripMen
 			this->sairToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->preferênciasToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->idiomaToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->equationManagerToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->ajudaToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->luccMEToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->sobreToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->equationManagerToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->tNovoModelo->SuspendLayout();
 			this->tabDefModel->SuspendLayout();
 			this->tabLUT->SuspendLayout();
@@ -231,6 +238,8 @@ private: System::Windows::Forms::ToolStripMenuItem^  equationManagerToolStripMen
 			this->tNovoModelo->Controls->Add(this->tabEquations);
 			this->tNovoModelo->Controls->Add(this->tabFileMaker);
 			this->tNovoModelo->Location = System::Drawing::Point(12, 173);
+			this->tNovoModelo->MaximumSize = System::Drawing::Size(7250, 4810);
+			this->tNovoModelo->MinimumSize = System::Drawing::Size(725, 481);
 			this->tNovoModelo->Name = L"tNovoModelo";
 			this->tNovoModelo->SelectedIndex = 0;
 			this->tNovoModelo->Size = System::Drawing::Size(725, 481);
@@ -239,6 +248,9 @@ private: System::Windows::Forms::ToolStripMenuItem^  equationManagerToolStripMen
 			// 
 			// tabDefModel
 			// 
+			this->tabDefModel->Controls->Add(this->lHa);
+			this->tabDefModel->Controls->Add(this->tCellArea);
+			this->tabDefModel->Controls->Add(this->lCellArea);
 			this->tabDefModel->Controls->Add(this->lSelectedFile);
 			this->tabDefModel->Controls->Add(this->lShape);
 			this->tabDefModel->Controls->Add(this->bShape);
@@ -260,6 +272,41 @@ private: System::Windows::Forms::ToolStripMenuItem^  equationManagerToolStripMen
 			this->tabDefModel->TabIndex = 0;
 			this->tabDefModel->Text = L"Definições do Modelo";
 			this->tabDefModel->UseVisualStyleBackColor = true;
+			// 
+			// lHa
+			// 
+			this->lHa->AutoSize = true;
+			this->lHa->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lHa->Location = System::Drawing::Point(325, 395);
+			this->lHa->Name = L"lHa";
+			this->lHa->Size = System::Drawing::Size(29, 23);
+			this->lHa->TabIndex = 116;
+			this->lHa->Text = L"ha";
+			this->lHa->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			// 
+			// tCellArea
+			// 
+			this->tCellArea->ForeColor = System::Drawing::SystemColors::ScrollBar;
+			this->tCellArea->Location = System::Drawing::Point(248, 395);
+			this->tCellArea->Name = L"tCellArea";
+			this->tCellArea->Size = System::Drawing::Size(59, 20);
+			this->tCellArea->TabIndex = 69;
+			this->tCellArea->Text = L"900";
+			this->tCellArea->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tCellArea->Enter += gcnew System::EventHandler(this, &NovoModelo::textBox_Enter);
+			// 
+			// lCellArea
+			// 
+			this->lCellArea->AutoSize = true;
+			this->lCellArea->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lCellArea->Location = System::Drawing::Point(58, 394);
+			this->lCellArea->Name = L"lCellArea";
+			this->lCellArea->Size = System::Drawing::Size(124, 23);
+			this->lCellArea->TabIndex = 114;
+			this->lCellArea->Text = L"Área da Célula";
+			this->lCellArea->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			// 
 			// lSelectedFile
 			// 
@@ -299,7 +346,7 @@ private: System::Windows::Forms::ToolStripMenuItem^  equationManagerToolStripMen
 			this->tFinalYear->Location = System::Drawing::Point(248, 353);
 			this->tFinalYear->Name = L"tFinalYear";
 			this->tFinalYear->Size = System::Drawing::Size(59, 20);
-			this->tFinalYear->TabIndex = 91;
+			this->tFinalYear->TabIndex = 68;
 			this->tFinalYear->Text = L"2050";
 			this->tFinalYear->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tFinalYear->Enter += gcnew System::EventHandler(this, &NovoModelo::textBox_Enter);
@@ -322,7 +369,7 @@ private: System::Windows::Forms::ToolStripMenuItem^  equationManagerToolStripMen
 			this->tInitialYear->Location = System::Drawing::Point(248, 312);
 			this->tInitialYear->Name = L"tInitialYear";
 			this->tInitialYear->Size = System::Drawing::Size(59, 20);
-			this->tInitialYear->TabIndex = 90;
+			this->tInitialYear->TabIndex = 67;
 			this->tInitialYear->Text = L"1960";
 			this->tInitialYear->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tInitialYear->Enter += gcnew System::EventHandler(this, &NovoModelo::textBox_Enter);
@@ -469,8 +516,8 @@ private: System::Windows::Forms::ToolStripMenuItem^  equationManagerToolStripMen
 			// tabEquations
 			// 
 			this->tabEquations->AutoScroll = true;
-			this->tabEquations->Controls->Add(this->lEquationsList);
 			this->tabEquations->Controls->Add(this->lTransitions);
+			this->tabEquations->Controls->Add(this->lEquationsList);
 			this->tabEquations->Controls->Add(this->lEquationsManager);
 			this->tabEquations->Controls->Add(this->lEquations);
 			this->tabEquations->Location = System::Drawing::Point(4, 22);
@@ -479,14 +526,6 @@ private: System::Windows::Forms::ToolStripMenuItem^  equationManagerToolStripMen
 			this->tabEquations->TabIndex = 7;
 			this->tabEquations->Text = L"Equações";
 			this->tabEquations->UseVisualStyleBackColor = true;
-			// 
-			// lEquationsList
-			// 
-			this->lEquationsList->AutoSize = true;
-			this->lEquationsList->Location = System::Drawing::Point(159, 72);
-			this->lEquationsList->Name = L"lEquationsList";
-			this->lEquationsList->Size = System::Drawing::Size(0, 13);
-			this->lEquationsList->TabIndex = 106;
 			// 
 			// lTransitions
 			// 
@@ -500,12 +539,20 @@ private: System::Windows::Forms::ToolStripMenuItem^  equationManagerToolStripMen
 			this->lTransitions->Text = L"Transições";
 			this->lTransitions->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			// 
+			// lEquationsList
+			// 
+			this->lEquationsList->AutoSize = true;
+			this->lEquationsList->Location = System::Drawing::Point(100, 52);
+			this->lEquationsList->Name = L"lEquationsList";
+			this->lEquationsList->Size = System::Drawing::Size(0, 13);
+			this->lEquationsList->TabIndex = 106;
+			// 
 			// lEquationsManager
 			// 
 			this->lEquationsManager->AutoSize = true;
 			this->lEquationsManager->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lEquationsManager->Location = System::Drawing::Point(64, 93);
+			this->lEquationsManager->Location = System::Drawing::Point(12, 90);
 			this->lEquationsManager->Name = L"lEquationsManager";
 			this->lEquationsManager->Size = System::Drawing::Size(89, 23);
 			this->lEquationsManager->TabIndex = 103;
@@ -647,9 +694,16 @@ private: System::Windows::Forms::ToolStripMenuItem^  equationManagerToolStripMen
 			// idiomaToolStripMenuItem
 			// 
 			this->idiomaToolStripMenuItem->Name = L"idiomaToolStripMenuItem";
-			this->idiomaToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->idiomaToolStripMenuItem->Size = System::Drawing::Size(111, 22);
 			this->idiomaToolStripMenuItem->Text = L"Idioma";
 			this->idiomaToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::idiomaToolStripMenuItem_Click);
+			// 
+			// equationManagerToolStripMenuItem
+			// 
+			this->equationManagerToolStripMenuItem->Name = L"equationManagerToolStripMenuItem";
+			this->equationManagerToolStripMenuItem->Size = System::Drawing::Size(121, 20);
+			this->equationManagerToolStripMenuItem->Text = L"Gerenciar Fórmulas";
+			this->equationManagerToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::equationManagerToolStripMenuItem_Click);
 			// 
 			// ajudaToolStripMenuItem
 			// 
@@ -676,13 +730,6 @@ private: System::Windows::Forms::ToolStripMenuItem^  equationManagerToolStripMen
 			this->sobreToolStripMenuItem->Text = L"Sobre";
 			this->sobreToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::sobreToolStripMenuItem_Click);
 			// 
-			// equationManagerToolStripMenuItem
-			// 
-			this->equationManagerToolStripMenuItem->Name = L"equationManagerToolStripMenuItem";
-			this->equationManagerToolStripMenuItem->Size = System::Drawing::Size(121, 20);
-			this->equationManagerToolStripMenuItem->Text = L"Gerenciar Fórmulas";
-			this->equationManagerToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::equationManagerToolStripMenuItem_Click);
-			// 
 			// NovoModelo
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(96, 96);
@@ -698,6 +745,7 @@ private: System::Windows::Forms::ToolStripMenuItem^  equationManagerToolStripMen
 			this->Text = L"Criando um Novo Modelo";
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &NovoModelo::NovoModelo_FormClosing);
 			this->Load += gcnew System::EventHandler(this, &NovoModelo::NovoModelo_Load);
+			this->SizeChanged += gcnew System::EventHandler(this, &NovoModelo::resizeWindow);
 			this->tNovoModelo->ResumeLayout(false);
 			this->tabDefModel->ResumeLayout(false);
 			this->tabDefModel->PerformLayout();
@@ -741,5 +789,6 @@ private: System::Windows::Forms::ToolStripMenuItem^  equationManagerToolStripMen
 		System::Void dgLUT_RowsRemoved(System::Object^  sender, System::Windows::Forms::DataGridViewRowsRemovedEventArgs^  e);
 		System::Void NovoModelo_FormClosing(System::Object^  sender, System::Windows::Forms::FormClosingEventArgs^  e);
 		System::Void equationManagerToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void resizeWindow(System::Object^  sender, System::EventArgs^  e);
 };
 }

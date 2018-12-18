@@ -41,6 +41,7 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		bShape->Text = "Select";
 		lInitialYear->Text = "Initial Year";
 		lFinalYear->Text = "Final Year";
+		lCellArea->Text = "Cell Area";
 
 		//tabLUT
 		tabLUT->Text = "Use Types";
@@ -102,6 +103,8 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		gSEquationRelation = "The equations must be selcted for each use in Use Types.";
 		gSFETitle = "Error - Files Generation";
 		gSFE = "Error recording the file.";
+		gSCellArea = "Cell Area not defined in Spatial Definition.";
+		gSCellAreaTitle = "Error - Cell Area is missing";
 	}
 	else {
 		//Form
@@ -129,6 +132,7 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		bShape->Text = "Selecionar";
 		lInitialYear->Text = "Ano de Início";
 		lFinalYear->Text = "Ano de Término";
+		lCellArea->Text = "Área da Célula";
 
 		//tabLUT
 		tabLUT->Text = "Tipos de Uso";
@@ -188,6 +192,8 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 		gSEquationRelation = "As equações devem ser selecionadas por uso em Equações.";
 		gSFETitle = "Erro - Geração de Arquivo";
 		gSFE = "Erro na geração do arquivo .lua.";
+		gSCellArea = "Cell Area não definido em Definições Espaciais.";
+		gSCellAreaTitle = "Erro - Cell Area não definido";
 	}
 }
 
@@ -238,7 +244,7 @@ System::Void INPEEM::NovoModelo::showEquations()
 			lEquationsList->Text += gEquations[index];
 			index++;
 			if (gEquations[index] != nullptr) {
-				if (lEquationsList->Text->Length >= (90 * breakLine)) {
+				if (lEquationsList->Text->Length >= (130 * breakLine)) {
 					lEquationsList->Text += "\n";
 					breakLine++;
 				}
@@ -246,6 +252,14 @@ System::Void INPEEM::NovoModelo::showEquations()
 					lEquationsList->Text += "  |  ";
 				}
 			}
+		}
+		
+		if (lEquationsList->Width > tNovoModelo->Width) {
+			lEquationsList->Font = gcnew System::Drawing::Font(L"Calibri", 7);
+		}
+		
+		if (lEquationsList->Height > 90) {
+			lTransitions->Location = System::Drawing::Point(301, 149 + lEquationsList->Height - 90);
 		}
 		
 		equationChange = false;
@@ -263,19 +277,53 @@ System::Void INPEEM::NovoModelo::drawCombos()
 		Label^ lutLabel = gcnew Label();
 		lutLabel->Name = "lutLabel" + lutCount;
 		lutLabel->Text = dgLUT->Rows[lutCount]->Cells[0]->Value->ToString();
-		lutLabel->Location = Point(75 + (lutCount * XOFFSET), 200);
+
+		if (lEquationsList->Height > 90) {
+			lutLabel->Location = Point(75 + (lutCount * XOFFSET), 200 + lEquationsList->Height - 90);
+		}
+		else {
+			lutLabel->Location = Point(75 + (lutCount * XOFFSET), 200);
+		}
 		tabEquations->Controls->Add(lutLabel);
 
 		Label^ lutLabel2 = gcnew Label();
 		lutLabel2->Name = "lutLabel2" + lutCount;
 		lutLabel2->Text = dgLUT->Rows[lutCount]->Cells[0]->Value->ToString();
-		lutLabel2->Location = Point(0, 230 + (lutCount * YOFFSET));
+
+		if (lEquationsList->Height > 90) {
+			lutLabel2->Location = Point(0, 230 + (lutCount * YOFFSET) + lEquationsList->Height - 90);
+		}
+		else {
+			lutLabel2->Location = Point(0, 230 + (lutCount * YOFFSET));
+		}
 		tabEquations->Controls->Add(lutLabel2);
 
 		for (int i = 0; i < dgLUT->RowCount - 1; i++) {
 			ComboBox^ selectFormula = gcnew ComboBox();
-			selectFormula->Name = "cbSelectFormula" + lutCount + i;
-			selectFormula->Location = Point(75 + (lutCount * XOFFSET), 225 + (i * YOFFSET));
+			if (i <= 9) {
+				if (lutCount <= 9) {
+					selectFormula->Name = "cbSelectFormula" + "0" + lutCount + "0" + i;
+				}
+				else {
+					selectFormula->Name = "cbSelectFormula" + lutCount + "0" + i;
+				}
+			}
+			else {
+				if (lutCount <= 9) {
+					selectFormula->Name = "cbSelectFormula" + "0" + lutCount + i;
+				}
+				else {
+					selectFormula->Name = "cbSelectFormula" + lutCount + i;
+				}
+			}
+			
+
+			if (lEquationsList->Height > 90) {
+				selectFormula->Location = Point(75 + (lutCount * XOFFSET), 225 + (i * YOFFSET) + lEquationsList->Height - 90);
+			}
+			else {
+				selectFormula->Location = Point(75 + (lutCount * XOFFSET), 225 + (i * YOFFSET));
+			}
 			selectFormula->SelectedIndexChanged += gcnew System::EventHandler(this, &NovoModelo::comboBox_SelectedIndexChanged);
 			selectFormula->DropDownStyle = ComboBoxStyle::DropDownList;
 			tabEquations->Controls->Add(selectFormula);
@@ -292,8 +340,26 @@ System::Void INPEEM::NovoModelo::drawCombos()
 
 	for (int i = 0; i < MAXEQUATIONS; i++) {
 		for (int j = 0; j < MAXEQUATIONS; j++) {
+
+			ComboBox^ auxComboBox = gcnew ComboBox();
+
 			if (gEquationsRelation[i, j] != nullptr) {
-				ComboBox^ auxComboBox = safe_cast<System::Windows::Forms::ComboBox^>(Controls->Find("cbSelectFormula" + i + "" + j, true)[0]);
+				if (i <= 9) {
+					if (j <= 9) {
+						auxComboBox = safe_cast<System::Windows::Forms::ComboBox^>(Controls->Find("cbSelectFormula" + "0" + i + "0" + j, true)[0]);
+					}
+					else {
+						auxComboBox = safe_cast<System::Windows::Forms::ComboBox^>(Controls->Find("cbSelectFormula" + i + "0" + j, true)[0]);
+					}
+				}
+				else {
+					if (j <= 9) {
+						auxComboBox = safe_cast<System::Windows::Forms::ComboBox^>(Controls->Find("cbSelectFormula" + "0" + i + "" + j, true)[0]);
+					}
+					else {
+						auxComboBox = safe_cast<System::Windows::Forms::ComboBox^>(Controls->Find("cbSelectFormula" + i + "" + j, true)[0]);
+					}
+				}
 
 				for (int k = 0; k < auxComboBox->Items->Count; k++) {
 					if (auxComboBox->Items[k]->Equals(gEquationsRelation[i, j])) {
@@ -330,22 +396,8 @@ System::Void INPEEM::NovoModelo::comboBox_SelectedIndexChanged(System::Object^  
 	
 	aux = aux->Replace(regex->Match(aux)->ToString(), "");
 
-	int dif = aux->Length - numberDigits;
-
-	if (dif == 0) {
-		y = Convert::ToInt16(aux->Substring(0, numberDigits - 1));
-		x = Convert::ToInt16(aux->Substring(numberDigits - 1));
-	}
-	else {
-		if (aux[numberDigits] != 0 && numberDigits != 1) {
-			y = Convert::ToInt16(aux->Substring(0, numberDigits - 1));
-			x = Convert::ToInt16(aux->Substring(numberDigits - 1));
-		}
-		else {
-			y = Convert::ToInt16(aux->Substring(0, numberDigits));
-			x = Convert::ToInt16(aux->Substring(numberDigits));
-		}
-	}
+	y = Convert::ToInt16(aux->Substring(0, numberDigits));
+	x = Convert::ToInt16(aux->Substring(numberDigits));
 
 	aux = thisComboBox->SelectedItem->ToString();
 	aux = aux->Substring(aux->IndexOf(":") + 2);
@@ -374,7 +426,25 @@ System::Void INPEEM::NovoModelo::addEquations()
 			bool hasEquations = false;
 			for (int j = 0; j < dgLUT->RowCount - 1; j++) {
 				for (int k = 0; k < dgLUT->RowCount - 1; k++) {
-					ComboBox^ auxComboBox = safe_cast<System::Windows::Forms::ComboBox^>(Controls->Find("cbSelectFormula" + j + "" + k, true)[0]);
+					//ComboBox^ auxComboBox = safe_cast<System::Windows::Forms::ComboBox^>(Controls->Find("cbSelectFormula" + j + "" + k, true)[0]);
+					ComboBox^ auxComboBox = gcnew ComboBox();
+					if (k <= 9) {
+						if (j <= 9) {
+							auxComboBox = safe_cast<System::Windows::Forms::ComboBox^>(Controls->Find("cbSelectFormula" + "0" + j + "0" + k, true)[0]);
+						}
+						else {
+							auxComboBox = safe_cast<System::Windows::Forms::ComboBox^>(Controls->Find("cbSelectFormula" + j + "0" + k, true)[0]);
+						}
+					}
+					else {
+						if (j <= 9) {
+							auxComboBox = safe_cast<System::Windows::Forms::ComboBox^>(Controls->Find("cbSelectFormula" + "0" + j + "" + k, true)[0]);
+						}
+						else {
+							auxComboBox = safe_cast<System::Windows::Forms::ComboBox^>(Controls->Find("cbSelectFormula" + j + "" + k, true)[0]);
+						}
+					}
+
 					String^ formulaNumber = "";
 
 					if (i < TWODIGITS) {
@@ -755,6 +825,44 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 				sw->Close();
 				sw = gcnew System::IO::StreamReader(fileName);
 
+				line = sw->ReadLine();
+				while (sw->EndOfStream == false) {
+					if (line->Contains("cellArea") != TRUE) {
+						line = sw->ReadLine();
+					}
+					else {
+						found = true;
+						break;
+					}
+				}
+
+				if (found) {
+					j = 0;
+					while (line[j] != '=') {
+						j++;
+					}
+
+					j++;
+					tempLine = "";
+
+					for (int i = j; i < line->Length; i++) {
+						if (line[i] != ',') {
+							if (line[i] != ' ') {
+								tempLine += line[i];
+							}
+						}
+						else {
+							break;
+						}
+					}
+					tCellArea->Text = tempLine;
+					tCellArea->ForeColor = System::Drawing::Color::Black;
+				}
+
+				found = false;
+				sw->Close();
+				sw = gcnew System::IO::StreamReader(fileName);
+
 				//Capture land use values
 				line = sw->ReadLine();
 				while (sw->EndOfStream == false) {
@@ -968,7 +1076,24 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 					for (int i = 0; i < MAXEQUATIONS; i++) {
 						for (int j = 0; j < MAXEQUATIONS; j++) {
 							if (gEquationsRelation[i, j] != nullptr) {
-								ComboBox^ auxComboBox = safe_cast<System::Windows::Forms::ComboBox^>(Controls->Find("cbSelectFormula" + i + "" + j, true)[0]);
+								ComboBox^ auxComboBox = gcnew ComboBox();
+
+								if (j <= 9) {
+									if (i <= 9) {
+										auxComboBox = safe_cast<System::Windows::Forms::ComboBox^>(Controls->Find("cbSelectFormula" + "0" + i + "0" + j, true)[0]);
+									}
+									else {
+										auxComboBox = safe_cast<System::Windows::Forms::ComboBox^>(Controls->Find("cbSelectFormula" + i + "0" + j, true)[0]);
+									}
+								}
+								else {
+									if (i <= 9) {
+										auxComboBox = safe_cast<System::Windows::Forms::ComboBox^>(Controls->Find("cbSelectFormula" + "0" + i + "" + j, true)[0]);
+									}
+									else {
+										auxComboBox = safe_cast<System::Windows::Forms::ComboBox^>(Controls->Find("cbSelectFormula" + i + "" + j, true)[0]);
+									}
+								}
 
 								for (int k = 0; k < auxComboBox->Items->Count; k++) {
 									String^ auxFormula = auxComboBox->Items[k]->ToString();
@@ -1080,6 +1205,10 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 		MessageBox::Show(gSSFile, gSSFileTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
 		checked = false;
 	}
+	else if (tCellArea->Text == "") {
+		MessageBox::Show(gSCellArea, gSCellAreaTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
+		checked = false;
+	}
 	else if (dgLUT->RowCount - 1 > 0) {
 		for (int i = 0; i < dgLUT->RowCount - 1; i++) {
 			for (int j = 0; j < dgLUT->RowCount - 1; j++) {
@@ -1092,6 +1221,7 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 				if (gEquationsRelation[i, j] == nullptr) {
 					MessageBox::Show(gSEquationRelation, gSEquationRelationTitle, MessageBoxButtons::OK, MessageBoxIcon::Error);
 					checked = false;
+					break;
 				}
 			}
 		}
@@ -1184,6 +1314,7 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 					sw->WriteLine("\t{");
 					sw->WriteLine("\t\tproject = \"t3mp.tview\",");
 					sw->WriteLine("\t\tlayer = \"layer\",");
+					sw->WriteLine("\t\tcellArea = " + tCellArea->Text + ",");
 					sw->WriteLine("\t},");
 				}
 				else {
@@ -1191,6 +1322,7 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 					sw->WriteLine("\t{");
 					sw->WriteLine("\t\tproject = \"" + lSelectedFile->Text->Replace("\\", "\\\\") + "\",");
 					sw->WriteLine("\t\tlayer = \"layer\",");
+					sw->WriteLine("\t\tcellArea = " + tCellArea->Text + ",");
 					sw->WriteLine("\t},");
 				}
 
@@ -1292,6 +1424,7 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 					gParametersValues[4] = lSelectedFile->Text;
 					gParametersValues[5] = gLUTNames;
 					gParametersValues[6] = gLUTValues;
+					gParametersValues[7] = tCellArea->Text;
 				}
 			}
 		}
@@ -1367,7 +1500,25 @@ System::Void INPEEM::NovoModelo::dgLUT_RowsRemoved(System::Object^  sender, Syst
 			tabEquations->Controls->Remove(Controls->Find(auxLabel2->Name, true)[0]);
 
 			for (int j = 0; j < gLUTNumber; j++) {
-				ComboBox^ auxComboBox = safe_cast<System::Windows::Forms::ComboBox^>(Controls->Find("cbSelectFormula" + i + "" + j, true)[0]);
+				ComboBox^ auxComboBox = gcnew ComboBox();
+
+				if (j <= 9) {
+					if (i <= 9) {
+						auxComboBox = safe_cast<System::Windows::Forms::ComboBox^>(Controls->Find("cbSelectFormula" + "0" + i + "0" + j, true)[0]);
+					}
+					else {
+						auxComboBox = safe_cast<System::Windows::Forms::ComboBox^>(Controls->Find("cbSelectFormula" + i + "0" + j, true)[0]);
+					}
+				}
+				else {
+					if (i <= 9) {
+						auxComboBox = safe_cast<System::Windows::Forms::ComboBox^>(Controls->Find("cbSelectFormula" + "0" + i + "" + j, true)[0]);
+					}
+					else {
+						auxComboBox = safe_cast<System::Windows::Forms::ComboBox^>(Controls->Find("cbSelectFormula" + i + "" + j, true)[0]);
+					}
+				}
+
 				tabEquations->Controls->Remove(Controls->Find(auxComboBox->Name, true)[0]);
 			}
 		}
@@ -1466,4 +1617,16 @@ System::Void INPEEM::NovoModelo::equationManagerToolStripMenuItem_Click(System::
 	drawCombos();
 	
 	NovoModelo::Update();
+}
+
+System::Void INPEEM::NovoModelo::resizeWindow(System::Object^  sender, System::EventArgs^  e)
+{
+	if (this->WindowState == System::Windows::Forms::FormWindowState::Maximized) {
+		tNovoModelo->Width = this->Width - 50;
+		tNovoModelo->Height = this->Height - 300;
+	}
+	else {
+		tNovoModelo->Width = 725;
+		tNovoModelo->Height = 481;
+	}
 }
