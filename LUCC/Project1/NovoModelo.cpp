@@ -310,10 +310,10 @@ System::Void INPEEM::NovoModelo::drawCombos()
 			}
 			else {
 				if (lutCount <= 9) {
-					selectFormula->Name = "cbSelectFormula" + "0" + lutCount + i;
+					selectFormula->Name = "cbSelectFormula" + "0" + lutCount + "" + i;
 				}
 				else {
-					selectFormula->Name = "cbSelectFormula" + lutCount + i;
+					selectFormula->Name = "cbSelectFormula" + lutCount + "" + i;
 				}
 			}
 			
@@ -344,8 +344,8 @@ System::Void INPEEM::NovoModelo::drawCombos()
 			ComboBox^ auxComboBox = gcnew ComboBox();
 
 			if (gEquationsRelation[i, j] != nullptr) {
-				if (i <= 9) {
-					if (j <= 9) {
+				if (j <= 9) {
+					if (i <= 9) {
 						auxComboBox = safe_cast<System::Windows::Forms::ComboBox^>(Controls->Find("cbSelectFormula" + "0" + i + "0" + j, true)[0]);
 					}
 					else {
@@ -353,7 +353,7 @@ System::Void INPEEM::NovoModelo::drawCombos()
 					}
 				}
 				else {
-					if (j <= 9) {
+					if (i <= 9) {
 						auxComboBox = safe_cast<System::Windows::Forms::ComboBox^>(Controls->Find("cbSelectFormula" + "0" + i + "" + j, true)[0]);
 					}
 					else {
@@ -386,7 +386,7 @@ System::Void INPEEM::NovoModelo::comboBox_SelectedIndexChanged(System::Object^  
 {
 	System::Windows::Forms::ComboBox^ thisComboBox = safe_cast<System::Windows::Forms::ComboBox^>(sender);
 	int lutNumber = dgLUT->RowCount - 1;
-	int numberDigits = lutNumber.ToString()->Length;
+	int numberDigits = 2;
 	int x = 0;
 	int y = 0;
 	String^ aux = thisComboBox->Name;
@@ -1078,7 +1078,7 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 							if (gEquationsRelation[i, j] != nullptr) {
 								ComboBox^ auxComboBox = gcnew ComboBox();
 
-								if (j <= 9) {
+								if (j<= 9) {
 									if (i <= 9) {
 										auxComboBox = safe_cast<System::Windows::Forms::ComboBox^>(Controls->Find("cbSelectFormula" + "0" + i + "0" + j, true)[0]);
 									}
