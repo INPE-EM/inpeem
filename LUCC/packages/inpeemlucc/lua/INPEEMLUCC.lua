@@ -330,22 +330,32 @@ function INPEEMLUCCModel(model)
 			end
 		end
 		
-		-- load generates a function() with the content of the string
-		local fDTime = string.find(aux, "dTime")
-		if(fDTime == nil) then
-			executeEquation = load("return "..aux)
-		else
-			aux = string.gsub(aux, "dTime", ldTime)
-			executeEquation = load("return "..aux)
+		-- find if the equation uses cellArea in its calculation
+		local fCellArea = string.find(aux, "cellArea")
+		if(fCellArea ~= nil) then
+			aux = string.gsub(aux, "cellArea", self.cs.cellArea)
 		end
-
+		
+		-- find if the equation uses dTime in its calculation
+		local fDTime = string.find(aux, "dTime")
+		if(fDTime ~= nil) then
+			aux = string.gsub(aux, "dTime", ldTime)
+		end
+		
+		-- run the equation
+		executeEquation = load("return "..aux)
+		
 		-- call the function and store in a new column
 		self.cs.cells[index][columnName] = executeEquation()
 		
 		-- remove the carbon emission of the biomass
-		--print(self.cs.cells[index]["col"],self.cs.cellsindexi]["row"],self.cs.cells[index][biomassMap], self.cs.cells[index][columnName])
 		if (#biomassMaps > 0) then
-			self.cs.cells[index][biomassMap] = (self.cs.cellArea * self.cs.cells[index][biomassMap]) - (self.cs.cells[index][columnName] / fBioToC)
+			if (fCellArea ~= nil) then
+				self.cs.cells[index][biomassMap] = (self.cs.cellArea * self.cs.cells[index][biomassMap]) - (self.cs.cells[index][columnName] / fBioToC)
+			else
+				self.cs.cells[index][biomassMap] = (self.cs.cells[index][biomassMap]) - (self.cs.cells[index][columnName] / fBioToC)
+			end
+			
 			if (self.cs.cells[index][biomassMap] < 0) then
 				self.cs.cells[index][biomassMap] = 0
 			end
