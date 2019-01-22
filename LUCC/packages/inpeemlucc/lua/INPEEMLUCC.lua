@@ -82,6 +82,7 @@ function INPEEMLUCCModel(model)
 		local currentTime = event:getTime()
 		
 		if (currentTime == self.startTime) then
+			sInitialExecutionTime = os.clock();
 			model:verify(event)
 			print("\nExecuting Model")
 			
@@ -200,6 +201,16 @@ function INPEEMLUCCModel(model)
 				end
 			end
 		else
+			-- Calculating execution time
+			local sTime = os.clock() - sInitialExecutionTime
+			local days = math.floor(sTime / 86400)
+			local hours = math.floor(sTime % 86400 / 3600)
+			local minutes = math.floor(sTime % 3600 / 60)
+			local seconds = math.floor(sTime % 60)
+			if seconds < 59 then
+				seconds = seconds + 1
+			end
+			print(string.format("\nElapsed time: %.2d:%.2d:%.2d hh:mm:ss", hours,minutes,seconds))
 			print("End of Simulation");
 		end
 	end
@@ -351,8 +362,10 @@ function INPEEMLUCCModel(model)
 		-- remove the carbon emission of the biomass
 		if (#biomassMaps > 0) then
 			if (fCellArea ~= nil) then
-				self.cs.cells[index][biomassMap] = (self.cs.cellArea * self.cs.cells[index][biomassMap]) - (self.cs.cells[index][columnName] / fBioToC)
+				-- using cellArea the biomass must be converted to total, the emission must be converted from Carbon to Biomass, remove the emitted biomass, and finally convert to average into the cell
+				self.cs.cells[index][biomassMap] = ((self.cs.cellArea * self.cs.cells[index][biomassMap]) - (self.cs.cells[index][columnName] / fBioToC)) / self.cs.cellArea
 			else
+				-- not using the cellArea just convert the emission from Carbom to Biomass and remove it
 				self.cs.cells[index][biomassMap] = (self.cs.cells[index][biomassMap]) - (self.cs.cells[index][columnName] / fBioToC)
 			end
 			
