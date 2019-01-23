@@ -1374,7 +1374,7 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 				sw->WriteLine("}  -- END INPE-EM LUCC application model definition\n");
 
 				sw->WriteLine("-----------------------------------------------------");
-				sw->WriteLine("-- ENVIROMMENT DEFINITION                          --");
+				sw->WriteLine("-- ENVIRONMENT DEFINITION                          --");
 				sw->WriteLine("-----------------------------------------------------");
 				sw->WriteLine("timer = Timer");
 				sw->WriteLine("{");
@@ -1388,7 +1388,7 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 				sw->WriteLine("}\n");
 
 				sw->WriteLine("-----------------------------------------------------");
-				sw->WriteLine("-- ENVIROMMENT EXECUTION                           --");
+				sw->WriteLine("-- ENVIRONMENT EXECUTION                           --");
 				sw->WriteLine("-----------------------------------------------------");
 				sw->WriteLine("env_" + tModelName->Text + " = Environment{}");
 				sw->WriteLine("env_" + tModelName->Text + ":add(timer)");
