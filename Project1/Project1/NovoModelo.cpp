@@ -1976,7 +1976,7 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 					sw->WriteLine("");
 					sw->WriteLine("\tyearInit = " + tSpatialInitialYear->Text + ",");
 					sw->WriteLine("\tyearFinal = " + tSpatialFinalYear->Text + ",");
-					sw->WriteLine("\tcellarea = " + tSpatialCellArea->Text + ",");
+					sw->WriteLine("\tcellarea = " + tSpatialCellArea->Text->Replace(",",".") + ",");
 					sw->WriteLine("");
 
 					if (cbSpatialBiomass->Checked) {

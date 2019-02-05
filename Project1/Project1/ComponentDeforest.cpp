@@ -63,9 +63,9 @@ System::Void INPEEM::ComponentDeforest::bSalvar_Click(System::Object^  sender, S
 		lReturn->Return += ";";
 		lReturn->Return += tDescription->Text;
 		lReturn->Return += ";";
-		lReturn->Return += tInitialArea->Text;
+		lReturn->Return += tInitialArea->Text->Replace(",", ".");
 		lReturn->Return += ";";
-		lReturn->Return += tInitialForest->Text;
+		lReturn->Return += tInitialForest->Text->Replace(",", ".");
 
 		this->Close();
 	}

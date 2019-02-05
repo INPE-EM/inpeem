@@ -106,23 +106,23 @@ System::Void INPEEM::ComponentSecondaryVegetation::bSalvar_Click(System::Object^
 			lReturn->Return += ";";
 		}
 
-		lReturn->Return += taverHalfLife->Text;
+		lReturn->Return += taverHalfLife->Text->Replace(",", ".");
 		lReturn->Return += ";";
-		lReturn->Return += tAverAreaPercVegSec->Text;
+		lReturn->Return += tAverAreaPercVegSec->Text->Replace(",", ".");
 		lReturn->Return += ";";
-		lReturn->Return += tAverAreaAccPercVegSec->Text;
+		lReturn->Return += tAverAreaAccPercVegSec->Text->Replace(",", ".");
 		lReturn->Return += ";";
-		lReturn->Return += tAverRecoveryPeriod1Perc->Text;
+		lReturn->Return += tAverRecoveryPeriod1Perc->Text->Replace(",", ".");
 		lReturn->Return += ";";
-		lReturn->Return += tAverRecoveryPeriod1->Text;
+		lReturn->Return += tAverRecoveryPeriod1->Text->Replace(",", ".");
 		lReturn->Return += ";";
-		lReturn->Return += tAverRecoveryPeriod2Perc->Text;
+		lReturn->Return += tAverRecoveryPeriod2Perc->Text->Replace(",", ".");
 		lReturn->Return += ";";
-		lReturn->Return += tAverRecoveryPeriod2->Text;
+		lReturn->Return += tAverRecoveryPeriod2->Text->Replace(",", ".");
 		lReturn->Return += ";";
-		lReturn->Return += tAverAgriculturalUseCycle->Text;
+		lReturn->Return += tAverAgriculturalUseCycle->Text->Replace(",", ".");
 		lReturn->Return += ";";
-		lReturn->Return += tAverInitialAbandonmentCycle->Text;
+		lReturn->Return += tAverInitialAbandonmentCycle->Text->Replace(",", ".");
 		
 		this->Close();
 	}

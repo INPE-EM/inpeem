@@ -93,27 +93,27 @@ System::Void INPEEM::ComponentBiomass::bSalvar_Click(System::Object^  sender, Sy
 		lReturn->Return += ";";
 		lReturn->Return += tDescription->Text;
 		lReturn->Return += ";";
-		lReturn->Return += tAverAGB->Text;
+		lReturn->Return += tAverAGB->Text->Replace(",", ".");
 		lReturn->Return += ";";
-		lReturn->Return += tAverBGBPercAGB->Text;
+		lReturn->Return += tAverBGBPercAGB->Text->Replace(",", ".");
 		lReturn->Return += ";";
-		lReturn->Return += tAverLitterPercAGB->Text;
+		lReturn->Return += tAverLitterPercAGB->Text->Replace(",", ".");
 		lReturn->Return += ";";
-		lReturn->Return += tAverDeadWoodPercAGB->Text;
+		lReturn->Return += tAverDeadWoodPercAGB->Text->Replace(",", ".");
 		lReturn->Return += ";";
-		lReturn->Return += tAverFactorB_C->Text;
+		lReturn->Return += tAverFactorB_C->Text->Replace(",", ".");
 		lReturn->Return += ";";
-		lReturn->Return += tAverFactorB_CO2->Text;
+		lReturn->Return += tAverFactorB_CO2->Text->Replace(",", ".");
 		lReturn->Return += ";";
-		lReturn->Return += tAverFactorB_CO2_fire->Text;
+		lReturn->Return += tAverFactorB_CO2_fire->Text->Replace(",", ".");
 		lReturn->Return += ";";
-		lReturn->Return += tAverFactorB_CH4_fire->Text;
+		lReturn->Return += tAverFactorB_CH4_fire->Text->Replace(",", ".");
 		lReturn->Return += ";";
-		lReturn->Return += tAverFactorB_N2O_fire->Text;
+		lReturn->Return += tAverFactorB_N2O_fire->Text->Replace(",", ".");
 		lReturn->Return += ";";
-		lReturn->Return += tAverFactorB_NOx_fire->Text;
+		lReturn->Return += tAverFactorB_NOx_fire->Text->Replace(",", ".");
 		lReturn->Return += ";";
-		lReturn->Return += tAverFactorB_CO_fire->Text;
+		lReturn->Return += tAverFactorB_CO_fire->Text->Replace(",", ".");
 
 		this->Close();
 	}

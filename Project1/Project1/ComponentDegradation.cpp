@@ -102,21 +102,21 @@ System::Void INPEEM::ComponentDegradation::bSalvar_Click(System::Object^  sender
 			lReturn->Return += ";";
 		}
 
-		lReturn->Return += tAverAGB_loss->Text;
+		lReturn->Return += tAverAGB_loss->Text->Replace(",", ".");
 		lReturn->Return += ";";
-		lReturn->Return += tAverBGB_loss->Text;
+		lReturn->Return += tAverBGB_loss->Text->Replace(",", ".");
 		lReturn->Return += ";";
-		lReturn->Return += tAverDeadWood_loss->Text;
+		lReturn->Return += tAverDeadWood_loss->Text->Replace(",", ".");
 		lReturn->Return += ";";
-		lReturn->Return += tAverLitter_loss->Text;
+		lReturn->Return += tAverLitter_loss->Text->Replace(",", ".");
 		lReturn->Return += ";";
-		lReturn->Return += tAverAGB_percReduction->Text;
+		lReturn->Return += tAverAGB_percReduction->Text->Replace(",", ".");
 		lReturn->Return += ";";
-		lReturn->Return += tAverPeriodRegrow->Text;
+		lReturn->Return += tAverPeriodRegrow->Text->Replace(",", ".");
 		lReturn->Return += ";";
-		lReturn->Return += tAverLimiarDegradYears->Text;		
+		lReturn->Return += tAverLimiarDegradYears->Text->Replace(",", ".");
 		lReturn->Return += ";";
-		lReturn->Return += tAverLimiarDegradLoss->Text;
+		lReturn->Return += tAverLimiarDegradLoss->Text->Replace(",", ".");
 		
 		this->Close();
 	}

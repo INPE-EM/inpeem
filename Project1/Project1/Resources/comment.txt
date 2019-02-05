@@ -1,10 +1,7 @@
-LuccME - a framework for topdown land use change modeling.
-Copyright © 2009 - 2017 INPE.
+INPE-EM: Land cover changes greenhouse gases (GHG) emission estimate (INPE – Emission Model)
+Copyright © 2012 - 2018 INPE.
 
-This code is part of the LuccME framework.
-This framework is a free software; you can redistribute and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
-
-You should have received a copy of the GNU Lesser General Public License along with this library.
+This code is part of the INPE-EM framework.
 
 The authors reassure the license terms regarding the warranties.
 They specifically disclaim any warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose.
