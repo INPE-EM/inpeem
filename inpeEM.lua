@@ -581,8 +581,8 @@ function inpeEM_printReport(model)
 	
 	-- Only VR
 	if (model.VR_flag == true and model.SV_flag == false and model.DEGRAD_flag == false) then 
-		print("\nYear \tD_Area \tD_AreaAcc \t- \t \tVR_CO2_1stOrder \tVR_CO2_2ndOrder \tVR_CO2_2ndOrder_fire \tVR_CO2_2ndOrder_decay \tVR_NOx_CO2Eq_2ndOrder_fire \tVR_N2O_CO2Eq_2ndOrder_fire")
-		file:write("\nYear;D_Area;D_AreaAcc;-;VR_CO2_1stOrder;VR_CO2_2ndOrder;VR_CO2_2ndOrder_fire;VR_CO2_2ndOrder_decay;VR_NOx_CO2Eq_2ndOrder_fire;VR_N2O_CO2Eq_2ndOrder_fire")
+		print("\nYear \tD_Area \tD_AreaAcc \t- \t \tVR_CO2_1stOrder \tVR_CO2_2ndOrder \tVR_CO2_2ndOrder_fire \tVR_CO2_2ndOrder_decay \tVR_CH4_CO2Eq_2ndOrder_fire \tVR_N2O_CO2Eq_2ndOrder_fire")
+		file:write("\nYear;D_Area;D_AreaAcc;-;VR_CO2_1stOrder;VR_CO2_2ndOrder;VR_CO2_2ndOrder_fire;VR_CO2_2ndOrder_decay;VR_CH4_CO2Eq_2ndOrder_fire;VR_N2O_CO2Eq_2ndOrder_fire")
 	end      
 	
 	-- Only SV
