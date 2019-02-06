@@ -798,6 +798,10 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 				MessageBox::Show(gSMainImport, gSMainImportTitle, MessageBoxButtons::OK, MessageBoxIcon::Information);
 			}
 
+			this->Show();
+			this->WindowState = FormWindowState::Minimized;
+			this->WindowState = FormWindowState::Normal;
+
 			//Submodel File
 			INPEEM::OpenFileDialog^ submodelFile = gcnew OpenFileDialog;
 			submodelFile->Title = gSSubmodelFile;
@@ -1080,6 +1084,10 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 				}
 
 			}
+
+			this->Show();
+			this->WindowState = FormWindowState::Minimized;
+			this->WindowState = FormWindowState::Normal;
 
 			//Non Spatial Data File
 			if (hasNonSpatialData) {
