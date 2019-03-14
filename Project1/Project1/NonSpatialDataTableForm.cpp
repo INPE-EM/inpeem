@@ -87,16 +87,30 @@ Void INPEEM::NonSpatialDataTableForm::NonSpatialDataTableForm_Shown(System::Obje
 		array<String^>^ auxHalfLifeData = auxNonSpationData[1]->Split(',');
 		array<String^>^ auxDegradData = auxNonSpationData[2]->Split(',');
 
-		for (int i = 0; i < auxAreaData->Length; i++) {
+		int sizeDgArea = dgArea->Rows->Count;
+		if (sizeDgArea > auxAreaData->Length) {
+			sizeDgArea = auxAreaData->Length;
+		}
+
+		for (int i = 0; i < sizeDgArea; i++) {
 			dgArea->Rows[i]->Cells[1]->Value = auxAreaData[i];
 		}
 
-		for (int i = 0; i < auxHalfLifeData->Length; i++) {
+		int sizeDgHalfLife = dgHalfLife->Rows->Count;
+		if (sizeDgHalfLife > auxHalfLifeData->Length) {
+			sizeDgHalfLife = auxHalfLifeData->Length;
+		}
+
+		for (int i = 0; i < sizeDgHalfLife; i++) {
 			dgHalfLife->Rows[i]->Cells[1]->Value = auxHalfLifeData[i];
 		}
 
+		int sizeDgDegrad = dgDegrad->Rows->Count;
+		if (sizeDgDegrad > auxDegradData->Length) {
+			sizeDgDegrad = auxDegradData->Length;
+		}
 
-		for (int i = 0; i < auxDegradData->Length; i++) {
+		for (int i = 0; i < sizeDgDegrad; i++) {
 			dgDegrad->Rows[i]->Cells[1]->Value = auxDegradData[i];
 		}
 	}
@@ -114,7 +128,7 @@ Void INPEEM::NonSpatialDataTableForm::bSalvar_Click(System::Object^  sender, Sys
 	String^ tempDegrad = "";
 
 	for (int i = 0; i < dgArea->RowCount; i++) {
-		if (dgArea->Rows[i]->Cells[1]->Value != nullptr) {
+		if (dgArea->Rows[i]->Cells[1]->Value != nullptr && dgArea->Rows[i]->Cells[1]->Value != "") {
 			usingArea = true;
 			tempArea += dgArea->Rows[i]->Cells[1]->Value;
 			if (i + 1 < dgArea->RowCount) {
@@ -122,7 +136,7 @@ Void INPEEM::NonSpatialDataTableForm::bSalvar_Click(System::Object^  sender, Sys
 			}
 		}
 
-		if (dgHalfLife->Rows[i]->Cells[1]->Value != nullptr) {
+		if (dgHalfLife->Rows[i]->Cells[1]->Value != nullptr && dgHalfLife->Rows[i]->Cells[1]->Value != "") {
 			usingHalfLife = true;
 			tempHalfLife += dgHalfLife->Rows[i]->Cells[1]->Value;
 			if (i + 1 < dgHalfLife->RowCount) {
@@ -130,7 +144,7 @@ Void INPEEM::NonSpatialDataTableForm::bSalvar_Click(System::Object^  sender, Sys
 			}
 		}
 
-		if (dgDegrad->Rows[i]->Cells[1]->Value != nullptr) {
+		if (dgDegrad->Rows[i]->Cells[1]->Value != nullptr && dgDegrad->Rows[i]->Cells[1]->Value != "") {
 			usingDegrad = true;
 			tempDegrad += dgDegrad->Rows[i]->Cells[1]->Value;
 			if (i + 1 < dgDegrad->RowCount) {

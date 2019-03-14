@@ -857,7 +857,6 @@ private: System::Windows::Forms::Label^  lhans;
 			this->tabSpatial->Controls->Add(this->cbSpatialSecondaryVegetation);
 			this->tabSpatial->Controls->Add(this->lHa);
 			this->tabSpatial->Controls->Add(this->cbSpatialVerbose);
-			this->tabSpatial->Controls->Add(this->lTerraview);
 			this->tabSpatial->Controls->Add(this->lShape);
 			this->tabSpatial->Controls->Add(this->bShape);
 			this->tabSpatial->Controls->Add(this->bSelectProject);
@@ -878,6 +877,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->tabSpatial->Controls->Add(this->tSpatialName);
 			this->tabSpatial->Controls->Add(this->lSpatialName);
 			this->tabSpatial->Controls->Add(this->lSelectedFile);
+			this->tabSpatial->Controls->Add(this->lTerraview);
 			this->tabSpatial->Location = System::Drawing::Point(4, 22);
 			this->tabSpatial->Name = L"tabSpatial";
 			this->tabSpatial->Size = System::Drawing::Size(717, 455);
@@ -934,13 +934,14 @@ private: System::Windows::Forms::Label^  lhans;
 			this->lTerraview->TabIndex = 111;
 			this->lTerraview->Text = L"Projeto Terraview";
 			this->lTerraview->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->lTerraview->Visible = false;
 			// 
 			// lShape
 			// 
 			this->lShape->AutoSize = true;
 			this->lShape->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lShape->Location = System::Drawing::Point(279, 196);
+			this->lShape->Location = System::Drawing::Point(199, 196);
 			this->lShape->Name = L"lShape";
 			this->lShape->Size = System::Drawing::Size(58, 23);
 			this->lShape->TabIndex = 110;
@@ -949,7 +950,7 @@ private: System::Windows::Forms::Label^  lhans;
 			// 
 			// bShape
 			// 
-			this->bShape->Location = System::Drawing::Point(269, 222);
+			this->bShape->Location = System::Drawing::Point(189, 222);
 			this->bShape->Name = L"bShape";
 			this->bShape->Size = System::Drawing::Size(75, 23);
 			this->bShape->TabIndex = 99;
@@ -965,6 +966,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->bSelectProject->TabIndex = 98;
 			this->bSelectProject->Text = L"Selecionar";
 			this->bSelectProject->UseVisualStyleBackColor = true;
+			this->bSelectProject->Visible = false;
 			this->bSelectProject->Click += gcnew System::EventHandler(this, &NovoModelo::bSelectProject_Click);
 			// 
 			// tSpatialCellArea
@@ -1000,6 +1002,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->tSpatialLayerName->TabIndex = 100;
 			this->tSpatialLayerName->Text = L"layer_name";
 			this->tSpatialLayerName->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->tSpatialLayerName->Visible = false;
 			this->tSpatialLayerName->Enter += gcnew System::EventHandler(this, &NovoModelo::textBox_Enter);
 			// 
 			// lSpatialLayerName
@@ -1014,6 +1017,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->lSpatialLayerName->TabIndex = 104;
 			this->lSpatialLayerName->Text = L"Nome do Layer";
 			this->lSpatialLayerName->TextAlign = System::Drawing::ContentAlignment::TopRight;
+			this->lSpatialLayerName->Visible = false;
 			// 
 			// lDatabase
 			// 

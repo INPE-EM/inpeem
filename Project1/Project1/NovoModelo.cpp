@@ -1434,20 +1434,31 @@ System::Void INPEEM::NovoModelo::bShape_Click(System::Object^  sender, System::E
 	if (shapeFile->ShowDialog() == System::Windows::Forms::DialogResult::OK)
 	{
 		gSelectedFile = shapeFile->FileName;
-		lSelectedFile->Text = gSelectedFile;
 		
-		if (lSelectedFile->Text->Length >= 90) {
-			lSelectedFile->Font = gcnew System::Drawing::Font(L"Calibri", 7);
+		int countBreak = 0;
+		for (int i = 0; i < gSelectedFile->Length; i++) {
+			if (i % 50 == 0) {
+				countBreak++;
+			}
 		}
-		else if (lSelectedFile->Text->Length >= 80) {
-			lSelectedFile->Font = gcnew System::Drawing::Font(L"Calibri", 8);
+
+		countBreak -= 1; //remove 0
+
+		String^ auxAddress = "";
+		for (int i = 0; i <= countBreak; i++) {
+			if (gSelectedFile->Length > ((52 * i) + 52)) {
+				auxAddress += gSelectedFile->Substring(52 * i, 52) + "\n";
+			}
+			else {
+				auxAddress += gSelectedFile->Substring(52 * countBreak, gSelectedFile->Length - (52 * countBreak));
+			}
 		}
-		else if (lSelectedFile->Text->Length >= 50) {
-			lSelectedFile->Font = gcnew System::Drawing::Font(L"Calibri", 10);
+		
+		if (auxAddress->Length < gSelectedFile->Length) {
+			auxAddress += gSelectedFile->Substring(52 * countBreak, gSelectedFile->Length - (52 * countBreak));
 		}
-		else {
-			lSelectedFile->Font = gcnew System::Drawing::Font(L"Calibri", 12);
-		}
+
+		lSelectedFile->Text = auxAddress;
 
 		shape = true;
 		tSpatialLayerName->Enabled = false;
@@ -1885,6 +1896,7 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 					sw->WriteLine("-- Creating Terraview Project                               --");
 					sw->WriteLine("--------------------------------------------------------------");
 					sw->WriteLine("");
+					sw->WriteLine("local x = os.clock()");
 					sw->WriteLine("import(\"gis\")\n");
 					sw->WriteLine("proj = Project {");
 					sw->WriteLine("\tfile = \"t3mp.tview\",");
@@ -2100,6 +2112,20 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 					sw->WriteLine("\tprojFile:delete()");
 					sw->WriteLine("end");
 				}
+				
+				sw->WriteLine("");
+				sw->WriteLine("-- Calculating execution time --");
+				sw->WriteLine("local sTime = os.clock() - x");
+				sw->WriteLine("local days = math.floor(sTime / 86400)");
+				sw->WriteLine("local hours = math.floor(sTime % 86400 / 3600)");
+				sw->WriteLine("local minutes = math.floor(sTime % 3600 / 60)");
+				sw->WriteLine("local seconds = math.floor(sTime % 60)");
+				sw->WriteLine("if seconds < 59 then");
+				sw->WriteLine("\tseconds = seconds + 1");
+				sw->WriteLine("end");
+				sw->WriteLine("print(string.format(\"\\nElapsed time : %.2d : %.2d : %.2d hh : mm:ss\", hours, minutes, seconds))");
+				sw->WriteLine("print(\"\\nEnd of Script\")");
+				sw->WriteLine("");
 
 				sw->Close();
 
