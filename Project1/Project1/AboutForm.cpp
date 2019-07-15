@@ -7,15 +7,15 @@ System::Void INPEEM::AboutForm::AboutForm_Load(System::Object ^ sender, System::
 		this->Text = "About";
 		lProgram->Text = "INPE-EM Model Manager";
 		lCompatible->Text = "Compatible with INPE-EM 3.1";
-		lVersion->Text = "Version 2.2";
-		lCopyright->Text = "Copyright © 2017. All rigths reserved.";
+		lVersion->Text = "Version 2.3";
+		lCopyright->Text = "Copyright © 2019. All rigths reserved.";
 	}
 	else {
 		this->Text = "Sobre";
 		lProgram->Text = "Gerenciador de Modelos INPE-EM";
 		lCompatible->Text = "Compatível com INPE-EM 3.1";
-		lVersion->Text = "Versão 2.2";
-		lCopyright->Text = "Copyright © 2017. Todos os direitos reservados.";
+		lVersion->Text = "Versão 2.3";
+		lCopyright->Text = "Copyright © 2019. Todos os direitos reservados.";
 	}
 }
 

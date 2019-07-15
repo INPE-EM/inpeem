@@ -452,6 +452,7 @@ namespace INPEEM {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->AutoScroll = true;
 			this->ClientSize = System::Drawing::Size(495, 677);
 			this->Controls->Add(this->pSpace1);
 			this->Controls->Add(this->tAverFactorB_CO_fire);

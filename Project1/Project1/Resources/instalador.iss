@@ -7,7 +7,7 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{3D787912-FD76-425C-BAD6-34F78CF226A4}
 AppName=INPE-EM
-AppVersion=3.1.2.2
+AppVersion=3.1.2.3
 AppPublisher=CCST - INPE
 AppPublisherURL=http://inpe-em.ccst.inpe.br/
 AppSupportURL=http://inpe-em.ccst.inpe.br/
@@ -18,7 +18,7 @@ DefaultGroupName=INPE-EM
 DisableProgramGroupPage=yes
 LicenseFile=D:\_SVN\INPE-EM\branches\Diego\Project1\Project1\Resources\comment.txt
 OutputDir=D:\Diego\Desktop
-OutputBaseFilename=INPE-EM_3.1.2.2
+OutputBaseFilename=INPE-EM_3.1.2.3
 SetupIconFile=D:\_SVN\INPE-EM\branches\Diego\Project1\Project1\Resources\icon.ico
 Compression=lzma
 SolidCompression=yes
@@ -34,14 +34,14 @@ Name: "brazilianportuguese"; MessagesFile: "compiler:Languages\BrazilianPortugue
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}";
 
 [Files]
-Source: "D:\_SVN\INPE-EM\branches\Diego\Project1\x64\Release\INPE-EM 2.2.exe"; DestDir: "C:\INPE-EM"; Flags: ignoreversion;
+Source: "D:\_SVN\INPE-EM\branches\Diego\Project1\x64\Release\INPE-EM 3.1.exe"; DestDir: "C:\INPE-EM"; Flags: ignoreversion;
 Source: "D:\_SVN\INPE-EM\branches\Diego\Project1\x64\Release\*"; DestDir: "C:\INPE-EM"; Flags: ignoreversion recursesubdirs createallsubdirs;
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{group}\INPE-EM"; Filename: "C:\INPE-EM\INPE-EM 2.2.exe"
+Name: "{group}\INPE-EM"; Filename: "C:\INPE-EM\INPE-EM 3.1.exe"
 Name: "{group}\{cm:UninstallProgram,INPE-EM}"; Filename: "{uninstallexe}"
-Name: "{commondesktop}\INPE-EM 2.2"; Filename: "C:\INPE-EM\INPE-EM 2.2.exe"; Tasks: desktopicon
+Name: "{commondesktop}\INPE-EM 3.1"; Filename: "C:\INPE-EM\INPE-EM 3.1.exe"; Tasks: desktopicon
 
 [Dirs]
-Name: "{app}\TerraME\bin\packages\inpeem"; Attribs: hidden;
+; Name: "{app}\TerraME\bin\packages\inpeem"; Attribs: hidden;

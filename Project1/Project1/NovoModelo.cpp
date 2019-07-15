@@ -1890,13 +1890,13 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 				sw->WriteLine("--       Generated with INPE-EM Model Configurator           --");
 				sw->WriteLine("--                 " + dateTime + "                    --");
 				sw->WriteLine("---------------------------------------------------------------\n");
-
+				sw->WriteLine("local x = os.clock()");
+				
 				if (shape && (cbModelType->SelectedIndex == SPATIALTYPE || cbModelType->SelectedIndex == COMBINETYPE)) {
 					sw->WriteLine("--------------------------------------------------------------");
 					sw->WriteLine("-- Creating Terraview Project                               --");
 					sw->WriteLine("--------------------------------------------------------------");
 					sw->WriteLine("");
-					sw->WriteLine("local x = os.clock()");
 					sw->WriteLine("import(\"gis\")\n");
 					sw->WriteLine("proj = Project {");
 					sw->WriteLine("\tfile = \"t3mp.tview\",");
@@ -1906,7 +1906,9 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 					sw->WriteLine("l1 = Layer {");
 					sw->WriteLine("\tproject = proj,");
 					sw->WriteLine("\tname = \"" + tSpatialLayerName->Text + "\",");
-					sw->WriteLine("\tfile = \"" + lSelectedFile->Text->Replace("\\", "\\\\") + "\"");
+					String^ auxSapeAddress = lSelectedFile->Text->Replace("\n", "");
+					auxSapeAddress = auxSapeAddress->Replace("\\", "\\\\");
+					sw->WriteLine("\tfile = \"" + auxSapeAddress + "\"");
 					sw->WriteLine("}\n");
 				}
 	

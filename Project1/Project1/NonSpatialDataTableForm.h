@@ -176,11 +176,11 @@ namespace INPEEM {
 			this->lArea->AutoSize = true;
 			this->lArea->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lArea->Location = System::Drawing::Point(104, 170);
+			this->lArea->Location = System::Drawing::Point(65, 170);
 			this->lArea->Name = L"lArea";
-			this->lArea->Size = System::Drawing::Size(48, 23);
+			this->lArea->Size = System::Drawing::Size(132, 23);
 			this->lArea->TabIndex = 42;
-			this->lArea->Text = L"Área";
+			this->lArea->Text = L"Desmatamento";
 			this->lArea->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
 			// lHalfLife

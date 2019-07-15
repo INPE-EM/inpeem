@@ -401,6 +401,7 @@ namespace INPEEM {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->AutoScroll = true;
 			this->ClientSize = System::Drawing::Size(495, 677);
 			this->Controls->Add(this->cbSave);
 			this->Controls->Add(this->tAverInitialAbandonmentCycle);

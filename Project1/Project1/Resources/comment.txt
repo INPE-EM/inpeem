@@ -1,5 +1,5 @@
 INPE-EM: Land cover changes greenhouse gases (GHG) emission estimate (INPE – Emission Model)
-Copyright © 2012 - 2018 INPE.
+Copyright © 2012 - 2019 INPE.
 
 This code is part of the INPE-EM framework.
 

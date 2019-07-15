@@ -7,7 +7,7 @@ Void INPEEM::NonSpatialDataTableForm::NonSpatialDataTableForm_Shown(System::Obje
 {
 	if (lReturn->Language == "en") {
 		this->Text = "Non Spatial Data Tables";
-		lArea->Text = "Area";
+		lArea->Text = "Deforest";
 		lHalfLife->Text = "Half Life";
 		lDegrad->Text = "Degradation";
 		bSalvar->Text = "Save";
@@ -27,7 +27,7 @@ Void INPEEM::NonSpatialDataTableForm::NonSpatialDataTableForm_Shown(System::Obje
 	}
 	else {
 		this->Text = "Tabela de Dados Não Espaciais";
-		lArea->Text = "Área";
+		lArea->Text = "Desmatamento";
 		lHalfLife->Text = "Meia Vida";
 		lDegrad->Text = "Degradação";
 		bSalvar->Text = "Salvar";
