@@ -126,12 +126,12 @@ function inpeEM_init(model)
 	end	 
 
 	if (model.yearFinal == nil) then
-		print("\nModel definition error: initial year missing")
+		print("\nModel definition error: final year missing")
 		error_flag = true
 	end	 
 
 	if (model.yearInit > model.yearFinal) then
-		print("\nModel definition error: initial year missing")
+		print("\nModel definition error: initial year starts after the final year")
 		error_flag = true
 	end
 
@@ -520,7 +520,7 @@ end
 -- Handles with the screen print of the simulation results.
 -- @arg model A INPE-EM Model.
 -- @usage --DONTRUN
--- component.componentD_verify(model)
+-- component.inpeEM_printReport(model)
 function inpeEM_printReport(model)
 	file = io.open(MODELDIR..model.name.."_results.txt","w")
 	print("\n________________________________________________________________________________________________________")
@@ -638,7 +638,7 @@ function inpeEM_printReport(model)
 		k1 = math.floor(model.SV_result[y].SV_area_total)  
 		k = math.floor(model.SV_result[y].SV_area_cleared) 
 		l = math.floor(model.SV_result[y].SV_CO2_emission / 1000000)
-		m = math.floor((-1) * model.SV_result[y].SV_CO2_absorption / 1000000)
+		m = math.floor(model.SV_result[y].SV_CO2_absorption / 1000000) * (-1)
 		
 		o = math.floor(model.net_result[y].net_CO2_2ndOrder / 1000000)
 		r = math.floor(model.net_result[y].net_CO2_1stOrder / 1000000)

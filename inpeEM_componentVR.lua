@@ -259,7 +259,7 @@ function computeFutureSlashDecompositionFire(biomass, year, yearFinal, cell, att
 
 		previous = estimate_decay 
 
-		if (count == fire_cycle) then
+		if (count == fireCycle) then
 			fire = estimate_decay * percFirstYear
 			previous = previous - fire
 			cell[post_fire] = cell[post_fire] + fire

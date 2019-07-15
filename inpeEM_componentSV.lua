@@ -151,8 +151,8 @@ function componentSV_computePastRegrow(cell, year, model)
 		if (cell.SV_AreaPercVegSec ~= 0) then
 			cell.rel_area_cleared = cell.rel_area_cleared + area_cleared / cell.SV_AreaPercVegSec
 		else
-			if (cell.SV_AreaPercVegSec ~= 0) then
-				cell.rel_area_cleared = cell.rel_area_cleared + area_cleared / cell.SV_AreaPercVegSec
+			if (cell.SV_AreaAccPercVegSec ~= 0) then
+				cell.rel_area_cleared = cell.rel_area_cleared + area_cleared / cell.SV_AreaAccPercVegSec
 			end
 		end
 		
