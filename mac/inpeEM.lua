@@ -5,10 +5,10 @@ local gwpNOx = 0.0
 local gwpCO = 0.0
 local E = 2.718
 
-dofile("C:\\INPE-EM\\TerraME\\bin\\packages\\inpeem\\inpeEM_combine.lua")
-dofile("C:\\INPE-EM\\TerraME\\bin\\packages\\inpeem\\inpeEM_componentVR.lua")
-dofile("C:\\INPE-EM\\TerraME\\bin\\packages\\inpeem\\inpeEM_componentSV.lua")
-dofile("C:\\INPE-EM\\TerraME\\bin\\packages\\inpeem\\inpeEM_componentDEGRAD.lua")
+dofile("/Applications/terrame.app/Contents/MacOS/packages/inpeem/inpeEM_combine.lua")
+dofile("/Applications/terrame.app/Contents/MacOS/packages/inpeem/inpeEM_componentVR.lua")
+dofile("/Applications/terrame.app/Contents/MacOS/packages/inpeem/inpeEM_componentSV.lua")
+dofile("/Applications/terrame.app/Contents/MacOS/packages/inpeem/inpeEM_componentDEGRAD.lua")
 
 -- Handles with the model execution.
 -- @arg model A INPE-EM Model.
