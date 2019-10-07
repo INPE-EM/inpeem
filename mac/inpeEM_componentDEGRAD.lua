@@ -55,7 +55,7 @@ function componentDEGRAD_execute(year, model)
 		
 		if (year == model.yearInit) then 
 			cell.remainingForestArea = cell.D_Forest
-			cell.B_ActualAGB = cell.B_AGB
+			cell.B_CurrentAGB = cell.B_AGB
 		end
 		
 		if (cell.remainingForestArea < 0) then
@@ -77,13 +77,13 @@ function componentDEGRAD_execute(year, model)
 			cell.DegradLoss = 0
 			if (model.mode == "spatial") then
 				if (flagDEGRAD) then
-					cell.B_ActualAGB = cell.B_AGB * (1 - cell.DEGRAD_AGBPercReduction)
+					cell.B_CurrentAGB = cell.B_AGB * (1 - cell.DEGRAD_AGBPercReduction)
 				end
 
 				-- Reinitialize the rate
 				cell.AGBRegrowRate = 0
 				if (cell.DEGRAD_PeriodRegrow ~= 0) then
-					cell.AGBRegrowRate = (cell.B_AGB - cell.B_ActualAGB) / cell.DEGRAD_PeriodRegrow 
+					cell.AGBRegrowRate = (cell.B_AGB - cell.B_CurrentAGB) / cell.DEGRAD_PeriodRegrow 
 				end
 			end
 		end
@@ -91,11 +91,11 @@ function componentDEGRAD_execute(year, model)
 		-- Regrowth and Carbon uptake
 		if (cell.remainingForestArea > 0) then 
 			-- Vegetation growth
-			if ((cell.B_ActualAGB + cell.AGBRegrowRate) >= cell.B_AGB) then
-				cell.AGBRegrowRate = cell.B_AGB - cell.B_ActualAGB
-				cell.B_ActualAGB = cell.B_AGB			    
+			if ((cell.B_CurrentAGB + cell.AGBRegrowRate) >= cell.B_AGB) then
+				cell.AGBRegrowRate = cell.B_AGB - cell.B_CurrentAGB
+				cell.B_CurrentAGB = cell.B_AGB			    
 			else  
-				cell.B_ActualAGB = cell.B_ActualAGB + cell.AGBRegrowRate				
+				cell.B_CurrentAGB = cell.B_CurrentAGB + cell.AGBRegrowRate				
 			end
 
 			-- Carbon uptake according to the rate
@@ -125,10 +125,10 @@ function componentDEGRAD_execute(year, model)
 			end
 
 			-- Perda de biomassa TOTAL neste passo de tempo
-			cell_agb_degrad = cell.B_ActualAGB * cell.DEGRAD_Degrad * cell.DEGRAD_AGBLoss  
-			cell_bgb_degrad = cell.B_ActualAGB * cell.DEGRAD_Degrad * cell.DEGRAD_BGBLoss * cell.B_BGBPercAGB
-			cell_litter_degrad = cell.B_ActualAGB * cell.DEGRAD_Degrad * cell.DEGRAD_LitterLoss * cell.B_LitterPercAGB
-			cell_wood_degrad = cell.B_ActualAGB * cell.DEGRAD_Degrad * cell.DEGRAD_DeadWoodLoss * cell.B_DeadWoodPercAGB
+			cell_agb_degrad = cell.B_CurrentAGB * cell.DEGRAD_Degrad * cell.DEGRAD_AGBLoss  
+			cell_bgb_degrad = cell.B_CurrentAGB * cell.DEGRAD_Degrad * cell.DEGRAD_BGBLoss * cell.B_BGBPercAGB
+			cell_litter_degrad = cell.B_CurrentAGB * cell.DEGRAD_Degrad * cell.DEGRAD_LitterLoss * cell.B_LitterPercAGB
+			cell_wood_degrad = cell.B_CurrentAGB * cell.DEGRAD_Degrad * cell.DEGRAD_DeadWoodLoss * cell.B_DeadWoodPercAGB
 
 			-- Emissão decorrente da degradação
             cellAllFire = cell_agb_degrad + cell_bgb_degrad + cell_litter_degrad + cell_wood_degrad
@@ -155,19 +155,19 @@ function componentDEGRAD_execute(year, model)
 			
 			-- Atualização da biomassa média 
 			if (cell.remainingForestArea ~= 0) then
-				cell.B_ActualAGB = cell.B_ActualAGB - (cell_agb_degrad / cell.remainingForestArea)
+				cell.B_CurrentAGB = cell.B_CurrentAGB - (cell_agb_degrad / cell.remainingForestArea)
 			end
 
 			cell.DegradLoss = 0
 			if (cell.B_AGB > 0) then
-				cell.DegradLoss = (cell.B_AGB - cell.B_ActualAGB) / cell.B_AGB
+				cell.DegradLoss = (cell.B_AGB - cell.B_CurrentAGB) / cell.B_AGB
 				sumCellLoss = sumCellLoss + cell.DegradLoss
 			end 
 			
 			-- Reinitialize the rate
 			cell.AGBRegrowRate = 0
 			if (cell.DEGRAD_PeriodRegrow ~= 0) then		   
-				cell.AGBRegrowRate = (cell.B_AGB - cell.B_ActualAGB) / cell.DEGRAD_PeriodRegrow 
+				cell.AGBRegrowRate = (cell.B_AGB - cell.B_CurrentAGB) / cell.DEGRAD_PeriodRegrow 
 			end
 		end   -- only if there was degration, otherwise emission is zero
 
@@ -177,7 +177,7 @@ function componentDEGRAD_execute(year, model)
 		end
 
 		if (model.save == true) then 
-			cell[model.componentDEGRAD.attrActualAGB..year] = cell.B_ActualAGB  
+			cell[model.componentDEGRAD.attrActualAGB..year] = cell.B_CurrentAGB  
 			cell[model.componentDEGRAD.attrCountDegradYears..year] = cell.countDegradYears  
 			
             cell[model.componentDEGRAD.attrCO2..year] = cellCO2EmissionDegrad / 1000000

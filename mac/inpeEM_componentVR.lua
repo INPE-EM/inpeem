@@ -117,7 +117,7 @@ function componentVR_execute(year, model)
 			if (not model.DEGRAD_flag) then
 				cellAGBDisturbed = cell.D_Area * cell.B_AGB
 			else
-				cellAGBDisturbed = cell.D_Area * cell.B_ActualAGB
+				cellAGBDisturbed = cell.D_Area * cell.B_CurrentAGB
 			end
 
 			-- FATE: remain alive

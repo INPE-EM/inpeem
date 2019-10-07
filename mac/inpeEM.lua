@@ -399,7 +399,7 @@ function inpeEM_loadFromDB(year, model)
 
 													if (cell_temp[model.componentB.attrAGB] ~= nil) then
 														cell.B_AGB = cell_temp[model.componentB.attrAGB]
-														cell.B_ActualAGB = cell.B_AGB
+														cell.B_CurrentAGB = cell.B_AGB
 														if (flagPrintAGB) then
 															print(year, "Loading "..model.componentB.attrAGB)
 															flagPrintAGB = false 

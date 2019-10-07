@@ -117,7 +117,7 @@ function componentVR_execute(year, model)
 			if (not model.DEGRAD_flag) then
 				cellAGBDisturbed = cell.D_Area * cell.B_AGB
 			else
-				cellAGBDisturbed = cell.D_Area * cell.B_ActualAGB
+				cellAGBDisturbed = cell.D_Area * cell.B_CurrentAGB
 			end
 
 			-- FATE: remain alive
@@ -206,7 +206,6 @@ function componentVR_execute(year, model)
 			cell[model.componentVR.attrN2O..year] = cellN2OAllFire / 1000000
 			cell[model.componentVR.attrCO..year] = cellCOAllFire / 1000000
 			cell[model.componentVR.attrNOx..year] = cellNOxAllFire / 1000000 
-			cell[model.componentVR.attrActualAGB..year] = cell.actualAGB 
 			cell[model.componentVR.attr1stCO2..year] = cellCO2Lost1stOrder / 1000000
 		end 
 			
@@ -369,8 +368,6 @@ function componentVR_init(model)
 	model.componentVR.attrN2O = "vN2O_"
 	model.componentVR.attrCO = "vCO_"
 	model.componentVR.attrNOx = "vNOx_"
-	model.componentVR.attrActualAGB = "vAGB_"
-	
 	model.componentVR.attr1stCO2 = "v1CO2_"
 
 	if (model.save == true) then 
