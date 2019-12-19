@@ -14,7 +14,7 @@ set(INPEEM_VERSION "${INPEEM_VERSION_MAJOR}.${INPEEM_VERSION_MINOR}.${INPEEM_VER
 
 get_filename_component(INPEEM_ROOT_DIR "../../" ABSOLUTE)
 
-set(INPEEM_SRC_DIR ${INPEEM_ROOT_DIR}/src)
+set(INPEEM_SRC_DIR ${INPEEM_ROOT_DIR}/src/cppcli)
 include_directories(${INPEEM_SRC_DIR})
 
 set(INPEEM_RESOURCES_DIR ${INPEEM_ROOT_DIR}/resources)
@@ -74,12 +74,17 @@ install(FILES ${INPEEM_DOC_FILES}
 		DESTINATION .
 		COMPONENT runtime)
 
-set(CMAKE_INSTALL_SYSTEM_RUNTIME_DESTINATION .)
-include(InstallRequiredSystemLibraries)
-
 install(DIRECTORY ${INPEEM_TERRAME_DIR}
 		DESTINATION .
 		COMPONENT runtime)
+
+set(INPEEM_LUA_DIR ${INPEEM_ROOT_DIR}/src/lua)		
+install(DIRECTORY ${INPEEM_LUA_DIR}
+		DESTINATION TerraME/bin/packages/inpeem
+		COMPONENT runtime)
+
+set(CMAKE_INSTALL_SYSTEM_RUNTIME_DESTINATION .)
+include(InstallRequiredSystemLibraries)
 
 if(INPEEM_BUILD_AS_BUNDLE)
 	configure_file(${PROJECT_SOURCE_DIR}/fixup_bundle.cmake.in 
