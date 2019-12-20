@@ -78,20 +78,42 @@ install(DIRECTORY ${INPEEM_TERRAME_DIR}
 		DESTINATION .
 		COMPONENT runtime)
 
-set(INPEEM_LUA_DIR ${INPEEM_ROOT_DIR}/src/lua)		
+set(INPEEM_LUA_DIR ${INPEEM_ROOT_DIR}/src/terrame/)
+set(INPEEM_PACKAGE_DIR TerraME/bin/packages/inpeem)
 install(DIRECTORY ${INPEEM_LUA_DIR}
-		DESTINATION TerraME/bin/packages/inpeem
+		DESTINATION ${INPEEM_PACKAGE_DIR}
+		COMPONENT runtime)
+
+install(FILES ${INPEEM_RESOURCES_DIR}/inpeem.bat
+		DESTINATION TerraME/bin
 		COMPONENT runtime)
 
 set(CMAKE_INSTALL_SYSTEM_RUNTIME_DESTINATION .)
 include(InstallRequiredSystemLibraries)
 
 if(INPEEM_BUILD_AS_BUNDLE)
-	configure_file(${PROJECT_SOURCE_DIR}/fixup_bundle.cmake.in 
+	configure_file(${PROJECT_SOURCE_DIR}/fixup_bundle.cmake.in
 				   ${CMAKE_BINARY_DIR}/fixup_bundle.cmake @ONLY)
 	install(SCRIPT ${CMAKE_BINARY_DIR}/fixup_bundle.cmake COMPONENT runtime)
 endif()
-	
+
+configure_file(${PROJECT_SOURCE_DIR}/terrame_package_description.cmake.in
+               ${CMAKE_BINARY_DIR}/description.lua @ONLY)
+install(FILES ${CMAKE_BINARY_DIR}/description.lua 
+		DESTINATION ${INPEEM_PACKAGE_DIR}
+		COMPONENT runtime)
+		
+get_filename_component(INPEEM_AMAZON_DATA ${INPEEM_ROOT_DIR}/data/amzCs5km_epsg29101.zip ABSOLUTE)
+set(INPEEM_DATA_DIR ${CMAKE_BINARY_DIR}/data)
+execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${INPEEM_DATA_DIR})
+execute_process(
+	COMMAND ${CMAKE_COMMAND} -E tar xzvf ${INPEEM_AMAZON_DATA}
+	WORKING_DIRECTORY ${INPEEM_DATA_DIR}
+)
+install(DIRECTORY ${INPEEM_DATA_DIR}
+		DESTINATION ${INPEEM_PACKAGE_DIR}
+		COMPONENT runtime)
+
 configure_file(${PROJECT_SOURCE_DIR}/cpack_installer_generator.cmake.in
                ${CMAKE_BINARY_DIR}/cpack_installer_generator.cmake @ONLY)
 set(CPACK_PROJECT_CONFIG_FILE ${CMAKE_BINARY_DIR}/cpack_installer_generator.cmake)

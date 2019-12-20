@@ -1890,6 +1890,7 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 				sw->WriteLine("--       Generated with INPE-EM Model Configurator           --");
 				sw->WriteLine("--                 " + dateTime + "                    --");
 				sw->WriteLine("---------------------------------------------------------------\n");
+				sw->WriteLine("import(\"inpeem\")\n");
 				sw->WriteLine("local x = os.clock()");
 				
 				if (shape && (cbModelType->SelectedIndex == SPATIALTYPE || cbModelType->SelectedIndex == COMBINETYPE)) {
@@ -1921,7 +1922,6 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 				
 				if (folderAux->Length > ROOTDIR) {
 					sw->WriteLine("MODELDIR = \"" + folderAux + "\\\\\"");
-					sw->WriteLine("dofile(\"C:\\\\INPE-EM\\\\TerraME\\\\bin\\\\packages\\\\inpeem\\\\inpeEM.lua\")");
 					sw->WriteLine("dofile(MODELDIR..\"" + tModelName->Text->ToLower() + "_submodel.lua\")");
 					
 					if (cbModelType->SelectedIndex == NSPATIALTYPE || cbModelType->SelectedIndex == COMBINETYPE) {
@@ -1930,7 +1930,6 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 				}
 				else {
 					sw->WriteLine("MODELDIR = \"" + folderAux + "\"");
-					sw->WriteLine("dofile(\"C:\\\\INPE-EM\\\\TerraME\\\\bin\\\\packages\\\\inpeem\\\\inpeEM.lua\")");
 					sw->WriteLine("dofile(MODELDIR..\"" + tModelName->Text->ToLower() + "_submodel.lua\")");
 					
 					if (cbModelType->SelectedIndex == NSPATIALTYPE || cbModelType->SelectedIndex == COMBINETYPE) {
