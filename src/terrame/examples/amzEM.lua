@@ -1,5 +1,5 @@
 -- @example This example runs the greenhouse gases emission estimates model of the Amazon. 
--- The Lua files in created by INPE-EM software (http://inpe-em.ccst.inpe.br).
+-- The Lua files were created by INPE-EM software (http://inpe-em.ccst.inpe.br).
 
 local mainFile = filePath("amzEM_main.lua", "inpeem")
 local submodelFile = filePath("amzEM_submodel.lua", "inpeem")
