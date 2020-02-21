@@ -8,34 +8,8 @@ function componentDEGRAD_execute(year, model)
 		print(year, "Executing Degrad - mode:"..model.mode)
 	end
 
-	local flagEquation = model.componentDEGRAD.equationFlag
-	local eqRegrowRate = { 
-		0.068965733, 0.040628348, 0.028924917, 0.022481008, 0.01839198, 0.015563613, 0.013489763, 0.011903615, 0.010651032, 
-		0.009636704, 0.008798504, 0.008094194, 0.007494051, 0.006976549, 0.006525713, 0.006129438, 0.005778385, 0.00546523, 0.005184151, 
-		0.004930462, 0.004700344, 0.004490661, 0.004298806, 0.0041226, 0.003960204, 0.003810056, 0.003670823, 0.003541355, 0.003420662, 
-		0.003307881, 0.00320226, 0.003103137, 0.003009933, 0.002922132, 0.002839278, 0.002760965, 0.002686831, 0.002616549, 0.002549827, 
-		0.002486402, 0.002426036, 0.002368512, 0.002313635, 0.002261226, 0.002211124, 0.002163178, 0.002117253, 0.002073225, 0.002030977, 
-		0.001990404, 0.001951409, 0.001913902, 0.001877798, 0.001843022, 0.001809501, 0.001777168, 0.001745961, 0.001715824, 0.001686701, 
-		0.001658543, 0.001631302, 0.001604934, 0.001579399, 0.001554656, 0.001530671, 0.001507409, 0.001484838, 0.001462927, 0.001441648, 
-		0.001420974, 0.001400879, 0.001381341, 0.001362335, 0.001343841, 0.001325838, 0.001308307, 0.001291229, 0.001274588, 0.001258366, 
-		0.001242549, 0.00122712, 0.001212067, 0.001197376, 0.001183033, 0.001169026, 0.001155345, 0.001141977, 0.001128912, 0.00111614, 
-		0.001103651, 0.001091436, 0.001079486, 0.001067792, 0.001056347, 0.001045142, 0.00103417, 0.001023424, 0.001012897, 0.001002582, 
-		0.000992474, 0.000982565, 0.00097285, 0.000963323, 0.00095398, 0.000944814, 0.000935821, 0.000926996, 0.000918334, 0.000909831, 
-		0.000901482, 0.000893284, 0.000885232, 0.000877323, 0.000869552, 0.000861916, 0.000854412, 0.000847036, 0.000839786, 0.000832657, 
-		0.000825646, 0.000818752, 0.000811971, 0.0008053, 0.000798736, 0.000792278, 0.000785922, 0.000779666, 0.000773508, 0.000767446, 
-		0.000761477, 0.000755599, 0.00074981, 0.000744108, 0.000738491, 0.000732958, 0.000727506, 0.000722134, 0.00071684, 0.000711622, 
-		0.000706478, 0.000701408, 0.000696409, 0.00069148, 0.00068662, 0.000681826, 0.000677099, 0.000672436, 0.000667836, 0.000663298, 
-		0.00065882, 0.000654402, 0.000650042, 0.000645739, 0.000641492, 0.0006373, 0.000633162, 0.000629077, 0.000625043, 0.00062106, 
-		0.000617127, 0.000613244, 0.000609408, 0.000605619, 0.000601877, 0.00059818, 0.000594527, 0.000590919, 0.000587353, 0.00058383, 
-		0.000580349, 0.000576908, 0.000573507, 0.000570146, 0.000566823, 0.000563539, 0.000560292, 0.000557082, 0.000553907, 0.000550769, 
-		0.000547665, 0.000544596, 0.000541561, 0.000538559, 0.000535589, 0.000532652, 0.000529746, 0.000526872, 0.000524028, 0.000521215, 
-		0.000518431, 0.000515676, 0.00051295, 0.000510253, 0.000507583, 0.000504941, 0.000502326, 0.000499738, 0.000497175, 0.000494639, 
-		0.000492128, 0.000489642, 0.000487181, 0.000484744, 0.000482331, 0.000479942, 0.000477576, 0.000475233, 0.000472913, 0.000470614, 
-		0.000468338, 0.000466084, 0.00046385, 0.000461638, 0.000459447, 0.000457276, 0.000455125, 0.000452994, 0.000450883, 0.000448791, 
-		0.000446718, 0.000444664, 0.000442629, 0.000440612, 0.000438613, 0.000436632, 0.000434668, 0.000432722, 0.000430793, 0.000428881, 
-		0.000426985, 0.000425106, 0.000423244, 0.000421397, 0.000419566, 0.000417751, 0.000415951, 0.000414167, 0.000412397, 0.000410643, 
-		0.000408903, 0.000407178, 0.000405467, 0.00040377, 0.000402087, 0.000400418, 0.000398762, 0.00039712, 0.000395491, 0.000393876 
-	}
+	local hasRegrowRates = model.componentDEGRAD.regrowRates ~= nil
+	local regrowRates = model.componentDEGRAD.regrowRates
 						 
 	local sumCellLoss = 0
 	local numCellLoss = 0
@@ -114,7 +88,7 @@ function componentDEGRAD_execute(year, model)
 					cell.B_CurrentAGB = cell.B_AGB * (1 - cell.DEGRAD_AGBPercReduction)
 				end
 				
-				if (not flagEquation) then
+				if (not hasRegrowRates) then
 					-- Reinitialize the rate
 					cell.AGBRegrowRate = 0
 					if (cell.DEGRAD_PeriodRegrow ~= 0) then
@@ -127,7 +101,7 @@ function componentDEGRAD_execute(year, model)
 		-- REGROW AND CARBON UPTAKE
 		if (cell.remainingForestArea > 0) then 
 			-- linear
-			if (not flagEquation) then 
+			if (not hasRegrowRates) then 
 				-- Vegetation growth
 				if ((cell.B_CurrentAGB + cell.AGBRegrowRate) >= cell.B_AGB) then
 					cell.AGBRegrowRate = cell.B_AGB - cell.B_CurrentAGB
@@ -148,7 +122,7 @@ function componentDEGRAD_execute(year, model)
 				if cell.DegradStep > 0 then 
 					local B_aux = cell.B_CurrentAGB
 			
-					cell.B_CurrentAGB = cell.B_CurrentAGB + (cell.B_AfterDisturbDiffAGB * eqRegrowRate [cell.DegradStep])
+					cell.B_CurrentAGB = cell.B_CurrentAGB + (cell.B_AfterDisturbDiffAGB * regrowRates[cell.DegradStep])
 					
 					-- Atualização da biomassa média
 					cellAGBDegradRegrow = (cell.B_CurrentAGB - B_aux) * cell.remainingForestArea 
@@ -216,7 +190,7 @@ function componentDEGRAD_execute(year, model)
 			end 
 			
 			-- Reinitialize the rate
-			if (not flagEquation) then 
+			if (not hasRegrowRates) then 
 				cell.AGBRegrowRate = 0
 				if (cell.DEGRAD_PeriodRegrow ~= 0) then		   
 					cell.AGBRegrowRate = (cell.B_AGB - cell.B_CurrentAGB) / cell.DEGRAD_PeriodRegrow 
@@ -229,7 +203,7 @@ function componentDEGRAD_execute(year, model)
 
 		-- Correct Rate in case there is also deforestation in this step: for the next step regrow...  
 		if (cell.remainingForestArea > 0) then
-			if (not flagEquation) then
+			if (not hasRegrowRates) then
 				cell.AGBRegrowRate = cell.AGBRegrowRate * (1 - (cell.D_Area / cell.remainingForestArea))
 			else
 				cell.B_AfterDisturbDiffAGB = cell.B_AfterDisturbDiffAGB * (1 - (cell.D_Area / cell.remainingForestArea))

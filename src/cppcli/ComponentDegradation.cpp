@@ -1,5 +1,21 @@
 #include "stdafx.h"
 #include "ComponentDegradation.h"
+#include "RegrowRatesTableForm.h"
+#include "RegrowRatesInfo.h"
+
+INPEEM::ComponentDegradation::ComponentDegradation(cReturn ^ pDegradation)
+{
+	InitializeComponent();
+	lReturn = pDegradation;
+}
+
+INPEEM::ComponentDegradation::~ComponentDegradation()
+{
+	if (components)
+	{
+		delete components;
+	}
+}
 
 System::Void INPEEM::ComponentDegradation::textBox_Enter(System::Object ^ sender, System::EventArgs ^ e)
 {
@@ -73,6 +89,11 @@ System::Void INPEEM::ComponentDegradation::ComponentDegradation_Shown(System::Ob
 		tAverLimiarDegradLoss->Text = auxDegrad[10];		
 		tAverLimiarDegradLoss->ForeColor = System::Drawing::Color::Black;
 
+		if(!RegrowRatesInfo::getInstance()->IsEmpty())
+		{
+			regrowRatesCheckBox->Checked = true;
+		}
+
 	}
 }
 
@@ -117,7 +138,33 @@ System::Void INPEEM::ComponentDegradation::bSalvar_Click(System::Object^  sender
 		lReturn->Return += tAverLimiarDegradYears->Text->Replace(",", ".");
 		lReturn->Return += ";";
 		lReturn->Return += tAverLimiarDegradLoss->Text->Replace(",", ".");
+
+		if(!regrowRatesCheckBox->Checked)
+			RegrowRatesInfo::getInstance()->Clear();
+		else if(!RegrowRatesInfo::getInstance()->IsEmpty()) 
+		{	
+			lReturn->Return += ";";
+			lReturn->Return += RegrowRatesInfo::getInstance()->RateAt(0);
+		}
 		
 		this->Close();
 	}
+}
+
+System::Void INPEEM::ComponentDegradation::regrowRatesButton_Click(System::Object ^ sender, System::EventArgs ^ e)
+{
+	int yearsForSimulation = Convert::ToInt16(tAverPeriodRegrow->Text);
+	RegrowRatesTableForm^ regrowRatesTableForm = gcnew RegrowRatesTableForm(lReturn->Language, yearsForSimulation);
+	regrowRatesTableForm->ShowDialog();
+
+	return System::Void();
+}
+
+System::Void INPEEM::ComponentDegradation::regrowRatesCheckBox_CheckedChanged(System::Object ^ sender, System::EventArgs ^ e)
+{
+	if(regrowRatesCheckBox->Checked)
+		this->regrowRatesButton->Enabled = true;
+	else
+		this->regrowRatesButton->Enabled = false;
+	return System::Void();
 }

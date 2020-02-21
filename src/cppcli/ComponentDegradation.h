@@ -18,29 +18,19 @@ namespace INPEEM {
 	public:
 		String^ gSDataMissing = "";
 		String^ gSDataMissingTitle = "";
+	private: System::Windows::Forms::Button^  regrowRatesButton;
+	private: System::Windows::Forms::CheckBox^  regrowRatesCheckBox;
+
 
 	public:
 		cReturn^ lReturn;
-		ComponentDegradation(cReturn^ pDegradation)
-		{
-			InitializeComponent();
-			lReturn = pDegradation;
-			//
-			//TODO: Add the constructor code here
-			//
-		}
+		ComponentDegradation(cReturn^ pDegradation);
 
 	protected:
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
-		~ComponentDegradation()
-		{
-			if (components)
-			{
-				delete components;
-			}
-		}
+		~ComponentDegradation();
 
 	private: System::Windows::Forms::CheckBox^  cbSave;
 	private: System::Windows::Forms::TextBox^  tAverLimiarDegradLoss;
@@ -103,6 +93,8 @@ namespace INPEEM {
 			this->bSalvar = (gcnew System::Windows::Forms::Button());
 			this->pbLogo1 = (gcnew System::Windows::Forms::PictureBox());
 			this->cbSave = (gcnew System::Windows::Forms::CheckBox());
+			this->regrowRatesButton = (gcnew System::Windows::Forms::Button());
+			this->regrowRatesCheckBox = (gcnew System::Windows::Forms::CheckBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbLogo1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -343,7 +335,7 @@ namespace INPEEM {
 			// 
 			// bSalvar
 			// 
-			this->bSalvar->Location = System::Drawing::Point(200, 520);
+			this->bSalvar->Location = System::Drawing::Point(200, 570);
 			this->bSalvar->Name = L"bSalvar";
 			this->bSalvar->Size = System::Drawing::Size(75, 23);
 			this->bSalvar->TabIndex = 142;
@@ -365,18 +357,41 @@ namespace INPEEM {
 			// 
 			this->cbSave->AutoSize = true;
 			this->cbSave->Font = (gcnew System::Drawing::Font(L"Calibri", 14.25F, System::Drawing::FontStyle::Bold));
-			this->cbSave->Location = System::Drawing::Point(154, 487);
+			this->cbSave->Location = System::Drawing::Point(154, 528);
 			this->cbSave->Name = L"cbSave";
 			this->cbSave->Size = System::Drawing::Size(170, 27);
 			this->cbSave->TabIndex = 153;
 			this->cbSave->Text = L"Salvar em arquivo";
 			this->cbSave->UseVisualStyleBackColor = true;
 			// 
+			// regrowRatesButton
+			// 
+			this->regrowRatesButton->Enabled = false;
+			this->regrowRatesButton->Location = System::Drawing::Point(171, 496);
+			this->regrowRatesButton->Name = L"regrowRatesButton";
+			this->regrowRatesButton->Size = System::Drawing::Size(138, 23);
+			this->regrowRatesButton->TabIndex = 162;
+			this->regrowRatesButton->Text = L"Taxas de Recrescimento";
+			this->regrowRatesButton->UseVisualStyleBackColor = true;
+			this->regrowRatesButton->Click += gcnew System::EventHandler(this, &ComponentDegradation::regrowRatesButton_Click);
+			// 
+			// regrowRatesCheckBox
+			// 
+			this->regrowRatesCheckBox->AutoSize = true;
+			this->regrowRatesCheckBox->Location = System::Drawing::Point(332, 501);
+			this->regrowRatesCheckBox->Name = L"regrowRatesCheckBox";
+			this->regrowRatesCheckBox->Size = System::Drawing::Size(15, 14);
+			this->regrowRatesCheckBox->TabIndex = 163;
+			this->regrowRatesCheckBox->UseVisualStyleBackColor = true;
+			this->regrowRatesCheckBox->CheckedChanged += gcnew System::EventHandler(this, &ComponentDegradation::regrowRatesCheckBox_CheckedChanged);
+			// 
 			// ComponentDegradation
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(495, 555);
+			this->ClientSize = System::Drawing::Size(495, 608);
+			this->Controls->Add(this->regrowRatesCheckBox);
+			this->Controls->Add(this->regrowRatesButton);
 			this->Controls->Add(this->cbSave);
 			this->Controls->Add(this->tAverLimiarDegradLoss);
 			this->Controls->Add(this->lAverLimiarDegradLoss);
@@ -411,8 +426,10 @@ namespace INPEEM {
 
 		}
 #pragma endregion
-	private: System::Void textBox_Enter(System::Object^  sender, System::EventArgs^  e);
-	private: System::Void ComponentDegradation_Shown(System::Object^  sender, System::EventArgs^  e);
-	private: System::Void bSalvar_Click(System::Object^  sender, System::EventArgs^  e);
+		private: System::Void textBox_Enter(System::Object^  sender, System::EventArgs^  e);
+		private: System::Void ComponentDegradation_Shown(System::Object^  sender, System::EventArgs^  e);
+		private: System::Void bSalvar_Click(System::Object^  sender, System::EventArgs^  e);
+		private: System::Void regrowRatesButton_Click(System::Object^  sender, System::EventArgs^  e);
+		private: System::Void regrowRatesCheckBox_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
 	};
 }
