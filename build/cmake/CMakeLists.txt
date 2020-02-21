@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.12.2)
 
+include(CSharpUtilities)
+
 if(NOT WIN32 AND MSVC)
 	message(FATAL_ERROR "This project only works on Windows and Visual Studio.")
 endif()
@@ -56,6 +58,12 @@ set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DOTNET_REFERENCES
 	"System.Windows.Forms"
 	"System.Xml")
 
+csharp_set_windows_forms_properties(
+	${INPEEM_SRC_CPP_FILES}
+	${INPEEM_SRC_H_FILES}
+	${INPEEM_SRC_RESX_FILES}
+)
+
 set(CMAKE_INSTALL_DEFAULT_COMPONENT_NAME runtime)
 
 install(TARGETS ${PROJECT_NAME}
@@ -99,10 +107,10 @@ endif()
 
 configure_file(${PROJECT_SOURCE_DIR}/terrame_package_description.cmake.in
                ${CMAKE_BINARY_DIR}/description.lua @ONLY)
-install(FILES ${CMAKE_BINARY_DIR}/description.lua 
+install(FILES ${CMAKE_BINARY_DIR}/description.lua
 		DESTINATION ${INPEEM_PACKAGE_DIR}
 		COMPONENT runtime)
-		
+
 get_filename_component(INPEEM_AMAZON_DATA ${INPEEM_ROOT_DIR}/data/amzCs5km_epsg29101.zip ABSOLUTE)
 set(INPEEM_DATA_DIR ${CMAKE_BINARY_DIR}/data)
 execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${INPEEM_DATA_DIR})
