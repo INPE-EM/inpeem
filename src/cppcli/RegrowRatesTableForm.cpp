@@ -59,8 +59,8 @@ Void INPEEM::RegrowRatesTableForm::RegrowRatesTableForm_Shown(System::Object^  s
 	ratesDataGrid->ColumnCount = 2;
 	ratesDataGrid->Columns[0]->Name = "";
 	ratesDataGrid->Columns[0]->Width = ratesDataGrid->Columns[0]->Width / 2;
-	ratesDataGrid->Columns[0]->DefaultCellStyle->ForeColor = System::Drawing::Color::Gray;
-
+	ratesDataGrid->Columns[0]->DefaultCellStyle->BackColor = System::Drawing::Color::LightGray;
+	
 	int time = 1;
 
 	numOfCells = numOfLines;
@@ -72,6 +72,7 @@ Void INPEEM::RegrowRatesTableForm::RegrowRatesTableForm_Shown(System::Object^  s
 
 	ratesDataGrid->Columns[0]->ReadOnly = true;
 	ratesDataGrid->Columns[1]->Name = gSValues;
+	ratesDataGrid->CurrentCell = ratesDataGrid->Rows[0]->Cells[1];
 
 	if(RegrowRatesInfo::getInstance()->Count() != numOfLines)
 	{
