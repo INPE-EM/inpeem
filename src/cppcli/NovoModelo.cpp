@@ -9,6 +9,7 @@
 #include "ComponentSecondaryVegetation.h"
 #include "ComponentVegetationRemoval.h"
 #include "NonSpatialDataTableForm.h"
+#include "RegrowRatesInfo.h"
 
 using namespace System;
 using namespace System::ComponentModel;
@@ -1048,8 +1049,24 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 						tempLine += line + ";";
 						line = sw->ReadLine();
 					}
-
-					tempLine += line + ";";
+				
+					if (line->Contains("regrowRates"))
+					{
+						String^ regrowLine = line;
+						regrowLine = regrowLine->Replace(" ", "");
+						regrowLine = regrowLine->Replace("\t", "");
+						regrowLine = regrowLine->Replace("regrowRates=", "");
+						regrowLine = regrowLine->Replace("{", "");
+						regrowLine = regrowLine->Replace("}", "");
+						array<String^>^ regrowRatesValues = regrowLine->Split(',');
+						for(int i = 0; i < regrowRatesValues->Length; i++)
+						{
+							RegrowRatesInfo::getInstance()->Add(regrowRatesValues[i]);
+						}
+						tempLine += regrowRatesValues[0] + ";";
+					}
+					else	
+						tempLine += line + ";";
 					tempLine = tempLine->Replace("\t", "");
 					tempLine = tempLine->Replace("\r", "");
 					tempLine = tempLine->Replace("\"", "");
@@ -1071,7 +1088,7 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 					tempLine = tempLine->Replace(";;", ";");
 
 					tempLine = tempLine->Substring(1, tempLine->Length - 1);
-
+		
 					gDegradation = tempLine;
 					showReturnDegradation();
 				}
@@ -1611,7 +1628,12 @@ System::Void INPEEM::NovoModelo::showReturnDeforest()
 System::Void INPEEM::NovoModelo::showReturnDegradation()
 {
 	array<String^>^ auxDegradation = gDegradation->Split(';');
-	array<String^>^ lines = gcnew array<String^>(DEGRADATIONLINES);
+	array<String^>^ lines;
+	bool hasRegrowRates = !RegrowRatesInfo::getInstance()->IsEmpty();
+	if(hasRegrowRates)
+		lines = gcnew array<String^>(DEGRADATIONLINES + 2);
+	else
+		lines = gcnew array<String^>(DEGRADATIONLINES);
 
 	lines[0] = "DG1 = ";
 	lines[1] = "{";
@@ -1634,8 +1656,21 @@ System::Void INPEEM::NovoModelo::showReturnDegradation()
 	lines[11] = "averAGB_percReduction = " + auxDegradation[7] + ",";
 	lines[12] = "averPeriodRegrow = " + auxDegradation[8] + ",";
 	lines[13] = "averLimiarDegradYears = " + auxDegradation[9] + ",";
-	lines[14] = "averLimiarDegradLoss = " + auxDegradation[10];
-	lines[15] = "}";
+	
+	if(hasRegrowRates)
+	{
+		lines[14] = "averLimiarDegradLoss = " + auxDegradation[10] + ",";
+		lines[15] = "";
+		lines[16] = "";
+		if(!RegrowRatesInfo::getInstance()->IsEmpty())
+			lines[16] = "regrowRates = {" + auxDegradation[11] + ", ...}" ;
+		lines[17] = "}";
+	}
+	else
+	{
+		lines[14] = "averLimiarDegradLoss = " + auxDegradation[10];
+		lines[15] = "}";
+	}
 
 	tbDegrad->Lines = lines;
 }
@@ -2221,9 +2256,24 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 					sw->WriteLine("--------------------------------------------------------------");
 					sw->WriteLine(tbDegrad->Lines[0]);
 					sw->WriteLine(tbDegrad->Lines[1]);
-
-					for (int i = 2; i < tbDegrad->Lines->Length - 1; i++) {
-						sw->WriteLine("\t" + tbDegrad->Lines[i]);
+				
+					if(tbDegrad->Lines->Length == DEGRADATIONLINES) 
+					{
+						for (int i = 2; i < tbDegrad->Lines->Length - 1; i++) {
+							sw->WriteLine("\t" + tbDegrad->Lines[i]);
+						}
+					}
+					else
+					{
+						for (int i = 2; i < tbDegrad->Lines->Length - 3; i++) {
+							sw->WriteLine("\t" + tbDegrad->Lines[i]);
+						}
+						System::String^ values = "";
+						for (int i = 0; i < RegrowRatesInfo::getInstance()->Count() - 1; i++)
+							values += RegrowRatesInfo::getInstance()->RateAt(i) + ", ";
+						values += RegrowRatesInfo::getInstance()->RateAt(RegrowRatesInfo::getInstance()->Count() - 1);
+						sw->WriteLine("");
+						sw->WriteLine("\tregrowRates = {" + values->Replace("\r", "") + "}");
 					}
 
 					sw->WriteLine(tbDegrad->Lines[tbDegrad->Lines->Length - 1]);
