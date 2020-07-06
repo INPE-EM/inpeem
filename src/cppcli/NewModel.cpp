@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "NovoModelo.h"
+#include "NewModel.h"
 #include "Function.h"
 #include "LanguageForm.h"
 #include "AboutForm.h"
@@ -18,7 +18,7 @@ using namespace System::Windows::Forms;
 using namespace System::Data;
 using namespace System::Drawing;
 
-System::Void INPEEM::NovoModelo::checkLanguage()
+System::Void INPEEM::NewModel::checkLanguage()
 {
 	//Select Strings according to the selected language
 	if (lLanguage == "en") {
@@ -333,7 +333,7 @@ System::Void INPEEM::NovoModelo::checkLanguage()
 	}
 }
 
-System::Void INPEEM::NovoModelo::textBox_Enter(System::Object ^ sender, System::EventArgs ^ e)
+System::Void INPEEM::NewModel::textBox_Enter(System::Object ^ sender, System::EventArgs ^ e)
 {
 	//Create the efect of a edited TextBox (must select this function on focus->enter property of a TextBox)
 	System::Windows::Forms::TextBox^ thisTextBox = safe_cast<System::Windows::Forms::TextBox^>(sender);
@@ -346,7 +346,7 @@ System::Void INPEEM::NovoModelo::textBox_Enter(System::Object ^ sender, System::
 /*
 Count a number of a caracter on a String
 */
-System::Int16 INPEEM::NovoModelo::countCaracter(String^ source, char caracter)
+System::Int16 INPEEM::NewModel::countCaracter(String^ source, char caracter)
 {
 	int count = 0;
 	for (int i = 0; i < source->Length; i++) {
@@ -357,19 +357,19 @@ System::Int16 INPEEM::NovoModelo::countCaracter(String^ source, char caracter)
 	return count;
 }
 
-System::Void INPEEM::NovoModelo::novoToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+System::Void INPEEM::NewModel::novoToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 {
 	lReturn = NEWMODEL;
 	this->Close();
 }
 
-Void INPEEM::NovoModelo::abrirToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+Void INPEEM::NewModel::abrirToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 {
 	lReturn = OPENMODEL;
 	this->Close();
 }
 
-System::Void INPEEM::NovoModelo::idiomaToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+System::Void INPEEM::NewModel::idiomaToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 {
 	LanguageForm^ languageForm = gcnew LanguageForm(lLanguage);
 	languageForm->ShowInTaskbar = false;
@@ -378,25 +378,25 @@ System::Void INPEEM::NovoModelo::idiomaToolStripMenuItem_Click(System::Object^  
 	languageForm->ShowDialog();
 	lLanguage = languageForm->lLanguage;
 	checkLanguage();
-	NovoModelo::Update();
+	NewModel::Update();
 }
 
-Void INPEEM::NovoModelo::sobreToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+Void INPEEM::NewModel::sobreToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 {
 	AboutForm^ aboutForm = gcnew AboutForm(lLanguage);
 	aboutForm->ShowInTaskbar = false;
 	aboutForm->ShowDialog();
 }
 
-System::Void INPEEM::NovoModelo::sairToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+System::Void INPEEM::NewModel::sairToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 {
 	Application::Exit();
 }
 
-System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System::EventArgs^  e)
+System::Void INPEEM::NewModel::NovoModelo_Load(System::Object^  sender, System::EventArgs^  e)
 {
 	checkLanguage();
-	NovoModelo::Update();
+	NewModel::Update();
 
 	if (lOpen) {
 		try {
@@ -1238,7 +1238,7 @@ System::Void INPEEM::NovoModelo::NovoModelo_Load(System::Object^  sender, System
 	}
 }
 
-Void INPEEM::NovoModelo::bSelectFolder_Click(System::Object^  sender, System::EventArgs^  e)
+Void INPEEM::NewModel::bSelectFolder_Click(System::Object^  sender, System::EventArgs^  e)
 {
 	//Open the dialog to select a folder and return the path
 	INPEEM::FolderBrowserDialog^ modelFolder = gcnew FolderBrowserDialog();
@@ -1249,7 +1249,7 @@ Void INPEEM::NovoModelo::bSelectFolder_Click(System::Object^  sender, System::Ev
 	}
 }
 
-Void INPEEM::NovoModelo::bBiomass_Click(System::Object^  sender, System::EventArgs^  e)
+Void INPEEM::NewModel::bBiomass_Click(System::Object^  sender, System::EventArgs^  e)
 {
 	cReturn^ lBiomass = gcnew cReturn();
 	lBiomass->Language = lLanguage;
@@ -1268,7 +1268,7 @@ Void INPEEM::NovoModelo::bBiomass_Click(System::Object^  sender, System::EventAr
 	}
 }
 
-Void INPEEM::NovoModelo::bDeforest_Click(System::Object^  sender, System::EventArgs^  e)
+Void INPEEM::NewModel::bDeforest_Click(System::Object^  sender, System::EventArgs^  e)
 {
 	cReturn^ lDeforest = gcnew cReturn();
 	lDeforest->Language = lLanguage;
@@ -1288,7 +1288,7 @@ Void INPEEM::NovoModelo::bDeforest_Click(System::Object^  sender, System::EventA
 }
 
 
-Void INPEEM::NovoModelo::bVegetationRemoval_Click(System::Object^  sender, System::EventArgs^  e)
+Void INPEEM::NewModel::bVegetationRemoval_Click(System::Object^  sender, System::EventArgs^  e)
 {
 	cReturn^ lVegetationRemoval = gcnew cReturn();
 	lVegetationRemoval->Language = lLanguage;
@@ -1307,7 +1307,7 @@ Void INPEEM::NovoModelo::bVegetationRemoval_Click(System::Object^  sender, Syste
 	}
 }
 
-Void INPEEM::NovoModelo::bSecondVegetation_Click(System::Object^  sender, System::EventArgs^  e)
+Void INPEEM::NewModel::bSecondVegetation_Click(System::Object^  sender, System::EventArgs^  e)
 {
 	cReturn^ lSecondaryVegetation = gcnew cReturn();
 	lSecondaryVegetation->Language = lLanguage;
@@ -1326,7 +1326,7 @@ Void INPEEM::NovoModelo::bSecondVegetation_Click(System::Object^  sender, System
 	}
 }
 
-Void INPEEM::NovoModelo::bDegrad_Click(System::Object^  sender, System::EventArgs^  e)
+Void INPEEM::NewModel::bDegrad_Click(System::Object^  sender, System::EventArgs^  e)
 {
 	cReturn^ lDegradation = gcnew cReturn();
 	lDegradation->Language = lLanguage;
@@ -1345,7 +1345,7 @@ Void INPEEM::NovoModelo::bDegrad_Click(System::Object^  sender, System::EventArg
 	}
 }
 
-Void INPEEM::NovoModelo::bTableData_Click(System::Object^  sender, System::EventArgs^  e)
+Void INPEEM::NewModel::bTableData_Click(System::Object^  sender, System::EventArgs^  e)
 {
 	cReturnNSDTF^ lNonSpatialTables = gcnew cReturnNSDTF();
 	bool check = true;
@@ -1419,7 +1419,7 @@ Void INPEEM::NovoModelo::bTableData_Click(System::Object^  sender, System::Event
 	}
 }
 
-Void INPEEM::NovoModelo::bSelectProject_Click(System::Object^  sender, System::EventArgs^  e)
+Void INPEEM::NewModel::bSelectProject_Click(System::Object^  sender, System::EventArgs^  e)
 {
 	//Open the dialog to select the access database and return the path
 	INPEEM::OpenFileDialog^ projFile = gcnew OpenFileDialog;
@@ -1438,7 +1438,7 @@ Void INPEEM::NovoModelo::bSelectProject_Click(System::Object^  sender, System::E
 	}
 }
 
-System::Void INPEEM::NovoModelo::bShape_Click(System::Object^  sender, System::EventArgs^  e)
+System::Void INPEEM::NewModel::bShape_Click(System::Object^  sender, System::EventArgs^  e)
 {
 	//Open the dialog to select the access database and return the path
 	INPEEM::OpenFileDialog^ shapeFile = gcnew OpenFileDialog;
@@ -1482,7 +1482,7 @@ System::Void INPEEM::NovoModelo::bShape_Click(System::Object^  sender, System::E
 	}
 }
 
-System::Void INPEEM::NovoModelo::showReturnNonSpatialDataTable()
+System::Void INPEEM::NewModel::showReturnNonSpatialDataTable()
 {
 	array<String^>^ auxNonSpatialTable = gNonSpatialTables->Split(';'); //Will divide in area, halflife and degrad (2 semicons)
 
@@ -1582,7 +1582,7 @@ System::Void INPEEM::NovoModelo::showReturnNonSpatialDataTable()
 	tbTableData->Lines = lines;
 }
 
-System::Void INPEEM::NovoModelo::showReturnBiomass()
+System::Void INPEEM::NewModel::showReturnBiomass()
 {
 	array<String^>^ auxBiomass = gBiomass->Split(';');
 	array<String^>^ lines = gcnew array<String^>(BIOMASSLINES);
@@ -1609,7 +1609,7 @@ System::Void INPEEM::NovoModelo::showReturnBiomass()
 	tbBiomass->Lines = lines;
 }
 
-System::Void INPEEM::NovoModelo::showReturnDeforest()
+System::Void INPEEM::NewModel::showReturnDeforest()
 {
 	array<String^>^ auxDeforest = gDeforest->Split(';');
 	array<String^>^ lines = gcnew array<String^>(DEFORESTLINES);
@@ -1625,7 +1625,7 @@ System::Void INPEEM::NovoModelo::showReturnDeforest()
 	tbDeforest->Lines = lines;
 }
 
-System::Void INPEEM::NovoModelo::showReturnDegradation()
+System::Void INPEEM::NewModel::showReturnDegradation()
 {
 	array<String^>^ auxDegradation = gDegradation->Split(';');
 	array<String^>^ lines;
@@ -1675,7 +1675,7 @@ System::Void INPEEM::NovoModelo::showReturnDegradation()
 	tbDegrad->Lines = lines;
 }
 
-System::Void INPEEM::NovoModelo::showReturnSecondaryVegetation()
+System::Void INPEEM::NewModel::showReturnSecondaryVegetation()
 {
 	array<String^>^ auxSecondaryVegetatin = gSecondaryVegetation->Split(';');
 	array<String^>^ lines = gcnew array<String^>(SECONDARYVEGETATIONLINES);
@@ -1707,7 +1707,7 @@ System::Void INPEEM::NovoModelo::showReturnSecondaryVegetation()
 	tbSecondVegetation->Lines = lines;
 }
 
-System::Void INPEEM::NovoModelo::showReturnVegetationRemoval()
+System::Void INPEEM::NewModel::showReturnVegetationRemoval()
 {
 	array<String^>^ auxVegetationRemoval = gVegetationRemoval->Split(';');
 	array<String^>^ lines = gcnew array<String^>(VEGETATIONREMOVALLINES);
@@ -1755,7 +1755,7 @@ System::Void INPEEM::NovoModelo::showReturnVegetationRemoval()
 	tbVegetationRemoval->Lines = lines;
 }
 
-System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, System::EventArgs^  e)
+System::Void INPEEM::NewModel::bGerarArquivos_Click(System::Object^  sender, System::EventArgs^  e)
 {
 	bool checked = true;
 
@@ -2492,7 +2492,7 @@ System::Void INPEEM::NovoModelo::bGerarArquivos_Click(System::Object^  sender, S
 	}
 }
 
-System::Void INPEEM::NovoModelo::bRun_Click(System::Object^  sender, System::EventArgs^  e)
+System::Void INPEEM::NewModel::bRun_Click(System::Object^  sender, System::EventArgs^  e)
 {
 	Environment::SetEnvironmentVariable("TME_PATH", "C:\\INPE-EM\\Terrame\\bin");
 	Environment::SetEnvironmentVariable("PATH", "C:\\INPE-EM\\Terrame\\bin");
@@ -2517,7 +2517,7 @@ System::Void INPEEM::NovoModelo::bRun_Click(System::Object^  sender, System::Eve
 	arguments = "";
 }
 
-System::Void INPEEM::NovoModelo::luccMEToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+System::Void INPEEM::NewModel::luccMEToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 {
 	if (lLanguage == "en") {
 		Help::ShowHelp(this, "help.chm");

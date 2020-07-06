@@ -14,7 +14,7 @@ using namespace System::Drawing;
 
 System::Void INPEEM::MyForm::bNovoModelo_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
-	INPEEM::NovoModelo^ novoModelo = gcnew INPEEM::NovoModelo(lLanguage, false, 0);
+	INPEEM::NewModel^ novoModelo = gcnew INPEEM::NewModel(lLanguage, false, 0);
 	this->Visible = false;
 	novoModelo->ShowDialog();
 	try {
@@ -102,7 +102,7 @@ System::Void INPEEM::MyForm::sobreToolStripMenuItem_Click(System::Object ^ sende
 
 System::Void INPEEM::MyForm::bAbrirModelo_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
-	INPEEM::NovoModelo^ novoModelo = gcnew INPEEM::NovoModelo(lLanguage, true, 0);
+	INPEEM::NewModel^ novoModelo = gcnew INPEEM::NewModel(lLanguage, true, 0);
 	this->Visible = false;
 	novoModelo->ShowDialog();
 	try {

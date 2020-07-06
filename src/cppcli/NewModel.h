@@ -12,9 +12,9 @@ namespace INPEEM {
 	using namespace System::IO;
 
 	/// <summary>
-	/// Summary for NovoModelo
+	/// Summary for NewModel
 	/// </summary>
-	public ref class NovoModelo : public System::Windows::Forms::Form
+	public ref class NewModel : public System::Windows::Forms::Form
 	{
 	public:
 		bool closing = false;
@@ -224,7 +224,7 @@ private: System::Windows::Forms::Label^  lhans;
 
 	public:
 		int lReturn;
-		NovoModelo(String^ pLanguage, bool pOpen, int pReturn)
+		NewModel(String^ pLanguage, bool pOpen, int pReturn)
 		{
 			InitializeComponent();
 			lLanguage = pLanguage;
@@ -239,7 +239,7 @@ private: System::Windows::Forms::Label^  lhans;
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
-		~NovoModelo()
+		~NewModel()
 		{
 			if (components)
 			{
@@ -260,7 +260,7 @@ private: System::Windows::Forms::Label^  lhans;
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(NovoModelo::typeid));
+			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(NewModel::typeid));
 			this->tNovoModelo = (gcnew System::Windows::Forms::TabControl());
 			this->tabDefModel = (gcnew System::Windows::Forms::TabPage());
 			this->lDefinicoesModelo = (gcnew System::Windows::Forms::Label());
@@ -416,7 +416,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->tModelName->TabIndex = 66;
 			this->tModelName->Text = L"INPEEM_model";
 			this->tModelName->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
-			this->tModelName->Enter += gcnew System::EventHandler(this, &NovoModelo::textBox_Enter);
+			this->tModelName->Enter += gcnew System::EventHandler(this, &NewModel::textBox_Enter);
 			// 
 			// lModelName
 			// 
@@ -448,7 +448,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->bSelectFolder->TabIndex = 63;
 			this->bSelectFolder->Text = L"Selecionar";
 			this->bSelectFolder->UseVisualStyleBackColor = true;
-			this->bSelectFolder->Click += gcnew System::EventHandler(this, &NovoModelo::bSelectFolder_Click);
+			this->bSelectFolder->Click += gcnew System::EventHandler(this, &NewModel::bSelectFolder_Click);
 			// 
 			// lDirProj
 			// 
@@ -503,7 +503,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->bBiomass->TabIndex = 79;
 			this->bBiomass->Text = L"Biomassa";
 			this->bBiomass->UseVisualStyleBackColor = true;
-			this->bBiomass->Click += gcnew System::EventHandler(this, &NovoModelo::bBiomass_Click);
+			this->bBiomass->Click += gcnew System::EventHandler(this, &NewModel::bBiomass_Click);
 			// 
 			// tbDegrad
 			// 
@@ -526,7 +526,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->bDegrad->TabIndex = 82;
 			this->bDegrad->Text = L"Degradação";
 			this->bDegrad->UseVisualStyleBackColor = true;
-			this->bDegrad->Click += gcnew System::EventHandler(this, &NovoModelo::bDegrad_Click);
+			this->bDegrad->Click += gcnew System::EventHandler(this, &NewModel::bDegrad_Click);
 			// 
 			// tbSecondVegetation
 			// 
@@ -549,7 +549,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->bSecondVegetation->TabIndex = 81;
 			this->bSecondVegetation->Text = L"Vegetação Secundária";
 			this->bSecondVegetation->UseVisualStyleBackColor = true;
-			this->bSecondVegetation->Click += gcnew System::EventHandler(this, &NovoModelo::bSecondVegetation_Click);
+			this->bSecondVegetation->Click += gcnew System::EventHandler(this, &NewModel::bSecondVegetation_Click);
 			// 
 			// tbVegetationRemoval
 			// 
@@ -572,7 +572,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->bVegetationRemoval->TabIndex = 80;
 			this->bVegetationRemoval->Text = L"Vegetação Primária";
 			this->bVegetationRemoval->UseVisualStyleBackColor = true;
-			this->bVegetationRemoval->Click += gcnew System::EventHandler(this, &NovoModelo::bVegetationRemoval_Click);
+			this->bVegetationRemoval->Click += gcnew System::EventHandler(this, &NewModel::bVegetationRemoval_Click);
 			// 
 			// tbDeforest
 			// 
@@ -595,7 +595,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->bDeforest->TabIndex = 78;
 			this->bDeforest->Text = L"Desmatamento";
 			this->bDeforest->UseVisualStyleBackColor = true;
-			this->bDeforest->Click += gcnew System::EventHandler(this, &NovoModelo::bDeforest_Click);
+			this->bDeforest->Click += gcnew System::EventHandler(this, &NewModel::bDeforest_Click);
 			// 
 			// lComponentes
 			// 
@@ -746,7 +746,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->tNonSpatialArea->TabIndex = 88;
 			this->tNonSpatialArea->Text = L"528125000";
 			this->tNonSpatialArea->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
-			this->tNonSpatialArea->Enter += gcnew System::EventHandler(this, &NovoModelo::textBox_Enter);
+			this->tNonSpatialArea->Enter += gcnew System::EventHandler(this, &NewModel::textBox_Enter);
 			// 
 			// lNonSpatialArea
 			// 
@@ -769,7 +769,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->tNonSpatialFinalYear->TabIndex = 87;
 			this->tNonSpatialFinalYear->Text = L"2050";
 			this->tNonSpatialFinalYear->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
-			this->tNonSpatialFinalYear->Enter += gcnew System::EventHandler(this, &NovoModelo::textBox_Enter);
+			this->tNonSpatialFinalYear->Enter += gcnew System::EventHandler(this, &NewModel::textBox_Enter);
 			// 
 			// lNonSpatialFinalYear
 			// 
@@ -792,7 +792,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->tNonSpatialInitialYear->TabIndex = 86;
 			this->tNonSpatialInitialYear->Text = L"1960";
 			this->tNonSpatialInitialYear->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
-			this->tNonSpatialInitialYear->Enter += gcnew System::EventHandler(this, &NovoModelo::textBox_Enter);
+			this->tNonSpatialInitialYear->Enter += gcnew System::EventHandler(this, &NewModel::textBox_Enter);
 			// 
 			// lNonSpatialInitialYear
 			// 
@@ -815,7 +815,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->tNonSpatialName->TabIndex = 85;
 			this->tNonSpatialName->Text = L"NonSpatialModel";
 			this->tNonSpatialName->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
-			this->tNonSpatialName->Enter += gcnew System::EventHandler(this, &NovoModelo::textBox_Enter);
+			this->tNonSpatialName->Enter += gcnew System::EventHandler(this, &NewModel::textBox_Enter);
 			// 
 			// lNonSpatialName
 			// 
@@ -850,7 +850,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->bTableData->TabIndex = 82;
 			this->bTableData->Text = L"Tabela de Dados Não Espaciais";
 			this->bTableData->UseVisualStyleBackColor = true;
-			this->bTableData->Click += gcnew System::EventHandler(this, &NovoModelo::bTableData_Click);
+			this->bTableData->Click += gcnew System::EventHandler(this, &NewModel::bTableData_Click);
 			// 
 			// tabSpatial
 			// 
@@ -956,7 +956,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->bShape->TabIndex = 99;
 			this->bShape->Text = L"Selecionar";
 			this->bShape->UseVisualStyleBackColor = true;
-			this->bShape->Click += gcnew System::EventHandler(this, &NovoModelo::bShape_Click);
+			this->bShape->Click += gcnew System::EventHandler(this, &NewModel::bShape_Click);
 			// 
 			// bSelectProject
 			// 
@@ -967,7 +967,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->bSelectProject->Text = L"Selecionar";
 			this->bSelectProject->UseVisualStyleBackColor = true;
 			this->bSelectProject->Visible = false;
-			this->bSelectProject->Click += gcnew System::EventHandler(this, &NovoModelo::bSelectProject_Click);
+			this->bSelectProject->Click += gcnew System::EventHandler(this, &NewModel::bSelectProject_Click);
 			// 
 			// tSpatialCellArea
 			// 
@@ -978,7 +978,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->tSpatialCellArea->TabIndex = 101;
 			this->tSpatialCellArea->Text = L"6.25";
 			this->tSpatialCellArea->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
-			this->tSpatialCellArea->Enter += gcnew System::EventHandler(this, &NovoModelo::textBox_Enter);
+			this->tSpatialCellArea->Enter += gcnew System::EventHandler(this, &NewModel::textBox_Enter);
 			// 
 			// lSpatialCellArea
 			// 
@@ -1003,7 +1003,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->tSpatialLayerName->Text = L"layer_name";
 			this->tSpatialLayerName->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->tSpatialLayerName->Visible = false;
-			this->tSpatialLayerName->Enter += gcnew System::EventHandler(this, &NovoModelo::textBox_Enter);
+			this->tSpatialLayerName->Enter += gcnew System::EventHandler(this, &NewModel::textBox_Enter);
 			// 
 			// lSpatialLayerName
 			// 
@@ -1102,7 +1102,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->tSpatialFinalYear->TabIndex = 97;
 			this->tSpatialFinalYear->Text = L"2050";
 			this->tSpatialFinalYear->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
-			this->tSpatialFinalYear->Enter += gcnew System::EventHandler(this, &NovoModelo::textBox_Enter);
+			this->tSpatialFinalYear->Enter += gcnew System::EventHandler(this, &NewModel::textBox_Enter);
 			// 
 			// lSpatialFinalYear
 			// 
@@ -1125,7 +1125,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->tSpatialInitialYear->TabIndex = 96;
 			this->tSpatialInitialYear->Text = L"1960";
 			this->tSpatialInitialYear->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
-			this->tSpatialInitialYear->Enter += gcnew System::EventHandler(this, &NovoModelo::textBox_Enter);
+			this->tSpatialInitialYear->Enter += gcnew System::EventHandler(this, &NewModel::textBox_Enter);
 			// 
 			// lSpatialInitialYear
 			// 
@@ -1148,7 +1148,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->tSpatialName->TabIndex = 95;
 			this->tSpatialName->Text = L"SpatialModel";
 			this->tSpatialName->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
-			this->tSpatialName->Enter += gcnew System::EventHandler(this, &NovoModelo::textBox_Enter);
+			this->tSpatialName->Enter += gcnew System::EventHandler(this, &NewModel::textBox_Enter);
 			// 
 			// lSpatialName
 			// 
@@ -1204,7 +1204,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->bRun->Text = L"Rodar Modelo";
 			this->bRun->UseVisualStyleBackColor = true;
 			this->bRun->Visible = false;
-			this->bRun->Click += gcnew System::EventHandler(this, &NovoModelo::bRun_Click);
+			this->bRun->Click += gcnew System::EventHandler(this, &NewModel::bRun_Click);
 			// 
 			// lRunModel
 			// 
@@ -1227,7 +1227,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->bGerarArquivos->TabIndex = 89;
 			this->bGerarArquivos->Text = L"Gerar Arquivos";
 			this->bGerarArquivos->UseVisualStyleBackColor = true;
-			this->bGerarArquivos->Click += gcnew System::EventHandler(this, &NovoModelo::bGerarArquivos_Click);
+			this->bGerarArquivos->Click += gcnew System::EventHandler(this, &NewModel::bGerarArquivos_Click);
 			// 
 			// lFileMaker
 			// 
@@ -1278,21 +1278,21 @@ private: System::Windows::Forms::Label^  lhans;
 			this->novoToolStripMenuItem->Name = L"novoToolStripMenuItem";
 			this->novoToolStripMenuItem->Size = System::Drawing::Size(103, 22);
 			this->novoToolStripMenuItem->Text = L"Novo";
-			this->novoToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::novoToolStripMenuItem_Click);
+			this->novoToolStripMenuItem->Click += gcnew System::EventHandler(this, &NewModel::novoToolStripMenuItem_Click);
 			// 
 			// abrirToolStripMenuItem
 			// 
 			this->abrirToolStripMenuItem->Name = L"abrirToolStripMenuItem";
 			this->abrirToolStripMenuItem->Size = System::Drawing::Size(103, 22);
 			this->abrirToolStripMenuItem->Text = L"Abrir";
-			this->abrirToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::abrirToolStripMenuItem_Click);
+			this->abrirToolStripMenuItem->Click += gcnew System::EventHandler(this, &NewModel::abrirToolStripMenuItem_Click);
 			// 
 			// sairToolStripMenuItem
 			// 
 			this->sairToolStripMenuItem->Name = L"sairToolStripMenuItem";
 			this->sairToolStripMenuItem->Size = System::Drawing::Size(103, 22);
 			this->sairToolStripMenuItem->Text = L"Sair";
-			this->sairToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::sairToolStripMenuItem_Click);
+			this->sairToolStripMenuItem->Click += gcnew System::EventHandler(this, &NewModel::sairToolStripMenuItem_Click);
 			// 
 			// preferênciasToolStripMenuItem
 			// 
@@ -1306,7 +1306,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->idiomaToolStripMenuItem->Name = L"idiomaToolStripMenuItem";
 			this->idiomaToolStripMenuItem->Size = System::Drawing::Size(111, 22);
 			this->idiomaToolStripMenuItem->Text = L"Idioma";
-			this->idiomaToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::idiomaToolStripMenuItem_Click);
+			this->idiomaToolStripMenuItem->Click += gcnew System::EventHandler(this, &NewModel::idiomaToolStripMenuItem_Click);
 			// 
 			// ajudaToolStripMenuItem
 			// 
@@ -1324,16 +1324,16 @@ private: System::Windows::Forms::Label^  lhans;
 			this->luccMEToolStripMenuItem->ShortcutKeys = System::Windows::Forms::Keys::F1;
 			this->luccMEToolStripMenuItem->Size = System::Drawing::Size(140, 22);
 			this->luccMEToolStripMenuItem->Text = L"INPE-EM";
-			this->luccMEToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::luccMEToolStripMenuItem_Click);
+			this->luccMEToolStripMenuItem->Click += gcnew System::EventHandler(this, &NewModel::luccMEToolStripMenuItem_Click);
 			// 
 			// sobreToolStripMenuItem
 			// 
 			this->sobreToolStripMenuItem->Name = L"sobreToolStripMenuItem";
 			this->sobreToolStripMenuItem->Size = System::Drawing::Size(140, 22);
 			this->sobreToolStripMenuItem->Text = L"Sobre";
-			this->sobreToolStripMenuItem->Click += gcnew System::EventHandler(this, &NovoModelo::sobreToolStripMenuItem_Click);
+			this->sobreToolStripMenuItem->Click += gcnew System::EventHandler(this, &NewModel::sobreToolStripMenuItem_Click);
 			// 
-			// NovoModelo
+			// NewModel
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(96, 96);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Dpi;
@@ -1346,7 +1346,7 @@ private: System::Windows::Forms::Label^  lhans;
 			this->Name = L"NovoModelo";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Criando um Novo Modelo";
-			this->Load += gcnew System::EventHandler(this, &NovoModelo::NovoModelo_Load);
+			this->Load += gcnew System::EventHandler(this, &NewModel::NovoModelo_Load);
 			this->tNovoModelo->ResumeLayout(false);
 			this->tabDefModel->ResumeLayout(false);
 			this->tabDefModel->PerformLayout();
