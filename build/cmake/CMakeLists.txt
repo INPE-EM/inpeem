@@ -3,13 +3,13 @@ cmake_minimum_required(VERSION 3.12.2)
 include(CSharpUtilities)
 
 if(NOT WIN32 AND MSVC)
-	message(FATAL_ERROR "This project only works on Windows and Visual Studio.")
+	message(FATAL_ERROR "This project works only on Windows and Visual Studio.")
 endif()
 
 project(INPE-EM)
 
-set(INPEEM_VERSION_MAJOR 3)
-set(INPEEM_VERSION_MINOR 2)
+set(INPEEM_VERSION_MAJOR 4)
+set(INPEEM_VERSION_MINOR 0)
 set(INPEEM_VERSION_PATCH 0)
 
 set(INPEEM_VERSION "${INPEEM_VERSION_MAJOR}.${INPEEM_VERSION_MINOR}.${INPEEM_VERSION_PATCH}")
@@ -121,6 +121,9 @@ execute_process(
 install(DIRECTORY ${INPEEM_DATA_DIR}
 		DESTINATION ${INPEEM_PACKAGE_DIR}
 		COMPONENT runtime)
+
+configure_file(${PROJECT_SOURCE_DIR}/inpeem_version.h.in
+               ${INPEEM_SRC_DIR}/INPEEMVersion.h @ONLY)
 
 configure_file(${PROJECT_SOURCE_DIR}/cpack_installer_generator.cmake.in
                ${CMAKE_BINARY_DIR}/cpack_installer_generator.cmake @ONLY)

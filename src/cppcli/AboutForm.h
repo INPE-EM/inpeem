@@ -42,10 +42,11 @@ namespace INPEEM {
 	private: System::Windows::Forms::Panel^  panel2;
 	private: System::Windows::Forms::Panel^  panel3;
 	private: System::Windows::Forms::Label^  lCopyright;
-	private: System::Windows::Forms::Label^  lVersion;
+
 	private: System::Windows::Forms::Label^  lProgram;
-	private: System::Windows::Forms::Label^  lCompatible;
+
 	private: System::Windows::Forms::LinkLabel^  linkLabel1;
+	private: System::Windows::Forms::Label^  lVersion;
 
 	private:
 		/// <summary>
@@ -67,10 +68,9 @@ namespace INPEEM {
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
 			this->panel3 = (gcnew System::Windows::Forms::Panel());
 			this->lCopyright = (gcnew System::Windows::Forms::Label());
-			this->lVersion = (gcnew System::Windows::Forms::Label());
 			this->lProgram = (gcnew System::Windows::Forms::Label());
-			this->lCompatible = (gcnew System::Windows::Forms::Label());
 			this->linkLabel1 = (gcnew System::Windows::Forms::LinkLabel());
+			this->lVersion = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbLogo1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbLogo2))->BeginInit();
 			this->panel1->SuspendLayout();
@@ -133,16 +133,6 @@ namespace INPEEM {
 			this->lCopyright->TabIndex = 17;
 			this->lCopyright->Text = L"Copyright © 2016. Todos os direitos reservados.";
 			// 
-			// lVersion
-			// 
-			this->lVersion->AutoSize = true;
-			this->lVersion->Font = (gcnew System::Drawing::Font(L"Calibri", 13));
-			this->lVersion->Location = System::Drawing::Point(17, 216);
-			this->lVersion->Name = L"lVersion";
-			this->lVersion->Size = System::Drawing::Size(87, 22);
-			this->lVersion->TabIndex = 18;
-			this->lVersion->Text = L"Versão 2.0";
-			// 
 			// lProgram
 			// 
 			this->lProgram->AutoSize = true;
@@ -152,16 +142,6 @@ namespace INPEEM {
 			this->lProgram->Size = System::Drawing::Size(271, 23);
 			this->lProgram->TabIndex = 19;
 			this->lProgram->Text = L"Gerenciador de Modelos INPE-EM";
-			// 
-			// lCompatible
-			// 
-			this->lCompatible->AutoSize = true;
-			this->lCompatible->Font = (gcnew System::Drawing::Font(L"Calibri", 12));
-			this->lCompatible->Location = System::Drawing::Point(18, 182);
-			this->lCompatible->Name = L"lCompatible";
-			this->lCompatible->Size = System::Drawing::Size(197, 19);
-			this->lCompatible->TabIndex = 21;
-			this->lCompatible->Text = L"Compatível com INPE-EM 3.0";
 			// 
 			// linkLabel1
 			// 
@@ -174,6 +154,16 @@ namespace INPEEM {
 			this->linkLabel1->Text = L"http://inpe-em.ccst.inpe.br/";
 			this->linkLabel1->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &AboutForm::linkLabel1_LinkClicked);
 			// 
+			// lVersion
+			// 
+			this->lVersion->AutoSize = true;
+			this->lVersion->Font = (gcnew System::Drawing::Font(L"Calibri", 13));
+			this->lVersion->Location = System::Drawing::Point(17, 181);
+			this->lVersion->Name = L"lVersion";
+			this->lVersion->Size = System::Drawing::Size(87, 22);
+			this->lVersion->TabIndex = 18;
+			this->lVersion->Text = L"Versão 2.0";
+			// 
 			// AboutForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(96, 96);
@@ -182,7 +172,6 @@ namespace INPEEM {
 			this->ClientSize = System::Drawing::Size(393, 382);
 			this->Controls->Add(this->linkLabel1);
 			this->Controls->Add(this->panel3);
-			this->Controls->Add(this->lCompatible);
 			this->Controls->Add(this->lCopyright);
 			this->Controls->Add(this->lVersion);
 			this->Controls->Add(this->lProgram);

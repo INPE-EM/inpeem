@@ -10,6 +10,7 @@
 #include "ComponentVegetationRemoval.h"
 #include "NonSpatialDataTableForm.h"
 #include "RegrowRatesInfo.h"
+#include "INPEEMVersion.h"
 
 using namespace System;
 using namespace System::ComponentModel;
@@ -1921,7 +1922,7 @@ System::Void INPEEM::NewModel::bGerarArquivos_Click(System::Object^  sender, Sys
 			if (checked) {
 				sw->WriteLine("---------------------------------------------------------------");
 				sw->WriteLine("-- This file contains a INPE-EM APPLICATION MODEL definition --");
-				sw->WriteLine("--              Compatible with INPE-EM 3.0                  --");
+				sw->WriteLine("--              Compatible with INPE-EM " + INPEEM_VERSION + "                  --");
 				sw->WriteLine("--       Generated with INPE-EM Model Configurator           --");
 				sw->WriteLine("--                 " + dateTime + "                    --");
 				sw->WriteLine("---------------------------------------------------------------\n");
@@ -2185,7 +2186,7 @@ System::Void INPEEM::NewModel::bGerarArquivos_Click(System::Object^  sender, Sys
 
 				sw->WriteLine("---------------------------------------------------------------");
 				sw->WriteLine("--       This file contains the COMPONENTS definition        --");
-				sw->WriteLine("--              Compatible with INPE-EM 3.0                  --");
+				sw->WriteLine("--              Compatible with INPE-EM " + INPEEM_VERSION + "                  --");
 				sw->WriteLine("--       Generated with INPE-EM Model Configurator           --");
 				sw->WriteLine("--                 " + dateTime + "                    --");
 				sw->WriteLine("---------------------------------------------------------------\n");
@@ -2305,7 +2306,7 @@ System::Void INPEEM::NewModel::bGerarArquivos_Click(System::Object^  sender, Sys
 
 					sw->WriteLine("---------------------------------------------------------------");
 					sw->WriteLine("--    This file contains the Non Statial Data definition     --");
-					sw->WriteLine("--              Compatible with INPE-EM 3.0                  --");
+					sw->WriteLine("--              Compatible with INPE-EM " + INPEEM_VERSION + "                  --");
 					sw->WriteLine("--       Generated with INPE-EM Model Configurator           --");
 					sw->WriteLine("--                 " + dateTime + "                    --");
 					sw->WriteLine("---------------------------------------------------------------\n");
