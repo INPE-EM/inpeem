@@ -1,3 +1,4 @@
+#include <locale>
 #include "stdafx.h"
 #include "MyForm.h"
 #include "NewModel.h"
@@ -39,6 +40,14 @@ System::Void INPEEM::MyForm::MyForm_Load(System::Object ^ sender, System::EventA
 	this->Visible = true;
 }
 
+System::String^ INPEEM::MyForm::getLocale()
+{
+	String^ loc = gcnew String(setlocale(LC_ALL, ""));
+	if(loc->Contains("Portuguese") || loc->Contains("pt"))
+		return "pt";
+	return "en";
+}
+
 System::Void INPEEM::MyForm::checkLanguage()
 {
 	String^ fileName = "language.dat";
@@ -49,7 +58,7 @@ System::Void INPEEM::MyForm::checkLanguage()
 	}
 	catch (Exception^)
 	{
-		lLanguage = DEFAULTLANGUAGE;
+		lLanguage = getLocale();
 	}
 	
 	if (lLanguage == "en") {
