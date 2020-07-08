@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "MyForm.h"
-#include "NovoModelo.h"
+#include "NewModel.h"
 #include "LanguageForm.h"
 #include "AboutForm.h"
 
