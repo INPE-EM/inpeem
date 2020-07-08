@@ -166,7 +166,7 @@ System::Void INPEEM::RegrowRatesTableForm::PasteClipboardValue(DataGridView^ dgA
 	if (aux != "") {
 		array<String^>^ lines = aux->Split('\n');
 		for (int i = 0; i < numOfCells; i++) {
-			dgAttr->Rows[i]->Cells[1]->Value = lines[i];
+			dgAttr->Rows[i]->Cells[1]->Value = lines[i]->Replace(",", ".");
 		}
 	}
 }
