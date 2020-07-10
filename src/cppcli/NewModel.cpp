@@ -1921,10 +1921,10 @@ System::Void INPEEM::NewModel::bGerarArquivos_Click(System::Object^  sender, Sys
 
 			if (checked) {
 				sw->WriteLine("---------------------------------------------------------------");
-				sw->WriteLine("-- This file contains a INPE-EM APPLICATION MODEL definition --");
-				sw->WriteLine("--              Compatible with INPE-EM " + INPEEM_VERSION + "                  --");
-				sw->WriteLine("--       Generated with INPE-EM Model Configurator           --");
-				sw->WriteLine("--                 " + dateTime + "                    --");
+				sw->WriteLine("-- This file contains a INPE-EM APPLICATION MODEL definition");
+				sw->WriteLine("--              Compatible with INPE-EM " + INPEEM_VERSION);
+				sw->WriteLine("--       Generated with INPE-EM Model Configurator");
+				sw->WriteLine("--                 " + dateTime);
 				sw->WriteLine("---------------------------------------------------------------\n");
 				sw->WriteLine("import(\"inpeem\")\n");
 				sw->WriteLine("local x = os.clock()");
@@ -2185,10 +2185,10 @@ System::Void INPEEM::NewModel::bGerarArquivos_Click(System::Object^  sender, Sys
 				sw = File::CreateText(path);
 
 				sw->WriteLine("---------------------------------------------------------------");
-				sw->WriteLine("--       This file contains the COMPONENTS definition        --");
-				sw->WriteLine("--              Compatible with INPE-EM " + INPEEM_VERSION + "                  --");
-				sw->WriteLine("--       Generated with INPE-EM Model Configurator           --");
-				sw->WriteLine("--                 " + dateTime + "                    --");
+				sw->WriteLine("--       This file contains the COMPONENTS definition");
+				sw->WriteLine("--              Compatible with INPE-EM " + INPEEM_VERSION);
+				sw->WriteLine("--       Generated with INPE-EM Model Configurator");
+				sw->WriteLine("--                 " + dateTime);
 				sw->WriteLine("---------------------------------------------------------------\n");
 
 				if (cbNonSpatialBiomass->Checked || cbSpatialBiomass->Checked) {
@@ -2305,10 +2305,10 @@ System::Void INPEEM::NewModel::bGerarArquivos_Click(System::Object^  sender, Sys
 					sw = File::CreateText(path);
 
 					sw->WriteLine("---------------------------------------------------------------");
-					sw->WriteLine("--    This file contains the Non Statial Data definition     --");
-					sw->WriteLine("--              Compatible with INPE-EM " + INPEEM_VERSION + "                  --");
-					sw->WriteLine("--       Generated with INPE-EM Model Configurator           --");
-					sw->WriteLine("--                 " + dateTime + "                    --");
+					sw->WriteLine("--    This file contains the Non Statial Data definition");
+					sw->WriteLine("--              Compatible with INPE-EM " + INPEEM_VERSION);
+					sw->WriteLine("--       Generated with INPE-EM Model Configurator");
+					sw->WriteLine("--                 " + dateTime);
 					sw->WriteLine("---------------------------------------------------------------\n");
 
 					sw->WriteLine("NSDATA1 =");

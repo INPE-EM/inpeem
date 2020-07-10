@@ -112,8 +112,13 @@ install(FILES ${CMAKE_BINARY_DIR}/description.lua
 		COMPONENT runtime)
 
 get_filename_component(INPEEM_AMAZON_DATA ${INPEEM_ROOT_DIR}/data/amzCs5km_epsg29101.zip ABSOLUTE)
+get_filename_component(INPEEM_AMAZON_REGROW_RATES_DATA ${INPEEM_ROOT_DIR}/data/amzCs5km_netemissions_epsg5880.zip ABSOLUTE)
 set(INPEEM_DATA_DIR ${CMAKE_BINARY_DIR}/data)
 execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${INPEEM_DATA_DIR})
+execute_process(
+	COMMAND ${CMAKE_COMMAND} -E tar xzvf ${INPEEM_AMAZON_REGROW_RATES_DATA}
+	WORKING_DIRECTORY ${INPEEM_DATA_DIR}
+)
 execute_process(
 	COMMAND ${CMAKE_COMMAND} -E tar xzvf ${INPEEM_AMAZON_DATA}
 	WORKING_DIRECTORY ${INPEEM_DATA_DIR}
