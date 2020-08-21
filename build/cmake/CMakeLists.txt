@@ -128,7 +128,7 @@ install(DIRECTORY ${INPEEM_DATA_DIR}
 		COMPONENT runtime)
 
 configure_file(${PROJECT_SOURCE_DIR}/inpeem_version.h.in
-               ${INPEEM_SRC_DIR}/INPEEMVersion.h @ONLY)
+               ${INPEEM_SRC_DIR}/Version.h @ONLY)
 
 configure_file(${PROJECT_SOURCE_DIR}/cpack_installer_generator.cmake.in
                ${CMAKE_BINARY_DIR}/cpack_installer_generator.cmake @ONLY)

@@ -1,7 +1,7 @@
 #include <time.h>
 #include "stdafx.h"
 #include "AboutForm.h"
-#include "INPEEMVersion.h"
+#include "Version.h"
 
 System::Void INPEEM::AboutForm::AboutForm_Load(System::Object ^ sender, System::EventArgs ^ e)
 {

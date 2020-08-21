@@ -10,7 +10,7 @@
 #include "ComponentVegetationRemoval.h"
 #include "NonSpatialDataTableForm.h"
 #include "RegrowRatesInfo.h"
-#include "INPEEMVersion.h"
+#include "Version.h"
 
 using namespace System;
 using namespace System::ComponentModel;
