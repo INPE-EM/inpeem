@@ -10,8 +10,7 @@ System::Void INPEEM::ComponentBiomass::ComponentBiomass_Shown(System::Object^  s
 		lDescription->Location = System::Drawing::Point(46, 193);
 		bSalvar->Text = "Save";
 		gSDataMissingTitle = "Error - Data missing";
-		gSDataMissing = "All the parameters must be fulfilled.";
-		
+		gSDataMissing = "All the parameters must be fulfilled.";	
 	}
 	else {
 		lName->Text = "Nome";

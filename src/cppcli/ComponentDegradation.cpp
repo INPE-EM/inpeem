@@ -37,6 +37,7 @@ System::Void INPEEM::ComponentDegradation::ComponentDegradation_Shown(System::Ob
 		gSDataMissingTitle = "Error - Data missing";
 		gSDataMissing = "All the parameters must be fulfilled.";
 		cbSave->Text = "Save into file";
+		regrowRatesButton->Text = L"Regrow Rates";
 	}
 	else {
 		lName->Text = "Nome";
@@ -46,6 +47,7 @@ System::Void INPEEM::ComponentDegradation::ComponentDegradation_Shown(System::Ob
 		gSDataMissingTitle = "Erro - Dados não preenchidos";
 		gSDataMissing = "Todos os parâmetros devem ser preenchidos.";
 		cbSave->Text = "Salvar em aquivo";
+		regrowRatesButton->Text = L"Taxas de Recrescimento";
 	}
 
 	if (lReturn->Return != "") {

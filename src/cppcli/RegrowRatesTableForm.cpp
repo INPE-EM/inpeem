@@ -22,8 +22,8 @@ INPEEM::RegrowRatesTableForm::~RegrowRatesTableForm()
 Void INPEEM::RegrowRatesTableForm::RegrowRatesTableForm_Shown(System::Object^  sender, System::EventArgs^  e)
 {
 	if (language == "en") {
-		this->Text = "Non Spatial Data Tables";
-		ratesLabel->Text = "Deforest";
+		this->Text = "Regrow Rates";
+		ratesLabel->Text = "Regrow Rates";
 		bSalvar->Text = "Save";
 		gSYear = "";
 		gSCells = "At least one table must be used.";
@@ -32,7 +32,7 @@ Void INPEEM::RegrowRatesTableForm::RegrowRatesTableForm_Shown(System::Object^  s
 		gSCellsDegrad = "All the cells must be fullfilled in Degradation.";
 		emptyCellsTitle = "Error - Empty Cells";
 		gSDataMod = "The data was modified, but not saved.\nThe data will be lost.\nDo you want to proceed?";
-		gSExit = "Exit - Non Spatial Data Tables";
+		gSExit = "Exit - Regrow Rates";
 		gSCopyPasteTitle = "Copy/Paste";
 		gSCopyPaste = "Copy/paste operation failed. ";
 		gSPasteTitle = "Paste";
@@ -166,7 +166,7 @@ System::Void INPEEM::RegrowRatesTableForm::PasteClipboardValue(DataGridView^ dgA
 	if (aux != "") {
 		array<String^>^ lines = aux->Split('\n');
 		for (int i = 0; i < numOfCells; i++) {
-			dgAttr->Rows[i]->Cells[1]->Value = lines[i];
+			dgAttr->Rows[i]->Cells[1]->Value = lines[i]->Replace(",", ".");
 		}
 	}
 }

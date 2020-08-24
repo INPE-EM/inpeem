@@ -1,6 +1,7 @@
+#include <locale>
 #include "stdafx.h"
 #include "MyForm.h"
-#include "NovoModelo.h"
+#include "NewModel.h"
 #include "LanguageForm.h"
 #include "AboutForm.h"
 
@@ -14,7 +15,7 @@ using namespace System::Drawing;
 
 System::Void INPEEM::MyForm::bNovoModelo_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
-	INPEEM::NovoModelo^ novoModelo = gcnew INPEEM::NovoModelo(lLanguage, false, 0);
+	INPEEM::NewModel^ novoModelo = gcnew INPEEM::NewModel(lLanguage, false, 0);
 	this->Visible = false;
 	novoModelo->ShowDialog();
 	try {
@@ -39,6 +40,14 @@ System::Void INPEEM::MyForm::MyForm_Load(System::Object ^ sender, System::EventA
 	this->Visible = true;
 }
 
+System::String^ INPEEM::MyForm::getLocale()
+{
+	String^ loc = gcnew String(setlocale(LC_ALL, ""));
+	if(loc->Contains("Portuguese") || loc->Contains("pt"))
+		return "pt";
+	return "en";
+}
+
 System::Void INPEEM::MyForm::checkLanguage()
 {
 	String^ fileName = "language.dat";
@@ -49,7 +58,7 @@ System::Void INPEEM::MyForm::checkLanguage()
 	}
 	catch (Exception^)
 	{
-		lLanguage = DEFAULTLANGUAGE;
+		lLanguage = getLocale();
 	}
 	
 	if (lLanguage == "en") {
@@ -102,7 +111,7 @@ System::Void INPEEM::MyForm::sobreToolStripMenuItem_Click(System::Object ^ sende
 
 System::Void INPEEM::MyForm::bAbrirModelo_Click(System::Object ^ sender, System::EventArgs ^ e)
 {
-	INPEEM::NovoModelo^ novoModelo = gcnew INPEEM::NovoModelo(lLanguage, true, 0);
+	INPEEM::NewModel^ novoModelo = gcnew INPEEM::NewModel(lLanguage, true, 0);
 	this->Visible = false;
 	novoModelo->ShowDialog();
 	try {

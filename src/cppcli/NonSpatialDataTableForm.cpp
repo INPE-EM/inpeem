@@ -250,7 +250,7 @@ System::Void INPEEM::NonSpatialDataTableForm::PasteClipboardValue(DataGridView^ 
 
 
 		for (int i = 0; i < lines->Length - 1; i++) {
-			dgAttr->Rows[i]->Cells[1]->Value = lines[i];
+			dgAttr->Rows[i]->Cells[1]->Value = lines[i]->Replace(",", ".");
 		}
 	}
 }

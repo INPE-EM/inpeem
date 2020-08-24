@@ -1,21 +1,25 @@
+#include <time.h>
 #include "stdafx.h"
 #include "AboutForm.h"
+#include "Version.h"
 
 System::Void INPEEM::AboutForm::AboutForm_Load(System::Object ^ sender, System::EventArgs ^ e)
 {
+	time_t t = time(NULL);
+	tm* timePtr = localtime(&t);
+	int year = timePtr->tm_year + 1900;
+
 	if (lLanguage == "en") {
 		this->Text = "About";
 		lProgram->Text = "INPE-EM Model Manager";
-		lCompatible->Text = "Compatible with INPE-EM 3.1.1";
-		lVersion->Text = "Version 2.3";
-		lCopyright->Text = "Copyright © 2019. All rigths reserved.";
+		lVersion->Text = "Version " + INPEEM_VERSION;
+		lCopyright->Text = "Copyright © " + year + ". All rigths reserved.";
 	}
 	else {
 		this->Text = "Sobre";
 		lProgram->Text = "Gerenciador de Modelos INPE-EM";
-		lCompatible->Text = "Compatível com INPE-EM 3.1.1";
-		lVersion->Text = "Versão 2.3";
-		lCopyright->Text = "Copyright © 2019. Todos os direitos reservados.";
+		lVersion->Text = "Versão " + INPEEM_VERSION;
+		lCopyright->Text = "Copyright © " + year + ". Todos os direitos reservados.";
 	}
 }
 

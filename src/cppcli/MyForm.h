@@ -250,6 +250,7 @@ namespace INPEEM {
 #pragma endregion
 	private: System::Void bNovoModelo_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e);
+	private: System::String ^ getLocale();
 	private: System::Void checkLanguage();
 	private: System::Void idiomaToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void sairToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
