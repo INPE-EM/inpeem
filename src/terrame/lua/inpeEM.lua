@@ -167,10 +167,7 @@ function inpeEM_init(model)
 			print("\nModel definition error: dataTable missing")
 			errorFlag = true
 		else
-			model.cs = CellularSpace {
-										xdim = 1,
-										ydim = 1
-								     }
+			model.cs = CellularSpace{xdim = 1}
 			model.cs.cellarea = model.area
 			model.cs_temp = nil
 			model.save = false

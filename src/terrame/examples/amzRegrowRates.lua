@@ -20,23 +20,23 @@ local function checkResults(resultsFileName)
 	end
 end
 
-local mainFile = filePath("amzEM_main.lua", "inpeem")
-local submodelFile = filePath("amzEM_submodel.lua", "inpeem")
-local nsdataFile = filePath("amzEM_nsdata.lua", "inpeem")
-local csFile = filePath("amzCs5km_epsg29101.shp", "inpeem")
+local mainFile = filePath("amzRegrowRates_main.lua", "inpeem")
+local submodelFile = filePath("amzRegrowRates_submodel.lua", "inpeem")
+local nsdataFile = filePath("amzRegrowRates_nsdata.lua", "inpeem")
+local csFile = filePath("amzCs5km_netemissions_epsg5880.shp", "inpeem")
 
 mainFile:copy(currentDir())
 submodelFile:copy(currentDir())
 nsdataFile:copy(currentDir())
 csFile:copy(currentDir())
 
-dofile("amzEM_main.lua")
+dofile("amzRegrowRates_main.lua")
 
-checkResults("amzEM_results.txt")
-checkResults("amzEMS_results.txt")
-checkResults("amzEMNS_results.txt")
+checkResults("amzRegrowRates_results.txt")
+checkResults("amzRegrowRatesS_results.txt")
+checkResults("amzRegrowRatesNS_results.txt")
 
-File("amzEM_main.lua"):delete()
-File("amzEM_submodel.lua"):delete()
-File("amzEM_nsdata.lua"):delete()
-File("amzCs5km_epsg29101.shp"):delete()
+File("amzRegrowRates_main.lua"):delete()
+File("amzRegrowRates_submodel.lua"):delete()
+File("amzRegrowRates_nsdata.lua"):delete()
+File("amzCs5km_netemissions_epsg5880.shp"):delete()
