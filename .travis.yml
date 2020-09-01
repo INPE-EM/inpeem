@@ -14,7 +14,7 @@ before_script:
 - 7z x terrame-2.0.1-win64.zip
 - ls -la
 - cd ..
-- cp ..\build\scripts\win\inpeem-conf.bat %CD%
+- cp ..\build\scripts\win\inpeem-conf.bat .
 - ls -la
 script:
 - inpeem-conf.bat
