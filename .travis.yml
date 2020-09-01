@@ -15,4 +15,4 @@ before_script:
 - cd ..
 - cp ../build/scripts/win/inpeem-conf.bat .
 script:
-- call inpeem-conf.bat
+- cmd //C inpeem-conf.bat
