@@ -1,0 +1,20 @@
+os: windows
+language: cpp
+branches:
+  only:
+  - master
+env:
+- _INPEEM_GIT_DIR=%CD% _INPEEM_TERRAME_DIR=%CD%/solution/3rdparty/TerraME  
+before_script:
+- mkdir solution
+- cd solution
+- mkdir 3rdparty
+- cd 3rdparty
+- curl -L -s -O https://github.com/TerraME/terrame/releases/download/2.0.1/terrame-2.0.1-win64.zip
+- 7z x terrame-2.0.1-win64.zip
+- dir
+- cd ..
+- xcopy /Y ..\build\scripts\win\inpeem-conf.bat %CD%
+- dir
+script:
+- inpeem-conf.bat
