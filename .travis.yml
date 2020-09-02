@@ -18,18 +18,9 @@ before_script:
 - mv terrame-2.0.1-win64 terrame
 - cd ..
 - cp ../build/scripts/win/inpeem-conf.bat .
-
-jobs:
-  include:
-    - stage: build
-      script: cmd //C inpeem-conf.bat 
-    - stage: test
-      env:
-      - TME_PATH="$(pwd)/install/terrame/bin" PATH=$TME_PATH
-      script:
-      - cd tests	  
-      - cmd //C terrame -package inpeem -test
-
-stages:
-- build
-- test
+script: 
+- cmd //C inpeem-conf.bat 
+- cd tests
+- export TME_PATH="$(pwd)/install/terrame/bin" 
+- export PATH=$TME_PATH  
+- cmd //C terrame -package inpeem -test
