@@ -22,5 +22,5 @@ script:
 - cmd //C inpeem-conf.bat 
 - cd tests
 - export TME_PATH="$(pwd)/install/terrame/bin" 
-- export PATH=$TME_PATH  
+- export PATH=$TME_PATH:$PATH  
 - cmd //C terrame -package inpeem -test
