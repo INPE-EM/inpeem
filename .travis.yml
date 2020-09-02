@@ -4,7 +4,9 @@ branches:
   only:
   - master
 env:
-- _INPEEM_GIT_DIR=C:\\Users\\travis\\build\\INPE-EM\\inpeem _INPEEM_TERRAME_DIR="$(pwd)/solution/3rdparty/terrame" PATH="C:\\Program Files (x86)\\NSIS:$PATH" 
+- _INPEEM_GIT_DIR=C:\\Users\\travis\\build\\INPE-EM\\inpeem _INPEEM_TERRAME_DIR="$(pwd)/solution/3rdparty/terrame"
+install:
+- choco install nsis -y
 before_script:
 - mkdir solution
 - cd solution
