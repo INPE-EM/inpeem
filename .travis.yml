@@ -10,6 +10,7 @@ install:
 before_script:
 - mkdir solution
 - cd solution
+- mkdir tests
 - mkdir 3rdparty
 - cd 3rdparty
 - curl -L -s -O https://github.com/TerraME/terrame/releases/download/2.0.1/terrame-2.0.1-win64.zip
@@ -17,5 +18,8 @@ before_script:
 - mv terrame-2.0.1-win64 terrame
 - cd ..
 - cp ../build/scripts/win/inpeem-conf.bat .
-script:
-- cmd //C inpeem-conf.bat
+
+jobs:
+  include:
+    - stage: build
+      script: cmd //C inpeem-conf.bat 
