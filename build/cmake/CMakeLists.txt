@@ -91,13 +91,13 @@ install(DIRECTORY ${INPEEM_TERRAME_DIR}
 		COMPONENT runtime)
 
 set(INPEEM_LUA_DIR ${INPEEM_ROOT_DIR}/src/terrame/)
-set(INPEEM_PACKAGE_DIR TerraME/bin/packages/inpeem)
+set(INPEEM_PACKAGE_DIR terrame/bin/packages/inpeem)
 install(DIRECTORY ${INPEEM_LUA_DIR}
 		DESTINATION ${INPEEM_PACKAGE_DIR}
 		COMPONENT runtime)
 
 install(FILES ${INPEEM_RESOURCES_DIR}/inpeem.bat
-		DESTINATION TerraME/bin
+		DESTINATION terrame/bin
 		COMPONENT runtime)
 
 set(CMAKE_INSTALL_SYSTEM_RUNTIME_DESTINATION .)
