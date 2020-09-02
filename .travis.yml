@@ -23,3 +23,11 @@ jobs:
   include:
     - stage: build
       script: cmd //C inpeem-conf.bat 
+    - stage: test
+      env:
+      - TME_PATH="$(pwd)/install/terrame/bin" PATH=$TME_PATH
+      script: cmd //C terrame -package inpeem -test
+	  
+stages:
+- build
+- test
