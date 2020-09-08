@@ -12,6 +12,8 @@ if(NOT DEFINED CPACK_SOURCE_PACKAGE_FILE_NAME)
 	set(CPACK_PACKAGE_FILE_NAME "@PROJECT_NAME@-@INPEEM_VERSION@")
 endif()
 
+set(CPACK_OUTPUT_FILE_PREFIX installer)
+
 #
 # specific configuration for NSIS package generator
 #
