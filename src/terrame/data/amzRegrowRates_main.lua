@@ -29,7 +29,7 @@ l1 = Layer {
 -- INPE-EM Model                                            --
 --------------------------------------------------------------
 
-MODELDIR = "C:\\Users\\rodri\\Documents\\INPEEM\\test4\\"
+MODELDIR = currentDir()
 dofile(MODELDIR.."amzregrowrates_submodel.lua")
 dofile(MODELDIR.."amzregrowrates_nsdata.lua")
 
