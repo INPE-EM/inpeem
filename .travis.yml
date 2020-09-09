@@ -28,15 +28,11 @@ script:
 - cmd //C terrame -package inpeem -test
 - cd ..
 - export PATH=$PATH_BACKUP
-before_deploy:
-- export INSTALLER_FILE_PATH="$(pwd)/solution/build/installer/INPE-EM*.exe"
-- echo "$INSTALLER_FILE_PATH"
 deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
   keep_history: true
-  file_glob: true
-  file: "${INSTALLER_FILE_PATH}"
+  local_dir: build/installer
   on:
     branch: master
