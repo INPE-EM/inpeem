@@ -35,6 +35,6 @@ deploy:
   keep_history: true
   deployment_file: true
   verbose: true
-  file: $TRAVIS_BUILD_DIR/solution/build/installer/INPE-EM-4.1.exe
+  file: "$TRAVIS_BUILD_DIR/solution/build/installer/INPE-EM-4.1.exe"
   on:
     branch: master
