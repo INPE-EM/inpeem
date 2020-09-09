@@ -29,12 +29,14 @@ script:
 - cd ..
 - export PATH=$PATH_BACKUP
 before_deploy:
-- export INSTALLER_FILE=$(ls build/installer/INPE-EM*.exe)
+- export INSTALLER_FILE_PATH="$TRAVIS_BUILD_DIR/solution/build/installer/INPE-EM*.exe"
+- echo "$INSTALLER_FILE_PATH"
 deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
   keep_history: true
-  file: "${INSTALLER_FILE}"
+  file_glob: true
+  file: "${INSTALLER_FILE_PATH}"
   on:
     branch: master
