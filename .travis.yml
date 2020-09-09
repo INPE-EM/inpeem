@@ -29,7 +29,7 @@ script:
 - cd ..
 - export PATH=$PATH_BACKUP
 before_deploy:
-- export INSTALLER_FILE_PATH="$TRAVIS_BUILD_DIR/solution/build/installer/INPE-EM*.exe"
+- export INSTALLER_FILE_PATH="$(pwd)/solution/build/installer/INPE-EM*.exe"
 - echo "$INSTALLER_FILE_PATH"
 deploy:
   provider: pages
