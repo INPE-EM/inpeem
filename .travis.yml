@@ -28,12 +28,14 @@ script:
 - cmd //C terrame -package inpeem -test
 - cd ..
 - export PATH=$PATH_BACKUP
+before_deploy:
+- export INSTALLER_FILE=$(ls solution/build/installer/*.exe)
 deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
   keep_history: true
   file_glob: true
-  file: "solution/build/installer/*.exe"
+  file: "${INSTALLER_FILE}"
   on:
     branch: master
