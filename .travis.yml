@@ -33,6 +33,7 @@ deploy:
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
   keep_history: true
-  file: $TRAVIS_BUILD_DIR/solution/build/installer/*
+  file_glob: true
+  file: "solution/build/installer/*.exe"
   on:
     branch: master
