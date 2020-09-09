@@ -20,7 +20,7 @@ before_script:
 - cp ../build/scripts/win/inpeem-conf.bat .
 script:
 - cmd //C inpeem-conf.bat
-- export PATH_BACKUP=%PATH
+- export PATH_BACKUP=$PATH
 - export TME_PATH="$(pwd)/install/terrame/bin"
 - export PATH=$TME_PATH:$PATH
 - cd tests
