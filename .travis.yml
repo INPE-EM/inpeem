@@ -29,13 +29,12 @@ script:
 - cd ..
 - export PATH=$PATH_BACKUP
 before_deploy:
-- export INSTALLER_FILE=$(ls solution/build/installer/*.exe)
+- export INSTALLER_FILE=$(ls build/installer/INPE-EM*.exe)
 deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
   keep_history: true
-  file_glob: true
   file: "${INSTALLER_FILE}"
   on:
     branch: master
