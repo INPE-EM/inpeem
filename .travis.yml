@@ -26,12 +26,13 @@ script:
 - cd tests
 - cmd //C terrame -version
 - cmd //C terrame -package inpeem -test
+- cd ..
 - export PATH=$PATH_BACKUP
 deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
   keep_history: true
-  local_dir: solution/build/installer
+  local_dir: "$TRAVIS_BUILD_DIR/solution/build/installer"
   on:
     branch: master
