@@ -35,14 +35,16 @@ before_deploy:
 - echo $TRAVIS_BUILD_DIR/solution/build/installer
 - export INSTALLER_FILE="$(ls $TRAVIS_BUILD_DIR/solution/build/installer)"
 - export INSTALLER_DIR=$TRAVIS_BUILD_DIR/solution/build/installer
+- export INSTALLER_PATH="$INSTALLER_DIR/$INSTALLER_FILE"
 - echo $INSTALLER_FILE
 - echo $INSTALLER_DIR
+- echo $INSTALLER_PATH
 
 deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
   verbose: true
-  local_dir: "$INSTALLER_DIR"
+  file: "$INSTALLER_PATH"
   on:
     branch: master
