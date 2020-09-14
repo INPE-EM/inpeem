@@ -4,7 +4,7 @@ branches:
   only:
   - master
 env:
-- _INPEEM_GIT_DIR=C:\\Users\\travis\\build\\INPE-EM\\inpeem _INPEEM_TERRAME_DIR="$(pwd)/solution/3rdparty/terrame"
+- _INPEEM_GIT_DIR=C:\\Users\\travis\\build\\INPE-EM\\inpeem _INPEEM_TERRAME_DIR="$(pwd)/solution/3rdparty/terrame" _INPEEM_CREATE_INSTALLER=OFF
 install:
 - choco install nsis -y
 before_script:
@@ -33,11 +33,13 @@ before_deploy:
 - echo "$TRAVIS_BUILD_DIR/solution/build/installer"
 - ls $TRAVIS_BUILD_DIR/solution/build/installer
 - echo $TRAVIS_BUILD_DIR/solution/build/installer
+- export INSTALLER_DIR=$TRAVIS_BUILD_DIR/solution/build/installer
+- echo $INSTALLER_DIR
 deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
   verbose: true
-  local_dir: solution/build/installer
+  local_dir: $INSTALLER_DIR
   on:
     branch: master
