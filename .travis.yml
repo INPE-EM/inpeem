@@ -39,13 +39,12 @@ before_deploy:
 - echo $INSTALLER_FILE
 - echo $INSTALLER_DIR
 - echo $INSTALLER_PATH
-- cd $TRAVIS_BUILD_DIR/solution/build
-- ls -la
 deploy:
-  provider: pages
+  provider: releases
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
   verbose: true
-  local_dir: installer
+  draft: true  
+  file: $INSTALLER_PATH
   on:
     branch: master
