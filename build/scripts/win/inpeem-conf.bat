@@ -23,7 +23,11 @@ if "%_INPEEM_CREATE_INSTALLER%" == "" (
 )
 
 if "%_INPEEM_TERRAME_DIR%" == "" (
-  set _INPEEM_TERRAME_DIR=D:/inpe-em/3rdparty/TerraME
+  set _INPEEM_TERRAME_DIR=D:/inpe-em/3rdparty/terrame
+)
+
+if "%_Qt5_DIR%" == "" (
+  set _Qt5_DIR=C:\Qt\5.14\5.14.2\msvc2017_64
 )
 
 set _INPEEM_SOLUTION_DIR=%CD%
