@@ -26,6 +26,18 @@ get_filename_component(INPEEM_ROOT_DIR "../../" ABSOLUTE)
 set(INPEEM_RESOURCES_DIR ${INPEEM_ROOT_DIR}/resources)
 include_directories(${INPEEM_RESOURCES_DIR})
 
+if(UNIX AND NOT APPLE)
+	set(LINUX TRUE)
+endif()
+
+if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX OR (CMAKE_CXX_COMPILER MATCHES ".*clang") OR (CMAKE_CXX_COMPILER_ID STREQUAL "Clang"))
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -std=c++11")
+	if(LINUX)
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wl,-rpath,\$ORIGIN -Wl,-rpath-link,\$ORIGIN")
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wl,--disable-new-dtags")
+	endif()
+endif()
+
 #file(GLOB INPEEM_SRC_CPP_FILES ${INPEEM_SRC_DIR}/*.cpp)
 #file(GLOB INPEEM_SRC_H_FILES ${INPEEM_SRC_DIR}/*.h)
 #file(GLOB INPEEM_SRC_RESX_FILES ${INPEEM_SRC_DIR}/*.resx)

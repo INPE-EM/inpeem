@@ -116,16 +116,18 @@ execute_process(
 install(DIRECTORY ${INPEEM_DATA_DIR}
 		DESTINATION ${INPEEM_PACKAGE_DIR}
 		COMPONENT runtime)
-		
-install(FILES ${Qt5_DIR}/../../../plugins/platforms/qwindowsd.dll
-		DESTINATION ./platforms
-		COMPONENT runtime
-		CONFIGURATIONS Debug)
 
-install(FILES ${Qt5_DIR}/../../../plugins/platforms/qwindows.dll
-		DESTINATION ./platforms
-		COMPONENT runtime
-		CONFIGURATIONS Release)		
+if(WIN32)		
+	install(FILES ${Qt5_DIR}/../../../plugins/platforms/qwindowsd.dll
+			DESTINATION ./platforms
+			COMPONENT runtime
+			CONFIGURATIONS Debug)
+
+	install(FILES ${Qt5_DIR}/../../../plugins/platforms/qwindows.dll
+			DESTINATION ./platforms
+			COMPONENT runtime
+			CONFIGURATIONS Release)
+endif()		
 		
 install(FILES ${INPEEM_QM_FILES}
 	DESTINATION ./langs
