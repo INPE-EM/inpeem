@@ -19,6 +19,7 @@ install:
   - curl -L -s -O https://github.com/TerraME/terrame/releases/download/2.0.1/terrame-2.0.1-win64.zip
   - 7z x terrame-2.0.1-win64.zip
   - mv terrame-2.0.1-win64 terrame
+  - set _INPEEM_TERRAME_DIR=%CD%\terrame
   - cd ..
   - mkdir solution
   - cd solution
