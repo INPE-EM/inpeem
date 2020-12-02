@@ -7,9 +7,10 @@ branches:
 
 skip_tags: true
 
-clone_folder: git\inpeem
+clone_folder: C:\projects\git\inpeem
 
 install:
+  - dir
   - mkdir solution
   - mkdir 3rdparty
   - cd solution
