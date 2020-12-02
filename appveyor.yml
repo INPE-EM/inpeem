@@ -27,7 +27,8 @@ build_script:
   - xcopy /Y ..\git\inpeem\build\scripts\win\inpeem_conf.bat %CD%
   - set _INPEEM_TERRAME_DIR=C:/projects/3rdparty/terrame 
   - inpeem_conf.bat 
+  - xcopy /Y build\installer\*.exe C:\projects\git\inpeem\installer\
 
 artifacts:
-  - path: ..\..\solution\build\installer\*.exe
+  - path: installer\*.exe
     name: INPE-EM Installer
