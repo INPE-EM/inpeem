@@ -25,3 +25,7 @@ install:
   - cd solution
   - xcopy /Y ..\git\inpeem\build\scripts\win\inpeem_conf.bat %CD%
   - inpeem_conf.bat
+
+artifacts:
+  - path: solution\build\installer\*.exe
+    name: INPE-EM Installer
