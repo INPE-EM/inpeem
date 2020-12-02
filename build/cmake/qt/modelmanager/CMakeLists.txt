@@ -9,8 +9,9 @@ file(GLOB INPEEM_SRC_TS_FILES ${INPEEM_SRC_DIR}/ts/*.ts)
 file(GLOB INPEEM_SRC_QRC_FILE ${INPEEM_SRC_DIR}/rc/resources.qrc)
 file(GLOB INPEEM_SRC_QM_QRC_FILE ${INPEEM_SRC_DIR}/rc/qm/qm.qrc)
 file(GLOB INPEEM_APP_ICON ${INPEEM_RESOURCES_DIR}/icon.ico)
-file(GLOB INPEEM_APP_IMAGE ${INPEEM_RESOURCES_DIR}/inpeem.png)
-file(GLOB INPEEM_RESOURCE_FILES ${INPEEM_APP_ICON} ${INPEEM_APP_IMAGE}) 
+file(GLOB INPEEM_APP_ICON_RC ${INPEEM_RESOURCES_DIR}/icon.rc)
+#file(GLOB INPEEM_APP_IMAGE ${INPEEM_RESOURCES_DIR}/inpeem.png)
+file(GLOB INPEEM_RESOURCE_FILES ${INPEEM_APP_ICON} ${INPEEM_APP_ICON_RC}) 
 file(GLOB INPEEM_QT_RESOURCE_FILES ${INPEEM_SRC_QRC_FILE} ${INPEEM_SRC_QM_QRC_FILE})
 source_group("Source Files" FILES ${INPEEM_SRC_CPP_FILES})
 source_group("Header Files" FILES ${INPEEM_SRC_H_FILES})
@@ -33,7 +34,6 @@ file(TO_CMAKE_PATH "${qt_translations_dir}" qt_translations_dir)
 set(QT_TRANSLATIONS_DIR ${qt_translations_dir} CACHE PATH "The location of the Qt translations" FORCE)			
 
 file(COPY ${INPEEM_SRC_QM_QRC_FILE} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-     #"<RCC>\n<qresource prefix=\"\/\">\n<file>modelmanager_pt_br.qm</file>\n</qresource>\n</RCC>")
 
 qt5_add_resources(INPEEM_QRC_FILES ${INPEEM_SRC_QRC_FILE} ${CMAKE_CURRENT_BINARY_DIR}/qm.qrc)
 
@@ -73,12 +73,14 @@ endif()
 
 include_directories(${INPEEM_SRC_DIR}
 					#${INPEEM_RESOURCES_DIR}
-					${Qt5Network_INCLUDE_DIRS} ${Qt5Core_INCLUDE_DIRS} ${Qt5Gui_INCLUDE_DIRS} ${Qt5Widgets_INCLUDE_DIRS})
+					${Qt5Network_INCLUDE_DIRS} 
+					${Qt5Core_INCLUDE_DIRS} 
+					${Qt5Gui_INCLUDE_DIRS} 
+					${Qt5Widgets_INCLUDE_DIRS})
 
 set(INPEEM_FILES ${INPEEM_SRC_CPP_FILES} ${INPEEM_SRC_H_FILES}
 				 ${INPEEM_GEN_UI_FILES}
 				 ${INPEEM_RESOURCE_FILES}
-				 #${INPEEM_QM_FILES}
 				 ${INPEEM_QRC_FILES})
 
 add_executable(${PROJECT_NAME} ${INPEEM_APP_TYPE} ${INPEEM_FILES})
@@ -122,7 +124,7 @@ else()
 	set(INPEEM_TERRAME_PACKAGES_DIR ${INPEEM_BASE_LOCATION}/terrame/bin/packages)		
 endif()			
 
-install(FILES ${INPEEM_RESOURCE_FILES}
+install(FILES ${INPEEM_APP_ICON}
 		DESTINATION ${INPEEM_RESOURCE_LOCATION}
 		COMPONENT runtime)
 
