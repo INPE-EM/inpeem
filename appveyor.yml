@@ -7,7 +7,7 @@ branches:
 
 skip_tags: true
 
-clone_folder: %CD%\git
+clone_folder: git\inpeem
 
 install:
   - mkdir solution
