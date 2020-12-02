@@ -14,9 +14,12 @@ clone_folder: C:\projects\git\inpeem
 
 install:
   - cd C:\projects
-  - dir
-  - mkdir solution
   - mkdir 3rdparty
+  - curl -L -s -O https://github.com/TerraME/terrame/releases/download/2.0.1/terrame-2.0.1-win64.zip
+  - 7z x terrame-2.0.1-win64.zip
+  - mv terrame-2.0.1-win64 terrame
+  - cd ..
+  - mkdir solution
   - cd solution
   - xcopy /Y ..\git\inpeem\build\scripts\win\inpeem_conf.bat %CD%
   - inpeem_conf.bat
