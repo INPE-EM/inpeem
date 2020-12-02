@@ -21,6 +21,8 @@ install:
   - mv terrame-2.0.1-win64 terrame
   - set _INPEEM_TERRAME_DIR=%CD%\terrame
   - cd ..
+
+build_script: 
   - mkdir solution
   - cd solution
   - xcopy /Y ..\git\inpeem\build\scripts\win\inpeem_conf.bat %CD%
