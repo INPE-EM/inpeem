@@ -10,6 +10,7 @@ skip_tags: true
 clone_folder: C:\projects\git\inpeem
 
 install:
+  - cd C:\projects
   - dir
   - mkdir solution
   - mkdir 3rdparty
