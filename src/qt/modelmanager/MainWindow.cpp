@@ -21,8 +21,8 @@ qt::modelmanager::MainWindow::MainWindow(QWidget *parent) :
 	qApp->removeTranslator(&translator);
 	// load the new translator
 	QString path = QApplication::applicationDirPath();
-	path.append("/langs/");
-	if (translator.load(path + "modelmanager_pt_br.qm")) 
+	// path.append("/langs/");
+	if (translator.load(":/modelmanager_pt_br.qm")) 
 		qApp->installTranslator(&translator);
 
 	this->setCentralWidget(new CentralWidget(this));

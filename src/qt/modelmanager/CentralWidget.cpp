@@ -9,7 +9,7 @@ qt::modelmanager::CentralWidget::CentralWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 	
-	QPixmap img("inpeem.png");
+	QPixmap img(":/img/inpeem.png");
 	ui->label->setPixmap(img.scaled(QSize(250, 250), Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
 	QTabWidget *tabWidget = new QTabWidget(this);

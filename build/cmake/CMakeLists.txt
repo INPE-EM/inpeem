@@ -153,6 +153,9 @@ endif()
 # endif()
 
 #add_subdirectory(cppcli)	   
+
+include(inpeem_macros.cmake)
+
 add_subdirectory(qt)			   
 
 configure_file(${PROJECT_SOURCE_DIR}/cpack_installer_generator.cmake.in
