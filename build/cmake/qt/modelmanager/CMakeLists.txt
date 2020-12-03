@@ -1,0 +1,204 @@
+cmake_minimum_required(VERSION 3.12.2)
+
+set(INPEEM_SRC_DIR ${INPEEM_ROOT_DIR}/src/qt/modelmanager)
+
+file(GLOB INPEEM_SRC_CPP_FILES ${INPEEM_SRC_DIR}/*.cpp)
+file(GLOB INPEEM_SRC_H_FILES ${INPEEM_SRC_DIR}/*.h)
+file(GLOB INPEEM_SRC_UI_FILES ${INPEEM_SRC_DIR}/ui/*.ui)
+file(GLOB INPEEM_SRC_TS_FILES ${INPEEM_SRC_DIR}/ts/*.ts)
+file(GLOB INPEEM_SRC_QRC_FILE ${INPEEM_SRC_DIR}/rc/resources.qrc)
+file(GLOB INPEEM_SRC_QM_QRC_FILE ${INPEEM_SRC_DIR}/rc/qm/qm.qrc)
+file(GLOB INPEEM_APP_ICON ${INPEEM_RESOURCES_DIR}/icon.ico)
+file(GLOB INPEEM_APP_ICON_RC ${INPEEM_RESOURCES_DIR}/icon.rc)
+#file(GLOB INPEEM_APP_IMAGE ${INPEEM_RESOURCES_DIR}/inpeem.png)
+file(GLOB INPEEM_RESOURCE_FILES ${INPEEM_APP_ICON} ${INPEEM_APP_ICON_RC}) 
+file(GLOB INPEEM_QT_RESOURCE_FILES ${INPEEM_SRC_QRC_FILE} ${INPEEM_SRC_QM_QRC_FILE})
+source_group("Source Files" FILES ${INPEEM_SRC_CPP_FILES})
+source_group("Header Files" FILES ${INPEEM_SRC_H_FILES})
+source_group("Resource Files" FILES ${INPEEM_RESOURCE_FILES} ${INPEEM_QT_RESOURCE_FILES})
+source_group("UI Files" FILES ${INPEEM_SRC_UI_FILES})
+source_group("TS Files" FILES ${INPEEM_SRC_TS_FILES})
+
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+find_package(Qt5 COMPONENTS Widgets LinguistTools REQUIRED)
+qt5_wrap_ui(INPEEM_GEN_UI_FILES ${INPEEM_SRC_UI_FILES})
+
+qt5_add_translation(INPEEM_QM_FILES ${INPEEM_SRC_TS_FILES})
+add_custom_target(translations DEPENDS ${INPEEM_QM_FILES})
+get_target_property(QT5_QMAKE_EXECUTABLE Qt5::qmake IMPORTED_LOCATION)
+execute_process(COMMAND ${QT5_QMAKE_EXECUTABLE} -query QT_INSTALL_TRANSLATIONS
+				OUTPUT_VARIABLE qt_translations_dir OUTPUT_STRIP_TRAILING_WHITESPACE)
+file(TO_CMAKE_PATH "${qt_translations_dir}" qt_translations_dir)
+set(QT_TRANSLATIONS_DIR ${qt_translations_dir} CACHE PATH "The location of the Qt translations" FORCE)			
+
+file(COPY ${INPEEM_SRC_QM_QRC_FILE} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
+qt5_add_resources(INPEEM_QRC_FILES ${INPEEM_SRC_QRC_FILE} ${CMAKE_CURRENT_BINARY_DIR}/qm.qrc)
+
+set(INPEEM_LIBRARIES ${INPEEM_LIBRARIES} Qt5::Widgets)
+
+if(APPLE)
+	find_library(_COREFOUNDATION_LIBRARY NAMES CoreFoundation PATHS "/")
+
+	if(INPEEM_BUILD_AS_BUNDLE)
+		file(GLOB INPEEM_MACOSX_BUNDLE_ICON ${INPEEM_RESOURCES_DIR}/icon.icns)
+		set(INPEEM_RESOURCE_FILES ${INPEEM_RESOURCE_FILES} ${INPEEM_MACOSX_BUNDLE_ICON})
+		set(MACOSX_BUNDLE_BUNDLE_NAME ${PROJECT_NAME})
+		set(MACOSX_BUNDLE_COPYRIGHT "Copyright 2020")
+		set(MACOSX_BUNDLE_SIGNATURE ${PROJECT_NAME})
+		set(MACOSX_BUNDLE_GUI_IDENTIFIER "http://inpe-em.ccst.inpe.br")
+		set(MACOSX_BUNDLE_EXECUTABLE_NAME ${PROJECT_NAME})
+		set(MACOSX_BUNDLE_INFO_STRING "INPE – Emission Model")
+		set(MACOSX_BUNDLE_ICON_FILE icon.icns)
+		set(MACOSX_BUNDLE_LONG_VERSION_STRING ${INPEEM_VERSION})
+		set(MACOSX_BUNDLE_SHORT_VERSION_STRING ${INPEEM_VERSION_MAJOR})
+		set(MACOSX_BUNDLE_BUNDLE_VERSION ${INPEEM_VERSION})
+
+		#set(APP_ICON_MACOSX ${INPEEM_MACOSX_BUNDLE_ICON})
+    	set_source_files_properties(${INPEEM_MACOSX_BUNDLE_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+
+		configure_file(${CMAKE_ROOT}/Modules/MacOSXBundleInfo.plist.in ${CMAKE_BINARY_DIR}/Info.plist)
+
+		set(CPACK_PACKAGE_ICON ${INPEEM_MACOSX_BUNDLE_ICON})
+		set(CPACK_BUNDLE_NAME ${PROJECT_NAME})
+		set(CPACK_BUNDLE_ICON ${CPACK_PACKAGE_ICON})
+		set(CPACK_BUNDLE_PLIST ${CMAKE_BINARY_DIR}/Info.plist)
+
+		set(INPEEM_APP_TYPE MACOSX_BUNDLE)
+	endif()
+else()
+endif()
+
+include_directories(${INPEEM_SRC_DIR}
+					#${INPEEM_RESOURCES_DIR}
+					${Qt5Network_INCLUDE_DIRS} 
+					${Qt5Core_INCLUDE_DIRS} 
+					${Qt5Gui_INCLUDE_DIRS} 
+					${Qt5Widgets_INCLUDE_DIRS})
+
+set(INPEEM_FILES ${INPEEM_SRC_CPP_FILES} ${INPEEM_SRC_H_FILES}
+				 ${INPEEM_GEN_UI_FILES}
+				 ${INPEEM_RESOURCE_FILES}
+				 ${INPEEM_QRC_FILES})
+
+add_executable(${PROJECT_NAME} ${INPEEM_APP_TYPE} ${INPEEM_FILES})
+target_link_libraries(${PROJECT_NAME} ${INPEEM_LIBRARIES})
+#target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Gui Qt5::Widgets)
+
+if(WIN32 AND MSVC)
+	set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS_DEBUG "/SUBSYSTEM:CONSOLE")
+	set_target_properties(${PROJECT_NAME} PROPERTIES RELWITHDEBINFO "/SUBSYSTEM:CONSOLE")
+	set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
+	set_target_properties(${PROJECT_NAME} PROPERTIES MINSIZEREL "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
+endif()
+
+set(CMAKE_INSTALL_DEFAULT_COMPONENT_NAME runtime)
+
+install(TARGETS ${PROJECT_NAME}
+		RUNTIME DESTINATION . COMPONENT runtime
+		LIBRARY DESTINATION . COMPONENT runtime
+		ARCHIVE DESTINATION . COMPONENT runtime
+		BUNDLE DESTINATION . COMPONENT runtime)
+
+if(APPLE AND INPEEM_BUILD_AS_BUNDLE)
+	set(INPEEM_BASE_LOCATION ${MACOSX_BUNDLE_BUNDLE_NAME}.app/Contents)
+	set(INPEEM_RUNTIME_LOCATION ${INPEEM_BASE_LOCATION}/MacOS)
+	set(INPEEM_LIBRARY_LOCATION ${INPEEM_BASE_LOCATION}/lib)
+	set(INPEEM_RESOURCE_LOCATION ${INPEEM_BASE_LOCATION}/Resources)	
+	set(INPEEM_TERRAME_PACKAGES_DIR ${INPEEM_BASE_LOCATION}/terrame/terrame.app/Contents/MacOS/packages)
+	set(INPEEM_QT_PLUGINS_LOCATION ${INPEEM_BASE_LOCATION}/qtplugins)
+	install_qt5_plugins(${INPEEM_QT_PLUGINS_LOCATION})
+	file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/qt.conf
+	     "[Paths]\nBinaries = MacOS\nPlugins = qtplugins")
+
+	install(FILES ${CMAKE_CURRENT_BINARY_DIR}/qt.conf
+	        DESTINATION ${INPEEM_RESOURCE_LOCATION}
+	        COMPONENT runtime)
+else()	
+	set(INPEEM_BASE_LOCATION .)
+	set(INPEEM_RUNTIME_LOCATION ${INPEEM_BASE_LOCATION})
+	set(INPEEM_LIBRARY_LOCATION ${INPEEM_BASE_LOCATION})
+	set(INPEEM_RESOURCE_LOCATION ${INPEEM_BASE_LOCATION})		
+	set(INPEEM_TERRAME_PACKAGES_DIR ${INPEEM_BASE_LOCATION}/terrame/bin/packages)		
+endif()			
+
+install(FILES ${INPEEM_APP_ICON}
+		DESTINATION ${INPEEM_RESOURCE_LOCATION}
+		COMPONENT runtime)
+
+set(INPEEM_DOC_DIR ${INPEEM_ROOT_DIR}/doc)
+file(GLOB INPEEM_DOC_FILES ${INPEEM_DOC_DIR}/*.chm)
+install(FILES ${INPEEM_DOC_FILES}
+		DESTINATION ${INPEEM_RESOURCE_LOCATION}
+		COMPONENT runtime)		
+
+install(FILES ${INPEEM_QM_FILES}
+		DESTINATION ${INPEEM_RESOURCE_LOCATION}/langs
+		COMPONENT runtime)	
+
+install(DIRECTORY ${INPEEM_TERRAME_DIR}
+		DESTINATION ${INPEEM_BASE_LOCATION}
+		COMPONENT runtime)
+
+set(INPEEM_LUA_DIR ${INPEEM_ROOT_DIR}/src/terrame/)
+set(INPEEM_PACKAGE_DIR ${INPEEM_TERRAME_PACKAGES_DIR}/inpeem)
+install(DIRECTORY ${INPEEM_LUA_DIR}
+		DESTINATION ${INPEEM_PACKAGE_DIR}
+		COMPONENT runtime)
+
+# install(FILES ${INPEEM_RESOURCES_DIR}/inpeem.bat
+		# DESTINATION terrame/bin
+		# COMPONENT runtime)
+
+set(CMAKE_INSTALL_SYSTEM_RUNTIME_DESTINATION .)
+include(InstallRequiredSystemLibraries)
+
+if(INPEEM_BUILD_AS_BUNDLE)
+	configure_file(${PROJECT_SOURCE_DIR}/fixup_bundle.cmake.in
+				   ${CMAKE_BINARY_DIR}/fixup_bundle.cmake @ONLY)
+	install(SCRIPT ${CMAKE_BINARY_DIR}/fixup_bundle.cmake COMPONENT runtime)
+endif()
+
+configure_file(${PROJECT_SOURCE_DIR}/terrame_package_description.cmake.in
+               ${CMAKE_BINARY_DIR}/description.lua @ONLY)
+install(FILES ${CMAKE_BINARY_DIR}/description.lua
+		DESTINATION ${INPEEM_PACKAGE_DIR}
+		COMPONENT runtime)
+
+get_filename_component(INPEEM_AMAZON_DATA ${INPEEM_ROOT_DIR}/data/amzCs5km_epsg29101.zip ABSOLUTE)
+get_filename_component(INPEEM_AMAZON_REGROW_RATES_DATA ${INPEEM_ROOT_DIR}/data/amzCs5km_netemissions_epsg5880.zip ABSOLUTE)
+set(INPEEM_DATA_DIR ${CMAKE_BINARY_DIR}/data)
+execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${INPEEM_DATA_DIR})
+execute_process(
+	COMMAND ${CMAKE_COMMAND} -E tar xzvf ${INPEEM_AMAZON_REGROW_RATES_DATA}
+	WORKING_DIRECTORY ${INPEEM_DATA_DIR}
+)
+execute_process(
+	COMMAND ${CMAKE_COMMAND} -E tar xzvf ${INPEEM_AMAZON_DATA}
+	WORKING_DIRECTORY ${INPEEM_DATA_DIR}
+)
+install(DIRECTORY ${INPEEM_DATA_DIR}
+		DESTINATION ${INPEEM_PACKAGE_DIR}
+		COMPONENT runtime)
+
+if(WIN32)		
+	install(FILES ${Qt5_DIR}/../../../plugins/platforms/qwindowsd.dll
+			DESTINATION ./platforms
+			COMPONENT runtime
+			CONFIGURATIONS Debug)
+
+	install(FILES ${Qt5_DIR}/../../../plugins/platforms/qwindows.dll
+			DESTINATION ./platforms
+			COMPONENT runtime
+			CONFIGURATIONS Release)
+endif()			
+
+configure_file(${PROJECT_SOURCE_DIR}/inpeem_version.h.in
+               ${INPEEM_SRC_DIR}/Version.h @ONLY)
+
+# configure_file(${PROJECT_SOURCE_DIR}/cpack_installer_generator.cmake.in
+               # ${CMAKE_BINARY_DIR}/cpack_installer_generator.cmake @ONLY)
+# set(CPACK_PROJECT_CONFIG_FILE ${CMAKE_BINARY_DIR}/cpack_installer_generator.cmake)
+# include(CPack)
