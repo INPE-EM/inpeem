@@ -1,12 +1,7 @@
-version: 1.0.{build}
+version: 5.0.{build}
 
 image:
   - Visual Studio 2017
-
-branches:
-  only:
-    - master
-    - qt-gui
 
 skip_tags: true
 
